@@ -169,4 +169,4 @@ pnpm install --frozen-lockfile
 pnpm arc:run
 ```
 
-本地规定使用 ARC 实例 `didmail-web`，通过 `http://didmail-arc.localhost:8788` 访问。`pnpm start` 是独立的 Workers-only 入口，端口 8787。需要时只停止受影响的业务预览，保留其 D1/R2 状态，不干扰其他 ARC 实例。本地构建或部署 dry run 不代表已完成远端生产部署。
+本地规定使用 ARC 实例 `didmail-web`，通过 `http://didmail-server.localhost:8788` 访问。`pnpm start` 是独立的 Workers-only 入口，端口 8787。需要时只停止受影响的业务预览，保留其 D1/R2 状态，不干扰其他 ARC 实例。本地构建或部署 dry run 不代表已完成远端生产部署。

@@ -2,7 +2,7 @@
 // every mutation is rejected before it can reach a service or chain.
 import fs from 'node:fs/promises';
 import path from 'node:path';
-export async function appearanceFixture(context, { origin = 'http://didmail-arc.localhost:8788' } = {}) {
+export async function appearanceFixture(context, { origin = 'http://didmail-server.localhost:8788' } = {}) {
   const root = path.resolve('dist');
   const html = await fs.readFile(path.join(root, 'en/index.html'), 'utf8');
   const corePath = html.match(/href="(\/aup-core\.[a-f0-9]+\.css)"/)[1];

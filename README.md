@@ -27,7 +27,9 @@ corepack pnpm install --frozen-lockfile
 corepack pnpm arc:run
 ```
 
-The approved local ARC instance is `didmail-web`; use `http://didmail-arc.localhost:8788`. The combined preview serves real ARC pages/login and executes business APIs in workerd. Stopping the runner stops its business preview, not the ARC instance. Preserve existing D1/R2 state before restarting; see [local preview persistence](docs/local-preview-persistence.md). Do not recreate retired development instances or disturb other ARC projects.
+The approved local ARC instance is `didmail-web`; use `http://didmail-server.localhost:8788`. The combined preview serves real ARC pages/login and executes business APIs in workerd. Stopping the runner stops its business preview, not the ARC instance. Preserve existing D1/R2 state before restarting; see [local preview persistence](docs/local-preview-persistence.md). Do not recreate retired development instances or disturb other ARC projects.
+
+The ARC package ID and site namespace are `didmail-server` (`did:blocklet:didmail-server`). When adopting this name, update any local `DIDMAIL_URL`, `ARC_HOST` or `DIDMAIL_ARC_PREVIEW_URL` overrides that still select the former hostname; `DIDMAIL_URL` also controls the packaged site domain. Existing D1/R2 resource names and the `didmail-web` instance retain their names to preserve stored data and identity.
 
 `pnpm start` is a separate Workers-only entry on port 8787. Without a trusted ARC connection, protected administration APIs cannot authenticate users. Do not replace authorization with caller-supplied role headers. Development wallets and `.dev.vars` are private local files; keep them and `.wrangler`, `.arc`, databases and exports out of Git and public packages.
 

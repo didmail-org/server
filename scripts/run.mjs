@@ -17,7 +17,7 @@ if (!/^[a-zA-Z0-9_-]+$/.test(instance)) throw new Error('Invalid ARC_INSTANCE na
 const arcUrl = new URL(process.env.ARC_URL || 'http://127.0.0.1:4961');
 if (!['127.0.0.1', 'localhost', '[::1]'].includes(arcUrl.hostname)) throw new Error('Launcher manages local ARC only; use a local ARC_URL');
 const port = process.env.DIDMAIL_PORT || '3140';
-const publicUrl = process.env.DIDMAIL_URL || `http://didmail-arc.localhost:${port}`;
+const publicUrl = process.env.DIDMAIL_URL || `http://didmail-server.localhost:${port}`;
 mkdirSync(path.join(dataDir, 'logs'), { recursive: true });
 const log = openSync(path.join(dataDir, 'logs/api.log'), 'a', 0o600);
 const api = spawn(process.execPath, ['api/dist/index.js'], { stdio: ['ignore', log, log], env: process.env });

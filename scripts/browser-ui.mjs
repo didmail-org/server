@@ -8,7 +8,7 @@ import { isolateBrowserResources } from './browser-isolation.mjs';
 import { languages, messages, localeDirection, localizedPath } from '../ui/locales.js';
 import { adminTranslator } from '../ui/admin-i18n.js';
 const theme = process.env.DIDMAIL_BROWSER_THEME || 'light';
-const origin = process.env.DIDMAIL_BROWSER_URL || 'http://didmail-arc.localhost:8788';
+const origin = process.env.DIDMAIL_BROWSER_URL || 'http://didmail-server.localhost:8788';
 async function openMailDetails(page) {
   const toggle=page.locator('[data-action="storage-details"]').first();
   await toggle.waitFor();

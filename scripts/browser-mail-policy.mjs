@@ -4,7 +4,7 @@ import fs from 'node:fs/promises';
 import {chromium} from 'playwright-core';
 import {fromRandom} from '@ocap/wallet';
 import {adminTranslator} from '../ui/admin-i18n.js';
-const origin=process.env.DIDMAIL_BROWSER_URL||'http://didmail-arc.localhost:8788';
+const origin=process.env.DIDMAIL_BROWSER_URL||'http://didmail-server.localhost:8788';
 const fixture=JSON.parse(await fs.readFile('test/fixtures/protocol/dmp-2/fixtures/ordinary-vc.json','utf8'));
 const state={revision:1,policy:{accessMode:'public',ordinary:{enabled:false,baseFee:'0',retentionDays:10,attachmentPricePerBytePerDay:'0'},attachments:{enabled:true,maxCount:20,maxFileBytes:33554432,maxTotalBytes:62914560},maxMessageCiphertextBytes:67108864},entries:[]};
 const writes=[];

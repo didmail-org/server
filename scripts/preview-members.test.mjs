@@ -6,18 +6,18 @@ test('private member credential never enters Worker bindings, including when dis
   const result = previewMembersConfiguration({
     bindings: { NODE_ADDRESS: 'public-node' },
     arc: 'http://127.0.0.1:1234',
-    publicOrigin: 'http://didmail-arc.localhost:8788',
+    publicOrigin: 'http://didmail-server.localhost:8788',
   });
   assert.deepEqual(result.workerBindings, { NODE_ADDRESS: 'public-node' });
   assert.deepEqual(result.serviceBindings, {});
   const enabled = previewMembersConfiguration({
     bindings: {
       ARC_MEMBERS_TOKEN: 'fixture-secret',
-      DIDMAIL_ARC_INSTANCE_ID: 'didmail-arc',
+      DIDMAIL_ARC_INSTANCE_ID: 'didmail-server',
       DIDMAIL_ACCOUNT_LINKS_ENABLED: '1',
     },
     arc: 'http://127.0.0.1:1234',
-    publicOrigin: 'http://didmail-arc.localhost:8788',
+    publicOrigin: 'http://didmail-server.localhost:8788',
     fetcher: async () => new Response(null, { status: 403 }),
   });
   assert.equal('ARC_MEMBERS_TOKEN' in enabled.workerBindings, false);

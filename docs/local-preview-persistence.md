@@ -4,7 +4,7 @@ Status: current development procedure. Audience: contributors operating the loca
 
 ## Storage location
 
-The approved `didmail-web` ARC instance serves UI/identity. Its business preview runs workerd at `http://didmail-arc.localhost:8788`; [run-arc-worker.mjs](../scripts/run-arc-worker.mjs) uses Miniflare `resourcePersistencePath` at `.wrangler/state/arc-preview` for D1/R2. Legacy `d1Persist`/`r2Persist` options can be ignored by current Miniflare; their presence is not proof of persistence. Do not merge old state roots blindly.
+The approved `didmail-web` ARC instance serves UI/identity. Its business preview runs workerd at `http://didmail-server.localhost:8788`; [run-arc-worker.mjs](../scripts/run-arc-worker.mjs) uses Miniflare `resourcePersistencePath` at `.wrangler/state/arc-preview` for D1/R2. Legacy `d1Persist`/`r2Persist` options can be ignored by current Miniflare; their presence is not proof of persistence. Do not merge old state roots blindly.
 
 Wallets, environment files, `.data`, `.arc`, `.wrangler`, snapshots and reports are private ignored data, never public package contents.
 

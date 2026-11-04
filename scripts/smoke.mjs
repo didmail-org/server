@@ -85,5 +85,5 @@ export async function runSmoke({ origin, fetcher = fetch, report = console.log }
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  await runSmoke({ origin: process.env.DIDMAIL_SMOKE_URL || process.env.DIDMAIL_BROWSER_URL || 'http://didmail-arc.localhost:8788' });
+  await runSmoke({ origin: process.env.DIDMAIL_SMOKE_URL || process.env.DIDMAIL_BROWSER_URL || 'http://didmail-server.localhost:8788' });
 }

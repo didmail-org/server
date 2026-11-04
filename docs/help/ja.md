@@ -169,4 +169,4 @@ pnpm install --frozen-lockfile
 pnpm arc:run
 ```
 
-承認済みローカル ARC インスタンスは `didmail-web`、入口は `http://didmail-arc.localhost:8788` です。`pnpm start` はポート 8787 の独立した Workers-only 入口です。必要時は対象の業務プレビューだけを停止し、D1/R2 状態を保持して、ほかの ARC インスタンスに干渉しないでください。ローカルビルドやデプロイ dry run は、遠隔本番デプロイの完了を証明しません。
+承認済みローカル ARC インスタンスは `didmail-web`、入口は `http://didmail-server.localhost:8788` です。`pnpm start` はポート 8787 の独立した Workers-only 入口です。必要時は対象の業務プレビューだけを停止し、D1/R2 状態を保持して、ほかの ARC インスタンスに干渉しないでください。ローカルビルドやデプロイ dry run は、遠隔本番デプロイの完了を証明しません。

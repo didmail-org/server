@@ -5,12 +5,12 @@ import createMembersForward from './arc-members-bridge.mjs';
 const did = JSON.parse(fs.readFileSync('test/fixtures/protocol/fixtures/account-recovery-v1.json')).body.mailboxId;
 const config = {
   origin: 'http://127.0.0.1:64867',
-  publicOrigin: 'http://didmail-arc.localhost:8788',
-  instanceId: 'didmail-arc',
-  namespace: 'didmail-arc',
+  publicOrigin: 'http://didmail-server.localhost:8788',
+  instanceId: 'didmail-server',
+  namespace: 'didmail-server',
   token: 'test-only-credential',
 };
-const request = (query = `did=${did}&instanceId=didmail-arc`, method = 'GET') =>
+const request = (query = `did=${did}&instanceId=didmail-server`, method = 'GET') =>
   new Request('https://arc-members.internal/member?' + query, {
     method,
     headers: { cookie: 'never-forward', 'x-forwarded-host': 'attacker.invalid' },
@@ -28,7 +28,7 @@ function setup(mode = 'active') {
       if (mode === 'oversized') return new Response('x'.repeat(65537));
       const user = {
         did: mode === 'wrong-did' ? 'wrong' : did.slice(8),
-        instance_did: mode === 'foreign' ? 'another-app' : 'didmail-arc',
+        instance_did: mode === 'foreign' ? 'another-app' : 'didmail-server',
         role: mode === 'guest' ? 'guest' : mode === 'unknown-role' ? 'other' : 'member',
         ...(mode === 'missing-state' ? {} : { approved: mode === 'blocked' ? 0 : mode === 'bad-state' ? 2 : 1 }),
         email: 'must-not-escape@example.invalid',
@@ -52,7 +52,7 @@ test('scoped exact search normalizes integer approved state and instance role wi
     const f = setup(mode),
       r = await f.handler(request());
     assert.equal(r.status, 200);
-    assert.deepEqual(await r.json(), { instanceId: 'didmail-arc', did, role, active });
+    assert.deepEqual(await r.json(), { instanceId: 'didmail-server', did, role, active });
     assert.equal(f.calls.length, 1);
     const call = f.calls[0];
     assert.equal(call.options.method, 'GET');
@@ -63,8 +63,8 @@ test('scoped exact search normalizes integer approved state and instance role wi
     assert.equal(call.url.origin, config.origin);
     assert.equal(call.url.pathname, '/.well-known/service/api/team/members');
     assert.equal(call.url.searchParams.get('search'), did.slice(8));
-    assert.equal(call.url.searchParams.get('instance'), 'didmail-arc');
-    assert.equal(call.url.searchParams.get('blocklet'), 'didmail-arc');
+    assert.equal(call.url.searchParams.get('instance'), 'didmail-server');
+    assert.equal(call.url.searchParams.get('blocklet'), 'didmail-server');
     assert.equal(call.url.searchParams.get('pageSize'), '2');
   }
   assert.equal((await setup('missing').handler(request())).status, 404);
@@ -92,12 +92,12 @@ test('only the fixed exact member lookup is exposed', async () => {
   const f = setup();
   for (const query of [
     `did=${did}&instanceId=other`,
-    `did=${did}&instanceId=didmail-arc&path=/admin`,
-    `did=${did}&did=${did}&instanceId=didmail-arc`,
+    `did=${did}&instanceId=didmail-server&path=/admin`,
+    `did=${did}&did=${did}&instanceId=didmail-server`,
   ])
     assert.equal((await f.handler(request(query))).status, 403);
   assert.equal((await f.handler(request(undefined, 'POST'))).status, 403);
-  assert.equal((await f.handler(request('did=../../users&instanceId=didmail-arc'))).status, 400);
+  assert.equal((await f.handler(request('did=../../users&instanceId=didmail-server'))).status, 400);
   assert.equal(f.calls.length, 0);
   for (const change of [
     { origin: 'http://attacker.invalid' },
@@ -110,7 +110,7 @@ test('only the fixed exact member lookup is exposed', async () => {
 });
 
 test('admin directory is scoped and bounded, strips profiles and rejects malformed or foreign member lists', async () => {
- const req = new Request('https://arc-members.internal/members?instanceId=didmail-arc&page=1&search=fixture');
+ const req = new Request('https://arc-members.internal/members?instanceId=didmail-server&page=1&search=fixture');
  const good = setup();const response=await good.handler(req);assert.equal(response.status,200);
  const body=await response.json();assert.deepEqual(body.members,[{did,name:'',role:'member',active:true}]);
  assert.equal(good.calls[0].url.searchParams.get('pageSize'),'20');
@@ -120,11 +120,11 @@ test('admin directory is scoped and bounded, strips profiles and rejects malform
    const r=await setup(mode).handler(req);assert.equal(r.status,503,mode);
  }
  assert.equal((await good.handler(new Request('https://arc-members.internal/members?instanceId=other&page=1&search='))).status,403);
- assert.equal((await good.handler(new Request('https://arc-members.internal/members?instanceId=didmail-arc&page=0&search='))).status,400);
+ assert.equal((await good.handler(new Request('https://arc-members.internal/members?instanceId=didmail-server&page=0&search='))).status,400);
 });
 
 test('directory filters map to ARC role/approved fields and fail closed if the source ignores them',async()=>{
- const req=query=>new Request('https://arc-members.internal/members?instanceId=didmail-arc&page=1&search=&'+query);
+ const req=query=>new Request('https://arc-members.internal/members?instanceId=didmail-server&page=1&search=&'+query);
  const guest=setup('guest');assert.equal((await guest.handler(req('role=guest&active=active'))).status,200);
  assert.equal(guest.calls[0].url.searchParams.get('role'),'guest');assert.equal(guest.calls[0].url.searchParams.get('approved'),'1');
  const disabled=setup('blocked');assert.equal((await disabled.handler(req('active=inactive'))).status,200);

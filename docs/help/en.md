@@ -169,4 +169,4 @@ pnpm install --frozen-lockfile
 pnpm arc:run
 ```
 
-The approved local ARC instance is `didmail-web`, exposed through `http://didmail-arc.localhost:8788`. `pnpm start` is the separate Workers-only entry at port 8787. Stop only the affected business preview when needed; preserve its D1/R2 state and do not disturb other ARC instances. A local build or deployment dry run is not evidence that a remote production deployment has been completed.
+The approved local ARC instance is `didmail-web`, exposed through `http://didmail-server.localhost:8788`. `pnpm start` is the separate Workers-only entry at port 8787. Stop only the affected business preview when needed; preserve its D1/R2 state and do not disturb other ARC instances. A local build or deployment dry run is not evidence that a remote production deployment has been completed.

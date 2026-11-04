@@ -43,7 +43,7 @@ export function previewRouting({ origin, aliases = '', listenHost = '127.0.0.1',
       target.search = incoming.search;
       // ARC supports explicit blocklet selection for hosts without a registered
       // site domain. The route remains scoped to this application's namespace.
-      if (incoming.origin !== primary.origin) target.searchParams.set('blocklet', 'didmail-arc');
+      if (incoming.origin !== primary.origin) target.searchParams.set('blocklet', 'didmail-server');
       return { target, publicOrigin: incoming.origin };
     },
   };

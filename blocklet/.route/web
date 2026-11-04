@@ -1,4 +1,4 @@
-site: didmail-arc
+site: didmail-server
 path: /
 source: .
 handler: web

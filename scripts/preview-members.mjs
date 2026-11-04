@@ -10,7 +10,7 @@ export function previewMembersConfiguration({ bindings, arc, publicOrigin, fetch
       origin: arc,
       publicOrigin,
       instanceId: workerBindings.DIDMAIL_ARC_INSTANCE_ID,
-      namespace: 'didmail-arc',
+      namespace: 'didmail-server',
       token,
       fetcher,
     });

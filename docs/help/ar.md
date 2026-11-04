@@ -169,4 +169,4 @@ pnpm install --frozen-lockfile
 pnpm arc:run
 ```
 
-مثيل ARC المحلي المعتمد هو `didmail-web` ومدخله `http://didmail-arc.localhost:8788`. الأمر `pnpm start` مدخل Workers-only مستقل على المنفذ 8787. أوقف معاينة الأعمال المتأثرة فقط عند الحاجة، واحفظ حالة D1/R2، ولا تعطل مثيلات ARC الأخرى. البناء المحلي أو dry run للنشر لا يثبت اكتمال نشر إنتاج بعيد.
+مثيل ARC المحلي المعتمد هو `didmail-web` ومدخله `http://didmail-server.localhost:8788`. الأمر `pnpm start` مدخل Workers-only مستقل على المنفذ 8787. أوقف معاينة الأعمال المتأثرة فقط عند الحاجة، واحفظ حالة D1/R2، ولا تعطل مثيلات ARC الأخرى. البناء المحلي أو dry run للنشر لا يثبت اكتمال نشر إنتاج بعيد.

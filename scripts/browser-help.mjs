@@ -9,7 +9,7 @@ import { languages, localizedPath, localeDirection, messages } from '../ui/local
 import { compileHelp } from '../ui/help-markdown.js';
 
 const root = path.resolve('dist');
-const preview = process.env.DIDMAIL_BROWSER_URL || 'http://didmail-arc.localhost:8788';
+const preview = process.env.DIDMAIL_BROWSER_URL || 'http://didmail-server.localhost:8788';
 const html = await fs.readFile(path.join(root, 'en/help/index.html'), 'utf8');
 const corePath = html.match(/href="(\/aup-core\.[a-f0-9]+\.css)"/)?.[1];
 assert.ok(corePath, 'ARC core stylesheet reference is missing');

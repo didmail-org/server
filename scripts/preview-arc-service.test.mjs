@@ -5,7 +5,7 @@ import { build } from 'esbuild';
 import { Miniflare, convertV4MiniflareOptions } from 'miniflare';
 import { previewArcService } from './preview-arc-service.mjs';
 
-function send(service, { url = 'http://didmail-arc.localhost:8788/admin/server', method = 'GET', body = '' } = {}) {
+function send(service, { url = 'http://didmail-server.localhost:8788/admin/server', method = 'GET', body = '' } = {}) {
   return new Promise((resolve, reject) => {
     const request = http.request(
       { hostname: '127.0.0.1', port: Number(service.binding.external.address.split(':')[1]), path: url, method },
@@ -47,7 +47,7 @@ test('external loopback transport preserves public URL, binary bodies, cookies a
     const body = Buffer.from([0, 255, 3, 9]);
     await send(service, { method: 'POST', body });
     assert.deepEqual(seen.at(-1).body, body);
-    assert.equal(seen[0].url, 'http://didmail-arc.localhost:8788/admin/server');
+    assert.equal(seen[0].url, 'http://didmail-server.localhost:8788/admin/server');
     const invalid = await send(service, { url: '/relative' });
     assert.equal(invalid.status, 502);
     assert.equal(seen.length, 5);
@@ -93,7 +93,7 @@ test('Worker-created ARC session requests preserve authentication through the ex
       export default { async fetch(request) {
         const headers = new Headers({accept:'application/json'});
         for (const name of ['cookie','authorization']) if (request.headers.has(name)) headers.set(name,request.headers.get(name));
-        return arcFetch(new Request('http://didmail-arc.localhost:8788/.well-known/service/api/did/session', {headers,signal:AbortSignal.timeout(5000)}));
+        return arcFetch(new Request('http://didmail-server.localhost:8788/.well-known/service/api/did/session', {headers,signal:AbortSignal.timeout(5000)}));
       }};`,
       resolveDir: process.cwd(),
     },
@@ -113,7 +113,7 @@ test('Worker-created ARC session requests preserve authentication through the ex
   );
   try {
     for (const headers of [{}, { cookie: 'session=fixture-owner' }, { authorization: 'Bearer fixture-owner' }]) {
-      const response = await mf.dispatchFetch('http://didmail-arc.localhost:8788/api/runtime/session', { headers });
+      const response = await mf.dispatchFetch('http://didmail-server.localhost:8788/api/runtime/session', { headers });
       assert.equal(response.status, 200);
       const data = await response.json();
       assert.equal(data.authenticated, Object.keys(headers).length > 0);
@@ -121,8 +121,8 @@ test('Worker-created ARC session requests preserve authentication through the ex
     }
     assert.equal(seen.length, 3);
     for (const request of seen) {
-      assert.equal(request.host, 'didmail-arc.localhost:8788');
-      assert.equal(request.url, 'http://didmail-arc.localhost:8788/.well-known/service/api/did/session');
+      assert.equal(request.host, 'didmail-server.localhost:8788');
+      assert.equal(request.url, 'http://didmail-server.localhost:8788/.well-known/service/api/did/session');
     }
     assert.equal(seen[1].cookie, 'session=fixture-owner');
     assert.equal(seen[2].authorization, 'Bearer fixture-owner');

@@ -15,7 +15,7 @@ import { previewRouting } from './preview-routing.mjs';
 import { previewMembersConfiguration } from './preview-members.mjs';
 import { previewArcService } from './preview-arc-service.mjs';
 const config = ts.parseConfigFileTextToJson('wrangler.jsonc', await fs.readFile('wrangler.jsonc', 'utf8')).config;
-const origin = process.env.DIDMAIL_ARC_PREVIEW_URL || 'http://didmail-arc.localhost:8788';
+const origin = process.env.DIDMAIL_ARC_PREVIEW_URL || 'http://didmail-server.localhost:8788';
 const instance = process.env.DIDMAIL_ARC_INSTANCE || 'didmail-web';
 let arc = process.env.DIDMAIL_LOCAL_ARC_URL;
 if (!arc) {

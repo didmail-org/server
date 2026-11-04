@@ -4,7 +4,7 @@ require('dotenv-flow').config({ silent: true });
 
 const dataDir = path.resolve(process.env.DIDMAIL_DATA_DIR || '.data');
 const port = Number(process.env.DIDMAIL_PORT || 3140);
-const appUrl = process.env.DIDMAIL_URL || `http://didmail-arc.localhost:${port}`;
+const appUrl = process.env.DIDMAIL_URL || `http://didmail-server.localhost:${port}`;
 const arcUrl = process.env.ARC_URL || 'http://127.0.0.1:4961';
 const arcHost = process.env.ARC_HOST || new URL(appUrl).host;
 

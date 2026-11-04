@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { previewRouting } from './preview-routing.mjs';
-const options = { origin: 'http://didmail-arc.localhost:8788', arc: 'http://127.0.0.1:64867' };
+const options = { origin: 'http://didmail-server.localhost:8788', arc: 'http://127.0.0.1:64867' };
 test('default preview stays loopback and preserves existing desktop routing', () => {
   const routing = previewRouting(options);
   assert.equal(routing.listenHost, '127.0.0.1');
@@ -16,7 +16,7 @@ test('configured LAN origin preserves invite query and pins ARC namespace and ca
   );
   assert.equal(result.target.origin, options.arc);
   assert.equal(result.target.searchParams.get('id'), 'synthetic-invite');
-  assert.equal(result.target.searchParams.get('blocklet'), 'didmail-arc');
+  assert.equal(result.target.searchParams.get('blocklet'), 'didmail-server');
   assert.equal(result.publicOrigin, 'http://192.168.1.23:8788');
   assert.throws(() => routing.resolve('http://attacker.example:8788/'), /Unconfigured/);
 });
@@ -39,6 +39,6 @@ test('explicit loopback aliases support Android USB reverse without DNS or hosts
   for (const host of ['localhost', '127.0.0.1']) {
     const result = routing.resolve(`http://${host}:8788/__blocklet__.js`);
     assert.equal(result.publicOrigin, `http://${host}:8788`);
-    assert.equal(result.target.searchParams.get('blocklet'), 'didmail-arc');
+    assert.equal(result.target.searchParams.get('blocklet'), 'didmail-server');
   }
 });

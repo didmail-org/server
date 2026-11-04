@@ -16,7 +16,7 @@ pnpm arc:run
 
 Keep any other required existing preview/network options. Do not start another runner against the same D1/R2 state or restart unrelated ARC instances.
 
-The computer can still use `http://didmail-arc.localhost:8788`; the phone uses the configured LAN alias. Generate an invitation through that entry, or change only the origin of an authorized local invitation while preserving its full path/query. Do not commit valid invitations. Unknown hosts are rejected, and the internal ARC site namespace remains fixed; the trusted public alias controls callbacks.
+The computer can still use `http://didmail-server.localhost:8788`; the phone uses the configured LAN alias. Generate an invitation through that entry, or change only the origin of an authorized local invitation while preserving its full path/query. Do not commit valid invitations. Unknown hosts are rejected, and the internal ARC site namespace remains fixed; the trusted public alias controls callbacks.
 
 This alias is for development pages, invitations and wallet callbacks. It does not migrate the advertised mail endpoint, historical content or node identity. HTTP 200 does not prove that a person accepted an invitation. The person must complete the actual wallet/ARC interaction.
 

@@ -4,7 +4,7 @@ import fs from 'node:fs/promises';
 import { chromium } from 'playwright-core';
 import { browserDiagnostics } from './browser-diagnostics.mjs';
 import { isolateBrowserResources } from './browser-isolation.mjs';
-const origin = process.env.DIDMAIL_BROWSER_URL || 'http://didmail-arc.localhost:8788';
+const origin = process.env.DIDMAIL_BROWSER_URL || 'http://didmail-server.localhost:8788';
 const executablePath =
   process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const browser = await chromium.launch({ headless: true, executablePath });
