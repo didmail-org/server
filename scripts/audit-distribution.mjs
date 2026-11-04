@@ -76,6 +76,9 @@ function inventory(metafiles) {
         version: pkg.version,
         licenseMetadata: pkg.license || pkg.licenses?.map((item) => item.type).join(' OR ') || 'UNKNOWN',
         localLicenseFile: local.some((file) => /^(?:licen[cs]e|copying)/i.test(path.basename(file))),
+        ...(id === '@arcblock/validator@1.19.15'
+          ? { distributionLicenseBasis: 'Packaged Apache-2.0 LICENSE retained; manifest MIT declaration conflicts.' }
+          : {}),
         inputFiles: [...files].sort(([a], [b]) => a.localeCompare(b)).map(([file, sha256]) => ({ file, sha256 })),
         evidence,
         textStatus: evidence.length ? 'collected; obligations require review' : 'unresolved',

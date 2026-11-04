@@ -35,7 +35,7 @@
       "excluded": "cross-client dmp-codec.test.mjs"
     },
     "distributionSnapshotAndCopyCheck": "passed; 151 Worker instances, 153 collected texts; two UI instances, three collected texts; 17 legal files in each target",
-    "npmTarballIntegrity": "eight investigated releases re-downloaded and checked against registry integrity",
+    "npmTarballIntegrity": "nine releases re-downloaded and checked against registry integrity, including the validator metadata/license conflict",
     "wranglerDryRun": "passed; no upload; does not validate referenced CSS availability or licenses",
     "workerAssetVerification": "blocked: missing genuine /aup-core.d26223e73064f873.css",
     "dependabot": {

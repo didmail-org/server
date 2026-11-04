@@ -112,6 +112,19 @@
         "type": "git"
       },
       "declaredLicense": "MIT"
+    },
+    {
+      "package": "@arcblock/validator",
+      "version": "1.19.15",
+      "registry": "https://registry.npmjs.org/@arcblock/validator/1.19.15",
+      "tarball": "https://registry.npmjs.org/@arcblock/validator/-/validator-1.19.15.tgz",
+      "registryIntegrity": "sha512-X+KPhQaD37dDj09/3FjH0CfKUcRn8YYbC3veTRfAcuPp+whSpT6lRWK6jWcZ0JWDFbV4muWG9cMuYclEAtMWZw==",
+      "tarballSha256": "1391ba92254e91caa6537f7f136b84e966635f160c31f963cd13c896f43465e3",
+      "gitHead": "ab6cd19ab8633c815ab0235b7ab5d80fc071de15",
+      "repository": null,
+      "declaredLicense": "MIT",
+      "packagedLicenseText": "Apache-2.0 notice, verified byte-identical to installed LICENSE",
+      "licenseSha256": "72053fcf79fb7a7863da2c1bb5a14ec555e982516761020070349105b0f7bd3a"
     }
   ],
   "tarballIntegrityVerified": true

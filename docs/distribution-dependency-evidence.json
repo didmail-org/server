@@ -96,6 +96,7 @@
         "version": "1.19.15",
         "licenseMetadata": "MIT",
         "localLicenseFile": true,
+        "distributionLicenseBasis": "Packaged Apache-2.0 LICENSE retained; manifest MIT declaration conflicts.",
         "inputFiles": [
           {
             "file": "lib/extension/bn.js",
