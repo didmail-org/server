@@ -5,16 +5,23 @@ import { spawnSync } from 'node:child_process';
 import { prepareAppearanceArtifacts } from './prepare-ui-appearance.mjs';
 import { packageWorkerCore } from './package-worker-core.mjs';
 import { createPublicPackageWriter } from './public-package-files.mjs';
+import { copyDistributionNotices } from './distribution-notices.mjs';
+const buildMetafiles = [];
+async function auditedBuild(options) {
+  const result = await build({ ...options, metafile: true });
+  buildMetafiles.push(result.metafile);
+  return result;
+}
 createPublicPackageWriter('blocklet');
 const component = 'blocklet/.web/components/didmail-admin';
-await build({
+await auditedBuild({
   entryPoints: ['ui/admin-render.js'],
   outfile: `${component}/render.js`,
   bundle: true,
   format: 'esm',
   platform: 'neutral',
 });
-const result = await build({
+const result = await auditedBuild({
   entryPoints: ['ui/admin.js'],
   outfile: `${component}/script.js`,
   bundle: true,
@@ -25,7 +32,7 @@ const result = await build({
   metafile: true,
   loader: { '.svg': 'text', '.css': 'text' },
 });
-await build({
+await auditedBuild({
   entryPoints: ['ui/home-render.js'],
   outfile: 'blocklet/.web/components/didmail-home/render.js',
   bundle: true,
@@ -33,7 +40,7 @@ await build({
   platform: 'neutral',
   loader: { '.svg': 'text', '.css': 'text' },
 });
-await build({
+await auditedBuild({
   entryPoints: ['ui/help-render.js'],
   outfile: 'blocklet/.web/components/didmail-help/render.js',
   bundle: true,
@@ -41,7 +48,7 @@ await build({
   platform: 'neutral',
   loader: { '.md': 'text' },
 });
-await build({
+await auditedBuild({
   entryPoints: ['ui/chrome.js'],
   loader: { '.css': 'text' },
   outfile: 'blocklet/.web/components/didmail-home/script.js',
@@ -117,5 +124,8 @@ writeFileSync(
   'dist/ui-build.json',
   JSON.stringify({ renderer: 'arc-web-device', frameworks: [], modules: Object.keys(result.metafile.inputs) }, null, 2),
 );
+mkdirSync('artifacts', { recursive: true });
+writeFileSync('artifacts/ui-metafiles.json', JSON.stringify(buildMetafiles, null, 2));
+copyDistributionNotices('dist');
 // No wallet, node provider settings, private AFS files or local ARC state goes into public assets.
 console.log(`Web Device UI built: ${Object.keys(result.metafile.inputs).length} browser modules; no React runtime.`);

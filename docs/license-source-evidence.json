@@ -1,0 +1,118 @@
+{
+  "checked": "2026-11-04",
+  "packages": [
+    {
+      "package": "@ocap/util",
+      "version": "1.30.24",
+      "registry": "https://registry.npmjs.org/@ocap/util/1.30.24",
+      "tarball": "https://registry.npmjs.org/@ocap/util/-/util-1.30.24.tgz",
+      "registryIntegrity": "sha512-Y9FiNI02ejSjjzWNR839b7CXrF53FtFIi95IDHxFTxDY+eKiLsZ73J51avxUzIQwyhxXar4hpFwr4coA/RFgcw==",
+      "tarballSha256": "e7fadb8e229ecb11f1706931e37abcbf50261fe4e2c51f73414557a4a5d12a75",
+      "gitHead": "e074a74510ab4386bc3cbff27003ae1f14548f39",
+      "repository": {
+        "url": "git+https://github.com/ArcBlock/blockchain.git",
+        "type": "git"
+      },
+      "declaredLicense": "Apache-2.0"
+    },
+    {
+      "package": "@ocap/proto",
+      "version": "1.30.24",
+      "registry": "https://registry.npmjs.org/@ocap/proto/1.30.24",
+      "tarball": "https://registry.npmjs.org/@ocap/proto/-/proto-1.30.24.tgz",
+      "registryIntegrity": "sha512-DImSQY2mX5KyTS3+XFo8JoMNAfILqHwUf53BMt3/EnCSyXHkJEI9VQzBKHjsISaYoSXuLUZvUJF7krg9g453Ow==",
+      "tarballSha256": "f453ac4b7c15e5965bd4ff0f96cec7eb5ab91b14ad613ecb4bd4ee33dca78929",
+      "gitHead": "87990c8b5e215107fc587c1ced0d6b3e2cd2483e",
+      "repository": {
+        "url": "git+https://github.com/ArcBlock/blockchain.git#master",
+        "type": "git"
+      },
+      "declaredLicense": "Apache-2.0"
+    },
+    {
+      "package": "@arcblock/ws",
+      "version": "1.30.24",
+      "registry": "https://registry.npmjs.org/@arcblock/ws/1.30.24",
+      "tarball": "https://registry.npmjs.org/@arcblock/ws/-/ws-1.30.24.tgz",
+      "registryIntegrity": "sha512-VIiy6ZbBpRcKfzLiJunB9AExwicz/Z5uhGyW4S4jesL8KKhd7mkH47fu+jzLwiPZTKJwa+rqfvubXICds5x/+g==",
+      "tarballSha256": "037610e5e68b66a2debbd8feea25a0556bfaebc7b470bdc0e8a547da2dfc863d",
+      "gitHead": "e074a74510ab4386bc3cbff27003ae1f14548f39",
+      "repository": {
+        "url": "git+https://github.com/ArcBlock/blockchain.git",
+        "type": "git"
+      },
+      "declaredLicense": "Apache-2.0"
+    },
+    {
+      "package": "interface",
+      "version": "1.2.1",
+      "registry": "https://registry.npmjs.org/interface/1.2.1",
+      "tarball": "https://registry.npmjs.org/interface/-/interface-1.2.1.tgz",
+      "registryIntegrity": "sha512-qMf+X2WyPxlGKE/lyBxQ7Ju3RNe8buQUxRBVPlmrmqMyMvQtPUShz7a/281njPjGnUMJ7hJ8+3Wx8Y7H6L5ixw==",
+      "tarballSha256": "05546673f465d121d314305f35d67e03c0353a6c3dff332d0a89ecb47491a1a7",
+      "gitHead": "f29d1edb221ed0527b274eabbc8f27cbf95ce6a9",
+      "repository": {
+        "url": "git+https://github.com/charlieduong94/interface-js.git",
+        "type": "git"
+      },
+      "declaredLicense": "MIT"
+    },
+    {
+      "package": "jsonify",
+      "version": "0.0.1",
+      "registry": "https://registry.npmjs.org/jsonify/0.0.1",
+      "tarball": "https://registry.npmjs.org/jsonify/-/jsonify-0.0.1.tgz",
+      "registryIntegrity": "sha512-2/Ki0GcmuqSrgFyelQq9M05y7PS0mEwuIzrf3f1fPqkVDVRvZrPZtVSMHxdgo8Aq0sxAOb/cr2aqqA3LeWHVPg==",
+      "tarballSha256": "3812e6415dc7c4e8dc5a6171a328557e624bce0c88079354f08ef0bde7812bac",
+      "gitHead": "d26197e6c6357c9f3deec052a97056359f0497ac",
+      "repository": {
+        "url": "git+https://github.com/ljharb/jsonify.git",
+        "type": "git"
+      },
+      "declaredLicense": "Public Domain"
+    },
+    {
+      "package": "express-async-errors",
+      "version": "3.1.1",
+      "registry": "https://registry.npmjs.org/express-async-errors/3.1.1",
+      "tarball": "https://registry.npmjs.org/express-async-errors/-/express-async-errors-3.1.1.tgz",
+      "registryIntegrity": "sha512-h6aK1da4tpqWSbyCa3FxB/V6Ehd4EEB15zyQq9qe75OZBp0krinNKuH4rAY+S/U/2I36vdLAUFSjQJ+TFmODng==",
+      "tarballSha256": "a2d86e2696ee294011d2fc8f27b5467b109cd3718c5b00ab11f8bea4ebff2182",
+      "gitHead": "478ebf7330a20b14b6c589c3d6f7fc3107d78dd9",
+      "repository": {
+        "url": "git+https://github.com/davidbanham/express-async-errors.git",
+        "type": "git"
+      },
+      "declaredLicense": "ISC"
+    },
+    {
+      "package": "boolbase",
+      "version": "1.0.0",
+      "registry": "https://registry.npmjs.org/boolbase/1.0.0",
+      "tarball": "https://registry.npmjs.org/boolbase/-/boolbase-1.0.0.tgz",
+      "registryIntegrity": "sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==",
+      "tarballSha256": "69628ff8092c5ff940ea4a0f29da98d520615bae138755c9e059033606c6caa8",
+      "gitHead": null,
+      "repository": {
+        "url": "https://github.com/fb55/boolbase",
+        "type": "git"
+      },
+      "declaredLicense": "ISC"
+    },
+    {
+      "package": "cookie-signature",
+      "version": "1.0.6",
+      "registry": "https://registry.npmjs.org/cookie-signature/1.0.6",
+      "tarball": "https://registry.npmjs.org/cookie-signature/-/cookie-signature-1.0.6.tgz",
+      "registryIntegrity": "sha512-QADzlaHc8icV8I7vbaJXJwod9HWYp8uCqf1xa4OfNu1T7JVxQIrUgOWtHdNDtPiywmFbiS12VjotIXLrKM3orQ==",
+      "tarballSha256": "89f345e24abee506e690eb6ff5bd1973957f916cba72b2a224ab2355544d5313",
+      "gitHead": "391b56cf44d88c493491b7e3fc53208cfb976d2a",
+      "repository": {
+        "url": "https://github.com/visionmedia/node-cookie-signature.git",
+        "type": "git"
+      },
+      "declaredLicense": "MIT"
+    }
+  ],
+  "tarballIntegrityVerified": true
+}

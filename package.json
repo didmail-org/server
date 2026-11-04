@@ -17,6 +17,8 @@
     "test:smoke": "node scripts/smoke.mjs",
     "test:scripts": "node --test scripts/*.test.mjs",
     "audit:dependencies": "node scripts/audit-dependencies.mjs",
+    "audit:distribution": "node scripts/audit-distribution.mjs",
+    "audit:distribution:update": "node scripts/audit-distribution.mjs --write",
     "chain:status": "node scripts/chain-status.mjs",
     "test:browser": "node scripts/browser-render.mjs",
     "test:browser:help": "node scripts/browser-help.mjs",

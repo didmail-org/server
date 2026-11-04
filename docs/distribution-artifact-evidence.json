@@ -1,0 +1,1326 @@
+{
+  "schemaVersion": 1,
+  "reviewDate": "2026-11-04",
+  "sourceBaseline": "46b8fcccce0f75152353c8b655ac9e12963787b8",
+  "approval": {
+    "source": "may remain public within the audit scope",
+    "worker": "blocked",
+    "blocklet": "blocked"
+  },
+  "tools": {
+    "node": "24.14.0",
+    "pnpm": "12.11.2",
+    "esbuild": "0.28.2",
+    "arc": "2.0.0-beta.74 (49c9125c)",
+    "wrangler": "4.152.0"
+  },
+  "validation": {
+    "lint": "passed",
+    "build": "passed",
+    "jest": {
+      "suites": 42,
+      "passed": 362
+    },
+    "scriptTests": {
+      "passed": 147,
+      "skipped": 3
+    },
+    "uiTests": {
+      "passed": 49
+    },
+    "browserArtifactChecks": "passed; 10 native page artifacts and five-language static output",
+    "workerStandaloneTests": {
+      "passed": 140,
+      "skipped": 1,
+      "excluded": "cross-client dmp-codec.test.mjs"
+    },
+    "distributionSnapshotAndCopyCheck": "passed; 151 Worker instances, 153 collected texts; two UI instances, three collected texts; 17 legal files in each target",
+    "npmTarballIntegrity": "eight investigated releases re-downloaded and checked against registry integrity",
+    "wranglerDryRun": "passed; no upload; does not validate referenced CSS availability or licenses",
+    "workerAssetVerification": "blocked: missing genuine /aup-core.d26223e73064f873.css",
+    "dependabot": {
+      "ghsa": "GHSA-gcqx-w48m-w2h4",
+      "severity": "low",
+      "githubState": "open",
+      "localPatchGate": "passed"
+    },
+    "documentationLinks": "changed Markdown files checked with the original repository offline checker; no standalone check:docs script",
+    "scopeLimits": [
+      "No hosted ARC or Cloudflare deployment",
+      "No authenticated admin/browser integration run",
+      "No claim of a complete credential/history scan",
+      "No publication of artifacts"
+    ]
+  },
+  "workerEntry": {
+    "file": ".worker/index.mjs",
+    "bytes": 7760713,
+    "sha256": "ecf61718e47ad7faf47796c05aed18434658e19dde7a8e3d8f67de85663fe299"
+  },
+  "wranglerUpload": {
+    "entry": {
+      "file": "artifacts/worker-upload/index.js",
+      "bytes": 7879301,
+      "sha256": "1b3dd13917ecaa46122ae3a7ae0024f0de3fb800117cb853774cc448e824b8a4"
+    },
+    "positiveInputs": [
+      ".worker/index.mjs"
+    ],
+    "sourceMapIsNotADistributionAsset": true
+  },
+  "workerOfflineLegal": [
+    {
+      "file": "LICENSE",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "file": "NOTICE",
+      "bytes": 382,
+      "sha256": "9f42e64633ce4dd7556e59637e2a18de0ab39e89cd7b469635fe4c49ce0ba9a4"
+    },
+    {
+      "file": "THIRD_PARTY_NOTICES.md",
+      "bytes": 4009,
+      "sha256": "be3d9af7d213337c76feb47a1988fb24f38081c79932d7ef654dd199dfc842b1"
+    },
+    {
+      "file": "third_party_licenses/blocklet-bundle-licenses.txt",
+      "bytes": 3158,
+      "sha256": "53dd95b35a32f2c3d662a7a605b9d5475b991da93bb054988f1423d52d2af52d"
+    },
+    {
+      "file": "third_party_licenses/boolbase1.0.0.txt",
+      "bytes": 751,
+      "sha256": "cdf4d87ae0a6c160227263bf4e39a0a10e30e89ae7256e0f7ac7bde0836552c6"
+    },
+    {
+      "file": "third_party_licenses/cisco-go-hpke-bsd2.txt",
+      "bytes": 1323,
+      "sha256": "3aafec54d4b93c433948f294cb9e6493dada8613b11fe098c7ca9fd165a20225"
+    },
+    {
+      "file": "third_party_licenses/cookie-signature1.0.6-README-license.txt",
+      "bytes": 1111,
+      "sha256": "c0a936e4727a7503020745eaf063acffbb81291fcfd21a0cd8db4b4fce95d902"
+    },
+    {
+      "file": "third_party_licenses/deepmerge4.3.1.txt",
+      "bytes": 1116,
+      "sha256": "6cfc4687cb2f2d86f4a77e6b526290d3878e5e512f3fec2f4cb36a9cb36f798b"
+    },
+    {
+      "file": "third_party_licenses/express-async-errors3.1.1.txt",
+      "bytes": 840,
+      "sha256": "2853a1f04aa49c6af26f9dac1ef233c18e319109319a2ba60313a8517dbdda95"
+    },
+    {
+      "file": "third_party_licenses/google-closure-library-Apache-2.0.txt",
+      "bytes": 10173,
+      "sha256": "a6cba85bc92e0cff7a450b1d873c0eaa2e9fc96bf472df0247a26bec77bf3ff9"
+    },
+    {
+      "file": "third_party_licenses/google-protobuf3.21.0-Closure-header.txt",
+      "bytes": 84,
+      "sha256": "6f451d925cddd9d9f35c5c112aebb058c6ac610515a04ae82aff2c1f966a3ac7"
+    },
+    {
+      "file": "third_party_licenses/jsonify0.0.1-README-license.txt",
+      "bytes": 26,
+      "sha256": "5845c1987e0995dc7f846bec7e9e892934a2591b1a12994aafca1316f84adb9f"
+    },
+    {
+      "file": "third_party_licenses/minimatch11.0.3.txt",
+      "bytes": 1550,
+      "sha256": "2c7c5d22ed5a8ee968c64757710979afcd77438c48b4a265b94e615babd8a901"
+    },
+    {
+      "file": "third_party_licenses/ocap-client1.19.15.txt",
+      "bytes": 554,
+      "sha256": "72053fcf79fb7a7863da2c1bb5a14ec555e982516761020070349105b0f7bd3a"
+    },
+    {
+      "file": "third_party_licenses/qrcode-generator1.4.4-source-header.txt",
+      "bytes": 489,
+      "sha256": "7bab270ae530f8bd20fe784effd62cd5ad337476b037f8d3e62accc5fa4929e6"
+    },
+    {
+      "file": "third_party_licenses/qrcode-generator1.4.4.txt",
+      "bytes": 1071,
+      "sha256": "3a850fa5f08101db6f40676c2786e10bd2cd5fff7b12ffdf1e0c434d4e49d90c"
+    },
+    {
+      "file": "third_party_licenses/worker-bundle-licenses.txt",
+      "bytes": 217660,
+      "sha256": "bdcffb8972511872150c6004e8f4d8621b0db8dabfa4a63a7a3fde1a449f4e74"
+    }
+  ],
+  "workerAssets": [
+    {
+      "file": ".access.json",
+      "bytes": 25,
+      "sha256": "3f7034bff5388fdf875a592b7853ecddf4c53ffd41ac447aa07a38a705a32884"
+    },
+    {
+      "file": ".artifacts.json",
+      "bytes": 1040,
+      "sha256": "1913debf3612048f10107881adf079df053e984b4312de8cbe9ecc720f5ed508"
+    },
+    {
+      "file": ".prerender-manifest.json",
+      "bytes": 35972,
+      "sha256": "fc492864287a1a2172688b7ec7e8fc9334a0610de036e5263ff880939c2d1fa0"
+    },
+    {
+      "file": "LICENSE",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "file": "NOTICE",
+      "bytes": 382,
+      "sha256": "9f42e64633ce4dd7556e59637e2a18de0ab39e89cd7b469635fe4c49ce0ba9a4"
+    },
+    {
+      "file": "THIRD_PARTY_NOTICES.md",
+      "bytes": 4009,
+      "sha256": "be3d9af7d213337c76feb47a1988fb24f38081c79932d7ef654dd199dfc842b1"
+    },
+    {
+      "file": "_arc/assets/3fd5df1428d89576dfef4cc84e4368af646271b6ac1b40c9a127ce62e7561ca5.css",
+      "bytes": 88697,
+      "sha256": "3fd5df1428d89576dfef4cc84e4368af646271b6ac1b40c9a127ce62e7561ca5"
+    },
+    {
+      "file": "_arc/assets/44ab37f40cd7197af27beef1f6f82af5568a57c6810048c9b8071bc5f98cffa5.js",
+      "bytes": 508715,
+      "sha256": "44ab37f40cd7197af27beef1f6f82af5568a57c6810048c9b8071bc5f98cffa5"
+    },
+    {
+      "file": "_arc/assets/4ac3477e640ecddf88bd2b5cb9ead34054a389860c848b6586a093c8cd051338.css",
+      "bytes": 32987,
+      "sha256": "4ac3477e640ecddf88bd2b5cb9ead34054a389860c848b6586a093c8cd051338"
+    },
+    {
+      "file": "_arc/assets/5a32d5b3e49f0833e03c16f43a73fb5b24160deb1a6eaa561f8a84f48ab1aff8.js",
+      "bytes": 107565,
+      "sha256": "5a32d5b3e49f0833e03c16f43a73fb5b24160deb1a6eaa561f8a84f48ab1aff8"
+    },
+    {
+      "file": "_arc/assets/6febf929c41729c74f07cbee275af12deac8f8290500523dab7ce62aa5380396.css",
+      "bytes": 30183,
+      "sha256": "6febf929c41729c74f07cbee275af12deac8f8290500523dab7ce62aa5380396"
+    },
+    {
+      "file": "_arc/assets/a96633bcaaf5a2bd215870c3e6ff2013b110a8424399386c4aa757b819600f33.css",
+      "bytes": 26332,
+      "sha256": "a96633bcaaf5a2bd215870c3e6ff2013b110a8424399386c4aa757b819600f33"
+    },
+    {
+      "file": "_arc/assets/cc67cac7ed20bb9b4806287db738bf17ca31798fe143b255570040eee81104fe.js",
+      "bytes": 71522,
+      "sha256": "cc67cac7ed20bb9b4806287db738bf17ca31798fe143b255570040eee81104fe"
+    },
+    {
+      "file": "_arc/assets/f6f59bef8dce5191a2673197366173a3429ce070116a834dc30afc719b698ca6.svg",
+      "bytes": 34888,
+      "sha256": "f6f59bef8dce5191a2673197366173a3429ce070116a834dc30afc719b698ca6"
+    },
+    {
+      "file": "ar/admin/index.html",
+      "bytes": 41310,
+      "sha256": "ceb988e18f3ba4c28089826d978e6d350ec262319a3ef7f0edbc391e7c4c7699"
+    },
+    {
+      "file": "ar/admin-account/index.html",
+      "bytes": 42004,
+      "sha256": "803cb6dd362e7873a4fc977177158306560b5878ad5678e716b3c27f2c765166"
+    },
+    {
+      "file": "ar/admin-attachment/index.html",
+      "bytes": 41430,
+      "sha256": "1ea96f8c9bada01409fbf085ce87cfa598d8af9470c7bb915c50c4f79bde8b7b"
+    },
+    {
+      "file": "ar/admin-envelope/index.html",
+      "bytes": 41399,
+      "sha256": "09d0f893a82208421a125124a3615bd7bdd47f27a52fdb948f9fa7e262aa295b"
+    },
+    {
+      "file": "ar/admin-members/index.html",
+      "bytes": 41394,
+      "sha256": "e0cc514d20f79b574da543185259bd12bde9673f3c0cdf8ddb63fed9508496e2"
+    },
+    {
+      "file": "ar/admin-namecard/index.html",
+      "bytes": 41429,
+      "sha256": "d4c5d55210d28d747347d65767094ef85966e23faa54d60ec0c8d4de03c76462"
+    },
+    {
+      "file": "ar/admin-server/index.html",
+      "bytes": 41373,
+      "sha256": "27071047118a2f816b2046b49ef2e68bea4ac3255c0011360691fa99e59ae2d4"
+    },
+    {
+      "file": "ar/admin-storage/index.html",
+      "bytes": 41425,
+      "sha256": "9f7a288b31bdc0f1549a236fe1f9382f051dde7253fcdadf06b1bf25caba1aff"
+    },
+    {
+      "file": "ar/help/index.html",
+      "bytes": 67251,
+      "sha256": "c5360c1c8d3ba41721a7564585f639beddaf17b30880038c5da4ea92d57a1ce5"
+    },
+    {
+      "file": "ar/index.html",
+      "bytes": 87587,
+      "sha256": "9ad04336ec481642caad831085946a43d98194c1473da71aafb998ad12632049"
+    },
+    {
+      "file": "ar/search/index.html",
+      "bytes": 31462,
+      "sha256": "45a2e92679d3f10e591842835aca3627d537dd94932a42ea418b174fc23e6308"
+    },
+    {
+      "file": "en/admin/index.html",
+      "bytes": 41078,
+      "sha256": "a81920c0a1aa200ccddc959f87282056d4a68e29ee7ac15452bf02e03f93f4ce"
+    },
+    {
+      "file": "en/admin-account/index.html",
+      "bytes": 41687,
+      "sha256": "d30a152ad210540eaded930c4c37fd9158ee5123016dfad85c9e9c57c9a4ea1b"
+    },
+    {
+      "file": "en/admin-attachment/index.html",
+      "bytes": 41194,
+      "sha256": "c0be9285e3190f5fe68430f00c12298258f473fbbc2d19ee53caa79f0f5cf4d3"
+    },
+    {
+      "file": "en/admin-envelope/index.html",
+      "bytes": 41181,
+      "sha256": "6bd53a298f60f78b94ad07f8b92c50f3d2746d8e7aedca290959635e0c79cfec"
+    },
+    {
+      "file": "en/admin-members/index.html",
+      "bytes": 41148,
+      "sha256": "7e276a7eb29261a1e01cc6ebd19364f09ab173e32905ab5abc1e33913a3875c5"
+    },
+    {
+      "file": "en/admin-namecard/index.html",
+      "bytes": 41181,
+      "sha256": "90df46656da18bb9ba9602ec9fef47e8aca2da1ad262bb2e53ca1849a6e5ddb9"
+    },
+    {
+      "file": "en/admin-server/index.html",
+      "bytes": 41141,
+      "sha256": "41b43cd959b8075d00926b1836e8d4cd0cb89b98fe278006945452a22adca778"
+    },
+    {
+      "file": "en/admin-storage/index.html",
+      "bytes": 41163,
+      "sha256": "f2a1f4d5530f4624dbbc8768bf7420ebc8884b72bbb1f18c116a4af2cdef0e44"
+    },
+    {
+      "file": "en/help/index.html",
+      "bytes": 60358,
+      "sha256": "eb86c697bfac88a1df23bde4054c05fb300ed410f1775fdddb8d4d3926e6ea30"
+    },
+    {
+      "file": "en/index.html",
+      "bytes": 87248,
+      "sha256": "fa9881ea0458d1ba6914febf79f864b704054431cd3adc4b1a853efb91c32d0d"
+    },
+    {
+      "file": "en/search/index.html",
+      "bytes": 31462,
+      "sha256": "6ff15f1281312f79f6ec73817b4bb896449236cca32ea6b6608d753d657d655e"
+    },
+    {
+      "file": "index.html",
+      "bytes": 87248,
+      "sha256": "fa9881ea0458d1ba6914febf79f864b704054431cd3adc4b1a853efb91c32d0d"
+    },
+    {
+      "file": "ja/admin/index.html",
+      "bytes": 41641,
+      "sha256": "f7958ba6157d5dab029eda32886204f2eda6761d43248631a67483bac885849d"
+    },
+    {
+      "file": "ja/admin-account/index.html",
+      "bytes": 42304,
+      "sha256": "81dcbf8abd41b5d55d4ed36934ebb16f03d0e8bd7fba7f7069d8e139234e8dee"
+    },
+    {
+      "file": "ja/admin-attachment/index.html",
+      "bytes": 41725,
+      "sha256": "1cc68f54a9a1a098d9169d313aa5d2e8f5fd94ebf52c94c9c08f6b0150238edb"
+    },
+    {
+      "file": "ja/admin-envelope/index.html",
+      "bytes": 41715,
+      "sha256": "eccf6f1f5af409c718912548c5e1b566f019f2966c8a29cf4bab8b429f529e41"
+    },
+    {
+      "file": "ja/admin-members/index.html",
+      "bytes": 41710,
+      "sha256": "0ae66605372da4a446a12597166bdc03883af5b25f49a210f80b492591a4dbd0"
+    },
+    {
+      "file": "ja/admin-namecard/index.html",
+      "bytes": 41715,
+      "sha256": "e32604968d372dbf161c3c73ea3dbe0c276039be64852b94ba103e8b43f0b739"
+    },
+    {
+      "file": "ja/admin-server/index.html",
+      "bytes": 41704,
+      "sha256": "cd77f02b8a818af0636157259f57f0e37fabd3b5fb110ac8394a5acd0138a06f"
+    },
+    {
+      "file": "ja/admin-storage/index.html",
+      "bytes": 41716,
+      "sha256": "3f25f181ff60b45d2e143f96cf53a209d5110f52b5f466a05b3e9b46fede167b"
+    },
+    {
+      "file": "ja/help/index.html",
+      "bytes": 64649,
+      "sha256": "87824192d378bf9c38aad73eb9d21e2a645eff9af2e66e15145fb03691d1f95c"
+    },
+    {
+      "file": "ja/index.html",
+      "bytes": 87906,
+      "sha256": "ffc198aa3661abc361cd7ef598c85e78a6697dfd77d29e5bb2e3716612409aaa"
+    },
+    {
+      "file": "ja/search/index.html",
+      "bytes": 31862,
+      "sha256": "d1af11b3b7ab0732cd451d0a52105321243506ab50231a676fda31ef99f7d686"
+    },
+    {
+      "file": "llms-full.txt",
+      "bytes": 34,
+      "sha256": "aa782eabb42c1fc6e9ca2b8072ada763f2ee0358527ba4a0ac58fdc885c0ba4c"
+    },
+    {
+      "file": "llms.txt",
+      "bytes": 408,
+      "sha256": "d558147a75f25c44729facf6ca48113c2450b63c2cded406dfec33c358e8c769"
+    },
+    {
+      "file": "logo.svg",
+      "bytes": 34888,
+      "sha256": "f6f59bef8dce5191a2673197366173a3429ce070116a834dc30afc719b698ca6"
+    },
+    {
+      "file": "robots.txt",
+      "bytes": 75,
+      "sha256": "84bed4fcf44ab5f5ac11ed37023edf59aa3f92b6c4a4c8ff3296c1e000304fe1"
+    },
+    {
+      "file": "ru/admin/index.html",
+      "bytes": 41342,
+      "sha256": "4d89985ac1d2dbafedce6bb84b5de408fc8680aa9297283296fce1fe64ba1d10"
+    },
+    {
+      "file": "ru/admin-account/index.html",
+      "bytes": 41996,
+      "sha256": "eaa11e92ac7329141420543aaedad33faa1bcd48d03ac70c4db53b6ce07110b3"
+    },
+    {
+      "file": "ru/admin-attachment/index.html",
+      "bytes": 41436,
+      "sha256": "dfd00d5ff1c3461d0f76d64b5dd0ada34f3f0daa4924db9275fcd5e5c22d359c"
+    },
+    {
+      "file": "ru/admin-envelope/index.html",
+      "bytes": 41435,
+      "sha256": "4616b4e9d004509ad2a47e4834768206a573523f88ee7af0901e2426de17399b"
+    },
+    {
+      "file": "ru/admin-members/index.html",
+      "bytes": 41400,
+      "sha256": "ab461046b8e9e6ae87e8bd557c0607024cc03947bd2d8bf83a31e3f1e44eca4b"
+    },
+    {
+      "file": "ru/admin-namecard/index.html",
+      "bytes": 41429,
+      "sha256": "0c4e5cfbe1ce3d847e162645dd312b086abf70a710df0d11c03991f783455f16"
+    },
+    {
+      "file": "ru/admin-server/index.html",
+      "bytes": 41405,
+      "sha256": "14428af3471e2363d61291f9a7dd7f85753d979039aebeaa163ad0af7c72b397"
+    },
+    {
+      "file": "ru/admin-storage/index.html",
+      "bytes": 41422,
+      "sha256": "4a61543b1d5b97ff6332eb6aed4ff71fa0c737fa1601d76a64ef19756a336f87"
+    },
+    {
+      "file": "ru/help/index.html",
+      "bytes": 73861,
+      "sha256": "d1e1fd75951e558f60533006bdbd2d58caa89373a6514441dc9e2b118ce259e6"
+    },
+    {
+      "file": "ru/index.html",
+      "bytes": 87935,
+      "sha256": "7855fe1b50452ae850bd353e9159d8cc3f0796111cacac37306d070254202095"
+    },
+    {
+      "file": "ru/search/index.html",
+      "bytes": 31462,
+      "sha256": "069d60ea09f45c6d8ee58195998e1a842a1cde4130ccd1bb97eef6ab66b24432"
+    },
+    {
+      "file": "sitemap-pages.xml",
+      "bytes": 7087,
+      "sha256": "9a2c6099fcf7ad50a57d0199562957a38fe6b0aab0133d88557621d1660e5de3"
+    },
+    {
+      "file": "sitemap-pages.xml.br",
+      "bytes": 403,
+      "sha256": "673046038d50cf1d9348781bee75f5f34ad4f088c279114dd15fd21c62d4f03c"
+    },
+    {
+      "file": "sitemap-pages.xml.gz",
+      "bytes": 517,
+      "sha256": "46332b10ebfb1af07ad56a9e86effc3a689ee85f9e65a9de4426ff36a049c677"
+    },
+    {
+      "file": "sitemap.xml",
+      "bytes": 209,
+      "sha256": "195c5118cf534d81edd17d4ba25e6c0b02904f041d957be1912764dfdf0b47b6"
+    },
+    {
+      "file": "third_party_licenses/blocklet-bundle-licenses.txt",
+      "bytes": 3158,
+      "sha256": "53dd95b35a32f2c3d662a7a605b9d5475b991da93bb054988f1423d52d2af52d"
+    },
+    {
+      "file": "third_party_licenses/boolbase1.0.0.txt",
+      "bytes": 751,
+      "sha256": "cdf4d87ae0a6c160227263bf4e39a0a10e30e89ae7256e0f7ac7bde0836552c6"
+    },
+    {
+      "file": "third_party_licenses/cisco-go-hpke-bsd2.txt",
+      "bytes": 1323,
+      "sha256": "3aafec54d4b93c433948f294cb9e6493dada8613b11fe098c7ca9fd165a20225"
+    },
+    {
+      "file": "third_party_licenses/cookie-signature1.0.6-README-license.txt",
+      "bytes": 1111,
+      "sha256": "c0a936e4727a7503020745eaf063acffbb81291fcfd21a0cd8db4b4fce95d902"
+    },
+    {
+      "file": "third_party_licenses/deepmerge4.3.1.txt",
+      "bytes": 1116,
+      "sha256": "6cfc4687cb2f2d86f4a77e6b526290d3878e5e512f3fec2f4cb36a9cb36f798b"
+    },
+    {
+      "file": "third_party_licenses/express-async-errors3.1.1.txt",
+      "bytes": 840,
+      "sha256": "2853a1f04aa49c6af26f9dac1ef233c18e319109319a2ba60313a8517dbdda95"
+    },
+    {
+      "file": "third_party_licenses/google-closure-library-Apache-2.0.txt",
+      "bytes": 10173,
+      "sha256": "a6cba85bc92e0cff7a450b1d873c0eaa2e9fc96bf472df0247a26bec77bf3ff9"
+    },
+    {
+      "file": "third_party_licenses/google-protobuf3.21.0-Closure-header.txt",
+      "bytes": 84,
+      "sha256": "6f451d925cddd9d9f35c5c112aebb058c6ac610515a04ae82aff2c1f966a3ac7"
+    },
+    {
+      "file": "third_party_licenses/jsonify0.0.1-README-license.txt",
+      "bytes": 26,
+      "sha256": "5845c1987e0995dc7f846bec7e9e892934a2591b1a12994aafca1316f84adb9f"
+    },
+    {
+      "file": "third_party_licenses/minimatch11.0.3.txt",
+      "bytes": 1550,
+      "sha256": "2c7c5d22ed5a8ee968c64757710979afcd77438c48b4a265b94e615babd8a901"
+    },
+    {
+      "file": "third_party_licenses/ocap-client1.19.15.txt",
+      "bytes": 554,
+      "sha256": "72053fcf79fb7a7863da2c1bb5a14ec555e982516761020070349105b0f7bd3a"
+    },
+    {
+      "file": "third_party_licenses/qrcode-generator1.4.4-source-header.txt",
+      "bytes": 489,
+      "sha256": "7bab270ae530f8bd20fe784effd62cd5ad337476b037f8d3e62accc5fa4929e6"
+    },
+    {
+      "file": "third_party_licenses/qrcode-generator1.4.4.txt",
+      "bytes": 1071,
+      "sha256": "3a850fa5f08101db6f40676c2786e10bd2cd5fff7b12ffdf1e0c434d4e49d90c"
+    },
+    {
+      "file": "third_party_licenses/worker-bundle-licenses.txt",
+      "bytes": 217660,
+      "sha256": "bdcffb8972511872150c6004e8f4d8621b0db8dabfa4a63a7a3fde1a449f4e74"
+    },
+    {
+      "file": "ui-build.json",
+      "bytes": 3914,
+      "sha256": "9a7b7103eb5cbf8015ffdb0d15ca0ce0dadff1ba0f1e1162481b07c25b8f9d8b"
+    },
+    {
+      "file": "zh/admin/index.html",
+      "bytes": 41512,
+      "sha256": "59284552e05d28186056f41876dad0e7487fe51ad1eba470e9201e032664647c"
+    },
+    {
+      "file": "zh/admin-account/index.html",
+      "bytes": 42136,
+      "sha256": "887a68045b350e77dccca293946f4ad8ad52984a646c72068a2a60f12d13bfe9"
+    },
+    {
+      "file": "zh/admin-attachment/index.html",
+      "bytes": 41608,
+      "sha256": "7717ce5d381c504caeca3de6ada057e976c7df8a3cb2fc4922aab68c8ba0b98a"
+    },
+    {
+      "file": "zh/admin-envelope/index.html",
+      "bytes": 41592,
+      "sha256": "78f6e82cd7239ad0e42965b67b860bf150315982705e8daec78355f343dfb94c"
+    },
+    {
+      "file": "zh/admin-members/index.html",
+      "bytes": 41571,
+      "sha256": "fceb78596a7c374154cbc89b181ff3a92f0d8cc61a2dd2d6b051c715b2edff84"
+    },
+    {
+      "file": "zh/admin-namecard/index.html",
+      "bytes": 41592,
+      "sha256": "657794401795f06a54ef0f63ddb3dbb80860e14214470438194c2da2477a2ce7"
+    },
+    {
+      "file": "zh/admin-server/index.html",
+      "bytes": 41575,
+      "sha256": "9a24db8ac0a30c08faec2a856e86a341a3589a51f50907634487e7f7199cc78d"
+    },
+    {
+      "file": "zh/admin-storage/index.html",
+      "bytes": 41581,
+      "sha256": "970142d05dc65938e23d553013ea3e790b9242a95b8d2354f2c7fcedbb6c6ba5"
+    },
+    {
+      "file": "zh/help/index.html",
+      "bytes": 57956,
+      "sha256": "3b813f89aa4aa579f177efa61308045bfa860891ee4d9eb05301c8697b974d6e"
+    },
+    {
+      "file": "zh/index.html",
+      "bytes": 87628,
+      "sha256": "4b132325fec96d1eaa423e36da5a93bad9d07deaeabd9e7ef6c836da1c24c89f"
+    },
+    {
+      "file": "zh/search/index.html",
+      "bytes": 31841,
+      "sha256": "e7bb61174c9cad287de563274028c8b9dd6ceb544025090c1901bc971cfe47d4"
+    }
+  ],
+  "blocklet": {
+    "manifest": {
+      "file": "blocklet/dist/.afs/manifest.json",
+      "bytes": 28223,
+      "sha256": "57ba88b2ca7a4820afc03002a2d7c8b4d759a3d32fd7caa3d1d4db389035b36f"
+    },
+    "files": [
+      {
+        "file": ".afs/manifest.json",
+        "bytes": 28223,
+        "sha256": "57ba88b2ca7a4820afc03002a2d7c8b4d759a3d32fd7caa3d1d4db389035b36f"
+      },
+      {
+        "file": ".route/web",
+        "bytes": 64,
+        "sha256": "04db082c825ea7cef7202492eb69ce53ac9a139ad9b1c383a3be30f5c03f0863"
+      },
+      {
+        "file": ".web/components/didmail-admin/manifest.json",
+        "bytes": 201,
+        "sha256": "6dbf31edda97b1a2d378db5147d7cb21c06c421abac4f72b7d9b7c12a20e6008"
+      },
+      {
+        "file": ".web/components/didmail-admin/render.js",
+        "bytes": 323640,
+        "sha256": "f091ce50840dd56e1dd34969317dc4b77c9a02de0b019c880ea7df5c7df34e05"
+      },
+      {
+        "file": ".web/components/didmail-admin/script.js",
+        "bytes": 508715,
+        "sha256": "44ab37f40cd7197af27beef1f6f82af5568a57c6810048c9b8071bc5f98cffa5"
+      },
+      {
+        "file": ".web/components/didmail-admin/style.css",
+        "bytes": 62364,
+        "sha256": "a4552d12d508015e754b0a0329adcd0774cbedde8932fa1f65c0177652178961"
+      },
+      {
+        "file": ".web/components/didmail-help/manifest.json",
+        "bytes": 138,
+        "sha256": "f24502d56043148aae57a05d238a03fb2a965b717e46dd28ba524fc082d98e2f"
+      },
+      {
+        "file": ".web/components/didmail-help/render.js",
+        "bytes": 243684,
+        "sha256": "20f5a8f9cc699fb78c7fdd9ec8c7b6a42909ae9a387491115e0a0d2c2693d4a0"
+      },
+      {
+        "file": ".web/components/didmail-help/script.js",
+        "bytes": 71522,
+        "sha256": "cc67cac7ed20bb9b4806287db738bf17ca31798fe143b255570040eee81104fe"
+      },
+      {
+        "file": ".web/components/didmail-help/style.css",
+        "bytes": 3850,
+        "sha256": "f9cecf11041813f19d9f808213aeb8f17a319295300dc610e2bb7fd5683df600"
+      },
+      {
+        "file": ".web/components/didmail-home/manifest.json",
+        "bytes": 126,
+        "sha256": "39ed514358a17087e8b2daffd4ca355e85a8c22c2542c75f46462067a35f057b"
+      },
+      {
+        "file": ".web/components/didmail-home/render.js",
+        "bytes": 57159,
+        "sha256": "6b6d1073bb8d8b41c915339117c3caa96e6b14b886e34e847bcf8cb6061edf6c"
+      },
+      {
+        "file": ".web/components/didmail-home/script.js",
+        "bytes": 71522,
+        "sha256": "cc67cac7ed20bb9b4806287db738bf17ca31798fe143b255570040eee81104fe"
+      },
+      {
+        "file": ".web/components/didmail-home/style.css",
+        "bytes": 6654,
+        "sha256": "b64cbfb4f3535ce15978a5f73d3a6c4f27d5afa859afcc73a594f919e60d7f7c"
+      },
+      {
+        "file": ".web/seo/og-image",
+        "bytes": 86,
+        "sha256": "c9e5926f7cbe956de39bec2d5021829931b904b8023a51d486aad5b2526e8bf2"
+      },
+      {
+        "file": ".web/seo/og-site-name",
+        "bytes": 14,
+        "sha256": "77850450ef0d4b133b369e7e5c32404da304cc55d4d955705056577bfe94340a"
+      },
+      {
+        "file": ".web/site.yaml",
+        "bytes": 140,
+        "sha256": "e5bc981fbf8d86dc778a408bf927d5106c299aadc9bd09f88c7461fa290efca6"
+      },
+      {
+        "file": ".web/template/header-actions",
+        "bytes": 218,
+        "sha256": "32500acc2498843d32600c1f9cd8e08ca6670e541a723b4cc48929e420711030"
+      },
+      {
+        "file": ".web/template/logo.svg",
+        "bytes": 34888,
+        "sha256": "f6f59bef8dce5191a2673197366173a3429ce070116a834dc30afc719b698ca6"
+      },
+      {
+        "file": ".web/template/navigation",
+        "bytes": 3,
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      {
+        "file": ".web-cache/.access.json",
+        "bytes": 25,
+        "sha256": "3f7034bff5388fdf875a592b7853ecddf4c53ffd41ac447aa07a38a705a32884"
+      },
+      {
+        "file": ".web-cache/.artifacts.json",
+        "bytes": 1040,
+        "sha256": "1913debf3612048f10107881adf079df053e984b4312de8cbe9ecc720f5ed508"
+      },
+      {
+        "file": ".web-cache/_arc/assets/3fd5df1428d89576dfef4cc84e4368af646271b6ac1b40c9a127ce62e7561ca5.css",
+        "bytes": 88697,
+        "sha256": "3fd5df1428d89576dfef4cc84e4368af646271b6ac1b40c9a127ce62e7561ca5"
+      },
+      {
+        "file": ".web-cache/_arc/assets/44ab37f40cd7197af27beef1f6f82af5568a57c6810048c9b8071bc5f98cffa5.js",
+        "bytes": 508715,
+        "sha256": "44ab37f40cd7197af27beef1f6f82af5568a57c6810048c9b8071bc5f98cffa5"
+      },
+      {
+        "file": ".web-cache/_arc/assets/4ac3477e640ecddf88bd2b5cb9ead34054a389860c848b6586a093c8cd051338.css",
+        "bytes": 32987,
+        "sha256": "4ac3477e640ecddf88bd2b5cb9ead34054a389860c848b6586a093c8cd051338"
+      },
+      {
+        "file": ".web-cache/_arc/assets/5a32d5b3e49f0833e03c16f43a73fb5b24160deb1a6eaa561f8a84f48ab1aff8.js",
+        "bytes": 107565,
+        "sha256": "5a32d5b3e49f0833e03c16f43a73fb5b24160deb1a6eaa561f8a84f48ab1aff8"
+      },
+      {
+        "file": ".web-cache/_arc/assets/6febf929c41729c74f07cbee275af12deac8f8290500523dab7ce62aa5380396.css",
+        "bytes": 30183,
+        "sha256": "6febf929c41729c74f07cbee275af12deac8f8290500523dab7ce62aa5380396"
+      },
+      {
+        "file": ".web-cache/_arc/assets/a96633bcaaf5a2bd215870c3e6ff2013b110a8424399386c4aa757b819600f33.css",
+        "bytes": 26332,
+        "sha256": "a96633bcaaf5a2bd215870c3e6ff2013b110a8424399386c4aa757b819600f33"
+      },
+      {
+        "file": ".web-cache/_arc/assets/cc67cac7ed20bb9b4806287db738bf17ca31798fe143b255570040eee81104fe.js",
+        "bytes": 71522,
+        "sha256": "cc67cac7ed20bb9b4806287db738bf17ca31798fe143b255570040eee81104fe"
+      },
+      {
+        "file": ".web-cache/_arc/assets/f6f59bef8dce5191a2673197366173a3429ce070116a834dc30afc719b698ca6.svg",
+        "bytes": 34888,
+        "sha256": "f6f59bef8dce5191a2673197366173a3429ce070116a834dc30afc719b698ca6"
+      },
+      {
+        "file": ".web-cache/ar/admin/index.html",
+        "bytes": 41310,
+        "sha256": "ceb988e18f3ba4c28089826d978e6d350ec262319a3ef7f0edbc391e7c4c7699"
+      },
+      {
+        "file": ".web-cache/ar/admin-account/index.html",
+        "bytes": 42004,
+        "sha256": "803cb6dd362e7873a4fc977177158306560b5878ad5678e716b3c27f2c765166"
+      },
+      {
+        "file": ".web-cache/ar/admin-attachment/index.html",
+        "bytes": 41430,
+        "sha256": "1ea96f8c9bada01409fbf085ce87cfa598d8af9470c7bb915c50c4f79bde8b7b"
+      },
+      {
+        "file": ".web-cache/ar/admin-envelope/index.html",
+        "bytes": 41399,
+        "sha256": "09d0f893a82208421a125124a3615bd7bdd47f27a52fdb948f9fa7e262aa295b"
+      },
+      {
+        "file": ".web-cache/ar/admin-members/index.html",
+        "bytes": 41394,
+        "sha256": "e0cc514d20f79b574da543185259bd12bde9673f3c0cdf8ddb63fed9508496e2"
+      },
+      {
+        "file": ".web-cache/ar/admin-namecard/index.html",
+        "bytes": 41429,
+        "sha256": "d4c5d55210d28d747347d65767094ef85966e23faa54d60ec0c8d4de03c76462"
+      },
+      {
+        "file": ".web-cache/ar/admin-server/index.html",
+        "bytes": 41373,
+        "sha256": "27071047118a2f816b2046b49ef2e68bea4ac3255c0011360691fa99e59ae2d4"
+      },
+      {
+        "file": ".web-cache/ar/admin-storage/index.html",
+        "bytes": 41425,
+        "sha256": "9f7a288b31bdc0f1549a236fe1f9382f051dde7253fcdadf06b1bf25caba1aff"
+      },
+      {
+        "file": ".web-cache/ar/help/index.html",
+        "bytes": 67251,
+        "sha256": "c5360c1c8d3ba41721a7564585f639beddaf17b30880038c5da4ea92d57a1ce5"
+      },
+      {
+        "file": ".web-cache/ar/index.html",
+        "bytes": 87587,
+        "sha256": "9ad04336ec481642caad831085946a43d98194c1473da71aafb998ad12632049"
+      },
+      {
+        "file": ".web-cache/ar/search/index.html",
+        "bytes": 31462,
+        "sha256": "45a2e92679d3f10e591842835aca3627d537dd94932a42ea418b174fc23e6308"
+      },
+      {
+        "file": ".web-cache/en/admin/index.html",
+        "bytes": 41078,
+        "sha256": "a81920c0a1aa200ccddc959f87282056d4a68e29ee7ac15452bf02e03f93f4ce"
+      },
+      {
+        "file": ".web-cache/en/admin-account/index.html",
+        "bytes": 41687,
+        "sha256": "d30a152ad210540eaded930c4c37fd9158ee5123016dfad85c9e9c57c9a4ea1b"
+      },
+      {
+        "file": ".web-cache/en/admin-attachment/index.html",
+        "bytes": 41194,
+        "sha256": "c0be9285e3190f5fe68430f00c12298258f473fbbc2d19ee53caa79f0f5cf4d3"
+      },
+      {
+        "file": ".web-cache/en/admin-envelope/index.html",
+        "bytes": 41181,
+        "sha256": "6bd53a298f60f78b94ad07f8b92c50f3d2746d8e7aedca290959635e0c79cfec"
+      },
+      {
+        "file": ".web-cache/en/admin-members/index.html",
+        "bytes": 41148,
+        "sha256": "7e276a7eb29261a1e01cc6ebd19364f09ab173e32905ab5abc1e33913a3875c5"
+      },
+      {
+        "file": ".web-cache/en/admin-namecard/index.html",
+        "bytes": 41181,
+        "sha256": "90df46656da18bb9ba9602ec9fef47e8aca2da1ad262bb2e53ca1849a6e5ddb9"
+      },
+      {
+        "file": ".web-cache/en/admin-server/index.html",
+        "bytes": 41141,
+        "sha256": "41b43cd959b8075d00926b1836e8d4cd0cb89b98fe278006945452a22adca778"
+      },
+      {
+        "file": ".web-cache/en/admin-storage/index.html",
+        "bytes": 41163,
+        "sha256": "f2a1f4d5530f4624dbbc8768bf7420ebc8884b72bbb1f18c116a4af2cdef0e44"
+      },
+      {
+        "file": ".web-cache/en/help/index.html",
+        "bytes": 60358,
+        "sha256": "eb86c697bfac88a1df23bde4054c05fb300ed410f1775fdddb8d4d3926e6ea30"
+      },
+      {
+        "file": ".web-cache/en/index.html",
+        "bytes": 87248,
+        "sha256": "fa9881ea0458d1ba6914febf79f864b704054431cd3adc4b1a853efb91c32d0d"
+      },
+      {
+        "file": ".web-cache/en/search/index.html",
+        "bytes": 31462,
+        "sha256": "6ff15f1281312f79f6ec73817b4bb896449236cca32ea6b6608d753d657d655e"
+      },
+      {
+        "file": ".web-cache/index.html",
+        "bytes": 87248,
+        "sha256": "fa9881ea0458d1ba6914febf79f864b704054431cd3adc4b1a853efb91c32d0d"
+      },
+      {
+        "file": ".web-cache/ja/admin/index.html",
+        "bytes": 41641,
+        "sha256": "f7958ba6157d5dab029eda32886204f2eda6761d43248631a67483bac885849d"
+      },
+      {
+        "file": ".web-cache/ja/admin-account/index.html",
+        "bytes": 42304,
+        "sha256": "81dcbf8abd41b5d55d4ed36934ebb16f03d0e8bd7fba7f7069d8e139234e8dee"
+      },
+      {
+        "file": ".web-cache/ja/admin-attachment/index.html",
+        "bytes": 41725,
+        "sha256": "1cc68f54a9a1a098d9169d313aa5d2e8f5fd94ebf52c94c9c08f6b0150238edb"
+      },
+      {
+        "file": ".web-cache/ja/admin-envelope/index.html",
+        "bytes": 41715,
+        "sha256": "eccf6f1f5af409c718912548c5e1b566f019f2966c8a29cf4bab8b429f529e41"
+      },
+      {
+        "file": ".web-cache/ja/admin-members/index.html",
+        "bytes": 41710,
+        "sha256": "0ae66605372da4a446a12597166bdc03883af5b25f49a210f80b492591a4dbd0"
+      },
+      {
+        "file": ".web-cache/ja/admin-namecard/index.html",
+        "bytes": 41715,
+        "sha256": "e32604968d372dbf161c3c73ea3dbe0c276039be64852b94ba103e8b43f0b739"
+      },
+      {
+        "file": ".web-cache/ja/admin-server/index.html",
+        "bytes": 41704,
+        "sha256": "cd77f02b8a818af0636157259f57f0e37fabd3b5fb110ac8394a5acd0138a06f"
+      },
+      {
+        "file": ".web-cache/ja/admin-storage/index.html",
+        "bytes": 41716,
+        "sha256": "3f25f181ff60b45d2e143f96cf53a209d5110f52b5f466a05b3e9b46fede167b"
+      },
+      {
+        "file": ".web-cache/ja/help/index.html",
+        "bytes": 64649,
+        "sha256": "87824192d378bf9c38aad73eb9d21e2a645eff9af2e66e15145fb03691d1f95c"
+      },
+      {
+        "file": ".web-cache/ja/index.html",
+        "bytes": 87906,
+        "sha256": "ffc198aa3661abc361cd7ef598c85e78a6697dfd77d29e5bb2e3716612409aaa"
+      },
+      {
+        "file": ".web-cache/ja/search/index.html",
+        "bytes": 31862,
+        "sha256": "d1af11b3b7ab0732cd451d0a52105321243506ab50231a676fda31ef99f7d686"
+      },
+      {
+        "file": ".web-cache/llms-full.txt",
+        "bytes": 34,
+        "sha256": "aa782eabb42c1fc6e9ca2b8072ada763f2ee0358527ba4a0ac58fdc885c0ba4c"
+      },
+      {
+        "file": ".web-cache/llms.txt",
+        "bytes": 408,
+        "sha256": "d558147a75f25c44729facf6ca48113c2450b63c2cded406dfec33c358e8c769"
+      },
+      {
+        "file": ".web-cache/logo.svg",
+        "bytes": 34888,
+        "sha256": "f6f59bef8dce5191a2673197366173a3429ce070116a834dc30afc719b698ca6"
+      },
+      {
+        "file": ".web-cache/robots.txt",
+        "bytes": 75,
+        "sha256": "84bed4fcf44ab5f5ac11ed37023edf59aa3f92b6c4a4c8ff3296c1e000304fe1"
+      },
+      {
+        "file": ".web-cache/ru/admin/index.html",
+        "bytes": 41342,
+        "sha256": "4d89985ac1d2dbafedce6bb84b5de408fc8680aa9297283296fce1fe64ba1d10"
+      },
+      {
+        "file": ".web-cache/ru/admin-account/index.html",
+        "bytes": 41996,
+        "sha256": "eaa11e92ac7329141420543aaedad33faa1bcd48d03ac70c4db53b6ce07110b3"
+      },
+      {
+        "file": ".web-cache/ru/admin-attachment/index.html",
+        "bytes": 41436,
+        "sha256": "dfd00d5ff1c3461d0f76d64b5dd0ada34f3f0daa4924db9275fcd5e5c22d359c"
+      },
+      {
+        "file": ".web-cache/ru/admin-envelope/index.html",
+        "bytes": 41435,
+        "sha256": "4616b4e9d004509ad2a47e4834768206a573523f88ee7af0901e2426de17399b"
+      },
+      {
+        "file": ".web-cache/ru/admin-members/index.html",
+        "bytes": 41400,
+        "sha256": "ab461046b8e9e6ae87e8bd557c0607024cc03947bd2d8bf83a31e3f1e44eca4b"
+      },
+      {
+        "file": ".web-cache/ru/admin-namecard/index.html",
+        "bytes": 41429,
+        "sha256": "0c4e5cfbe1ce3d847e162645dd312b086abf70a710df0d11c03991f783455f16"
+      },
+      {
+        "file": ".web-cache/ru/admin-server/index.html",
+        "bytes": 41405,
+        "sha256": "14428af3471e2363d61291f9a7dd7f85753d979039aebeaa163ad0af7c72b397"
+      },
+      {
+        "file": ".web-cache/ru/admin-storage/index.html",
+        "bytes": 41422,
+        "sha256": "4a61543b1d5b97ff6332eb6aed4ff71fa0c737fa1601d76a64ef19756a336f87"
+      },
+      {
+        "file": ".web-cache/ru/help/index.html",
+        "bytes": 73861,
+        "sha256": "d1e1fd75951e558f60533006bdbd2d58caa89373a6514441dc9e2b118ce259e6"
+      },
+      {
+        "file": ".web-cache/ru/index.html",
+        "bytes": 87935,
+        "sha256": "7855fe1b50452ae850bd353e9159d8cc3f0796111cacac37306d070254202095"
+      },
+      {
+        "file": ".web-cache/ru/search/index.html",
+        "bytes": 31462,
+        "sha256": "069d60ea09f45c6d8ee58195998e1a842a1cde4130ccd1bb97eef6ab66b24432"
+      },
+      {
+        "file": ".web-cache/sitemap-pages.xml",
+        "bytes": 7087,
+        "sha256": "9a2c6099fcf7ad50a57d0199562957a38fe6b0aab0133d88557621d1660e5de3"
+      },
+      {
+        "file": ".web-cache/sitemap-pages.xml.br",
+        "bytes": 403,
+        "sha256": "673046038d50cf1d9348781bee75f5f34ad4f088c279114dd15fd21c62d4f03c"
+      },
+      {
+        "file": ".web-cache/sitemap-pages.xml.gz",
+        "bytes": 517,
+        "sha256": "46332b10ebfb1af07ad56a9e86effc3a689ee85f9e65a9de4426ff36a049c677"
+      },
+      {
+        "file": ".web-cache/sitemap.xml",
+        "bytes": 209,
+        "sha256": "195c5118cf534d81edd17d4ba25e6c0b02904f041d957be1912764dfdf0b47b6"
+      },
+      {
+        "file": ".web-cache/zh/admin/index.html",
+        "bytes": 41512,
+        "sha256": "59284552e05d28186056f41876dad0e7487fe51ad1eba470e9201e032664647c"
+      },
+      {
+        "file": ".web-cache/zh/admin-account/index.html",
+        "bytes": 42136,
+        "sha256": "887a68045b350e77dccca293946f4ad8ad52984a646c72068a2a60f12d13bfe9"
+      },
+      {
+        "file": ".web-cache/zh/admin-attachment/index.html",
+        "bytes": 41608,
+        "sha256": "7717ce5d381c504caeca3de6ada057e976c7df8a3cb2fc4922aab68c8ba0b98a"
+      },
+      {
+        "file": ".web-cache/zh/admin-envelope/index.html",
+        "bytes": 41592,
+        "sha256": "78f6e82cd7239ad0e42965b67b860bf150315982705e8daec78355f343dfb94c"
+      },
+      {
+        "file": ".web-cache/zh/admin-members/index.html",
+        "bytes": 41571,
+        "sha256": "fceb78596a7c374154cbc89b181ff3a92f0d8cc61a2dd2d6b051c715b2edff84"
+      },
+      {
+        "file": ".web-cache/zh/admin-namecard/index.html",
+        "bytes": 41592,
+        "sha256": "657794401795f06a54ef0f63ddb3dbb80860e14214470438194c2da2477a2ce7"
+      },
+      {
+        "file": ".web-cache/zh/admin-server/index.html",
+        "bytes": 41575,
+        "sha256": "9a24db8ac0a30c08faec2a856e86a341a3589a51f50907634487e7f7199cc78d"
+      },
+      {
+        "file": ".web-cache/zh/admin-storage/index.html",
+        "bytes": 41581,
+        "sha256": "970142d05dc65938e23d553013ea3e790b9242a95b8d2354f2c7fcedbb6c6ba5"
+      },
+      {
+        "file": ".web-cache/zh/help/index.html",
+        "bytes": 57956,
+        "sha256": "3b813f89aa4aa579f177efa61308045bfa860891ee4d9eb05301c8697b974d6e"
+      },
+      {
+        "file": ".web-cache/zh/index.html",
+        "bytes": 87628,
+        "sha256": "4b132325fec96d1eaa423e36da5a93bad9d07deaeabd9e7ef6c836da1c24c89f"
+      },
+      {
+        "file": ".web-cache/zh/search/index.html",
+        "bytes": 31841,
+        "sha256": "e7bb61174c9cad287de563274028c8b9dd6ceb544025090c1901bc971cfe47d4"
+      },
+      {
+        "file": "LICENSE",
+        "bytes": 11358,
+        "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      },
+      {
+        "file": "NOTICE",
+        "bytes": 382,
+        "sha256": "9f42e64633ce4dd7556e59637e2a18de0ab39e89cd7b469635fe4c49ce0ba9a4"
+      },
+      {
+        "file": "THIRD_PARTY_NOTICES.md",
+        "bytes": 4009,
+        "sha256": "be3d9af7d213337c76feb47a1988fb24f38081c79932d7ef654dd199dfc842b1"
+      },
+      {
+        "file": "blocklet.dist.json",
+        "bytes": 659,
+        "sha256": "693ee220d3dc9f459d3e3a2a854e316bfc307d5fcdbf3fb39da3074e3311c5f6"
+      },
+      {
+        "file": "blocklet.yaml",
+        "bytes": 440,
+        "sha256": "111bfe18a2d3a6c9c0f7bc861e8be8c670645db9e8de92058b216f480a70aef6"
+      },
+      {
+        "file": "pages/admin/layout.aup",
+        "bytes": 98,
+        "sha256": "87b5716b65d1c80072a129049c2593710ef72b37503c99c542ad1d29db0d3cc2"
+      },
+      {
+        "file": "pages/admin/seo/title",
+        "bytes": 23,
+        "sha256": "aaf0d5d696080ebb39553ad5b729545d002a471bd21263f23f86d9306d85fb61"
+      },
+      {
+        "file": "pages/admin-account/layout.aup",
+        "bytes": 107,
+        "sha256": "c863a145b83e207b09e905fd594dccbc42f7892c97781bf896a7da42658c1ba4"
+      },
+      {
+        "file": "pages/admin-account/seo/title",
+        "bytes": 24,
+        "sha256": "00fb69de8ee76243d746dc8a079e6a2ed4bfb5c5fa9377d5e160883ebde760ee"
+      },
+      {
+        "file": "pages/admin-attachment/layout.aup",
+        "bytes": 113,
+        "sha256": "631a337e9760905716d144963974687ba315e32b5558b68259848bf66ca00046"
+      },
+      {
+        "file": "pages/admin-attachment/seo/title",
+        "bytes": 25,
+        "sha256": "55ffd1b521729de9e74ef4f7f44c5322b8152c724c928f35325e7b198bc98a60"
+      },
+      {
+        "file": "pages/admin-envelope/layout.aup",
+        "bytes": 109,
+        "sha256": "31865d2654ee640c89d707aa98f9942f4a5deb47547f5cf8c70fba23b2e8df89"
+      },
+      {
+        "file": "pages/admin-envelope/seo/title",
+        "bytes": 25,
+        "sha256": "664eef8fda1affe3a110627fa89b6d2003a6c997c4a913d107243f2998492c16"
+      },
+      {
+        "file": "pages/admin-members/layout.aup",
+        "bytes": 107,
+        "sha256": "e158ce503e9d12221b59bfee8cc6ea33ca7dec1f7531e6d5cdea009c6a3d19b3"
+      },
+      {
+        "file": "pages/admin-members/seo/title",
+        "bytes": 24,
+        "sha256": "4a1f4ccca69981555a0b647bac089490192d7177a94425ab1407c43a77424ec4"
+      },
+      {
+        "file": "pages/admin-namecard/layout.aup",
+        "bytes": 109,
+        "sha256": "74bf65c5049b9594a4c6970a8fb92ec8bc5308172f673033a49e2c0617b6d441"
+      },
+      {
+        "file": "pages/admin-namecard/seo/title",
+        "bytes": 25,
+        "sha256": "b1d1f97fb3470164f82a4d4decbe60ec0097b8d904dd8d3ee96a3c60b1942e43"
+      },
+      {
+        "file": "pages/admin-server/layout.aup",
+        "bytes": 105,
+        "sha256": "4adbf87267168448e8ed30f7027a8a5fcf954a30d0103b0e0d92fd412ca0b8ea"
+      },
+      {
+        "file": "pages/admin-server/seo/title",
+        "bytes": 23,
+        "sha256": "aaf0d5d696080ebb39553ad5b729545d002a471bd21263f23f86d9306d85fb61"
+      },
+      {
+        "file": "pages/admin-storage/layout.aup",
+        "bytes": 107,
+        "sha256": "496b4888571c1d4f2fc920232e1bb4d67522c96e4e776fe453ceed51330221a4"
+      },
+      {
+        "file": "pages/admin-storage/seo/title",
+        "bytes": 24,
+        "sha256": "3356ad069ce75c3f1406045fef014c212723114767284adb964f9b2b5e38a2bc"
+      },
+      {
+        "file": "pages/help/layout.aup",
+        "bytes": 79,
+        "sha256": "2665d1db28ebaa3baf83157fd0ef967c23d0f4638c1e1e941623e17d9e5f40fe"
+      },
+      {
+        "file": "pages/help/seo/title",
+        "bytes": 22,
+        "sha256": "153c2a4641dcc031d78cac3f12032b14646ae883de37d50ab1f7996af5669655"
+      },
+      {
+        "file": "pages/index/layout.aup",
+        "bytes": 80,
+        "sha256": "1ca8fb818accd5606193ef989f1026124e8d18a0d90c6f35d3e915f91d9eaa3f"
+      },
+      {
+        "file": "pages/index/seo/title",
+        "bytes": 14,
+        "sha256": "77850450ef0d4b133b369e7e5c32404da304cc55d4d955705056577bfe94340a"
+      },
+      {
+        "file": "providers/didmail/config.json",
+        "bytes": 37,
+        "sha256": "cee95788240b6288728ac2fac515df82134624c760454f8906c4ee1b6ad1f613"
+      },
+      {
+        "file": "providers/didmail/index.mjs",
+        "bytes": 2337,
+        "sha256": "2231b08c423787aca1edd233c7424e2b3f7506590e692ef088dc7d92622e7bc9"
+      },
+      {
+        "file": "providers/didmail-native/index.mjs",
+        "bytes": 5951,
+        "sha256": "10d81896b2ceb906ec56cbe1a30f617f81640f141a1e5b7736e8b95134c4f04f"
+      },
+      {
+        "file": "third_party_licenses/blocklet-bundle-licenses.txt",
+        "bytes": 3158,
+        "sha256": "53dd95b35a32f2c3d662a7a605b9d5475b991da93bb054988f1423d52d2af52d"
+      },
+      {
+        "file": "third_party_licenses/boolbase1.0.0.txt",
+        "bytes": 751,
+        "sha256": "cdf4d87ae0a6c160227263bf4e39a0a10e30e89ae7256e0f7ac7bde0836552c6"
+      },
+      {
+        "file": "third_party_licenses/cisco-go-hpke-bsd2.txt",
+        "bytes": 1323,
+        "sha256": "3aafec54d4b93c433948f294cb9e6493dada8613b11fe098c7ca9fd165a20225"
+      },
+      {
+        "file": "third_party_licenses/cookie-signature1.0.6-README-license.txt",
+        "bytes": 1111,
+        "sha256": "c0a936e4727a7503020745eaf063acffbb81291fcfd21a0cd8db4b4fce95d902"
+      },
+      {
+        "file": "third_party_licenses/deepmerge4.3.1.txt",
+        "bytes": 1116,
+        "sha256": "6cfc4687cb2f2d86f4a77e6b526290d3878e5e512f3fec2f4cb36a9cb36f798b"
+      },
+      {
+        "file": "third_party_licenses/express-async-errors3.1.1.txt",
+        "bytes": 840,
+        "sha256": "2853a1f04aa49c6af26f9dac1ef233c18e319109319a2ba60313a8517dbdda95"
+      },
+      {
+        "file": "third_party_licenses/google-closure-library-Apache-2.0.txt",
+        "bytes": 10173,
+        "sha256": "a6cba85bc92e0cff7a450b1d873c0eaa2e9fc96bf472df0247a26bec77bf3ff9"
+      },
+      {
+        "file": "third_party_licenses/google-protobuf3.21.0-Closure-header.txt",
+        "bytes": 84,
+        "sha256": "6f451d925cddd9d9f35c5c112aebb058c6ac610515a04ae82aff2c1f966a3ac7"
+      },
+      {
+        "file": "third_party_licenses/jsonify0.0.1-README-license.txt",
+        "bytes": 26,
+        "sha256": "5845c1987e0995dc7f846bec7e9e892934a2591b1a12994aafca1316f84adb9f"
+      },
+      {
+        "file": "third_party_licenses/minimatch11.0.3.txt",
+        "bytes": 1550,
+        "sha256": "2c7c5d22ed5a8ee968c64757710979afcd77438c48b4a265b94e615babd8a901"
+      },
+      {
+        "file": "third_party_licenses/ocap-client1.19.15.txt",
+        "bytes": 554,
+        "sha256": "72053fcf79fb7a7863da2c1bb5a14ec555e982516761020070349105b0f7bd3a"
+      },
+      {
+        "file": "third_party_licenses/qrcode-generator1.4.4-source-header.txt",
+        "bytes": 489,
+        "sha256": "7bab270ae530f8bd20fe784effd62cd5ad337476b037f8d3e62accc5fa4929e6"
+      },
+      {
+        "file": "third_party_licenses/qrcode-generator1.4.4.txt",
+        "bytes": 1071,
+        "sha256": "3a850fa5f08101db6f40676c2786e10bd2cd5fff7b12ffdf1e0c434d4e49d90c"
+      },
+      {
+        "file": "third_party_licenses/worker-bundle-licenses.txt",
+        "bytes": 217660,
+        "sha256": "bdcffb8972511872150c6004e8f4d8621b0db8dabfa4a63a7a3fde1a449f4e74"
+      },
+      {
+        "file": "web/logo.svg",
+        "bytes": 34888,
+        "sha256": "f6f59bef8dce5191a2673197366173a3429ce070116a834dc30afc719b698ca6"
+      }
+    ]
+  },
+  "excludedLocalEvidence": [
+    ".worker/test.mjs",
+    ".worker/test-metafile.json",
+    ".worker/metafile.json",
+    "artifacts/worker-upload/index.js.map",
+    "artifacts/worker-upload/metafile.json"
+  ]
+}

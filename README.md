@@ -20,7 +20,7 @@ The guides cover organization onboarding, identities and permissions, node walle
 
 ## Local development
 
-Use Node.js 24.14 or newer, the pnpm version declared in this component's `package.json`, and the ARC CLI. The protocol SDK is pinned to a Git commit and built during installation. While it is private, your Git credentials need read access. From the repository root:
+Use Node.js 24.14 or newer, the pnpm version declared in this component's `package.json`, and the ARC CLI. The protocol SDK is pinned to a Git commit and built during installation. The pinned protocol repository is public. From the repository root:
 
 ```sh
 corepack pnpm install --frozen-lockfile
@@ -86,6 +86,6 @@ Some older engineering documents retain historical paths and feature proposals. 
 
 ## License
 
-DIDMail original code and documentation use [Apache-2.0](LICENSE). Available third-party notices are in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md); see the [Worker dependency inventory](docs/worker-dependency-inventory.md). Complete distribution notice review remains outstanding. Other third-party components retain their own licenses; see the [licensing guide](https://github.com/didmail-org/overview/blob/main/docs/licensing.md).
+DIDMail original code and documentation use [Apache-2.0](LICENSE). Available third-party notices are in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md); see the [Worker dependency inventory](docs/worker-dependency-inventory.md). Worker and Blocklet distribution remain blocked; see the [artifact license audit](docs/distribution-license-audit.md) for exact evidence, resolved items and remaining requirements. Other third-party components retain their own licenses; see the [licensing guide](https://github.com/didmail-org/overview/blob/main/docs/licensing.md).
 
 The full `pnpm test:worker` includes the cross-client codec test and requires sibling `mobile` and `extension` checkouts with dependencies installed. `pnpm test:worker:standalone` runs the remaining Worker tests without those private checkouts; run the full suite when the cross-client checkouts are available. Protocol fixtures in `test/fixtures/protocol` were copied from the pinned protocol revision.
