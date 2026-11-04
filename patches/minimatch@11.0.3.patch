@@ -1,0 +1,28 @@
+diff --git a/dist/commonjs/index.js b/dist/commonjs/index.js
+index eb1c915f43b2debf5faa7ac3a73c262a161c7a4f..6b21613086d114999b91f50b16c8b94bc382a056 100644
+--- a/dist/commonjs/index.js
++++ b/dist/commonjs/index.js
+@@ -1547,4 +1547,23 @@ Object.defineProperty(exports, "unescape", { enumerable: true, get: function ()
+ exports.minimatch.Minimatch = Minimatch;
+ exports.minimatch.escape = escape_js_1.escape;
+ exports.minimatch.unescape = unescape_js_1.unescape;
++// glob 7 consumes the documented Minimatch set as RegExp-like path segments.
++// Keep its _glob and String.match adapters on the bounded modern Matcher;
++// matching still uses the maintained nonrecursive implementation.
++class LegacyMinimatch extends Minimatch {
++    parse(pattern) {
++        const part = super.parse(pattern);
++        if (part instanceof nonrecursive_glob_match_1.Matcher && !Object.hasOwn(part, '_glob')) {
++            Object.defineProperty(part, '_glob', { get() { return this.pattern; } });
++            Object.defineProperty(part, Symbol.match, {
++                value(value) { return this.test(value) ? [value] : null; }
++            });
++        }
++        return part;
++    }
++}
++exports.Minimatch = LegacyMinimatch;
++exports.minimatch.Minimatch = LegacyMinimatch;
++// Preserve callable CommonJS users and the maintained named export surface.
++module.exports = Object.assign(exports.minimatch, exports);
+ //# sourceMappingURL=index.js.map

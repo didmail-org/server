@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 800 500">
+  <title>Classic — ivory and charcoal</title>
+  <defs>
+    <linearGradient id="ivory" x2="1" y2="1">
+      <stop stop-color="#fffefb"/><stop offset=".6" stop-color="#f7f5f0"/><stop offset="1" stop-color="#eae6dd"/>
+    </linearGradient>
+    <linearGradient id="rule" gradientUnits="userSpaceOnUse" x1="56" y1="108" x2="744" y2="108">
+      <stop stop-color="#b0a28c"/><stop offset="1" stop-color="#ded8ce"/>
+    </linearGradient>
+    <clipPath id="company"><rect x="56" y="46" width="688" height="36"/></clipPath>
+    <clipPath id="name"><rect x="56" y="157" width="688" height="68"/></clipPath>
+    <clipPath id="role"><rect x="56" y="237" width="688" height="34"/></clipPath>
+    <clipPath id="phone"><rect x="56" y="358" width="688" height="32"/></clipPath>
+    <clipPath id="email"><rect x="56" y="405" width="688" height="32"/></clipPath>
+  </defs>
+  <rect width="800" height="500" rx="20" fill="url(#ivory)"/>
+  <rect x="1" y="1" width="798" height="498" rx="19" fill="none" stroke="#ffffff" stroke-opacity=".8"/>
+  <path d="M56 108h688" stroke="url(#rule)"/>
+  <path d="M56 319h48" stroke="#a5967e" stroke-width="2"/>
+  <g font-family="Inter, Arial, sans-serif">
+    <text x="56" y="73" font-size="20" font-weight="500" fill="#514b42" clip-path="url(#company)">{{contact.company}}</text>
+    <text x="56" y="211" font-family="Georgia, 'Times New Roman', serif" font-size="46" fill="#282823" clip-path="url(#name)">{{contact.name}}</text>
+    <text x="56" y="262" font-size="21" fill="#6b655b" clip-path="url(#role)">{{contact.position}}</text>
+    <text x="56" y="382" font-size="20" fill="#514b42" clip-path="url(#phone)">{{contact.phone}}</text>
+    <text x="56" y="429" font-size="20" fill="#514b42" clip-path="url(#email)">{{contact.email}}</text>
+  </g>
+</svg>

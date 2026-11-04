@@ -1,0 +1,18 @@
+specVersion: 2
+id: didmail-arc
+name: DIDMail Server
+did: did:blocklet:didmail-arc
+version: 0.1.0
+description: Decentralized encrypted mail with the original REST API and native AUP Web Device UI
+logo: web/logo.svg
+license: Apache-2.0
+save: false
+scope: app
+sites:
+  - name: didmail-arc
+    domains: ["didmail-arc.localhost"]
+mounts:
+  - target: ./providers/didmail
+    path: /didmail
+    required: true
+    ops: [list, read, stat, explain]

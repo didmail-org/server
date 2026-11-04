@@ -1,0 +1,898 @@
+{
+  "contacts": [
+    {
+      "cid": 0,
+      "name": "id",
+      "type": "INTEGER",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 1
+    },
+    {
+      "cid": 1,
+      "name": "sender",
+      "type": "VARCHAR(255)",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 2,
+      "name": "receiver",
+      "type": "VARCHAR(255)",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 3,
+      "name": "contact",
+      "type": "TEXT",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 4,
+      "name": "namecard",
+      "type": "VARCHAR(255)",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 5,
+      "name": "hash",
+      "type": "VARCHAR(255)",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 6,
+      "name": "size",
+      "type": "INTEGER",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 7,
+      "name": "paymentTx",
+      "type": "VARCHAR(255)",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 8,
+      "name": "assetTx",
+      "type": "VARCHAR(255)",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 9,
+      "name": "asset",
+      "type": "VARCHAR(255)",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 10,
+      "name": "payment",
+      "type": "VARCHAR(255)",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 11,
+      "name": "credit",
+      "type": "VARCHAR(255)",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 12,
+      "name": "dividend",
+      "type": "VARCHAR(255)",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 13,
+      "name": "createdAt",
+      "type": "DATETIME",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 14,
+      "name": "updatedAt",
+      "type": "DATETIME",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 15,
+      "name": "deletedAt",
+      "type": "DATETIME",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 16,
+      "name": "preparedOrigin",
+      "type": "TEXT",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 17,
+      "name": "sendStatus",
+      "type": "VARCHAR(255)",
+      "notnull": 1,
+      "dflt_value": "'review'",
+      "pk": 0
+    }
+  ],
+  "mails": [
+    {
+      "cid": 0,
+      "name": "id",
+      "type": "INTEGER",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 1
+    },
+    {
+      "cid": 1,
+      "name": "subject",
+      "type": "TEXT",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 2,
+      "name": "content",
+      "type": "TEXT",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 3,
+      "name": "sender",
+      "type": "VARCHAR(255)",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 4,
+      "name": "receiver",
+      "type": "VARCHAR(255)",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 5,
+      "name": "envelope",
+      "type": "VARCHAR(255)",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 6,
+      "name": "hash",
+      "type": "VARCHAR(255)",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 7,
+      "name": "size",
+      "type": "INTEGER",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 8,
+      "name": "paymentTx",
+      "type": "VARCHAR(255)",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 9,
+      "name": "assetTx",
+      "type": "VARCHAR(255)",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 10,
+      "name": "asset",
+      "type": "VARCHAR(255)",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 11,
+      "name": "payment",
+      "type": "VARCHAR(255)",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 12,
+      "name": "credit",
+      "type": "VARCHAR(255)",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 13,
+      "name": "dividend",
+      "type": "VARCHAR(255)",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 14,
+      "name": "expiredAt",
+      "type": "DATETIME",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 15,
+      "name": "createdAt",
+      "type": "DATETIME",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 16,
+      "name": "updatedAt",
+      "type": "DATETIME",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 17,
+      "name": "downloadAt",
+      "type": "DATETIME",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 18,
+      "name": "deletedAt",
+      "type": "DATETIME",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 19,
+      "name": "totalAttachmentSize",
+      "type": "INTEGER",
+      "notnull": 0,
+      "dflt_value": "0",
+      "pk": 0
+    },
+    {
+      "cid": 20,
+      "name": "attachmentCount",
+      "type": "INTEGER",
+      "notnull": 0,
+      "dflt_value": "0",
+      "pk": 0
+    },
+    {
+      "cid": 21,
+      "name": "attachmentStorageCost",
+      "type": "VARCHAR(255)",
+      "notnull": 0,
+      "dflt_value": "'0'",
+      "pk": 0
+    },
+    {
+      "cid": 22,
+      "name": "preparedOrigin",
+      "type": "TEXT",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 23,
+      "name": "sendStatus",
+      "type": "VARCHAR(255)",
+      "notnull": 1,
+      "dflt_value": "'prepared'",
+      "pk": 0
+    }
+  ],
+  "envelopes": [
+    {
+      "cid": 0,
+      "name": "id",
+      "type": "INTEGER",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 1
+    },
+    {
+      "cid": 1,
+      "name": "address",
+      "type": "VARCHAR(255)",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 2,
+      "name": "name",
+      "type": "VARCHAR(255)",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 3,
+      "name": "price",
+      "type": "VARCHAR(255)",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 4,
+      "name": "token",
+      "type": "VARCHAR(255)",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 5,
+      "name": "retentionPeriod",
+      "type": "INTEGER",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 6,
+      "name": "description",
+      "type": "TEXT",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 7,
+      "name": "svg",
+      "type": "TEXT",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 8,
+      "name": "enabled",
+      "type": "TINYINT(1)",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 9,
+      "name": "createdAt",
+      "type": "DATETIME",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 10,
+      "name": "updatedAt",
+      "type": "DATETIME",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 11,
+      "name": "category",
+      "type": "TEXT",
+      "notnull": 1,
+      "dflt_value": "'public'",
+      "pk": 0
+    }
+  ],
+  "namecards": [
+    {
+      "cid": 0,
+      "name": "id",
+      "type": "INTEGER",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 1
+    },
+    {
+      "cid": 1,
+      "name": "address",
+      "type": "VARCHAR(255)",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 2,
+      "name": "price",
+      "type": "VARCHAR(255)",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 3,
+      "name": "token",
+      "type": "VARCHAR(255)",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 4,
+      "name": "description",
+      "type": "TEXT",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 5,
+      "name": "svg",
+      "type": "TEXT",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 6,
+      "name": "enabled",
+      "type": "TINYINT(1)",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 7,
+      "name": "createdAt",
+      "type": "DATETIME",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 8,
+      "name": "updatedAt",
+      "type": "DATETIME",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 9,
+      "name": "category",
+      "type": "TEXT",
+      "notnull": 1,
+      "dflt_value": "'public'",
+      "pk": 0
+    }
+  ],
+  "attachment_config": [
+    {
+      "cid": 0,
+      "name": "id",
+      "type": "INTEGER",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 1
+    },
+    {
+      "cid": 1,
+      "name": "maxFileSizeBytes",
+      "type": "INTEGER",
+      "notnull": 1,
+      "dflt_value": "10485760",
+      "pk": 0
+    },
+    {
+      "cid": 2,
+      "name": "maxFileCount",
+      "type": "INTEGER",
+      "notnull": 1,
+      "dflt_value": "5",
+      "pk": 0
+    },
+    {
+      "cid": 3,
+      "name": "pricePerBytePerDay",
+      "type": "VARCHAR(255)",
+      "notnull": 1,
+      "dflt_value": "'0'",
+      "pk": 0
+    },
+    {
+      "cid": 4,
+      "name": "updatedAt",
+      "type": "DATETIME",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 5,
+      "name": "createdAt",
+      "type": "DATETIME",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    }
+  ],
+  "attachments": [
+    {
+      "cid": 0,
+      "name": "id",
+      "type": "VARCHAR(255)",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 1
+    },
+    {
+      "cid": 1,
+      "name": "mailId",
+      "type": "INTEGER",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 2,
+      "name": "encryptedName",
+      "type": "TEXT",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 3,
+      "name": "encryptedMime",
+      "type": "TEXT",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 4,
+      "name": "size",
+      "type": "INTEGER",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 5,
+      "name": "hash",
+      "type": "VARCHAR(255)",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 6,
+      "name": "content",
+      "type": "BLOB",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 7,
+      "name": "createdAt",
+      "type": "DATETIME",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 8,
+      "name": "updatedAt",
+      "type": "DATETIME",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    }
+  ],
+  "aliases": [
+    {
+      "cid": 0,
+      "name": "id",
+      "type": "INTEGER",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 1
+    },
+    {
+      "cid": 1,
+      "name": "alias",
+      "type": "VARCHAR(255)",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 2,
+      "name": "aliasHash",
+      "type": "VARCHAR(255)",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 3,
+      "name": "domain",
+      "type": "VARCHAR(255)",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 4,
+      "name": "owner",
+      "type": "VARCHAR(255)",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 5,
+      "name": "ownerPk",
+      "type": "VARCHAR(255)",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 6,
+      "name": "assetAddress",
+      "type": "VARCHAR(255)",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 7,
+      "name": "mintTx",
+      "type": "VARCHAR(255)",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 8,
+      "name": "burnTx",
+      "type": "VARCHAR(255)",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 9,
+      "name": "bindingProof",
+      "type": "TEXT",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 10,
+      "name": "nonce",
+      "type": "VARCHAR(255)",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 11,
+      "name": "price",
+      "type": "VARCHAR(255)",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 12,
+      "name": "expiresAt",
+      "type": "INTEGER",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 13,
+      "name": "status",
+      "type": "VARCHAR(255)",
+      "notnull": 1,
+      "dflt_value": "'active'",
+      "pk": 0
+    },
+    {
+      "cid": 14,
+      "name": "createdAt",
+      "type": "DATETIME",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 15,
+      "name": "updatedAt",
+      "type": "DATETIME",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 16,
+      "name": "preparedOrigin",
+      "type": "TEXT",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 0
+    }
+  ],
+  "domain_bindings": [
+    {
+      "cid": 0,
+      "name": "id",
+      "type": "INTEGER",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 1
+    },
+    {
+      "cid": 1,
+      "name": "domain",
+      "type": "VARCHAR(255)",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 2,
+      "name": "status",
+      "type": "VARCHAR(255)",
+      "notnull": 1,
+      "dflt_value": "'pending'",
+      "pk": 0
+    },
+    {
+      "cid": 3,
+      "name": "challenge",
+      "type": "VARCHAR(255)",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 4,
+      "name": "domainKeyEnc",
+      "type": "TEXT",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 5,
+      "name": "verifiedAt",
+      "type": "INTEGER",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 6,
+      "name": "lastCheckedAt",
+      "type": "INTEGER",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 7,
+      "name": "graceUntil",
+      "type": "INTEGER",
+      "notnull": 0,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 8,
+      "name": "aliasPrice",
+      "type": "VARCHAR(255)",
+      "notnull": 1,
+      "dflt_value": "'0'",
+      "pk": 0
+    },
+    {
+      "cid": 9,
+      "name": "renewPricePerYear",
+      "type": "VARCHAR(255)",
+      "notnull": 1,
+      "dflt_value": "'0'",
+      "pk": 0
+    },
+    {
+      "cid": 10,
+      "name": "minLength",
+      "type": "INTEGER",
+      "notnull": 1,
+      "dflt_value": "4",
+      "pk": 0
+    },
+    {
+      "cid": 11,
+      "name": "maxLength",
+      "type": "INTEGER",
+      "notnull": 1,
+      "dflt_value": "32",
+      "pk": 0
+    },
+    {
+      "cid": 12,
+      "name": "createdAt",
+      "type": "DATETIME",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    },
+    {
+      "cid": 13,
+      "name": "updatedAt",
+      "type": "DATETIME",
+      "notnull": 1,
+      "dflt_value": null,
+      "pk": 0
+    }
+  ]
+}

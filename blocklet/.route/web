@@ -1,0 +1,5 @@
+site: didmail-arc
+path: /
+source: .
+handler: web
+access: public

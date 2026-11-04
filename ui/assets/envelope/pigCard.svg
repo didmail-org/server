@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="a" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 634 400">
+	<style>	
+		.white {			
+			fill: #ffffff;
+		}
+		.text-xl {
+			font-size: 18px;
+			font-weight: bold;
+		}
+		.text-lg {
+			font-size: 16px;		
+		}
+	</style>
+	<defs>
+		<linearGradient id="b" x1="0" y1="200" x2="634" y2="200" gradientUnits="userSpaceOnUse" gradientTransform="rotate(5)">
+            <stop offset="0" stop-color="#ec4646"/> <!-- Hot Pink -->            
+			<stop offset="0.7" stop-color="#ff9900" /> <!-- Gold -->	
+            <stop offset="1" stop-color="#f9b754" /> <!-- Gold -->				            				
+		</linearGradient>
+	</defs>
+	<rect x="0" y="0" width="634" height="400" rx="20" ry="20" style="fill:url(#b);"/>
+    <line x1="20" y1="60" x2="614" y2="60" opacity="0.4" stroke="#fff" stroke-width="1" />
+	<g transform="translate(20, 80)" opacity="0.7">
+    <!-- Pig's body -->
+    <path d="M 500,200
+             m -50,0
+             a 50,50 0 1,0 100,0
+             a 50,50 0 1,0 -100,0"
+          fill="#FFB6C1" /> <!-- Light Pink -->
+
+    <!-- Pig's left ear -->
+    <path d="M 470,170
+             Q 460,150 480,150
+             Q 490,150 480,170 Z"
+          fill="#FFB6C1" />
+
+    <!-- Pig's right ear -->
+    <path d="M 530,170
+             Q 540,150 520,150
+             Q 510,150 520,170 Z"
+          fill="#FFB6C1" />
+
+    <!-- Pig's left eye -->
+    <circle cx="485" cy="190" r="6" fill="#000" />
+
+    <!-- Pig's right eye -->
+    <circle cx="515" cy="190" r="6" fill="#000" />
+
+    <!-- Pig's snout -->
+    <ellipse cx="500" cy="210" rx="15" ry="10" fill="#FFCCCC" />
+
+    <!-- Pig's nostrils -->
+    <circle cx="495" cy="210" r="3" fill="#000" opacity="0.6" />
+    <circle cx="505" cy="210" r="3" fill="#000" opacity="0.6" />
+
+    <!-- Pig's smile -->
+    <path d="M 490,220
+             Q 500,230 510,220"
+          stroke="#000" stroke-width="2" fill="none" opacity="0.7" transform="translate(0, 4)" />
+    </g>
+					 
+	<g>      
+    <text transform="matrix(1 0 0 1 50 100)" class="white" font-size="20px" font-weight="bold">SUBJECT</text>
+    <text transform="matrix(1 0 0 1 50 130)" class="white" font-size="24px" font-weight="bold">{{mail.subject}}</text>
+</g>
+<g>
+    <text transform="matrix(1 0 0 1 50 180)" class="white text-lg">SENDER</text>
+    	<text transform="matrix(1 0 0 1 50 200)" class="white text-xl">{{mail.sender}}</text>
+</g>
+<g>
+    <text transform="matrix(1 0 0 1 50 250)" class="white text-lg">Creation Date</text>
+    <text transform="matrix(1 0 0 1 50 270)" class="white text-xl">{{mail.createdAt}}</text>
+</g>
+<g>
+    <text transform="matrix(1 0 0 1 50 320)" class="white text-lg">Expiration Date</text>
+    <text transform="matrix(1 0 0 1 50 340)" class="white text-xl">{{mail.expiredAt}}</text>
+</g>
+<text transform="matrix(1 0 0 1 500 50)" font-size="24px" font-weight="bold" fill="#ffffff">DIDMail</text> 
+<text transform="matrix(1 0 0 1 400 380)" class="white" font-size="20px" opacity="0.8">Power By ArcBlock</text>
+</svg>

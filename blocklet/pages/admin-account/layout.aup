@@ -1,0 +1,5 @@
+page admin-account {
+  web-page page {
+    section content component=didmail-admin section="account"
+  }
+}

@@ -1,0 +1,33 @@
+name: Server quality
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  standalone:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24.14.0'
+      - run: npm install --global pnpm@12.11.2
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm audit:dependencies
+      - run: pnpm lint
+      - run: pnpm test
+      - run: pnpm test:scripts
+      - run: pnpm test:ui
+      - name: Install pinned ARC CLI
+        run: |
+          curl -fsSL --retry 3 https://dl.arcblock.io/arc-2.0.0-beta.74-linux-x64.tar.gz -o "$RUNNER_TEMP/arc.tar.gz"
+          printf '%s  %s\n' 'c587a8c43eb3b1454c99bd97e8a426bc1b490aba12f94b53c507bd8b19324ae3' "$RUNNER_TEMP/arc.tar.gz" | sha256sum --check -
+          mkdir -p "$RUNNER_TEMP/arc"
+          tar -xzf "$RUNNER_TEMP/arc.tar.gz" --strip-components=1 --no-same-owner -C "$RUNNER_TEMP/arc"
+          "$RUNNER_TEMP/arc/arc" --version
+          echo "$RUNNER_TEMP/arc" >> "$GITHUB_PATH"
+      - run: pnpm build
+      - name: Worker tests without private client checkouts
+        run: pnpm test:worker:standalone

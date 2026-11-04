@@ -1,0 +1,13 @@
+diff --git a/lib/base.js b/lib/base.js
+index bfdab7b72bf65837c5a74e2d00a3691adeb5a059..7e34f88a25dc6a6590189c6c0fcf89d52cde002c 100644
+--- a/lib/base.js
++++ b/lib/base.js
+@@ -36,6 +36,8 @@ class GraphQLClientBase extends BaseClient {
+       enableQuery: true,
+       enableSubscription: true,
+       enableMutation: true,
++      // Durable DIDMail jobs own retry decisions, especially after a lost broadcast acknowledgement.
++      retries: 0,
+       maxQueryDepth: 6
+     });
+ 

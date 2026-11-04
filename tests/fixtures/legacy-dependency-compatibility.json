@@ -1,0 +1,140 @@
+{
+  "description": "Public deterministic compatibility inputs. Keys are test vectors, never credentials.",
+  "crypto": {
+    "description": "Public deterministic test keys and signatures; never use these keys for funds or private data.",
+    "source": "@ocap/mcrypto 1.19.15",
+    "messageHex": "4449444d61696c207075626c696320646570656e64656e637920636f6d7061746962696c6974792066697874757265",
+    "records": [
+      {
+        "type": 0,
+        "secretKey": "0x0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f2079b5562e8fe654f94078b112e8a98ba7901f853ae695bed7e0e3910bad049664",
+        "publicKey": "0x79b5562e8fe654f94078b112e8a98ba7901f853ae695bed7e0e3910bad049664",
+        "signature": "0x7afe613f3ec08ad10a84abc60659040be37e3d4b8e5b0de8f687b7a4203d018fcd26aaf0dc20c738c504234841396c9549506b33775c24ba4143076b7f51ce03",
+        "verified": true
+      },
+      {
+        "type": 1,
+        "secretKey": "0x0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20",
+        "publicKey": "0x0484bf7562262bbd6940085748f3be6afa52ae317155181ece31b66351ccffa4b08cc43d63b2859d469fee15f31c9edb5324266e6fd0407e87382d60fc4511acd8",
+        "signature": "0x3044022020e9f00d84276f3545f10174c717206bdb0701614cd36855517cd63fd14e7eec02204ff17d1f79b63f561e4e62c330048073ad914bc8e7dd50e8a1873a9fa38f1c3b",
+        "verified": true
+      },
+      {
+        "type": 2,
+        "secretKey": "0x0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20",
+        "publicKey": "0x84bf7562262bbd6940085748f3be6afa52ae317155181ece31b66351ccffa4b08cc43d63b2859d469fee15f31c9edb5324266e6fd0407e87382d60fc4511acd8",
+        "signature": "0x3044022020e9f00d84276f3545f10174c717206bdb0701614cd36855517cd63fd14e7eec02204ff17d1f79b63f561e4e62c330048073ad914bc8e7dd50e8a1873a9fa38f1c3b",
+        "verified": true
+      }
+    ]
+  },
+  "minimatch": {
+    "source": "minimatch 3.1.5",
+    "cases": [
+      {
+        "input": "api/src/routes/contact.ts",
+        "pattern": "**/*.ts",
+        "options": {},
+        "result": true
+      },
+      {
+        "input": "api/src/routes/contact.ts",
+        "pattern": "api/**/!(mail).ts",
+        "options": {},
+        "result": true
+      },
+      {
+        "input": ".hidden",
+        "pattern": "*",
+        "options": {},
+        "result": false
+      },
+      {
+        "input": ".hidden",
+        "pattern": "*",
+        "options": {
+          "dot": true
+        },
+        "result": true
+      },
+      {
+        "input": "a/b/c.ts",
+        "pattern": "**/*.ts",
+        "options": {},
+        "result": true
+      },
+      {
+        "input": "a/b/c.js",
+        "pattern": "*.js",
+        "options": {
+          "matchBase": true
+        },
+        "result": true
+      },
+      {
+        "input": "Alpha.TS",
+        "pattern": "*.ts",
+        "options": {
+          "nocase": true
+        },
+        "result": true
+      },
+      {
+        "input": "a.test.ts",
+        "pattern": "!*.spec.ts",
+        "options": {},
+        "result": true
+      },
+      {
+        "input": "a.spec.ts",
+        "pattern": "!*.spec.ts",
+        "options": {},
+        "result": false
+      },
+      {
+        "input": "a.js",
+        "pattern": "*.{js,ts}",
+        "options": {},
+        "result": true
+      },
+      {
+        "input": "x/a.ts",
+        "pattern": "+(x|y)/*.ts",
+        "options": {},
+        "result": true
+      },
+      {
+        "input": "foo",
+        "pattern": "foo/**",
+        "options": {},
+        "result": false
+      },
+      {
+        "input": "foo/",
+        "pattern": "foo/**",
+        "options": {},
+        "result": true
+      },
+      {
+        "input": "a/b/../c",
+        "pattern": "**/c",
+        "options": {},
+        "result": false
+      },
+      {
+        "input": "file[1].ts",
+        "pattern": "file\\[1\\].ts",
+        "options": {},
+        "result": true
+      },
+      {
+        "input": "x/a.js",
+        "pattern": "**/*.js",
+        "options": {
+          "noglobstar": true
+        },
+        "result": true
+      }
+    ]
+  }
+}

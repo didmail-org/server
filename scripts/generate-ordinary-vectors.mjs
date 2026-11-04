@@ -1,0 +1,23 @@
+// Public deterministic signing seeds only. These identities MUST NEVER hold funds.
+import fs from 'node:fs/promises';
+import { fromSecretKey,WalletType,fromPublicKey,fromAddress } from '@ocap/wallet';
+import { types,getSigner } from '@ocap/mcrypto';
+import { toUint8Array } from '@ocap/util';
+import { create } from '@arcblock/vc';
+import { sealOrdinaryMessage,createKeyRecord,identityId,addressOf,signOrdinaryTerms,ordinaryManifestHash,ordinaryTermsHash,canonicalize,digest,utf8,uuid,signArtifact } from '@didmail/protocol';
+const seeds={service:'03'.repeat(32),sender:'07'.repeat(32),recipient:'09'.repeat(32)};
+const secretKeys=Object.fromEntries(Object.entries(seeds).map(([name,seed])=>[name,getSigner(types.KeyType.ED25519).genKeyPair('hex',Uint8Array.from(Buffer.from(seed,'hex'))).secretKey]));
+const service=fromSecretKey(secretKeys.service,WalletType({role:types.RoleType.ROLE_APPLICATION,pk:0,hash:1}));
+const sender=fromSecretKey(secretKeys.sender,{pk:0,hash:1}),recipient=fromSecretKey(secretKeys.recipient,{pk:0,hash:1});
+const did=w=>identityId(w.address),secret=w=>toUint8Array(w.secretKey),time=new Date(Date.now()-10000).toISOString();
+const matches=(pk,did)=>fromPublicKey(pk,fromAddress(addressOf(did)).type).address===addressOf(did);
+const sealed=sealOrdinaryMessage({senderId:did(sender),recipientId:did(recipient),serviceId:did(service),secretKey:secret(sender),senderKey:createKeyRecord(did(sender),secret(sender),new Date(Date.now()-60000)),recipientKey:createKeyRecord(did(recipient),secret(recipient),new Date(Date.now()-60000)),matches,subject:'普通邮件 / Résumé 👋',body:'<p>Encrypted; no NFT or payment</p>',attachments:[{fileName:'秘密.bin',mediaType:'application/octet-stream',bytes:Uint8Array.from([0,255,128,1])}]});
+const {manifest,chunks}=sealed;
+const terms=signOrdinaryTerms({protocolVersion:2,termsId:uuid(),messageId:manifest.messageId,manifestSha256:ordinaryManifestHash(manifest),senderId:did(sender),recipientId:did(recipient),serviceId:did(service),planId:'ordinary',serviceEndpoint:'https://ordinary.example',policyRevision:1,issuedAt:time,expiresAt:new Date(Date.parse(time)+600000).toISOString(),totalAmount:'0',retentionSeconds:864000,limits:{enabled:true,maxCount:20,maxFileBytes:33554432,maxTotalBytes:62914560,maxMessageCiphertextBytes:67108864},settlement:{profile:'none'},notification:{profile:'arcblock-transfer-v2-vc/1',chainId:'beta',chainEndpoint:'https://beta.abtnetwork.io/api/',confirmationPolicy:'arcblock-dolt-ledger/1'}},secret(service));
+const endpoint='https://ordinary.example';
+const credential=JSON.parse(JSON.stringify(await create({type:'DIDMailDeliveryCredential',issuer:{wallet:service,name:service.address},issuanceDate:time,subject:{id:recipient.address,protocolVersion:2,messageId:manifest.messageId,manifestSha256:terms.manifestSha256,serviceId:did(service),endpoint,termsSha256:ordinaryTermsHash(terms),profile:terms.notification.profile}})));
+const receipt=signArtifact('DMP2-RECEIPT',{protocolVersion:2,messageId:manifest.messageId,manifestSha256:terms.manifestSha256,termsId:terms.termsId,termsSha256:ordinaryTermsHash(terms),senderId:did(sender),recipientId:did(recipient),serviceId:did(service),acceptedAt:new Date(Date.parse(time)+1000).toISOString(),deliveredAt:new Date(Date.parse(time)+2000).toISOString(),retentionExpiresAt:new Date(Date.parse(time)+2000+864000000).toISOString(),payment:{mode:'none'},notification:{profile:terms.notification.profile,credentialSha256:digest(utf8(canonicalize(credential))),transaction:{chainId:'beta',transactionId:'A'.repeat(64),confirmedAt:new Date(Date.parse(time)+1500).toISOString(),confirmationPolicy:'arcblock-dolt-ledger/1',ledgerBackend:'@ocap/statedb-dolt v1.20.2'}}},did(service),secret(service));
+const fixtureDirectory=new URL('../test/fixtures/protocol/dmp-2/fixtures/',import.meta.url);
+await fs.mkdir(fixtureDirectory,{recursive:true});
+await fs.writeFile(new URL('ordinary-vc.json',fixtureDirectory),JSON.stringify({description:'Public test-only seeds; never use these identities with funds. Evidence is an offline fixture, not a real chain transaction.',seeds,secretKeys,endpoint,manifest,chunks,terms,credential,receipt},null,2)+'\n');
+console.log('Ordinary VC fixture written; no network or chain mutation');

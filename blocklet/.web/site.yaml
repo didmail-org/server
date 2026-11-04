@@ -1,0 +1,7 @@
+name: DIDMail Server
+locale: en
+locales: ["en","zh","ar","ja","ru"]
+render-mode: static
+color-scheme: system
+template:
+  header: app-header

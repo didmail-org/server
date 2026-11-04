@@ -1,0 +1,220 @@
+{
+  "publicFixture": true,
+  "format": "contact-recovery/1",
+  "codec": "@ocap/message@1.30.24 canonical CBOR",
+  "seed": "32 bytes of 0x01, public test identity",
+  "cases": [
+    {
+      "confirmationPolicy": "arcblock-committed",
+      "serviceRole": "account",
+      "preparationSha256": "1560c0d46968bf1cceee6223d8f6bda9d7fdc527f65a6e5fc37456f99a67e513",
+      "record": {
+        "id": "815AE17B51C16F42B012419E68D1AD38F6B3EE0FED67A2D797BD995666261BE9",
+        "owner": "z1e1gtMvLzDaoE31X2rYsMFZHDvc6mqZWYM",
+        "endpoint": "https://public.test",
+        "receiver": "z1VaNrBpf5Ti7LNpc9u9Ebmoz3mCJpousn8",
+        "namecard": "public-namecard",
+        "preparationId": "12345678-1234-4234-8234-123456789abc",
+        "contentHash": "A41694F6F1B40581ED4D50014CEED926256CF5383897D844A5E4F71E91849E2A",
+        "unsignedOrigin": "zR8PJnAfyR9xUZrqUd5XQUMNsYQsZ1ac36moF1Zv44S4ebgXQtHmBvfCMTuzgZD9gQzBFtsBQr6ALW8HMUPZLpD7qkREpdxzpYZmCvKrLSuwuUPX2BbxQb1hqJ9FtGwZndxrVApGXfSGBp4JjwJXBZJ5TsPBE6Msnw6kBkzPbo5mrMJka5xX22TeT7Y28w3pPPdu2TxuW5dKyjkrjJUpd6zHHRGYCQnL8CBE5gwedHDh6fDDBUbGVT2Zxc2VMXukvqPgBVAVQhCRrdX9FRDpWYQKU1mc4wzABah3BdziMAT3YKnGthmP4BhN2hBXV8CNck86gUTyFmE6we2y6b978Srvmn27iSpftov5EtSjZKihQB3Wj4AwssbXiAVuTFeZbiwNwFQpsZJDfqdk33xraomD1tyVqBszheT9PVeYmeGQjHHno1LdZXX134eQtpzdvaSB9gfrJKtaHyvCShorBSB1WxesoWPbQBK2eBFDWYnenR7rWSoSPHDowpzF6aS3sxkY5S1NrGecqNhRqZYqyV7tE6m7sNmWh4KZSpRr3M4ZBqVCa2BajKrkJgJuEf49LRdz8X4reJw1Hak1ENPxrY2ra72bHmzJCy9vpazYBKvwDduQFGZpe3VJtSJgnRm8im8rUeDneMXXDhSfWrbWR5qmC7ZBfWR55npLRXvaQau62vphiYLMHw95rLTtAQ6iduBJarhuj6sjRiEyKzo97jDNKMbzknHC15xvTyQQBtut5VQJTR26iC7YCFFbC9ymg2b27Zcf39fqpeKev23SpyoUCVJa1k1rWLKXUo6PLLpu11AEDVS5toTHzBJcw3a2XZcMVfPxDV4PfcoRkfVwj7UfAPoTEV2cvH8bJPtA9voVhLiPiTYYZrvZy68sRhfTxa9Z7uxokSyqh3jjdaktwN6EWCofwBDopfWkYvP1Et715g37EdSvNCnLA4ZUbUgrgKA3NY7pC6zcA66ER4MUBn1BHMXAzpYH4yPpqRqNgtRf5v66kG4A9bWwyLnNvirCAidsbCXNgdBuqLRNimrR4QAqVpK8ATnhXRSueNuXKQwqaXuphyaS9SswPdD9cyHW6CAJoAAuzqdU12CvsPRMHvRC4b5N9ZZToypHKcrqehGiRQJN9G2iNCp6Dydn57i8TH2GK7uZxKdfoQTN3cCWiHotkS7TMrP2zWHPJmjsgSo1AVVmJXq376k5SeJVT6YdJ66eo6x74dLR78iUW",
+        "signedOrigin": "zQxDVvfv4AwBnyuHdjTXYHxrWHvTTY9h5CAf1vqAWBYUjFY8xE8SfAHHhiZxPvsdYK92TCTnWhc4qJ7LZk7zpSyVWS7W7hmf2Td4qdDoUSXbLuBHo3xQ53cTwuAGxdrtujCETTMEkxqN8U6gfATm37jRYpd8zDEgh4hHgycRaVm6JBiF9UCXLaEQDnPVpUHEkn6EyDJN6kocXZaPmY6NsQd6TfGHD15vyMDSR7kVSKkSiZcYvCPfeRMQMLcvZrspbMjPG16dw6JzsrU9PLDHMhmG7y7RqxbxUrBrmwygNXHU557jxuv5VvBc6j7RCrmzb4XhyYeJrm43BD41sW2erN7cw8c2KGeYJKTEoYAtJstyXb8U7QtV7ey3g1D1qxjSqKApK9cxKUK3oEtVxYHT2wJtQRkwdQMiqGC6P8VeEXcCVoTvTTqb6Z1zHautvRuc2vJ2ownseMKVxpwgqT8PNz1tQLNBCZJJkETa74yV2bnqC19H6Xc3HD4pHfP3DBvAqJvPYjzJCYDZfMM5dWNmKJMYGzivyaCtod1T14oBgSWbHDvpuNeeR8nmRRqZ3arwkF4YfZutGpu3CYRKn4GBjUCbxVMfdYjy6GgJmwCsYmLKMKU1HmAELMAbaYf1rhUaTQXfJ3cJpLNhKknAyvmz7dvwPiASY5nCBCza89cUc25NpQPBfFpYS6hgtx8YTDZJD3MovEWknrCMi4UPEuZh71dGjcV3xXotoSTjqXc58htvZLjcSUoDfnmKE4bjJ52VNvX8wWNu6kqsWneM3TrePfFaFQNLKo4PRmuKCzpDAiLoLxU41vwyKk9BJKEEU7cdmBcqALyjjPpaABCsVzwpinZdzENY83a6eqhFHukGNoQK2VTUKHzXaEYdKu23weoi7Zy5mdSrpS84E2i4bRimLqoMgutVZa2KrjVerz2P1FduHCEhUEqe7dkGrVbqqUT9F228RWWWF3zjm1KACadpoL1Jhrnm5sAyKrWbQDjpBu5J8obYVUi1c7EtPxjRXepNLrbSZ8MVUwybfWHvTBHx9ySjFkVHuiKptAcknDemwXYet9RiAbyKk4R2DdwZHkEUwev5fYFAjpRysck9ooRejnppkpunkprbcJEqVNLGsnFKbDtzdTZpwUV9jCzxsPnSdRT1BwnSM6duL5bDP7PuK2DtwytnVSruviD78mcG5Ypvp8PMLnZActUA4N9CjSn7ziok2Qd74mLWFhRcqzyZw7W4XnGceLxsWthdkBs6T9NMdNZkRVKGFDGMSZSeeErikvdDMwSbsmthmcd2aAmku6z5pBBLchna4jtbZ2fAmgrLiKtgrdQNptT1avdfuhCHKKpmkHF3LaT1Xootk1eLpCNFQn2PPgWrN4MUjDQ483ua6USevbrJtjY9DR3vfQKiW2Bf8a1U",
+        "recovery": {
+          "snapshot": {
+            "binding": {
+              "chainId": "beta",
+              "endpoint": "https://public.test",
+              "preparationId": "12345678-1234-4234-8234-123456789abc",
+              "sender": "z1e1gtMvLzDaoE31X2rYsMFZHDvc6mqZWYM",
+              "receiver": "z1VaNrBpf5Ti7LNpc9u9Ebmoz3mCJpousn8",
+              "namecard": "public-namecard",
+              "contentHash": "A41694F6F1B40581ED4D50014CEED926256CF5383897D844A5E4F71E91849E2A",
+              "tokenAddress": "z35n6UoHSi9MED4uaQy6ozFgKPaZj2UKrurBG",
+              "totalAmount": "100000000000019",
+              "servicePayee": "z1UwTcj7ZXBKC8GUwSKW25hsnNvRZE8UYHb",
+              "serviceAmount": "100000000000018",
+              "developerPayee": "0x73AEAc8Be08298fD383152335A182E3e307Eb95a",
+              "developerAmount": "1",
+              "chainFee": "7"
+            },
+            "policy": {
+              "chainEndpoint": "https://beta.abtnetwork.io/api/",
+              "namecardFactory": "z3Ct4f8qYDz8h1z1DNAzWZ9QX3j3hMJGnsx13",
+              "contactFactory": "z3CtJS5nhN6WVMCmYoPEUxNJfHh83eAVi3uCC",
+              "mintAmount": "100000000000000",
+              "mintChainFee": "3",
+              "confirmationPolicy": "arcblock-committed"
+            }
+          },
+          "ciphertext": "zPublicEncryptedFixture",
+          "createdAt": 1800000000000,
+          "expiresAt": 1800000600000,
+          "proof": {
+            "algorithm": "Ed25519",
+            "verificationMethod": "did:abt:z1UwTcj7ZXBKC8GUwSKW25hsnNvRZE8UYHb#identity",
+            "publicKey": "7UkoxijRwsbq6QM4kFmVYSlZJzpcY_k2NsFGFKyHN9E",
+            "signature": "h3Jjkw9XU6oKg5QDU77Rxo4vHCJlCjFtQvic6Tky0FOCW8Y027zlv6oxBGJ8oBV2UmSUpz5u5UneYjh233adCA"
+          }
+        }
+      }
+    },
+    {
+      "confirmationPolicy": "arcblock-dolt-ledger/1",
+      "serviceRole": "account",
+      "preparationSha256": "bc20d21104197bf830f24929f8b5425173f761d43a1baa4e1c26bf29a448fa41",
+      "record": {
+        "id": "05F8F76F01096FF45401F9B319FF9FF511DC2A93B4AC9051CBE82F443438D148",
+        "owner": "z1e1gtMvLzDaoE31X2rYsMFZHDvc6mqZWYM",
+        "endpoint": "https://public.test",
+        "receiver": "z1VaNrBpf5Ti7LNpc9u9Ebmoz3mCJpousn8",
+        "namecard": "public-namecard",
+        "preparationId": "12345678-1234-4234-8234-123456789abc",
+        "contentHash": "A41694F6F1B40581ED4D50014CEED926256CF5383897D844A5E4F71E91849E2A",
+        "unsignedOrigin": "zR8PJnAfyR9xUZrqUd5XQUMNsYQsZ1ac36moF1Zv44S4ebgXQtHmBvfCMTuzgZD9gQzBFtsBQr6ALW8HMUPZLpD7qkREpdxzpYZmCvKrLSuwuUPX2BbxQb1hqJ9FtGwZndxrVApGXfSGBp4JjwJXBZJ5TsPBE6Msnw6kBkzPbo5mrMJka5xX22TeT7Y28w3pPPdu2TxuW5dKyjkrjJUpd6zHHRGYCQnL8CBE5gwedHDh6fDDBUbGVT2Zxc2VMXukvqPgBVAVQhCRrdX9FRDpWYQKU1mc4wzABah3BdziMAT3YKnGthmP4BhN2hBXV8CNck86gUTyFmE6we2y6b978Srvmn27iSpftov5EtSjZKihQB3Wj4AwssbXiAVuTFeZbiwNwFQpsZJDfqdk33xraomD1tyVqBszheT9PVeYmeGQjHHno1LdZXX134eQtpzdvaSB9gfrJKtaHyvCShorBSB1WxesoWPbQBK2eBFDWYnenR7rWSoSPHDowpzF6aS3sxkY5S1NrGecqNhRqZYqyV7tE6m7sNmWh4KZSpRr3M4ZBqVCa2BajKrkJgJuEf49LRdz8X4reJw1Hak1ENPxrY2ra72bHmzJCy9vpazYBKvwDduQFGZpe3VJtSJgnRm8im8rUeDneMXXDhSfWrbWR5qmC7ZBfWR55npLRXvaQau62vphiYLMHw95rLTtAQ6iduBJarhuj6sjRiEyKzo97jDNKMbzknHC15xvTyQQBtut5VQJTR26iC7YCFFbC9ymg2b27Zcf39fqpeKev23SpyoUCVJa1k1rWLKXUo6PLLpu11AEDVS5toTHzBJcw3a2XZcMVfPxDV4PfcoRkfVwj7UfAPoTEV2cvH8bJPtA9voVhLiPiTYYZrvZy68sRhfTxa9Z7uxokSyqh3jjdaktwN6EWCofwBDopfWkYvP1Et715g37EdSvNCnLA4ZUbUgrgKA3NY7pC6zcA66ER4MUBn1BHMXAzpYH4yPpqRqNgtRf5v66kG4A9bWwyLnNvirCAidsbCXNgdBuqLRNimrR4QAqVpK8ATnhXRSueNuXKQwqaXuphyaS9SswPdD9cyHW6CAJoAAuzqdU12CvsPRMHvRC4b5N9ZZToypHKcrqehGiRQJN9G2iNEGe1ZjXLb3mwmu9KSHenM676Ud3C9VQYip7iF2j4UymvBBBYc3YZRHcbszcFZRw9RzvgarhfA2bfhbQFRjcQYJjio4Tg",
+        "signedOrigin": "zQxDVvfv4AwBnyuHdjTXYHxrWHvTTY9h5CAf1vqAWBYUjFY8xE8SfAHHhiZxPvsdYK92TCTnWhc4qJ7LZk7zpSyVWS7W7hmf2Td4qdDoUSXbLuBHo3xQ53cTwuAGxdrtujCEeZbVG6HKYDJKYZoJXFnWaEBHuLs7xFgPLGpMjPwKLzwoS3sE9JfDB6T4dnHPbu47Ws328HYKaJPJdxvx5ofGgcQsEERsXWFMpf6EWqYzRGw3GwM9zdqvRuWS1UcjiqPHNt1JH3RYMpNAw7xkHytNTV53k9nRPEjycyxZwaVRHpjbkaShTBN9PE8FixQGSnnfGVZLmWBCx91Fa1DDTaiGSuApRJg8dbXSwK2aPaFs7QGzN993jg5fFovUSu4FMeDHNxgvZY4oweyuqFcCeU3jN7Rds6HBCXNBdKw5dU2PV62DSXRDUKokykU26CFBJMCzgks49bbdKd5XWByWLyYY1W75xKmdvcXqSyiP4SERxHNs3f66pct2nh7AK3JUYZseUS1mz7WuW5PYYQiGHbshX5i1E88rZgYbZntrEg74j65Bds738vapkUYbLJMg3kW4x1arWd62XF4Tsg82rtgkCF7Zj8hQ24yUk52RwY84oRkQvZBPoLWwFhuKMZQx2fPQBJwaJx1u5uoRWhftSxNkdtYQVcoByCXkUEX7G1zUF2VxXTwyYjjaj8eQeT5bUqJCbYYWsmUcMXZAx8fJBdr7iniScLTUswEHveS5rJLuHXnrDPVAZybEdWSE2BjwMZ1gaduFdC1WzKx99DH8b5rKyFyEFnBUJ4x7wgGaUBw7Y1o7LwaCiHGo4R8APy8cXym6i24xwaPCcgqTwmKUrkNcxdckUM7uMkbhizKJmksVDg1gEM2sRRLAhU1dyyVHjoWUYWxutREBeRGTR1u3hGswuH8M83VZLiLS2TK4aXj9SKyfCcBiSkEb8xYeY4RpGSAkfQqHnSyHtGbwDPV4Z5HnzDMuYRDZMC54Y7QZtKdCSXXmnSLyfENzaPXxNhU3VAi2PKtrBhWwUw5yRdo61heqx92yWgyb5QCvQRXLg5ebtqAcacuyhSE1mpPhWYcmw9eB7a1WTE75koYuPbm8HbYukdNdE3rLp4zXTA4w8nifWEghgNZqcLWCJQ9CouFfmyXk5LoNGPmEW3BmgK3Eh8Bzx7GZK1cr55dn2vheHaPoj6PMVen9r6y2bjk8Nt5R8WUkWnKkJfw98bAWnHzKEznBrz6ZjU7E5Nxcr29L3voDad1GkdndXSNgqv4RHSh3V7Q7pFuVnriQmzZVkUJp1ydKAtvKeXkzfT24cY6J53T7ZKnX3xpgWbXmq9vdghN7fP6QMXovQDK4q232huL5MAneNQGPoDeuX5fR9r3cYzHbXinupE65MRMPHGv2k3RhNdkXLtDU",
+        "recovery": {
+          "snapshot": {
+            "binding": {
+              "chainId": "beta",
+              "endpoint": "https://public.test",
+              "preparationId": "12345678-1234-4234-8234-123456789abc",
+              "sender": "z1e1gtMvLzDaoE31X2rYsMFZHDvc6mqZWYM",
+              "receiver": "z1VaNrBpf5Ti7LNpc9u9Ebmoz3mCJpousn8",
+              "namecard": "public-namecard",
+              "contentHash": "A41694F6F1B40581ED4D50014CEED926256CF5383897D844A5E4F71E91849E2A",
+              "tokenAddress": "z35n6UoHSi9MED4uaQy6ozFgKPaZj2UKrurBG",
+              "totalAmount": "100000000000019",
+              "servicePayee": "z1UwTcj7ZXBKC8GUwSKW25hsnNvRZE8UYHb",
+              "serviceAmount": "100000000000018",
+              "developerPayee": "0x73AEAc8Be08298fD383152335A182E3e307Eb95a",
+              "developerAmount": "1",
+              "chainFee": "7"
+            },
+            "policy": {
+              "chainEndpoint": "https://beta.abtnetwork.io/api/",
+              "namecardFactory": "z3Ct4f8qYDz8h1z1DNAzWZ9QX3j3hMJGnsx13",
+              "contactFactory": "z3CtJS5nhN6WVMCmYoPEUxNJfHh83eAVi3uCC",
+              "mintAmount": "100000000000000",
+              "mintChainFee": "3",
+              "confirmationPolicy": "arcblock-dolt-ledger/1"
+            }
+          },
+          "ciphertext": "zPublicEncryptedFixture",
+          "createdAt": 1800000000000,
+          "expiresAt": 1800000600000,
+          "proof": {
+            "algorithm": "Ed25519",
+            "verificationMethod": "did:abt:z1UwTcj7ZXBKC8GUwSKW25hsnNvRZE8UYHb#identity",
+            "publicKey": "7UkoxijRwsbq6QM4kFmVYSlZJzpcY_k2NsFGFKyHN9E",
+            "signature": "gmY9auwLjCTngcsNME9XUNhMPdMzrgy6NZp23ruycO0cCHhvudjnn4I6Ha9a6vO0wp-k-YaF57QhS_Sq0jcbBw"
+          }
+        }
+      }
+    },
+    {
+      "confirmationPolicy": "arcblock-committed",
+      "serviceRole": "application",
+      "preparationSha256": "a6450e71680ecdc9348185bb98c49405c28fee040bcb11f4ebc3939fd6a43c4d",
+      "record": {
+        "id": "7FE1BB15D25AFE9273CEE8E866D1675F628305E9479017A5826FFABABAF80563",
+        "owner": "z1e1gtMvLzDaoE31X2rYsMFZHDvc6mqZWYM",
+        "endpoint": "https://public.test",
+        "receiver": "z1VaNrBpf5Ti7LNpc9u9Ebmoz3mCJpousn8",
+        "namecard": "public-namecard",
+        "preparationId": "12345678-1234-4234-8234-123456789abc",
+        "contentHash": "A41694F6F1B40581ED4D50014CEED926256CF5383897D844A5E4F71E91849E2A",
+        "unsignedOrigin": "z2qVbTUMh21cXrg2xxvEyCbiwY5eN8HZKeGUj6qWHAW9d6x5TERNz3Dqb7KnubbAdJxsNGjvUxFfnD5Z9BMtZkTNVCAdz1GAACrKc7cNCkqNhLbtPWDoHZ787EAfShKMqiS9XRLKdYLeW2ihbJWgLDbYNhbNt8nf9BjnMcVAJkaQ4xpdMK2t3VXScJFqv21ZS9purdU1kjMRLmRiaVi9oCMRpsU7ahMy5QkL8jhJD58b1yyetmEnFNZsvURba9dRrtcb5wHJtPaRSi4C3QduahPbvWEPsnRhHXhhidxHjVzhxDFtq9CvtM4D9pUMTZ8mCQmLL5EE3JACqEATgbfgn3s9NLdhvdvyQfg5FiJ4aqfd3KHL6CczuDYKQYgvaWsentG71pScAJ9YzvRfAx45Xs3eTdNnUgJTW97dSMJWYQP2vc933PDFMCDX44Pr9URNtSrLXMSJVAkbD9X8HAcGxGMbkMGvSVGsEqcj3dpAkVmiVueALG3sbsUA7FY8GiaRxrePSWccbRs3973B9EenNgCCvEWwC5kFQr9NPndvBf7yK7SxrF52cdn4A6y7r3vqUTX8MtQCYHAPBnh4gA1Yyp14D5q25vDAEwf8EQb2W9b8iMPAfTFLz6FzeD34rf2TY8VYCD6veRKCKNowg3BrUH1Ghro3df2m7YFLgbvBmsHssRANzudPB2sQHFmNHgBn6UfiDXYJ895poxCBT96iSX8cwdtuHq1i5yVQa7RKqJNTq4cx9cJrjvJL1TQ6dsRYVMnpWuVThmtbV7Q1bNveCQ2uNcntoZ9DdFGJh61see4mvQD8mk6a3SY1tFJ48Jxqz72zvshFm6USn84jHyXpt7bfnDAVh7M1rsxFgpVAmxg8K4RmoYaJ1FBgJJpem7F2CPH5p9C9SxLFCgLGRLA1aQrTqzwymEDZSfq2hNAwbxmCVwzMTtc945zXSqu82NYa3GmpL29Dkso4sBMyj1QxKTpPXgqmcMzHFPQZmbacP3u6QtEFR9wjZnGzBAjqju6MX2FgmbXHHQv6FNeCcCtAf3QBQot2tNmixEFZ8kdqmupozxxjSMCYCgypF2tzLdGLQWMV8w9TH3WwP1kvXtuiX4EtvXpnWw1cxjV5ELB2CUH8efJi2BGAMRJmWUSXcLMwA3jg39X3twhm2VnZa4HZyHymgUVL7YxJ6kuBUc8wRCrMxp8gQxv4tLuSj5fYHvyDgNnVRyT2ELQFhqej7eW",
+        "signedOrigin": "z2piiAftmAzrAdx9nR8Q5o7sXWHgwn8VMsWHco6bawoXwPVAS6kwrFRxtiiUTWCnUHD4RQdbDt6DmvAWyMXKtCReLpuqhWax6qSWBwcsW87g2aqJR8G3WprXXwKDwSZhE7jEagW7FiwMbbCvKy97v3V8SQer6qpJc1eahqjpwvSSj1d54ATqxYAJBSqVbYHFwA9zShVkBexerVMiMaXLFkKuJjTy81PNF4wR45HgE472dVVbYgwyCVxrL2BA9NNot3KsvLNHQKnZzCmoNDBE4o5qdPtXXT56kWZTcAQVq3whBJHNjqi5T2dYBe1cWFMtAdSrsAf3FXRTsBRoEE7T94Bu2vGC7HKjb1Ki4adjsH4ZqyQxuFY46YyaZCyLRUjTs154XEn5sCdt7dU8XVdSJAcd6dp6uTnVtzj4u6jCtgHJEm5hyQKwjRDz4SBVrHc3nfHCisMUPJjigxAXzTz44qnh8u3ndTAVCWbZY8RyoQAbGT4uEFj9vwPf5Zaz88ppgSVvxPbuLo31pu39F2TF6PMSMAzn6FA1L49H2WRVgY6BTwdU4WUP1pUxfUADcyKnsk7okYQFTb4vSZHKP1mWD8cJMURFf8ZhEtxKZzpiEqG7yvxQ9Z5dJstqwfA4Z3AUhuLbHsRkpFyFtC3G8SeN1P64cx7JKwsJBxad3jbp3GVGs89UPCDKCwhkensanNahi5jke8cAADm4xgGqrsLmooWQ3Ha8C2ryoyBxrwm91yJQMXjtB1g5KTnBFBDKGotttCbZN1XohUKvabFzyuC1AeiDT32WXpZVbgFYFKWS3f5LqtyPQ5jQ8LepAYU63ecPdTsm8ihhqsMzT7RJQy3viPxjwVKbDaejwcWhANqUXoPJGGZ5GYMG7LeTzUCBTQ28N4U5JuwS3G4FWqY6r4SaXWfbtZhQW8KybFRfJkjAzK7x4FTXzcLQN1HYVhpkDy6dsojbNxnPkVebTXhw4r6cVHM1Q83SmSxABgi1Hk95ePgVvrXJuqo6bAVt2HBAn1YiyWvSAy2XxbWd6Z4PkDCM2VvVkuuPq5z1Vyuy1nsfCqmt5mLpSu9LHA6yx8Gddej4RKab4cDZfH6JcpC4C9nA7CPjRBwGn88tQqEyiGcGuLcwRxUqVMoLYmckMvHriLAKngxMCaNE8bt7Rv9zXg4tdupd8KjoPK14Hw85fdSf6AwYr5D9NaYXxuKqhbG2wV6Bb8w5MW3GP1uCMJJhveQCh89agzzQWyaysp5e2txw25uHDWqa6b5xd4nW7N2xqtgnmFrSqsPQhr36vjJsyyC7BuggGhH4tdccicxzu4ez66yjA161MZxbfE4J1QCz4txbR1A9kTSQ1ZDCm9Xb9PMpZJdRkjgDGBaRWZY75C2Qc8r4xx8yEikDH7TANCkr2Jm9ZbwqJ1UkQW",
+        "recovery": {
+          "snapshot": {
+            "binding": {
+              "chainId": "beta",
+              "endpoint": "https://public.test",
+              "preparationId": "12345678-1234-4234-8234-123456789abc",
+              "sender": "z1e1gtMvLzDaoE31X2rYsMFZHDvc6mqZWYM",
+              "receiver": "z1VaNrBpf5Ti7LNpc9u9Ebmoz3mCJpousn8",
+              "namecard": "public-namecard",
+              "contentHash": "A41694F6F1B40581ED4D50014CEED926256CF5383897D844A5E4F71E91849E2A",
+              "tokenAddress": "z35n6UoHSi9MED4uaQy6ozFgKPaZj2UKrurBG",
+              "totalAmount": "100000000000019",
+              "servicePayee": "zNKbESQJncfNpnTno4d8j5kt2ZrZuME9xLnL",
+              "serviceAmount": "100000000000018",
+              "developerPayee": "0x73AEAc8Be08298fD383152335A182E3e307Eb95a",
+              "developerAmount": "1",
+              "chainFee": "7"
+            },
+            "policy": {
+              "chainEndpoint": "https://beta.abtnetwork.io/api/",
+              "namecardFactory": "z3Ct4f8qYDz8h1z1DNAzWZ9QX3j3hMJGnsx13",
+              "contactFactory": "z3CtJS5nhN6WVMCmYoPEUxNJfHh83eAVi3uCC",
+              "mintAmount": "100000000000000",
+              "mintChainFee": "3",
+              "confirmationPolicy": "arcblock-committed"
+            }
+          },
+          "ciphertext": "zPublicEncryptedFixture",
+          "createdAt": 1800000000000,
+          "expiresAt": 1800000600000,
+          "proof": {
+            "algorithm": "Ed25519",
+            "verificationMethod": "did:abt:zNKbESQJncfNpnTno4d8j5kt2ZrZuME9xLnL#identity",
+            "publicKey": "7UkoxijRwsbq6QM4kFmVYSlZJzpcY_k2NsFGFKyHN9E",
+            "signature": "LnxUGsnoliuyaOgdmxGN5o3hB-x5-CkUPtZYGUg4Xaz06wdLKtScB1aPhmxVbfJ7-fU7HiemtoGwF8zt6d75DQ"
+          }
+        }
+      }
+    },
+    {
+      "confirmationPolicy": "arcblock-dolt-ledger/1",
+      "serviceRole": "application",
+      "preparationSha256": "cfeb48361ce40ec7ef0ffd09358685091d64a9981f88de235082ef667669a8f8",
+      "record": {
+        "id": "5223168A962BAD53593D4EBD1D44B4C3E2C866C9E8CF387B0BF37137C0358724",
+        "owner": "z1e1gtMvLzDaoE31X2rYsMFZHDvc6mqZWYM",
+        "endpoint": "https://public.test",
+        "receiver": "z1VaNrBpf5Ti7LNpc9u9Ebmoz3mCJpousn8",
+        "namecard": "public-namecard",
+        "preparationId": "12345678-1234-4234-8234-123456789abc",
+        "contentHash": "A41694F6F1B40581ED4D50014CEED926256CF5383897D844A5E4F71E91849E2A",
+        "unsignedOrigin": "z2qVbTUMh21cXrg2xxvEyCbiwY5eN8HZKeGUj6qWHAW9d6x5TERNz3Dqb7KnubbAdJxsNGjvUxFfnD5Z9BMtZkTNVCAdz1GAACrKc7cNCkqNhLbtPWDoHZ787EAfShKMqiS9XRLKdYLeW2ihbJWgLDbYNhbNt8nf9BjnMcVAJkaQ4xpdMK2t3VXScJFqv21ZS9purdU1kjMRLmRiaVi9oCMRpsU7ahMy5QkL8jhJD58b1yyetmEnFNZsvURba9dRrtcb5wHJtPaRSi4C3QduahPbvWEPsnRhHXhhidxHjVzhxDFtq9CvtM4D9pUMTZ8mCQmLL5EE3JACqEATgbfgn3s9NLdhvdvyQfg5FiJ4aqfd3KHL6CczuDYKQYgvaWsentG71pScAJ9YzvRfAx45Xs3eTdNnUgJTW97dSMJWYQP2vc933PDFMCDX44Pr9URNtSrLXMSJVAkbD9X8HAcGxGMbkMGvSVGsEqcj3dpAkVmiVueALG3sbsUA7FY8GiaRxrePSWccbRs3973B9EenNgCCvEWwC5kFQr9NPndvBf7yK7SxrF52cdn4A6y7r3vqUTX8MtQCYHAPBnh4gA1Yyp14D5q25vDAEwf8EQb2W9b8iMPAfTFLz6FzeD34rf2TY8VYCD6veRKCKNowg3BrUH1Ghro3df2m7YFLgbvBmsHssRANzudPB2sQHFmNHgBn6UfiDXYJ895poxCBT96iSX8cwdtuHq1i5yVQa7RKqJNTq4cx9cJrjvJL1TQ6dsRYVMnpWuVThmtbV7Q1bNveCQ2uNcntoZ9DdFGJh61see4mvQD8mk6a3SY1tFJ48Jxqz72zvshFm6USn84jHyXpt7bfnDAVh7M1rsxFgpVAmxg8K4RmoYaJ1FBgJJpem7F2CPH5p9C9SxLFCgLGRLA1aQrTqzwymEDZSfq2hNAwbxmCVwzMTtc945zXSqu82NYa3GmpL29Dkso4sBMyj1QxKTpPXgqmcMzHFPQZmbacP3u6QtEFR9wjZnGzBAjqju6MX2FgmbXHHQv6FNeCcCtAf3QBQot2tNmixEFZ8kdqmupozxxjSMCYCgypF2tzLdGLQWMV8w9TH3WwP1kvXtuiX4EtvXpnWw1cxjV5ELB2CUH8efJi2BGAMRJmaEdo3yqnHwXCXtDSUti7pP9peRvUjac9ryQ7LhTqkQgVCyujvyrUppV3caeUHEAmLmjBLMRZZTBCEAKVaxe8VvX4F6e",
+        "signedOrigin": "z2piiAftmAzrAdx9nR8Q5o7sXWHgwn8VMsWHco6bawoXwPVAS6kwrFRxtiiUTWCnUHD4RQdbDt6DmvAWyMXKtCReLpuqhWax6qSWBwcsW87g2aqJR8G3WprXXwKDwSZhE7jEaAXUeBfDwLgSqasZwcNogHNNtsS3Ws493WnrzmCF2aRadqZ5gy8hisMEcoW87ByJT4JQGJs55kr4hGQWGhNh81NxH1jR59ED3KxPEF5YJMDdnjAiXxyPqdfMTr9bvDHkNpENtDohHQ4eYkLmggGCRGxnm51HfCD1nt5KHwzb1VjM8e5ghKNEVGJj5Ww8AmQAJAHPfA4vZJm1P5NKZbvxNwMTqFq5uyhwd28xLzMpp6FsDELRHy7QgRo7eFyKhnJdvk2m2ur9fRRXZJLPcnHNkLwkJjDsqSyZA9AMJqX5ZSx3Kmvq7pStowognCikMDin3GHYkMC3Zjsg9bVp5c85uzC7VAfWZWwdUPERxrRW2gaaRMbrPbKFHtAjuguQXMuH6z8oM53QH5wo7MCBNnZRKWMi92gAYiSUWssoEM9q55a9rzsyE9WcQDBsL8nSFcgzFHwb1FUoSP1WohHL2YCh2jVrjQpKkb26YY9rAzBJTfTqmXnzfofTABiagDP3aeTHr7wSCyrQRCsBrFRfWAcBwBm7sMThHPyyfRxdcfHB78579Ek75Y5EMCYpm7fo4E2H6CNwobVVmNHZiEhfK6HVWZZARDUyvg8RY3beULJZk1gxUvrJdrnKHbSShU2oHtf3s13XDWt9XYdBkVUuNfGjbyW5EqoL2bu5ir5LyyR17VsfaS1tWbHr1QQEAeBBRzX2zxtfQEqSAEedCB7QL8sMd5seTMudm2itL4qQjU2a8osaTuehP31i6UYxGdcWWWA3hTvoUYJcqyee8KcaE83AFAxsUgg2nmd2N5gBZtHSN35WcSbp2L1pLevSVS8tKZvqxGV1vhbxncZvHXJbVhAVsJZKdRu2kNE7BXeE8T5QuvU9MGgipjJeDFKK867kEXLgukAmVG7b4Hqg14jQSsAjoKB4G5paKCGNmzUHyhoSucMKPPDNzsoPuqFAjwegEcAtUPMyPaJo4SDSPpCZbkqqNdpASr94XkwFZnf1CbwMcyTSxLmqztw1jbdPTVcTsE6BfjhEhYMHVuPbHjrfS14LhPGaDCcSkXKsRfTdNvauC1UYMNqvoKHg1mqVd4ehCJhorBsFaHc3VXZvd6trt6FN29BR6roPxx2CDNsbwjwC12C8bu2eQ8k4GgN2fqZMsfWyFmABRJQbFjb3ibMicFYdnvbDzhkf9Xtdq1JKgyVUvMjPJQhLEeoySkkgJT7DmHRcYDhyBrwkhY5ftozD1RE3hyo2kWcZ2LMgWZxGMagwCqNwwbopa5v3YPFaCedcmDfV9yfQoY",
+        "recovery": {
+          "snapshot": {
+            "binding": {
+              "chainId": "beta",
+              "endpoint": "https://public.test",
+              "preparationId": "12345678-1234-4234-8234-123456789abc",
+              "sender": "z1e1gtMvLzDaoE31X2rYsMFZHDvc6mqZWYM",
+              "receiver": "z1VaNrBpf5Ti7LNpc9u9Ebmoz3mCJpousn8",
+              "namecard": "public-namecard",
+              "contentHash": "A41694F6F1B40581ED4D50014CEED926256CF5383897D844A5E4F71E91849E2A",
+              "tokenAddress": "z35n6UoHSi9MED4uaQy6ozFgKPaZj2UKrurBG",
+              "totalAmount": "100000000000019",
+              "servicePayee": "zNKbESQJncfNpnTno4d8j5kt2ZrZuME9xLnL",
+              "serviceAmount": "100000000000018",
+              "developerPayee": "0x73AEAc8Be08298fD383152335A182E3e307Eb95a",
+              "developerAmount": "1",
+              "chainFee": "7"
+            },
+            "policy": {
+              "chainEndpoint": "https://beta.abtnetwork.io/api/",
+              "namecardFactory": "z3Ct4f8qYDz8h1z1DNAzWZ9QX3j3hMJGnsx13",
+              "contactFactory": "z3CtJS5nhN6WVMCmYoPEUxNJfHh83eAVi3uCC",
+              "mintAmount": "100000000000000",
+              "mintChainFee": "3",
+              "confirmationPolicy": "arcblock-dolt-ledger/1"
+            }
+          },
+          "ciphertext": "zPublicEncryptedFixture",
+          "createdAt": 1800000000000,
+          "expiresAt": 1800000600000,
+          "proof": {
+            "algorithm": "Ed25519",
+            "verificationMethod": "did:abt:zNKbESQJncfNpnTno4d8j5kt2ZrZuME9xLnL#identity",
+            "publicKey": "7UkoxijRwsbq6QM4kFmVYSlZJzpcY_k2NsFGFKyHN9E",
+            "signature": "H7hUiTqPBwfylWJYUCl-0ztd1M2KygGvEkdwo1sSF_sMCxRdqwU34OIOZgsjmJXEDvQUNWZrqzTXEda1X64OCw"
+          }
+        }
+      }
+    }
+  ]
+}

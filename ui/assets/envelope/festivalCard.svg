@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="a" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 634 400">
+	<style>			
+    .gold {
+      fill: #ffffff;
+      font-family: 'Arial', sans-serif;
+    }
+		.text-xl {
+			font-size: 18px;			
+		}
+		.text-lg {
+			font-size: 16px;		
+		}
+	</style>
+	<defs>
+		<linearGradient id="b" x1="0" y1="200" x2="634" y2="200" gradientUnits="userSpaceOnUse" gradientTransform="rotate(15)">
+			<stop offset="0" stop-color="#f90202"/>
+			<stop offset="0.5" stop-color="#dc1919"/>
+			<stop offset="0.9" stop-color="#cf2626"/>
+			<stop offset="1" stop-color="#cb020c"/>
+		</linearGradient>
+    <filter id="textShadow" x="-50%" y="-50%" width="200%" height="200%">
+        <feDropShadow dx="2" dy="2" stdDeviation="2" flood-color="#d3ee23" flood-opacity="0.9"/>
+    </filter>
+	</defs>
+	<rect x="0" y="0" width="634" height="400" rx="20" ry="20" style="fill:url(#b);"/>	
+  <line x1="20" y1="60" x2="614" y2="60" opacity="0.9" stroke="#f5cece" stroke-width="1" />
+	<g>      
+    <text transform="matrix(1 0 0 1 50 100)" class="gold" font-size="20px" font-weight="bold">SUBJECT</text>
+    <text transform="matrix(1 0 0 1 50 130)" class="gold" font-size="24px" font-weight="bold">{{mail.subject}}</text>
+</g>
+<g>
+    <text transform="matrix(1 0 0 1 50 180)" class="gold text-lg">SENDER</text>
+    	<text transform="matrix(1 0 0 1 50 200)" class="gold text-xl">{{mail.sender}}</text>
+</g>
+<g>
+    <text transform="matrix(1 0 0 1 50 250)" class="gold text-lg">Creation Date</text>
+    <text transform="matrix(1 0 0 1 50 270)" class="gold text-xl">{{mail.createdAt}}</text>
+</g>
+<g>
+    <text transform="matrix(1 0 0 1 50 320)" class="gold text-lg">Expiration Date</text>
+    <text transform="matrix(1 0 0 1 50 340)" class="gold text-xl">{{mail.expiredAt}}</text>
+</g>
+<text transform="matrix(1 0 0 1 500 50)" font-size="24px" font-weight="bold" class="gold">DIDMail</text> 
+<text transform="matrix(1 0 0 1 430 380)" class="gold" font-size="18px" opacity="0.8">Power By ArcBlock</text>
+</svg>

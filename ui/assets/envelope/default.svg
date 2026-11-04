@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 634 400">
+<style type="text/css">
+    .c1, .c2, .c3 {
+        fill: none;
+        stroke: #172080;
+        stroke-linecap: square;
+    }
+    .c1 {
+        opacity: 0.6;
+        stroke-width: 15;
+        stroke-miterlimit: 8;
+    }
+    .c2 {
+        opacity: 0.5;
+        stroke-width: 20;
+        stroke-miterlimit: 10;
+    }
+    .c3 {
+        opacity: 0.3;
+        stroke-width: 30;
+        stroke-miterlimit: 12;
+    }
+    .st12 {
+        font-size: 32px;
+        font-family: 'Arial-BoldMT';
+        fill: #172080;
+        opacity: 0.9;
+    }
+    .st17 {
+        font-size: 26px;
+    }
+    .st18 {
+        font-size: 18px;
+    }
+    .st19 {
+        font-size: 20px;
+        font-weight: 500;
+    }
+    .st20 {
+        font-size: 16px;
+        font-weight: bold;
+        font-family: 'Verdana', Courier, monospace;
+        fill: #172080;
+        opacity: 0.4;
+    }
+</style>
+<rect x="0" y="0" width="633" height="399" fill="white"/>
+<rect x="6" y="6" width="624" height="390" fill="none" stroke="#403d84" stroke-width="12" stroke-dasharray="48,12" stroke-linecap="butt" />
+<rect x="4" y="4" width="626" height="392" fill="none" stroke="#ef574c" stroke-width="8" stroke-dasharray="24,36" stroke-dashoffset="36" stroke-linecap="butt"/>
+<g>
+    <circle class="c1" cx="580" cy="350" r="100"/>
+    <circle class="c2" cx="580" cy="350" r="130"/>
+    <circle class="c3" cx="580" cy="350" r="160"/>  
+    <text x="500" y="380" class="st12">DIDMail</text> 
+</g>
+ <g>      
+    <text x="50" y="100" class="st17">SUBJECT</text>
+    <text x="50" y="130" class="st19">{{mail.subject}}</text>
+</g>
+<g>
+    <text x="50" y="180" class="st18">SENDER</text>
+    <text x="50" y="210" class="st19">{{mail.sender}}</text>
+</g>
+<g>
+    <text x="50" y="250" class="st18">Creation Date</text>
+    <text x="50" y="280" class="st19">{{mail.createdAt}}</text>
+</g>
+<g>
+    <text x="50" y="320" class="st18">Expiration Date</text>
+    <text x="50" y="350" class="st19">{{mail.expiredAt}}</text>
+</g>
+<g>
+    <text x="430" y="40" class="st20">Power By ArcBlock</text>
+</g>
+</svg>

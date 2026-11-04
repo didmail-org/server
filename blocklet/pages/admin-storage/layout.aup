@@ -1,0 +1,5 @@
+page admin-storage {
+  web-page page {
+    section content component=didmail-admin section="storage"
+  }
+}

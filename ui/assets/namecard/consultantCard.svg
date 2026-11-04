@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 800 500">
+  <title>Consultant — sage editorial</title>
+  <defs>
+    <linearGradient id="sage" x2="1" y2="1">
+      <stop stop-color="#faf8ed"/><stop offset=".5" stop-color="#e9efe2"/><stop offset="1" stop-color="#bfcfbd"/>
+    </linearGradient>
+    <radialGradient id="sunlight" cx=".18" cy=".05" r=".9">
+      <stop stop-color="#fffef3" stop-opacity=".85"/><stop offset="1" stop-color="#fffef3" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="leaf" x2="1" y2="1">
+      <stop stop-color="#f6f8ec"/><stop offset="1" stop-color="#9bb396"/>
+    </linearGradient>
+    <clipPath id="company"><rect x="48" y="42" width="580" height="32"/></clipPath>
+    <clipPath id="name"><rect x="48" y="142" width="704" height="65"/></clipPath>
+    <clipPath id="role"><rect x="48" y="221" width="704" height="32"/></clipPath>
+    <clipPath id="location"><rect x="48" y="264" width="704" height="28"/></clipPath>
+    <clipPath id="phone"><rect x="48" y="355" width="320" height="30"/></clipPath>
+    <clipPath id="email"><rect x="418" y="355" width="334" height="30"/></clipPath>
+    <clipPath id="website"><rect x="48" y="435" width="590" height="30"/></clipPath>
+  </defs>
+  <rect width="800" height="500" rx="20" fill="url(#sage)"/>
+  <rect width="800" height="500" rx="20" fill="url(#sunlight)"/>
+  <rect x="1" y="1" width="798" height="498" rx="19" fill="none" stroke="#fffdf2" stroke-opacity=".6"/>
+  <g fill="none" stroke="#728a72" stroke-width="1.5">
+    <path d="M48 105h704M48 314h704"/>
+    <ellipse fill="url(#leaf)" cx="720" cy="60" rx="13" ry="23" transform="rotate(-35 720 60)"/>
+    <ellipse fill="url(#leaf)" cx="734" cy="60" rx="13" ry="23" transform="rotate(35 734 60)"/>
+    <path d="M727 49v38"/>
+  </g>
+  <g font-family="Inter, Arial, sans-serif" fill="#294736">
+    <text x="48" y="66" font-size="18" clip-path="url(#company)">{{contact.company}}</text>
+    <text x="48" y="194" font-family="Georgia, 'Times New Roman', serif" font-size="43" clip-path="url(#name)">{{contact.name}}</text>
+    <text x="48" y="245" font-size="20" clip-path="url(#role)">{{contact.position}}</text>
+    <text x="48" y="284" font-size="16" fill="#526d59" clip-path="url(#location)">{{contact.location}}</text>
+    <text x="48" y="345" font-size="10" letter-spacing="2" fill="#526d59">PHONE</text>
+    <text x="418" y="345" font-size="10" letter-spacing="2" fill="#526d59">EMAIL</text>
+    <text x="48" y="378" font-size="18" clip-path="url(#phone)">{{contact.phone}}</text>
+    <text x="418" y="378" font-size="18" clip-path="url(#email)">{{contact.email}}</text>
+    <text x="48" y="456" font-size="17" clip-path="url(#website)">{{contact.website}}</text>
+    <text x="752" y="456" text-anchor="end" font-size="10" letter-spacing="2" fill="#526d59">DIDMAIL</text>
+  </g>
+</svg>

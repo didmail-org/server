@@ -1,0 +1,22 @@
+// Offline public test keys. No RPC and no broadcast. Never fund these identities.
+import fs from 'node:fs/promises';
+import GraphQLClient from '@ocap/client';
+import {create} from '@arcblock/vc';
+import {fromSecretKey,fromPublicKey} from '@ocap/wallet';
+import {toUint8Array} from '@ocap/util';
+import {signOrdinaryTerms,ordinaryTermsHash,ordinaryPaymentMetadata,unsignedArtifact,signArtifact,digest,utf8,canonicalize,b64u} from '@didmail/protocol';
+const directory=new URL('../test/fixtures/protocol/dmp-2/fixtures/',import.meta.url),free=JSON.parse(await fs.readFile(new URL('ordinary-vc.json',directory),'utf8'));
+const sender=fromSecretKey(free.secretKeys.sender,{pk:0,hash:1}),service=fromSecretKey(free.secretKeys.service,{role:3,pk:0,hash:1}),manifest=free.manifest;
+const terms=signOrdinaryTerms({...unsignedArtifact(free.terms),totalAmount:'180',settlement:{profile:'arcblock-transfer-v3-ordinary/1',assetId:'z35n6UoHSi9MED4uaQy6ozFgKPaZj2UKrurBG',decimals:18,payerId:manifest.senderId,payeeId:manifest.serviceId,baseAmount:'100',storageAmount:'80',pricePerBytePerDay:'2'}},toUint8Array(service.secretKey));
+const client=new GraphQLClient('https://network-forbidden.invalid',false);client.getContext=async()=>({chainId:'beta',txConfig:{txFee:[]}});client._doRequest=async()=>{throw new Error('Network forbidden');};
+const itx={inputs:[{owner:sender.address,tokens:[{address:terms.settlement.assetId,value:terms.totalAmount}]}],outputs:[{owner:service.address,tokens:[{address:terms.settlement.assetId,value:terms.totalAmount}]}],data:{typeUrl:'json',value:ordinaryPaymentMetadata(manifest,terms)}};
+let tx={from:sender.address,pk:sender.publicKey,chainId:'beta',nonce:123456789,serviceFee:'0',signatures:[{signer:sender.address,pk:sender.publicKey}],itx};
+const unsigned=(await client.encodeTransferV3Tx({tx,wallet:fromPublicKey(sender.publicKey)})).buffer;
+const paymentRequest={encoding:'base64url',termsId:terms.termsId,termsSha256:ordinaryTermsHash(terms),unsignedTransaction:b64u(unsigned)};
+tx={...await client.multiSignTransferV3Tx({tx,wallet:sender}),itx};tx={...await client.signTransferV3Tx({tx,wallet:sender}),itx};
+const signedPayment=b64u((await client.encodeTransferV3Tx({tx,wallet:sender})).buffer);
+const credential=JSON.parse(JSON.stringify(await create({type:'DIDMailDeliveryCredential',issuer:{wallet:service,name:service.address},issuanceDate:free.credential.issuanceDate,subject:{...free.credential.credentialSubject,termsSha256:ordinaryTermsHash(terms)}})));
+const transaction={...free.receipt.notification.transaction,transactionId:digest(Buffer.from(signedPayment,'base64url')).toUpperCase()};
+const receipt=signArtifact('DMP2-RECEIPT',{...unsignedArtifact(free.receipt),termsSha256:ordinaryTermsHash(terms),payment:{mode:'transfer-v3',transaction},notification:{...free.receipt.notification,credentialSha256:digest(utf8(canonicalize(credential))),transaction:{...free.receipt.notification.transaction,transactionId:'C'.repeat(64)}}},manifest.serviceId,toUint8Array(service.secretKey));
+await fs.writeFile(new URL('ordinary-paid.json',directory),JSON.stringify({...free,description:'Offline ordinary service payment fixture: public test identities; never fund. Evidence does not represent a real chain execution.',terms,credential,receipt,paymentRequest,signedPayment},null,2)+'\n');
+console.log('Paid fixture written offline; no chain mutation.');

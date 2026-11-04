@@ -1,0 +1,37 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "didmail-arc",
+  "main": ".worker/index.mjs",
+  "compatibility_date": "2026-10-24",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    "run_worker_first": true,
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "didmail-arc",
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "workers/migrations",
+    },
+  ],
+  "r2_buckets": [{ "binding": "BLOBS", "bucket_name": "didmail-arc-encrypted" }],
+  "triggers": { "crons": ["* * * * *"] },
+  "vars": {
+    "DIDMAIL_MEMBER_ACCESS": "arc",
+    "DIDMAIL_URL": "http://localhost:8787",
+    "CHAIN_ID": "beta",
+    "CHAIN_HOST": "https://beta.abtnetwork.io/api/",
+    "LOCAL_TOKEN_ID": "z35n6UoHSi9MED4uaQy6ozFgKPaZj2UKrurBG",
+    "SERVER_NODE_FACTORY": "z3CtS6Pcpd8UVm6GSqBBJdSEmcHh1BZmqfBXL",
+    "FACTORY_OWNER": "0x73AEAc8Be08298fD383152335A182E3e307Eb95a",
+    "MAIL_FACTORY": "z3CtBX5DatTgpRh5geQf2iiegx6z7RcbNLUaH",
+    "ENVELOPE_FACTORY": "z3CtMesxtSwZQN77kBe5P4idPN8ihUL7emm8R",
+    "NAMECARD_FACTORY": "z3Ct4f8qYDz8h1z1DNAzWZ9QX3j3hMJGnsx13",
+    "CONTACT_FACTORY": "z3CtJS5nhN6WVMCmYoPEUxNJfHh83eAVi3uCC",
+    "ALIAS_FACTORY": "z3CtEusZCF1YV7QuRFYAyenJnyGdpX2pPAN5f",
+  },
+}

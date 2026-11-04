@@ -1,0 +1,359 @@
+{
+  "publicFixture": true,
+  "endpoint": "https://public.test",
+  "policy": {
+    "chainId": "beta",
+    "tokenAddress": "z35n6UoHSi9MED4uaQy6ozFgKPaZj2UKrurBG",
+    "namecardFactory": "z3Ct4f8qYDz8h1z1DNAzWZ9QX3j3hMJGnsx13",
+    "contactFactory": "z3CtJS5nhN6WVMCmYoPEUxNJfHh83eAVi3uCC",
+    "developerPayee": "0x73AEAc8Be08298fD383152335A182E3e307Eb95a"
+  },
+  "namecard": "public-namecard",
+  "serviceId": "did:abt:z1UwTcj7ZXBKC8GUwSKW25hsnNvRZE8UYHb",
+  "assetResult": {
+    "code": "OK",
+    "state": {
+      "address": "public-namecard",
+      "parent": "z3Ct4f8qYDz8h1z1DNAzWZ9QX3j3hMJGnsx13",
+      "owner": "z1UwTcj7ZXBKC8GUwSKW25hsnNvRZE8UYHb",
+      "data": {
+        "typeUrl": "json",
+        "value": "{\"price\":\"0.000100000000000019\"}"
+      }
+    }
+  },
+  "factoryResult": {
+    "code": "OK",
+    "state": {
+      "address": "z3CtJS5nhN6WVMCmYoPEUxNJfHh83eAVi3uCC",
+      "owner": "0x73AEAc8Be08298fD383152335A182E3e307Eb95a",
+      "input": {
+        "tokens": [
+          {
+            "address": "z35n6UoHSi9MED4uaQy6ozFgKPaZj2UKrurBG",
+            "value": "100000000000000",
+            "decimal": 18
+          }
+        ]
+      }
+    }
+  },
+  "recipientResult": {
+    "code": "OK",
+    "state": {
+      "address": "z1VaNrBpf5Ti7LNpc9u9Ebmoz3mCJpousn8",
+      "pk": "z9hSR6S7WPtxmTojgo6GG3k4yDPecgJY292j7xrsUGWBu"
+    }
+  },
+  "terms": {
+    "chainId": "beta",
+    "tokenAddress": "z35n6UoHSi9MED4uaQy6ozFgKPaZj2UKrurBG",
+    "namecard": "public-namecard",
+    "servicePayee": "z1UwTcj7ZXBKC8GUwSKW25hsnNvRZE8UYHb",
+    "developerPayee": "0x73AEAc8Be08298fD383152335A182E3e307Eb95a",
+    "totalAmount": "100000000000019",
+    "mintAmount": "100000000000000",
+    "developerAmount": "1",
+    "serviceAmount": "100000000000018",
+    "chainFee": "7",
+    "totalWithFee": "100000000000026"
+  },
+  "sender": "z1e1gtMvLzDaoE31X2rYsMFZHDvc6mqZWYM",
+  "receiver": "z1VaNrBpf5Ti7LNpc9u9Ebmoz3mCJpousn8",
+  "publicKey": [
+    138,
+    136,
+    227,
+    221,
+    116,
+    9,
+    241,
+    149,
+    253,
+    82,
+    219,
+    45,
+    60,
+    186,
+    93,
+    114,
+    202,
+    103,
+    9,
+    191,
+    29,
+    148,
+    18,
+    27,
+    243,
+    116,
+    136,
+    1,
+    180,
+    15,
+    111,
+    92
+  ],
+  "recipientPublicKey": [
+    129,
+    57,
+    119,
+    14,
+    168,
+    125,
+    23,
+    95,
+    86,
+    163,
+    84,
+    102,
+    195,
+    76,
+    126,
+    204,
+    203,
+    141,
+    138,
+    145,
+    180,
+    238,
+    55,
+    162,
+    93,
+    246,
+    15,
+    91,
+    143,
+    201,
+    179,
+    148
+  ],
+  "encrypted": "zPublicEncryptedFixture",
+  "preparationId": "42",
+  "contentHash": "A41694F6F1B40581ED4D50014CEED926256CF5383897D844A5E4F71E91849E2A",
+  "nonce": 1700000000001,
+  "vectors": [
+    {
+      "format": "protobuf",
+      "origin": "z3yjYduztf6gnLy7dyPFsqt7FH8VYPi7fxUmDEzxQZ334RHeFhUSRXweHekVuUGuU5qYpvYwm95p2wYFAZp1gS8ZpsF2beaukP4zACoyGYewYVdMQRM7EYNb6pNCm1a4eJuEmYQrAdmQtQssSAqLTq6sR39ZdB2Z7HNmgEKQJ8XsDCa2Fhs2UqQGgYPsUqK2R8v3kaZ7E7qizQfRcHA5tiYASovv4xMLudPS9XSa8h4RBXEeqeG69JJtPBbk6q63bwLbzfgty6Bvj2GSrrXjqxxzGXvHJw1zTr49ixZLZUFiFu4kuPH7nqi54WfrhewmhcvWjkTdosNZirqSqcqjnnCCJmLhksPA4nU8RpcEkVVRcjanwDuJQDyC589jg6E9iS7dQ75cCE1wCvLcnWZ6DC2qpTotnCuithu2jMCMSkxdFUMcRajXjtq8pRBFNzrExEqV8iFmxc89G1hVyTASiRXtxmhJqybjrkXPUgQeRybotqgXf5zS4jUYqw47CXp52Zaswr9tzYJTHvCg7DicEvFu5rAVFM2JttBkdkLaK5n1fiQByPtYSTq2rqngmQAzRjXajGP6Y2h7Ea4DRgriAQpezdesr63wCEMiTBrYKtrAnTpZ1zP6VPd8mJVLN54H1GkHuHiEb19Kded9QYRZtbxLDrLbUR9pFJESpUBtURMooA9X42XcCnGr3d2q7NqyQxm2zTcvbmuYPoL5hc1xGY2TCa1fwVnDDUoxM8PXBgPk5zBFM37cKg1ZaFUvbPcoE6NMsG3ntH81azB4Rrc1dezApcFhoWW4y5cezBAz2MjSiXEw3tJPQeUJypcZf4vobc62QEBAEt6KidYXRfWFtdswzdMtw7JX3Zhg3mHxvKFuUgKRqFucTzqc4itKH2nvwVZpPCj2brSEimoBKscBKWhHA4jJo1zqxSLHdguXTnhFEQZxSPMym1MMqU2QpEQfitXXybwbe9ffuAUzc73SkpyDs7b9djceF47KpcpFyw28NhV1ZdKWULsaGBGdq2GcKxxWe8CG37jmbaZzDJetUT7tZ1fVopPi66hjohUGHjhtRwQHLmJk9WTrH1rJsJFg"
+    },
+    {
+      "format": "cbor",
+      "origin": "z414t2MCvoGgUKWPVzuXtgAy4XivRbtCtubJ8uLLNPrmPMANoKq71AJ8X4pBT3azuUhTAqvgbUthCxPdArPXLu7EZRk1xYAnZcpjRWBYc1K3y8nhF8nFu7nxSYVcvkMSjkoNSeEFbj149kWBjSQZjrvtFisUVjd5m9AKZdw86VvjPnYKhJobEDfkHg1iskAVEivsZqdzhZtJhKKfPmAACvUu8K4LFi97Qtitmz1Djh3kPenAiY5G9CzUboX3UgJrfNU6783tevu9qH6s5rV4MaHhh7puhmRz88vVPtofV9LNJwyQYYvkmL89637C2ekpyenFNYq4SiRFcZAAGeWRRLdqy2ee2hu3J9UWvabGvBN3Mj1amuxSqUUFRuh9JUJqkyeLFACDJm6wcJXzApNR4ZgcHCZCGk86L8TJd6NuJt7eUNtmR7epTpiZbV6xHiKHvMbV6UsvNExhTWiSYfFtnj3mQW3L8xmvPZT58LBJ4GiAbb7Ya6c1gigXB1EoPQEAcPpwHGq4kWJYpgmsjSMFqoCJMLuxS9gyzoVfVNYP8Xfri2yR4MpVE8GATXds3NKSK1A2dT4KVdsKNZw6BEF2yrnPcYAMRwsmvLPqcoith9K8WjoktYiGttpk7MgvbPEf5NVbxACumyiJYMq11KXrBLgijZzLhqR7VUqUYjZ6XFDirGpmJPkVZDp54wW3CKxw5j63Pz8FvxhHgGu7yLNfjDY4CZWLJoqm9s7TezfU814ALrbsUqsFiAS592JQwVfcP7q9EmZFbceXH7VzJbCHA8qdiNJG5g5v4nh4JPZS2fLg4L6idZ5nf5TghbXGqecTKQb7jhuuMHZmqeKmfjTs2UBKYHLRHLu8cLCsxPjCCxB2pxmt18WLa6eUezM76yik7M1gadV5hJmDgTJ84bEHq32uya5LkZhHbeyQuBZYRVeM2hrZatqYzBt4jQK4Uvp9tcTTub1tzT8HVvB2sykUpVD4M4N8VtW8acyUTvnKTHnHdhYRRu4hezPdC7igT5pa2MydRTmC1meb5FYXSFHfG1kgzs4wZcxXeWG4vxdDyAPmuEN"
+    }
+  ],
+  "mutations": [
+    {
+      "name": "asset response failed",
+      "target": "assetResult",
+      "path": [
+        "code"
+      ],
+      "value": "ERROR"
+    },
+    {
+      "name": "missing asset address",
+      "target": "assetResult",
+      "path": [
+        "state",
+        "address"
+      ],
+      "value": null
+    },
+    {
+      "name": "wrong NFT",
+      "target": "assetResult",
+      "path": [
+        "state",
+        "address"
+      ],
+      "value": "other"
+    },
+    {
+      "name": "wrong parent",
+      "target": "assetResult",
+      "path": [
+        "state",
+        "parent"
+      ],
+      "value": "other"
+    },
+    {
+      "name": "wrong service owner",
+      "target": "assetResult",
+      "path": [
+        "state",
+        "owner"
+      ],
+      "value": "z1VaNrBpf5Ti7LNpc9u9Ebmoz3mCJpousn8"
+    },
+    {
+      "name": "missing owner",
+      "target": "assetResult",
+      "path": [
+        "state",
+        "owner"
+      ],
+      "value": null
+    },
+    {
+      "name": "invalid data",
+      "target": "assetResult",
+      "path": [
+        "state",
+        "data",
+        "value"
+      ],
+      "value": "not json"
+    },
+    {
+      "name": "numeric price",
+      "target": "assetResult",
+      "path": [
+        "state",
+        "data",
+        "value"
+      ],
+      "value": "{\"price\":0.1}"
+    },
+    {
+      "name": "below mint price",
+      "target": "assetResult",
+      "path": [
+        "state",
+        "data",
+        "value"
+      ],
+      "value": "{\"price\":\"0.00001\"}"
+    },
+    {
+      "name": "factory response failed",
+      "target": "factoryResult",
+      "path": [
+        "code"
+      ],
+      "value": "ERROR"
+    },
+    {
+      "name": "wrong factory",
+      "target": "factoryResult",
+      "path": [
+        "state",
+        "address"
+      ],
+      "value": "other"
+    },
+    {
+      "name": "wrong developer owner",
+      "target": "factoryResult",
+      "path": [
+        "state",
+        "owner"
+      ],
+      "value": "z1UwTcj7ZXBKC8GUwSKW25hsnNvRZE8UYHb"
+    },
+    {
+      "name": "wrong token",
+      "target": "factoryResult",
+      "path": [
+        "state",
+        "input",
+        "tokens",
+        0,
+        "address"
+      ],
+      "value": "other"
+    },
+    {
+      "name": "wrong decimals",
+      "target": "factoryResult",
+      "path": [
+        "state",
+        "input",
+        "tokens",
+        0,
+        "decimal"
+      ],
+      "value": 6
+    },
+    {
+      "name": "numeric mint fee",
+      "target": "factoryResult",
+      "path": [
+        "state",
+        "input",
+        "tokens",
+        0,
+        "value"
+      ],
+      "value": 100
+    },
+    {
+      "name": "negative mint fee",
+      "target": "factoryResult",
+      "path": [
+        "state",
+        "input",
+        "tokens",
+        0,
+        "value"
+      ],
+      "value": "-1"
+    },
+    {
+      "name": "extra mint token",
+      "target": "factoryResult",
+      "path": [
+        "state",
+        "input",
+        "tokens"
+      ],
+      "value": [
+        {
+          "address": "z35n6UoHSi9MED4uaQy6ozFgKPaZj2UKrurBG",
+          "value": "100000000000000",
+          "decimal": 18
+        },
+        {
+          "address": "z35n6UoHSi9MED4uaQy6ozFgKPaZj2UKrurBG",
+          "value": "100000000000000",
+          "decimal": 18
+        }
+      ]
+    },
+    {
+      "name": "missing mint token",
+      "target": "factoryResult",
+      "path": [
+        "state",
+        "input",
+        "tokens"
+      ],
+      "value": []
+    },
+    {
+      "name": "missing factory policy",
+      "target": "policy",
+      "path": [
+        "namecardFactory"
+      ],
+      "value": ""
+    },
+    {
+      "name": "missing chain policy",
+      "target": "policy",
+      "path": [
+        "chainId"
+      ],
+      "value": ""
+    },
+    {
+      "name": "missing developer policy",
+      "target": "policy",
+      "path": [
+        "developerPayee"
+      ],
+      "value": ""
+    }
+  ]
+}

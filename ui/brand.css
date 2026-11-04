@@ -1,0 +1,137 @@
+/* DIDMail: neutral surfaces and the original white dove. Loaded in the native head before paint. */
+:root[data-didmail-ui][data-tone][data-palette] {
+  --dm-background: #f2f2f2;
+  --dm-surface: #fafafa;
+  --dm-elevated: #ffffff;
+  --dm-subtle: #e9e9e9;
+  --dm-hover: #e3e3e3;
+  --dm-text: #202020;
+  --dm-muted: #606060;
+  --dm-border: #d4d4d4;
+  --dm-input-border: #8c8c8c;
+  --dm-primary: #292929;
+  --dm-primary-hover: #404040;
+  --dm-primary-text: #ffffff;
+  --dm-link: #404040;
+  --dm-focus: #292929;
+  --dm-accent-soft: #e3e3e3;
+  --dm-success-bg: #e1f1ea;
+  --dm-success-text: #1c644b;
+  --dm-warning-bg: #fff4df;
+  --dm-warning-text: #805300;
+  --dm-error-bg: #fce8e8;
+  --dm-error-text: #9d3038;
+  --dm-danger: #9d3038;
+  --dm-danger-fill: #a83745;
+  --dm-danger-hover: #8d2836;
+  --dm-danger-ink: #ffffff;
+  --dm-shadow: 0 12px 40px #00000018;
+  /* Product roles are aliases of this native palette, not another theme runtime. */
+  --dm-environment: var(--dm-background);
+  --dm-navigation: var(--dm-subtle);
+  --dm-workspace: var(--dm-surface);
+  --dm-floating: var(--dm-elevated);
+  --dm-type-body: 0.875rem;
+  --dm-type-section: 1rem;
+  --dm-type-meta: 0.75rem;
+  --dm-leading-body: 1.5;
+  --dm-radius-control: 8px;
+  --dm-radius-panel: 12px;
+  --dm-font: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --color-bg: var(--dm-background);
+  --color-surface: var(--dm-surface);
+  --color-elevated: var(--dm-elevated);
+  --color-text: var(--dm-text);
+  --color-dim: var(--dm-muted);
+  --color-border: var(--dm-border);
+  --color-accent: var(--dm-link);
+  --color-accent-bg: var(--dm-accent-soft);
+  --hover-bg: var(--dm-hover);
+  --blocklet-background-default-color: var(--dm-background);
+  --blocklet-text-primary-color: var(--dm-text);
+  background: var(--dm-environment);
+  color: var(--dm-text);
+  color-scheme: light;
+  font-family: var(--dm-font);
+}
+:root[data-didmail-ui][data-tone][data-palette][data-mode='dark'],
+:root[data-didmail-ui][data-tone][data-palette][data-theme='dark'],
+:root[data-didmail-ui][data-tone][data-palette]:not([data-mode='light']) {
+  --dm-background: #111111;
+  --dm-surface: #1c1c1c;
+  --dm-elevated: #292929;
+  --dm-subtle: #181818;
+  --dm-hover: #343434;
+  --dm-text: #f5f5f5;
+  --dm-muted: #bdbdbd;
+  --dm-border: #414141;
+  --dm-input-border: #858585;
+  --dm-primary: #ededed;
+  --dm-primary-hover: #ffffff;
+  --dm-primary-text: #202020;
+  --dm-link: #e0e0e0;
+  --dm-focus: #e0e0e0;
+  --dm-accent-soft: #343434;
+  --dm-success-bg: #14382e;
+  --dm-success-text: #a4ddc2;
+  --dm-warning-bg: #3a2c18;
+  --dm-warning-text: #f2d28a;
+  --dm-error-bg: #3f222c;
+  --dm-error-text: #f5bac0;
+  --dm-danger: #f5bac0;
+  --dm-danger-fill: #e8a4ad;
+  --dm-danger-hover: #f0bbc2;
+  --dm-danger-ink: #351720;
+  --dm-shadow: 0 12px 40px #0005;
+  color-scheme: dark;
+}
+[data-didmail-ui] body { background: var(--dm-environment); color: var(--dm-text); }
+[data-didmail-ui] .aup-app-header {
+  background: linear-gradient(105deg, var(--dm-navigation), color-mix(in srgb, var(--dm-accent-soft) 50%, var(--dm-navigation)));
+  border-color: var(--dm-border);
+  color: var(--dm-text);
+  font-family: var(--dm-font);
+}
+[data-didmail-ui] .aup-app-header-title { font-weight: 600; letter-spacing: -.025em; }
+[data-didmail-ui] .aup-app-header-logo { border-radius: 5px; }
+[data-didmail-ui] .aup-app-header-action { color: var(--dm-muted); }
+[data-didmail-ui] .aup-app-header-action:hover,
+[data-didmail-ui] .aup-app-header-action[aria-expanded='true'],
+[data-didmail-ui] .aup-app-header-action[aria-current='page'] { color: var(--dm-link); background: var(--dm-accent-soft); }
+[data-didmail-ui] .aup-app-header [role='menu'] {
+  background: var(--dm-floating);
+  color: var(--dm-text);
+  border: 1px solid var(--dm-border);
+  box-shadow: var(--dm-shadow);
+  border-radius: var(--dm-radius-panel);
+}
+[data-didmail-ui] .aup-app-header [role='menuitem'] { color: var(--dm-text); }
+[data-didmail-ui] .aup-app-header [role='menuitem']:hover { color: var(--dm-link); background: var(--dm-accent-soft); }
+[data-didmail-ui] :is(.aup-app-header button, .aup-app-header a):focus-visible { outline: 2px solid var(--dm-focus); outline-offset: 3px; }
+@media (pointer: coarse) { [data-didmail-ui] .dm-appearance-menu button { min-height: 44px; } }
+
+@media (max-width: 480px) {
+  [data-didmail-ui] .aup-app-header-strip-right { gap: 4px; max-width: 100%; min-width: 0; }
+  [data-didmail-ui] .aup-app-header-user-menu-arrow { display: none; }
+  [data-didmail-ui] .dm-header-balance-value { max-width: 56px; }
+}
+
+[data-didmail-ui] .aup-skip-link {
+  top: 8px;
+  transform: translateY(calc(-100% - 16px));
+  background: var(--dm-floating);
+  color: var(--dm-text);
+  border-color: var(--dm-input-border);
+  font-family: var(--dm-font);
+}
+[data-didmail-ui] .aup-skip-link:focus { transform: none; }
+
+@media (pointer: coarse) {
+  /* Keep the native header usable on touch: its tools wrap as a group instead
+     of shrinking their hit areas to fit a single narrow row. */
+  :root[data-didmail-ui] .aup-app-header[data-density] .aup-app-header-bar { height: auto; min-height: 60px; gap: 8px; padding-block: 8px; }
+  [data-didmail-ui] .aup-app-header .aup-app-header-strip-right { flex: 1 1 0; flex-wrap: wrap; justify-content: flex-end; min-width: 0; }
+  :root[data-didmail-ui] .aup-app-header[data-density] :is(.aup-app-header-action, .aup-app-header-user-menu-trigger, .aup-app-header-brand-link, .dm-header-balance, .dm-header-recharge, [role='menuitem']) { min-width: 44px; min-height: 44px; }
+  :root[data-didmail-ui] .aup-app-header[data-density] .aup-app-header-brand-link { display: inline-flex; align-items: center; justify-content: center; }
+  [data-didmail-ui] .dm-help section { scroll-margin-top: 160px; }
+}

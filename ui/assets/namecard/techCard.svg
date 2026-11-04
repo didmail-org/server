@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 800 500">
+  <title>Tech — mint terminal</title>
+  <defs>
+    <linearGradient id="terminal" x2="1" y2="1">
+      <stop stop-color="#213c36"/><stop offset=".5" stop-color="#102422"/><stop offset="1" stop-color="#0a1519"/>
+    </linearGradient>
+    <radialGradient id="mintGlow" cx=".85" cy=".12" r=".85">
+      <stop stop-color="#63e6bd" stop-opacity=".22"/><stop offset="1" stop-color="#63e6bd" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="indicator" cx=".3" cy=".25" r=".8">
+      <stop stop-color="#e1ffed"/><stop offset=".5" stop-color="#9ee2bb"/><stop offset="1" stop-color="#4e9e7a"/>
+    </radialGradient>
+    <clipPath id="name"><rect x="48" y="142" width="704" height="60"/></clipPath>
+    <clipPath id="role"><rect x="48" y="216" width="704" height="32"/></clipPath>
+    <clipPath id="company"><rect x="48" y="254" width="704" height="30"/></clipPath>
+    <clipPath id="email"><rect x="132" y="327" width="620" height="30"/></clipPath>
+    <clipPath id="phone"><rect x="132" y="367" width="620" height="30"/></clipPath>
+    <clipPath id="website"><rect x="48" y="435" width="590" height="30"/></clipPath>
+  </defs>
+  <rect width="800" height="500" rx="20" fill="url(#terminal)"/>
+  <rect width="800" height="500" rx="20" fill="url(#mintGlow)"/>
+  <rect x="1" y="1" width="798" height="498" rx="19" fill="none" stroke="#b7e6ca" stroke-opacity=".15"/>
+  <path d="M0 90h800" stroke="#2b4140"/>
+  <circle cx="48" cy="46" r="5" fill="url(#indicator)"/>
+  <circle cx="70" cy="46" r="5" fill="#577b6c"/>
+  <circle cx="92" cy="46" r="5" fill="#354c44"/>
+  <g font-family="'SFMono-Regular', Consolas, 'Liberation Mono', monospace">
+    <text x="752" y="51" text-anchor="end" font-size="14" fill="#a9c4b7">profile.ts</text>
+    <text x="48" y="130" font-size="11" letter-spacing="2" fill="#88bd9e">// HELLO, WORLD</text>
+    <text x="48" y="189" font-size="36" font-weight="700" fill="#d4f5e2" clip-path="url(#name)">{{contact.name}}</text>
+    <text x="48" y="239" font-size="19" fill="#9de2b8" clip-path="url(#role)">{{contact.position}}</text>
+    <text x="48" y="277" font-size="16" fill="#a9c4b7" clip-path="url(#company)">{{contact.company}}</text>
+    <text x="48" y="349" font-size="12" fill="#88bd9e">email:</text>
+    <text x="132" y="349" font-size="17" fill="#e0ebe6" clip-path="url(#email)">{{contact.email}}</text>
+    <text x="48" y="389" font-size="12" fill="#88bd9e">phone:</text>
+    <text x="132" y="389" font-size="17" fill="#e0ebe6" clip-path="url(#phone)">{{contact.phone}}</text>
+    <path d="M48 419h704" stroke="#2b4140"/>
+    <text x="48" y="457" font-size="16" fill="#9de2b8" clip-path="url(#website)">{{contact.website}}</text>
+    <text x="752" y="457" text-anchor="end" font-size="14" fill="#88bd9e">&lt;/&gt;</text>
+  </g>
+</svg>

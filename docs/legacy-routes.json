@@ -1,0 +1,81 @@
+{
+  "account.ts": [
+    "GET /gas-stake",
+    "GET /state",
+    "GET /transfer",
+    "POST /gas-stake",
+    "POST /gas-stake/claim",
+    "POST /gas-stake/revoke",
+    "POST /transfer"
+  ],
+  "admin.ts": [
+    "GET /attachment-config",
+    "PUT /attachment-config"
+  ],
+  "alias.ts": [
+    "GET /availability",
+    "GET /mine",
+    "GET /resolve/:address",
+    "POST /register/prepare",
+    "POST /register/sign"
+  ],
+  "contact.ts": [
+    "POST /send",
+    "POST /send/sign"
+  ],
+  "domains.ts": [
+    "DELETE /:domain",
+    "POST /",
+    "POST /verify",
+    "PUT /:domain"
+  ],
+  "envelope.ts": [
+    "DELETE /clean",
+    "GET /factory",
+    "GET /list",
+    "POST /acquire",
+    "POST /db/update"
+  ],
+  "index.ts": [
+    "GET /display",
+    "GET /display/:address",
+    "GET /envelopes",
+    "GET /forge/state",
+    "GET /mail/service-config",
+    "GET /namecards",
+    "GET /server/:address",
+    "GET /servers/domains",
+    "GET /status"
+  ],
+  "mail.ts": [
+    "GET /attachment-config",
+    "GET /download/:id",
+    "GET /download/:id/attachment/:attachmentId",
+    "POST /send",
+    "POST /send/sign"
+  ],
+  "namecard.ts": [
+    "DELETE /clean",
+    "GET /factory",
+    "GET /list",
+    "POST /acquire",
+    "POST /db/update"
+  ],
+  "servers.ts": [
+    "GET /factory",
+    "POST /acquire"
+  ],
+  "stake.ts": [
+    "GET /state",
+    "POST /add",
+    "POST /asset",
+    "POST /claim",
+    "POST /revoke",
+    "POST /update-endpoint"
+  ],
+  "storage.ts": [
+    "DELETE /mails/delete/:id",
+    "GET /mails",
+    "GET /size"
+  ]
+}
