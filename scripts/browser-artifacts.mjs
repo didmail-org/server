@@ -6,7 +6,7 @@ import path from 'node:path';
 import { createServer } from 'node:http';
 import { spawn } from 'node:child_process';
 const name = process.argv[2];
-if (!['ui', 'admin'].includes(name)) throw new Error('Usage: node scripts/browser-artifacts.mjs ui|admin');
+if (!['ui', 'admin', 'policy'].includes(name)) throw new Error('Usage: node scripts/browser-artifacts.mjs ui|admin|policy');
 const root = path.resolve('dist');
 const html = await fs.readFile(path.join(root, 'en/index.html'), 'utf8');
 const corePath = html.match(/href="(\/aup-core\.[a-f0-9]+\.css)"/)[1];
@@ -34,7 +34,7 @@ const server = createServer(async (req, res) => {
 });
 await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
 try {
-  const child = spawn(process.execPath, [`scripts/browser-${name}.mjs`], {
+  const child = spawn(process.execPath, [`scripts/browser-${name === 'policy' ? 'mail-policy' : name}.mjs`], {
     env: { ...process.env, DIDMAIL_BROWSER_URL: `http://127.0.0.1:${server.address().port}` }, stdio: 'inherit',
   });
   const code = await new Promise((resolve, reject) => { child.once('error', reject); child.once('exit', resolve); });

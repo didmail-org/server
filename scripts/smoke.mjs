@@ -1,49 +1,89 @@
+// Read-only acceptance of the current Workers API and native ARC pages.
 import assert from 'node:assert/strict';
-import { createRequire } from 'node:module';
-const require = createRequire(import.meta.url);
-require('dotenv-flow').config({ silent: true });
-const endpoint = `http://127.0.0.1:${process.env.DIDMAIL_PORT || 3140}`;
-const checks = [];
-const request = (path, options) => fetch(endpoint + path, { ...options, signal: AbortSignal.timeout(15000) });
-const check = async (name, action) => { await action(); checks.push(name); console.log(`PASS ${name}`); };
-await check('API database readiness', async () => { const res = await request('/api/health'); assert.equal(res.status, 200); assert.equal((await res.json()).runtime, 'arc'); });
-let html;
-await check('React page is served by ARC Web Device', async () => {
-  const res = await request('/'); assert.equal(res.status, 200);
-  assert.match(res.headers.get('x-arc-version') || '', /^2\./);
-  html = await res.text(); assert.match(html, /id="app"/); assert.match(html, /DIDMail Server/);
-});
-await check('JavaScript and CSS resources', async () => {
-  const assets = [...html.matchAll(/(?:src|href)="(\/(?:assets|_arc\/assets)\/[^"]+)"/g)].map(x => x[1]);
-  assert.ok(assets.some(p => p.endsWith('.js'))); assert.ok(assets.some(p => p.endsWith('.css')));
-  for (const asset of assets) {
-    const res = await request(asset); assert.equal(res.status, 200, asset);
-    assert.match(res.headers.get('content-type') || '', asset.endsWith('.css') ? /css/ : /javascript/);
-  }
-});
-await check('Client navigation deep links', async () => {
-  for (const path of ['/admin', '/admin/account', '/admin/server', '/admin/envelope', '/admin/namecard', '/admin/storage', '/admin/attachment']) {
-    const res = await request(path); assert.equal(res.status, 200); assert.match(await res.text(), /id="app"/);
-  }
-});
-await check('ARC login and anonymous identity', async () => {
-  const login = await request('/.well-known/service/login'); assert.equal(login.status, 200); assert.match(await login.text(), /Sign In/);
-  const res = await request('/api/runtime/session'); assert.equal(res.status, 200); assert.equal((await res.json()).authenticated, false);
-});
-await check('Anonymous admin and mail requests rejected', async () => {
-  for (const path of ['/api/account/state', '/api/admin/attachment-config', '/api/mail/download/1']) {
-    const res = await request(path, { headers: { 'x-arc-role': 'owner' } }); assert.equal(res.status, 401, path);
-  }
-});
-await check('Public client capabilities', async () => {
-  const policy = await request('/api/mail/attachment-config'); assert.equal(policy.status, 200); assert.equal(typeof (await policy.json()).pricePerBytePerDay, 'string');
-  assert.equal((await request('/api/servers/domains')).status, 200);
-});
-await check('ARC-mounted read-only provider', async () => {
-  const res = await request('/api/afs/rpc', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ type: 'read', path: '/didmail/health.json', blocklet: 'didmail-arc' }) });
-  const result = await res.json(); assert.equal(result.ok, true); assert.equal(JSON.parse(result.data.content).runtime, 'arc');
-  const denied = await request('/api/afs/rpc', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ type: 'read', path: '/didmail/node-wallet.json', blocklet: 'didmail-arc' }) });
-  assert.notEqual((await denied.json()).ok, true);
-});
-await check('Unknown API has a JSON 404', async () => { const res = await request('/api/not-found'); assert.equal(res.status, 404); assert.match(res.headers.get('content-type'), /json/); });
-console.log(`Verified ${checks.length} live checks against ${endpoint}`);
+import { pathToFileURL } from 'node:url';
+
+export async function runSmoke({ origin, fetcher = fetch, report = console.log }) {
+  const endpoint = new URL(origin);
+  assert.ok(['http:', 'https:'].includes(endpoint.protocol));
+  assert.ok(!endpoint.username && !endpoint.password && !endpoint.search && !endpoint.hash);
+  assert.equal(endpoint.pathname, '/', 'Supply the server origin without a path');
+  const request = (path, headers) => fetcher(new URL(path, endpoint), {
+    method: 'GET', headers, redirect: 'error', signal: AbortSignal.timeout(15000),
+  });
+  const checks = [];
+  const check = async (name, action) => {
+    await action(); checks.push(name); report(`PASS ${name}`);
+  };
+  const nativePage = (html) => {
+    assert.match(html, /<header\b[^>]*class="aup-app-header"/);
+    assert.equal((html.match(/<header\b/g) || []).length, 1);
+    assert.match(html, /data-action-kind="theme-toggle"/);
+    assert.doesNotMatch(html, /id="app"|react-dom|runtime-config\.js/);
+  };
+  let arc;
+  await check('Workers database readiness', async () => {
+    const res = await request('/api/health'); assert.equal(res.status, 200);
+    const health = await res.json();
+    assert.equal(health.status, 'ok');
+    assert.equal(health.runtime, 'cloudflare-workers');
+    assert.equal(health.storage, 'd1+r2');
+    assert.equal(typeof health.node, 'string'); assert.ok(health.node);
+    assert.equal(typeof health.arc, 'boolean'); arc = health.arc;
+  });
+  let html;
+  await check('Native ARC landing page', async () => {
+    const res = await request('/'); assert.equal(res.status, 200);
+    assert.match(res.headers.get('content-type') || '', /text\/html/);
+    html = await res.text(); nativePage(html); assert.match(html, /DIDMail Server/);
+  });
+  await check('Native JavaScript and core/component stylesheets', async () => {
+    const assets = [...new Set([...html.matchAll(/(?:src|href)="(\/(?:_arc\/assets\/|aup-core\.)[^"?#]+\.(?:js|css))"/g)].map((m) => m[1]))];
+    assert.ok(assets.some((p) => p.endsWith('.js')));
+    assert.ok(assets.some((p) => p.startsWith('/aup-core.')));
+    for (const asset of assets) {
+      const res = await request(asset); assert.equal(res.status, 200, asset);
+      assert.match(res.headers.get('content-type') || '', asset.endsWith('.css') ? /css/ : /javascript/, asset);
+    }
+  });
+  await check('Help and all native admin deep links', async () => {
+    for (const path of ['/help', '/admin', ...['account', 'server', 'envelope', 'namecard', 'storage', 'attachment', 'members'].map((name) => '/admin/' + name)]) {
+      const res = await request(path); assert.equal(res.status, 200, path);
+      const page = await res.text(); nativePage(page);
+      assert.ok(page.includes(path === '/help' ? 'data-didmail-help' : 'data-didmail-admin'), path);
+    }
+  });
+  await check(arc ? 'ARC login and anonymous session' : 'Missing ARC identity fails closed', async () => {
+    const session = await request('/api/runtime/session');
+    assert.equal(session.status, arc ? 200 : 503);
+    if (arc) {
+      const body = await session.json(); assert.equal(body.authenticated, false); assert.equal(body.user, null);
+      const login = await request('/.well-known/service/login'); assert.equal(login.status, 200);
+      assert.match(await login.text(), /sign in/i);
+    }
+  });
+  await check('Forged owner headers cannot authorize administration', async () => {
+    for (const path of ['/api/account/state', '/api/admin/attachment-config', '/api/storage/mails']) {
+      const res = await request(path, { 'x-arc-role': 'owner', 'x-arc-did': 'smoke-forged-owner' });
+      assert.equal(res.status, arc ? 401 : 503, path);
+    }
+  });
+  await check('Retired legacy mail protocol returns 410', async () => {
+    const res = await request('/api/mail/download/1'); assert.equal(res.status, 410);
+    assert.equal((await res.json()).code, 'PROTOCOL_RETIRED');
+  });
+  await check('Public attachment policy and domains', async () => {
+    const policy = await request('/api/mail/attachment-config'); assert.equal(policy.status, 200);
+    assert.equal(typeof (await policy.json()).pricePerBytePerDay, 'string');
+    assert.equal((await request('/api/servers/domains')).status, 200);
+  });
+  await check('Unknown API has a JSON 404', async () => {
+    const res = await request('/api/not-found'); assert.equal(res.status, 404);
+    assert.match(res.headers.get('content-type') || '', /json/);
+  });
+  report(`Verified ${checks.length} read-only smoke checks against ${endpoint.origin}`);
+  return checks;
+}
+
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  await runSmoke({ origin: process.env.DIDMAIL_SMOKE_URL || process.env.DIDMAIL_BROWSER_URL || 'http://didmail-arc.localhost:8788' });
+}

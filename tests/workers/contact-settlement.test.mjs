@@ -9,6 +9,7 @@ import { toTxHash, getHasher, getSigner, types } from '@ocap/mcrypto';
 import { fromSecretKey } from '@ocap/wallet';
 import { decodeTx, encodeTx } from '@didmail/ocap-message-cbor/cbor';
 import { DOLT_COMMITTED_RECORD_QUERY } from '@didmail/protocol';
+import { decodeOcapReference } from './ocap-reference-codec.mjs';
 
 test(
   'actual contact settlement adapter signs modern CBOR, uses bounded configured RPC and recovers original broadcasts',
@@ -384,8 +385,16 @@ test(
           };
           const result = await request('prepare', { preparation: p });
           assert.equal(result.status, 200, JSON.stringify(result.body));
-          const large = result.body,
-            bytes = fromBase58(large.signedOrigin);
+          const large = result.body;
+          let hostLoopResponsive = false;
+          const hostTurn = setImmediate(() => { hostLoopResponsive = true; });
+          let bytes;
+          try {
+            bytes = await decodeOcapReference(large.signedOrigin);
+          } finally {
+            clearImmediate(hostTurn);
+          }
+          assert.equal(hostLoopResponsive, true, 'reference decoding must let Miniflare service its host event loop');
           assert.ok(bytes.length > 48 * 1024);
           assert.ok(bytes.length < 72 * 1024);
           const oldAssetId = assetId;

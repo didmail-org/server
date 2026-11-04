@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {createRequire} from 'node:module';
+import {pathToFileURL} from 'node:url';
 import {Miniflare,convertV4MiniflareOptions} from 'miniflare';
 import {fromRandom,fromPublicKey,fromAddress} from '@ocap/wallet';
 import {toUint8Array} from '@ocap/util';
@@ -14,10 +15,15 @@ test('production workerd verifies Chrome NFT payment signing with the mobile SDK
  // Execute the unchanged browser signer source from the server's test directory,
  // so this regression does not introduce an extension dependency installation.
  const signerSource=new URL('../../../extension/src/libs/nft-payment-signing.ts',import.meta.url);
- const signerFixture=new URL('../../.worker/nft-payment-signing-test.mts',import.meta.url);
- await fs.copyFile(signerSource,signerFixture);
- const {signPreparedNftPayment}=await import(signerFixture.href);
- await fs.rm(signerFixture);
+ // Each suite process owns its import fixture; concurrent runs must not remove
+ // another process's file while Node resolves the TypeScript module.
+ const signerDirectory=await fs.mkdtemp(new URL('../../.worker/nft-payment-signing-',import.meta.url));
+ const signerFixture=new URL('signer.mts',pathToFileURL(signerDirectory+'/'));
+ let signPreparedNftPayment;
+ try{
+  await fs.copyFile(signerSource,signerFixture);
+  ({signPreparedNftPayment}=await import(signerFixture.href));
+ }finally{await fs.rm(signerDirectory,{recursive:true,force:true});}
  const application=fromRandom(),payer=fromRandom(),recipient=fromRandom(),network='beta',endpoint='https://chain.test/api/';
  const owner=identityId(payer.address),receiver=identityId(recipient.address),service=identityId(application.address);
  const matches=(pk,did)=>fromPublicKey(pk,fromAddress(did.slice(8)).type).address===did.slice(8);

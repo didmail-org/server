@@ -33,3 +33,15 @@ jobs:
         run: pnpm audit:distribution
       - name: Worker tests without private client checkouts
         run: pnpm test:worker:standalone
+      - name: Concurrent contact settlement regression
+        timeout-minutes: 5
+        run: |
+          node --test tests/workers/contact-settlement.test.mjs &
+          first_pid=$!
+          node --test tests/workers/contact-settlement.test.mjs &
+          second_pid=$!
+          first_status=0
+          second_status=0
+          wait "$first_pid" || first_status=$?
+          wait "$second_pid" || second_status=$?
+          test "$first_status" -eq 0 && test "$second_status" -eq 0
