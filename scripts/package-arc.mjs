@@ -52,6 +52,9 @@ logo: web/logo.svg
 license: Apache-2.0
 save: false
 scope: app
+instance:
+  required: true
+  mount: /instance
 sites:
   - name: didmail-server
     domains: [${JSON.stringify(url.hostname)}]
