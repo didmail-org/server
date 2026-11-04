@@ -16,6 +16,6 @@ This is the standalone DIDMail server repository. Never edit the historical lega
 - Do not stop other ARC instances, especially purpose=observe. Use isolated test resources.
 - Local DIDMail development uses only ARC instance `didmail-web` with `pnpm arc:run`, exposed at `http://didmail-arc.localhost:8788`. Historical DIDMail instances were retired on 2026-10-27; do not recreate them for normal development. `pnpm start` is the separate Workers-only entry at 8787.
 - Do not broadcast chain transactions or external messages from tests. Report actual runtime/deployment limits honestly.
-- Read docs/workers-migration.md for the unresolved hosted ARC apps/extension/deployment boundary. Local ARC module imports do not prove Workers support.
+- Read docs/workers-migration.md for the unresolved hosted ARC application/extension deployment boundary. Local ARC module imports do not prove Workers support.
 
 - Local preview persistence uses `resourcePersistencePath` at `.wrangler/state/arc-preview`; Miniflare ignores legacy `d1Persist`/`r2Persist` options. Preserve an existing ephemeral D1/R2 state before restarting it; checkpoint tools and verified migration procedure are documented in `docs/local-preview-persistence.md`.
