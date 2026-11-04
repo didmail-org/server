@@ -25,6 +25,8 @@ Status: active Worker implementation. English is the source language. Start with
 | Understand disabled contact-recovery work        | [Recovery scope](contact-recovery.md), [internal API](contact-recovery-api.md), [durable jobs](contact-recovery-jobs.md) |
 | Maintain historical data compatibility           | [Retired public-mail routes](mail-protocol-retirement-tests.md)                                                          |
 
+- [Worker and Blocklet distribution license audit](distribution-license-audit.md), [Worker inventory](worker-dependency-inventory.md), and [recovered package source evidence](license-source-evidence.json).
+
 ## Authority and capability status
 
 Active mail contracts are in the [protocol index](https://github.com/didmail-org/protocol/blob/main/docs/protocol/README.md); [delivery behavior](https://github.com/didmail-org/overview/blob/main/docs/delivery.md) explains internal, sponsored NFT and paid NFT outcomes. Contact recovery is internal-only; the existence of its handlers is not a production capability. Ordinary/chain-VC delivery is retired and has no enablement guide.

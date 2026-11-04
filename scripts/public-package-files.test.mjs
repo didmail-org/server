@@ -20,6 +20,14 @@ const generated = [
   'third_party_licenses/worker-bundle-licenses.txt',
   'third_party_licenses/cookie-signature1.0.6-README-license.txt',
   'third_party_licenses/cisco-go-hpke-bsd2.txt',
+  'third_party_licenses/boolbase1.0.0.txt',
+  'third_party_licenses/express-async-errors3.1.1.txt',
+  'third_party_licenses/jsonify0.0.1-README-license.txt',
+  'third_party_licenses/qrcode-generator1.4.4.txt',
+  'third_party_licenses/qrcode-generator1.4.4-source-header.txt',
+  'third_party_licenses/google-protobuf3.21.0-Closure-header.txt',
+  'third_party_licenses/google-closure-library-Apache-2.0.txt',
+  'third_party_licenses/blocklet-bundle-licenses.txt',
   'providers/didmail/config.json',
   '.web/template/logo.svg',
   '.web/seo/og-site-name',
@@ -43,7 +51,22 @@ async function fixture(run) {
   await fs.writeFile(path.join(cwd, 'NOTICE'), 'Public fixture notice\n');
   await fs.writeFile(path.join(cwd, 'THIRD_PARTY_NOTICES.md'), 'Public fixture third-party notices\n');
   await fs.mkdir(path.join(cwd, 'third_party_licenses'));
-  for (const name of ['deepmerge4.3.1.txt', 'minimatch11.0.3.txt', 'ocap-client1.19.15.txt', 'worker-bundle-licenses.txt', 'cookie-signature1.0.6-README-license.txt', 'cisco-go-hpke-bsd2.txt']) {
+  for (const name of [
+    'qrcode-generator1.4.4.txt',
+    'qrcode-generator1.4.4-source-header.txt',
+    'google-protobuf3.21.0-Closure-header.txt',
+    'google-closure-library-Apache-2.0.txt',
+    'blocklet-bundle-licenses.txt',
+    'boolbase1.0.0.txt',
+    'express-async-errors3.1.1.txt',
+    'jsonify0.0.1-README-license.txt',
+    'deepmerge4.3.1.txt',
+    'minimatch11.0.3.txt',
+    'ocap-client1.19.15.txt',
+    'worker-bundle-licenses.txt',
+    'cookie-signature1.0.6-README-license.txt',
+    'cisco-go-hpke-bsd2.txt',
+  ]) {
     await fs.writeFile(path.join(cwd, 'third_party_licenses', name), 'Public fixture dependency license\n');
   }
   await fs.writeFile(path.join(cwd, 'logo.svg'), '<svg xmlns="http://www.w3.org/2000/svg">PUBLIC</svg>');

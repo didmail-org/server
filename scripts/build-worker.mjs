@@ -1,6 +1,7 @@
 import { build } from 'esbuild';
 import path from 'node:path';
 import fs from 'node:fs/promises';
+import { copyDistributionNotices } from './distribution-notices.mjs';
 const root = process.cwd();
 const replacements = new Map(
   Object.entries({
@@ -37,8 +38,7 @@ const result = await build({
         b.onResolve({ filter: /.*/ }, (args) => {
           // The Worker uses Axios' fetch adapter; keep Node HTTP/2 and proxy
           // transports out of the production bundle entirely.
-          if (args.path === 'axios')
-            return { path: path.join(root, 'node_modules/axios/dist/browser/axios.cjs') };
+          if (args.path === 'axios') return { path: path.join(root, 'node_modules/axios/dist/browser/axios.cjs') };
           if (args.path === 'node-fetch') return { path: path.join(root, 'workers/node-fetch.ts') };
           if (args.path === 'depd') return { path: path.join(root, 'workers/depd.cjs') };
           if (args.path === '@arcblock/ws') return { path: path.join(root, 'workers/ws.ts') };
@@ -65,5 +65,13 @@ if (!process.argv.includes('--test') && inputs.some((p) => p.startsWith('tests/'
 for (const forbidden of ['sqlite3', 'sequelize/lib', 'api/src/runtime/wallet.ts', 'api/src/index.ts', 'http-proxy']) {
   if (inputs.some((p) => p.includes(forbidden))) throw new Error('Non-Worker dependency bundled: ' + forbidden);
 }
-await fs.writeFile('.worker/metafile.json', JSON.stringify(result.metafile, null, 2));
+await fs.writeFile(
+  process.argv.includes('--test') ? '.worker/test-metafile.json' : '.worker/metafile.json',
+  JSON.stringify(result.metafile, null, 2),
+);
+if (!process.argv.includes('--test')) {
+  copyDistributionNotices('.worker/legal');
+  // Wrangler deploys dist as ASSETS; sidecars next to the entry alone are not uploaded.
+  copyDistributionNotices('dist');
+}
 console.log(`Worker bundled: ${inputs.length} modules; native SQLite, filesystem wallet and Node gateway excluded`);

@@ -1,0 +1,3 @@
+package,version,license_metadata,local_license_file,package_instances
+@tanstack/query-core,5.104.5,MIT,yes,1
+qrcode-generator,1.4.4,MIT,no,1

@@ -1,4 +1,5 @@
 import localeConfig from '../ui/locales/config.js';
+import { copyDistributionNotices } from './distribution-notices.mjs';
 import { rmSync } from 'node:fs';
 import { createPublicPackageWriter } from './public-package-files.mjs';
 import path from 'node:path';
@@ -9,9 +10,7 @@ const port = Number(process.env.DIDMAIL_PORT || 3140);
 const url = new URL(process.env.DIDMAIL_URL || `http://didmail-arc.localhost:${port}`);
 const files = createPublicPackageWriter(path.resolve('blocklet'));
 const root = files.root;
-for (const name of ['LICENSE', 'NOTICE', 'THIRD_PARTY_NOTICES.md', 'third_party_licenses/deepmerge4.3.1.txt', 'third_party_licenses/minimatch11.0.3.txt', 'third_party_licenses/ocap-client1.19.15.txt', 'third_party_licenses/worker-bundle-licenses.txt', 'third_party_licenses/cookie-signature1.0.6-README-license.txt', 'third_party_licenses/cisco-go-hpke-bsd2.txt']) {
-  files.copy(path.resolve(name), name);
-}
+copyDistributionNotices(root);
 files.write(
   'providers/didmail/config.json',
   JSON.stringify({ endpoint: process.env.DIDMAIL_WORKER_URL || 'http://127.0.0.1:8787' }) + '\n',

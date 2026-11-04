@@ -29,5 +29,7 @@ jobs:
           "$RUNNER_TEMP/arc/arc" --version
           echo "$RUNNER_TEMP/arc" >> "$GITHUB_PATH"
       - run: pnpm build
+      - name: Verify built distribution inventory and notices
+        run: pnpm audit:distribution
       - name: Worker tests without private client checkouts
         run: pnpm test:worker:standalone

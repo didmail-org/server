@@ -19,7 +19,7 @@ package,version,license_metadata,local_license_file,package_instances
 @ocap/message,1.19.15,Apache-2.0,yes,1
 @ocap/proto,1.19.15,Apache-2.0,yes,1
 @ocap/util,1.19.15,Apache-2.0,yes,1
-@ocap/util,1.30.24,Apache-2.0,missing in at least one instance,1
+@ocap/util,1.30.24,Apache-2.0,no,1
 @ocap/wallet,1.19.15,Apache-2.0,yes,1
 @sideway/address,4.1.5,BSD-3-Clause,yes,1
 @sideway/formula,3.0.1,BSD-3-Clause,yes,1
@@ -33,9 +33,9 @@ base64-url,2.3.3,ISC,yes,1
 bn.js,5.2.3,MIT,yes,1
 bn.js,5.2.5,MIT,yes,1
 body-parser,1.20.9,MIT,yes,1
-boolbase,1.0.0,ISC,missing in at least one instance,1
+boolbase,1.0.0,ISC,no,1
 bs58,5.0.0,MIT,yes,1
-busboy,1.6.0,"[{'type': 'MIT', 'url': 'http://github.com/mscdex/busboy/raw/master/LICENSE'}]",yes,1
+busboy,1.6.0,MIT,yes,1
 bytes,3.1.2,MIT,yes,1
 call-bind,1.0.8,MIT,yes,1
 call-bind-apply-helpers,1.0.2,MIT,yes,1
@@ -44,7 +44,7 @@ content-disposition,0.5.4,MIT,yes,1
 content-type,1.0.5,MIT,yes,1
 cookie,0.7.2,MIT,yes,1
 cookie-parser,1.4.7,MIT,yes,1
-cookie-signature,1.0.6,MIT,missing in at least one instance,1
+cookie-signature,1.0.6,MIT,no,1
 cors,2.8.5,MIT,yes,1
 country-flag-icons,1.5.18,MIT,yes,1
 css-select,5.1.0,BSD-2-Clause,yes,1
@@ -73,7 +73,7 @@ esprima,4.0.1,BSD-2-Clause,yes,1
 etag,1.8.1,MIT,yes,1
 ethers,6.17.0,MIT,yes,1
 express,4.22.3,MIT,yes,1
-express-async-errors,3.1.1,ISC,missing in at least one instance,1
+express-async-errors,3.1.1,ISC,no,1
 finalhandler,1.3.1,MIT,yes,1
 flat,5.0.2,BSD-3-Clause,yes,1
 forwarded,0.2.0,MIT,yes,1
@@ -91,14 +91,14 @@ http-errors,2.0.0,MIT,yes,1
 http-errors,2.0.1,MIT,yes,1
 iconv-lite,0.4.24,MIT,yes,1
 inherits,2.0.4,ISC,yes,1
-interface,1.2.1,MIT,missing in at least one instance,1
+interface,1.2.1,MIT,no,1
 ipaddr.js,1.9.1,MIT,yes,1
 is-absolute-url,3.0.3,MIT,yes,1
 isarray,2.0.5,MIT,yes,1
 joi,17.13.9,BSD-3-Clause,yes,1
 json-stable-stringify,1.2.1,MIT,yes,1
-jsonify,0.0.1,Public Domain,missing in at least one instance,1
-jsonpack,1.1.5,"[{'type': 'MIT', 'url': 'https://github.com/roro89/jsonpack/blob/master/LICENSE.md'}]",yes,1
+jsonify,0.0.1,Public Domain,no,1
+jsonpack,1.1.5,MIT,yes,1
 lodash,4.18.1,MIT,yes,1
 math-intrinsics,1.1.0,MIT,yes,1
 mdn-data,2.0.28,CC0-1.0,yes,1
@@ -141,7 +141,7 @@ side-channel-weakmap,1.0.2,MIT,yes,1
 source-map-js,1.2.2,BSD-3-Clause,yes,1
 statuses,2.0.1,MIT,yes,1
 statuses,2.0.2,MIT,yes,1
-streamsearch,1.1.0,"[{'type': 'MIT', 'url': 'http://github.com/mscdex/streamsearch/raw/master/LICENSE'}]",yes,1
+streamsearch,1.1.0,MIT,yes,1
 supports-color,10.2.2,MIT,yes,1
 svgo,3.3.5,MIT,yes,1
 toidentifier,1.0.1,MIT,yes,1
