@@ -1,0 +1,7 @@
+**
+!Dockerfile
+!config.json
+!prepare-demo.mjs
+!entrypoint.sh
+!nginx.conf
+!warmup.mjs

@@ -33,6 +33,8 @@ The ARC package ID and site namespace are `didmail-server` (`did:blocklet:didmai
 
 The package explicitly requires a real DID Space mounted at `/instance`. It declares no seed because it currently ships no instance initialization data. This requirement does not migrate the Worker's business data from D1/R2 into ARC storage.
 
+For an isolated ARC runtime experiment, see the [support-community Docker demo](examples/support-community-docker/README.md). It includes pinned runtime setup, native Settings fixes and a browser verification of login and persistence through container restart/replacement. Its credentials and instance data stay under ignored `artifacts/private/`; it does not deploy DIDMail or Cloudflare resources.
+
 `pnpm start` is a separate Workers-only entry on port 8787. Without a trusted ARC connection, protected administration APIs cannot authenticate users. Do not replace authorization with caller-supplied role headers. Development wallets and `.dev.vars` are private local files; keep them and `.wrangler`, `.arc`, databases and exports out of Git and public packages.
 
 ## Verification
