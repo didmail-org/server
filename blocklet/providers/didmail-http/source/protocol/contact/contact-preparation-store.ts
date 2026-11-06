@@ -1,12 +1,12 @@
 import type { SqlDatabase, SqlSession } from '../../runtime/contracts';
 import { canonicalize } from '@didmail/protocol';
-import type { ContactPreparation, ContactPreparationSnapshot } from '../../../../../../api/src/libs/contact-preparation';
-import { contactPreparationCommitment } from '../../../../../../api/src/libs/contact-preparation';
+import type { ContactPreparation, ContactPreparationSnapshot } from './contact-preparation';
+import { contactPreparationCommitment } from './contact-preparation';
 export type {
   ContactPreparation,
   ContactPreparationSnapshot,
   ContactRecoveryPolicy,
-} from '../../../../../../api/src/libs/contact-preparation';
+} from './contact-preparation';
 import { toBase58 } from '@ocap/util';
 import {
   ContactPaymentBinding,
@@ -14,7 +14,7 @@ import {
   contactPaymentUnits,
   snapshotContactPaymentBinding,
   verifyContactPayment,
-} from '../../../../../../api/src/libs/contact-payment-evidence';
+} from './contact-payment-evidence';
 
 interface PreparationRow {
   id: string;

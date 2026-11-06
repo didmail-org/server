@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import GraphQLClient from '@ocap/client';
 import axios from 'axios';
-import getWallet from '../runtime/wallet';
+import getWallet from '../../../identity/wallet';
 import { stakeAsset, revokeStake, claimStake, addStakeToken, getStakeState } from '../libs/stake';
-import env from '../libs/env';
+import env from '../../../config/env';
 import logger from '../libs/logger';
 
 // 检查必需的环境变量

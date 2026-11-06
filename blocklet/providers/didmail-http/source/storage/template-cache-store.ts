@@ -45,7 +45,7 @@ const storage: TemplateCacheStorage = {
       bindings.DB.prepare('SELECT payload FROM template_list_cache WHERE scope = ?').bind(scope),
       bindings.DB.prepare('DELETE FROM template_list_cache WHERE scope = ?').bind(scope),
     ]);
-    return (result[1].results as { payload: string }[]).map((row) => row.payload);
+    return (result[1]!.results as { payload: string }[]).map((row) => row.payload);
   },
   async deleteObjects(keys) {
     await bindings.BLOBS.delete(keys);
@@ -56,7 +56,8 @@ const storage: TemplateCacheStorage = {
 };
 
 const cache = createTemplateCache(storage);
-export const readTemplateCache = cache.read;
+export const readTemplateCache = <T>(scope: string, cursor: string): Promise<T | null> =>
+  cache.read(scope, cursor) as Promise<T | null>;
 export const templateCacheGeneration = cache.generation;
 export const writeTemplateCache = cache.write;
 export const invalidateTemplateCache = cache.invalidate;

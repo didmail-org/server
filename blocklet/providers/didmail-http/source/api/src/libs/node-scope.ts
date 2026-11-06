@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import env from './env';
+import env from '../../../config/env';
 
 // Public identity/configuration only. Never include session tokens or wallet secrets.
 export default function withNodeScope<T extends { authenticated: boolean; user: null | { role: string } }>(session: T) {

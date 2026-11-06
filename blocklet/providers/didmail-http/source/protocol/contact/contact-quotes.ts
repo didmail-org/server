@@ -3,7 +3,7 @@ import {
   ContactQuoteUnavailable,
   type ContactNodePolicy,
   type ContactPreparationInput,
-} from '../../../../../../api/src/libs/contact-quote';
+} from './contact-quote';
 import type { ContactQuoteProvider } from './contact-api';
 import { requestDmpChainRpc } from '../dmp-ledger-read';
 import { Namecard } from '../../storage/database';

@@ -1,9 +1,9 @@
 import { createHash } from 'node:crypto';
 import GraphQLClient from '@ocap/client';
 import { toStakeAddress } from '@arcblock/did-util';
-import chainReads from '../runtime/chain-read';
-import getWallet from '../runtime/wallet';
-import env from './env';
+import chainReads from '../../../identity/chain-read';
+import getWallet from '../../../identity/wallet';
+import env from '../../../config/env';
 
 const client = new GraphQLClient(env.chainHost, false);
 const wallet = getWallet();

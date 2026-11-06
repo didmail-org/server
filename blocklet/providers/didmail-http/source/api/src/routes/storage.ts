@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { Op } from 'sequelize';
-import { getDatabaseSize, Mail } from '../libs/sqlite';
+import { getDatabaseSize, Mail } from '../../../storage/database';
 import { destroyMailWithAttachments } from '../libs/mail-lifecycle';
 
 const router = Router();

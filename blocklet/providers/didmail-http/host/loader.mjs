@@ -3,10 +3,9 @@ import { fileURLToPath } from 'node:url';
 import { realpathSync, readFileSync, existsSync, statSync } from 'node:fs';
 import { builtinModules } from 'node:module';
 import manifest from '../vendor/manifest.json' with { type: 'json' };
-import runtimeAdapters from '../runtime-adapters.json' with { type: 'json' };
 const base = realpathSync(fileURLToPath(new URL('../', import.meta.url))) + path.sep;
+const packageBase = realpathSync(fileURLToPath(new URL('../../../', import.meta.url))) + path.sep;
 const namespace = 'didmail-source';
-const aliases = runtimeAdapters;
 function resolveFile(file) {
   for (const candidate of [file, file + '.ts', file + '.mjs', file + '.js', file + '.json', file + '/index.ts'])
     if (existsSync(candidate) && statSync(candidate).isFile()) return realpathSync(candidate);
@@ -23,8 +22,6 @@ function target(specifier, importer, kind = 'import') {
   if (stub) file = base + 'source/runtime/' + stub;
   else if (specifier.startsWith('.')) {
     file = path.resolve(path.dirname(importer), specifier);
-    const alias = aliases[path.relative(base + 'source', file.replace(/\.ts$/, ''))];
-    if (alias) file = path.resolve(base + 'source', alias);
   } else if (specifier.startsWith('/')) file = specifier;
   else {
     const entry = manifest.specifiers[specifier];
@@ -32,6 +29,7 @@ function target(specifier, importer, kind = 'import') {
     file = base + 'vendor/' + entry[kind];
   }
   file = resolveFile(file);
+  if (!file.startsWith(packageBase)) throw Error('Outside packaged DIDMail module scope');
   // Existing pure providers and the immutable environment retain their normal
   // module identity. Every application/dependency module is loaded from dist.
   if (!file.startsWith(base) || [base + 'host/environment.mjs', base + 'host/runtime.mjs'].includes(file)) return file;

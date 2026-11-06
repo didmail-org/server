@@ -6,7 +6,7 @@ import GraphQLClient from '@ocap/client';
 import { toBase58, fromBase58, fromTokenToUnit } from '@ocap/util';
 import { fromPublicKey, fromAddress } from '@ocap/wallet';
 import { getDefaultEnvelope } from '../libs/mail-service-policy';
-import getWallet from '../runtime/wallet';
+import getWallet from '../../../identity/wallet';
 import {
   buildAttachmentMeta,
   computeMailHashWithAttachments,
@@ -21,11 +21,11 @@ import {
   verifyAttachmentDownloadAuth,
 } from '../libs/attachment-download';
 import { calculateAttachmentStorageCost, calculatePaymentWei } from '../libs/attachment-pricing';
-import env from '../libs/env';
+import env from '../../../config/env';
 import { getForgeState } from '../libs/forge';
 import logger from '../libs/logger';
 import { destroyMailWithAttachments } from '../libs/mail-lifecycle';
-import { Attachment, Mail, Envelope, getAttachmentConfig } from '../libs/sqlite';
+import { Attachment, Mail, Envelope, getAttachmentConfig } from '../../../storage/database';
 
 if (!env.chainHost) throw new Error('env.chainHost is required');
 const client = new GraphQLClient(env.chainHost, false);

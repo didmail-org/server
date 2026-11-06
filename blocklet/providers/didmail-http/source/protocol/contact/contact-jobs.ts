@@ -2,12 +2,12 @@ import type { SqlDatabase } from '../../runtime/contracts';
 import { canonicalize, uuid, validateChainConfirmation, type ChainConfirmation } from '@didmail/protocol';
 import { fromBase58 } from '@ocap/util';
 import { toTxHash } from '@ocap/mcrypto';
-import { verifyContactPayment } from '../../../../../../api/src/libs/contact-payment-evidence';
-import type { ContactPreparation } from '../../../../../../api/src/libs/contact-preparation';
-import { contactPreparationCommitment } from '../../../../../../api/src/libs/contact-preparation';
+import { verifyContactPayment } from './contact-payment-evidence';
+import type { ContactPreparation } from './contact-preparation';
+import { contactPreparationCommitment } from './contact-preparation';
 import { ContactPreparationStore } from './contact-preparation-store';
 import { reserveWalletLane } from '../../identity/wallet-lane';
-import { decodeContactBytes } from '../../../../../../api/src/libs/contact-base58';
+import { decodeContactBytes } from './contact-base58';
 
 export interface ContactMint {
   readonly signedOrigin: string;

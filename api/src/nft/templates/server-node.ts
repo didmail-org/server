@@ -1,1 +1,0 @@
-../../../../blocklet/providers/didmail-http/source/api/src/nft/templates/server-node.ts

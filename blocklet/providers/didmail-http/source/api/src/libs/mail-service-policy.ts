@@ -1,5 +1,5 @@
-import { Envelope } from './sqlite';
-import env from './env';
+import { Envelope } from '../../../storage/database';
+import env from '../../../config/env';
 
 // The first published NFT is the stable default. Disabling it selects the next published NFT.
 export const getDefaultEnvelope = async () => {

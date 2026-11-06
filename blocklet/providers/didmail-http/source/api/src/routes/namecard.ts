@@ -5,10 +5,10 @@ import { optimize } from 'svgo';
 import multer from 'multer';
 import { fromUnitToToken } from '@ocap/util';
 import { fromAddress } from '@ocap/wallet';
-import chainReads from '../runtime/chain-read';
+import chainReads from '../../../identity/chain-read';
 import { wallet } from '../libs/auth';
-import env from '../libs/env';
-import { Namecard } from '../libs/sqlite';
+import env from '../../../config/env';
+import { Namecard } from '../../../storage/database';
 import { templateListPage, invalidateTemplateList } from '../libs/template-list';
 // @ts-ignore
 // import logger from '../libs/logger';

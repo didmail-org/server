@@ -4,7 +4,7 @@ import GraphQLClient from '@ocap/client';
 import { toBase58 } from '@ocap/util';
 import { fromAddress } from '@ocap/wallet';
 import { Op } from 'sequelize';
-import nextPaymentNonce from '../runtime/payment-nonce';
+import nextPaymentNonce from '../../../identity/payment-nonce';
 
 import { assertAliasWritable, AliasGateError } from './alias-domain';
 import {
@@ -17,11 +17,11 @@ import {
   verifyBindingProof,
 } from './alias-crypto';
 import { wallet } from './auth';
-import env from './env';
+import env from '../../../config/env';
 import { getForgeState } from './forge';
 import logger from './logger';
 import { verifyLegacyContactPayment } from './legacy-contact-payment';
-import { Alias, DomainBinding } from './sqlite';
+import { Alias, DomainBinding } from '../../../storage/database';
 
 export const RESERVED_ALIASES = [
   'admin',
@@ -38,7 +38,7 @@ const EXPIRED_GRACE_SECONDS = 30 * 86400;
 // pending 占位行 TTL：超时未 finalize 的占位不再视为占用，防免费注册接口的 namespace DoS
 export const PENDING_TTL_MS = 15 * 60 * 1000;
 
-const isStalePending = (row: InstanceType<typeof Alias>): boolean =>
+const isStalePending = (row: { get(key: string): unknown }): boolean =>
   row.get('status') === 'pending' &&
   Date.now() - new Date(row.get('createdAt') as string | number | Date).getTime() > PENDING_TTL_MS;
 

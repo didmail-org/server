@@ -63,8 +63,9 @@ test('maintained minimatch retains callable and named CommonJS APIs and legacy g
   }
   const legacyRequire = createRequire(toolRequire.resolve('jest-runtime'));
   const glob = legacyRequire('glob');
-  assert.ok(glob.sync('api/src/routes/*.ts').includes('api/src/routes/contact.ts'));
-  assert.ok(glob.sync('api/src/**/*.test.ts').includes('api/src/runtime/payment-nonce.test.ts'));
+  const routes = 'blocklet/providers/didmail-http/source/api/src/routes';
+  assert.ok(glob.sync(`${routes}/*.ts`).includes(`${routes}/contact.ts`));
+  assert.ok(glob.sync('tests/unit/**/*.test.ts').includes('tests/unit/payment-nonce.test.ts'));
 });
 
 test('minimatch preprocessing of an adversarial glob stays bounded', () => {

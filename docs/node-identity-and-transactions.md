@@ -33,7 +33,7 @@ The Node account page separates recharge, transfer and gas staking. Transfers re
 - Compare exact base units against spendable balance. Staked or revoked-but-unclaimed funds are not available balance. Keep enough funds for required fees.
 - Show one explicit confirmation for amount/recipient/network, prevent duplicate submission and render progress/results inline. Neither client nor server automatically retries a transfer.
 
-[Account routes](../api/src/routes/account.ts) and isolated API/browser tests cover ownership, exact amounts, cancellation and failures without sending real funds.
+[Account routes](../blocklet/providers/didmail-http/source/api/src/routes/account.ts) and isolated API/browser tests cover ownership, exact amounts, cancellation and failures without sending real funds.
 
 ## Native-token gas stake
 
@@ -45,7 +45,7 @@ Read amount and withdrawal waiting rules from the configured chain. Revocation s
 
 ### API
 
-All writes require a verified ARC owner, fresh policy verification and explicit review; admin cannot invoke them. [Account routes](../api/src/routes/account.ts) implement:
+All writes require a verified ARC owner, fresh policy verification and explicit review; admin cannot invoke them. [Account routes](../blocklet/providers/didmail-http/source/api/src/routes/account.ts) implement:
 
 | Operation                            | Required input/behavior                                                                    |
 | ------------------------------------ | ------------------------------------------------------------------------------------------ |
@@ -75,7 +75,7 @@ stake above. Node purchase/stake routes retain their own server-side role gates.
 - `REVOKE_WAITING_PERIOD` does not override the fixed policy.
 - Existing chain stakes retain their actual historical waiting period.
 
-Do not equate holding an NFT, a token balance or a native-token self stake with an effective service-node NFT stake. Validate current factory, ownership and unrevoked stake evidence. See [stake routes](../api/src/routes/stake.ts), [policy API](mail-policy-api.md) and [identity](#three-identities).
+Do not equate holding an NFT, a token balance or a native-token self stake with an effective service-node NFT stake. Validate current factory, ownership and unrevoked stake evidence. See [stake routes](../blocklet/providers/didmail-http/source/api/src/routes/stake.ts), [policy API](mail-policy-api.md) and [identity](#three-identities).
 
 ## Chain-read troubleshooting
 

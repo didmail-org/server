@@ -1,8 +1,8 @@
 import GraphQLClient from '@ocap/client';
 import { isValid } from '@arcblock/did';
-import chainReads from '../runtime/chain-read';
-import getWallet from '../runtime/wallet';
-import env from './env';
+import chainReads from '../../../identity/chain-read';
+import getWallet from '../../../identity/wallet';
+import env from '../../../config/env';
 
 const client = new GraphQLClient(env.chainHost, false);
 const wallet = getWallet();

@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import { fromAddress } from '@ocap/wallet';
 import axios from 'axios';
-import chainReads from '../runtime/chain-read';
-import getWallet from '../runtime/wallet';
-import env from '../libs/env';
+import chainReads from '../../../identity/chain-read';
+import getWallet from '../../../identity/wallet';
+import env from '../../../config/env';
 import logger from '../libs/logger';
 import readServerFactory from '../libs/server-factory';
 import assertPurchaseBalance from '../libs/purchase-balance';

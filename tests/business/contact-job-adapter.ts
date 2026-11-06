@@ -2,7 +2,7 @@ import type { SqlDatabase } from '../../blocklet/providers/didmail-http/source/r
 // Coordinator fault fixture only. It does not claim real mint/chain verification.
 import { toBase58, fromBase58 } from '@ocap/util';
 import { toTxHash } from '@ocap/mcrypto';
-import type { ContactPreparation } from '../../api/src/libs/contact-preparation';
+import type { ContactPreparation } from '../../blocklet/providers/didmail-http/source/protocol/contact/contact-preparation';
 import type { ContactSettlementAdapter, ContactChainEvidence } from '../../blocklet/providers/didmail-http/source/protocol/contact/contact-jobs';
 
 export function contactJobAdapter(database: SqlDatabase, mode = ''): ContactSettlementAdapter {

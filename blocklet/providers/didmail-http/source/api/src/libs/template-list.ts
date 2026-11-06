@@ -1,15 +1,31 @@
 import { createHash, randomUUID } from 'crypto';
 import { fromTokenToUnit } from '@ocap/util';
-import env from './env';
+import env from '../../../config/env';
 import { wallet } from './auth';
-import templateToken from '../runtime/template-token';
-import { Envelope, Namecard } from './sqlite';
+import templateToken from '../../../runtime/template-token';
+import { Envelope, Namecard } from '../../../storage/database';
 import {
   readTemplateCache,
   templateCacheGeneration,
   writeTemplateCache,
   invalidateTemplateCache,
-} from './template-cache-store';
+} from '../../../storage/template-cache-store';
+
+interface TemplateSnapshot {
+  items: Record<string, any>[];
+  previewVersion?: number;
+  paging: unknown;
+  syncedAt: string;
+  version: string;
+  rootVersion?: string;
+}
+
+interface TemplatePage {
+  paging: unknown;
+  cache: { source: string; syncedAt: string; stale: boolean; syncError: boolean };
+}
+type EnvelopePage = TemplatePage & { envelopes: Record<string, any>[] };
+type NamecardPage = TemplatePage & { namecards: Record<string, any>[] };
 
 type Kind = 'envelope' | 'namecard';
 export function templateCacheScope(kind: Kind, factoryAddress: string) {
@@ -20,16 +36,19 @@ export function templateCacheScope(kind: Kind, factoryAddress: string) {
 export function invalidateTemplateList(kind: Kind, factoryAddress: string) {
   return invalidateTemplateCache(templateCacheScope(kind, factoryAddress));
 }
+export function templateListPage(kind: 'envelope', factoryAddress: string, client: any, cursor: string, refresh: boolean): Promise<EnvelopePage>;
+export function templateListPage(kind: 'namecard', factoryAddress: string, client: any, cursor: string, refresh: boolean): Promise<NamecardPage>;
+export function templateListPage(kind: Kind, factoryAddress: string, client: any, cursor: string, refresh: boolean): Promise<EnvelopePage | NamecardPage>;
 export async function templateListPage(
   kind: Kind,
   factoryAddress: string,
   client: any,
   cursor: string,
   refresh: boolean,
-) {
+): Promise<EnvelopePage | NamecardPage> {
   const scope = templateCacheScope(kind, factoryAddress);
-  let cached = await readTemplateCache(scope, cursor);
-  const root = cursor === '0' ? cached : await readTemplateCache(scope, '0');
+  let cached = await readTemplateCache<TemplateSnapshot>(scope, cursor);
+  const root = cursor === '0' ? cached : await readTemplateCache<TemplateSnapshot>(scope, '0');
   // A refreshed first page changes offset pagination. Never reuse later pages from the old ordering.
   if (cursor !== '0' && cached?.rootVersion !== root?.version) cached = null;
   let snapshot = cached;
@@ -112,9 +131,9 @@ export async function templateListPage(
     enabled: enabled.get(item.address) || false,
     category: categories.get(item.address) || 'public',
   }));
-  return {
-    [kind === 'envelope' ? 'envelopes' : 'namecards']: items,
+  const page = {
     paging: snapshot.paging,
     cache: { source, syncedAt: snapshot.syncedAt, stale: syncError, syncError },
   };
+  return kind === 'envelope' ? { envelopes: items, ...page } : { namecards: items, ...page };
 }

@@ -1,8 +1,8 @@
 import type { SqlDatabase } from '../../runtime/contracts';
 import { canonicalize, validateChainConfirmation, type ChainConfirmation } from '@didmail/protocol';
 import { toTxHash } from '@ocap/mcrypto';
-import { decodeContactBytes } from '../../../../../../api/src/libs/contact-base58';
-import type { ContactPreparation } from '../../../../../../api/src/libs/contact-preparation';
+import { decodeContactBytes } from './contact-base58';
+import type { ContactPreparation } from './contact-preparation';
 import type { ContactJobRow, ContactMint } from './contact-jobs';
 
 export interface ContactRecoveryStatus {

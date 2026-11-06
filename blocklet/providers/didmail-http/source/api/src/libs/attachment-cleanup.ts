@@ -1,5 +1,5 @@
 import { Op } from 'sequelize';
-import { Mail, Attachment } from './sqlite';
+import { Mail, Attachment } from '../../../storage/database';
 import { destroyMailWithAttachments } from './mail-lifecycle';
 import logger from './logger';
 

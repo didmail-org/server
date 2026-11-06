@@ -1,5 +1,5 @@
 import { fromPublicKey } from '@ocap/wallet';
-import { Attachment } from './sqlite';
+import { Attachment } from '../../../storage/database';
 
 type AuthOk = { ok: true };
 type AuthFail = { ok: false; status: number; error: string };

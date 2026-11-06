@@ -8,8 +8,8 @@ import {
   generateDomainKey,
   normalizeDomain,
 } from './alias-crypto';
-import env from './env';
-import { DomainBinding } from './sqlite';
+import env from '../../../config/env';
+import { DomainBinding } from '../../../storage/database';
 
 export type DomainStatus = 'pending' | 'verified' | 'grace' | 'unbound';
 export const DOMAIN_GRACE_MS = 30 * 24 * 3600 * 1000;

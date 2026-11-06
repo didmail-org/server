@@ -1,10 +1,10 @@
 import { addressOf, isUuid, parseCanonical, uuid, signArtifact, identityId } from '@didmail/protocol';
 import { toUint8Array } from '@ocap/util';
 import type { WalletObject } from '@ocap/wallet';
-import { InvalidContactPayment } from '../../../../../../api/src/libs/contact-payment-evidence';
+import { InvalidContactPayment } from './contact-payment-evidence';
 import { ContactPreparationError, ContactPreparationStore } from './contact-preparation-store';
-import { ContactQuoteUnavailable, type ContactPreparationInput } from '../../../../../../api/src/libs/contact-quote';
-import type { ContactPreparation, ContactPreparationSnapshot } from '../../../../../../api/src/libs/contact-preparation';
+import { ContactQuoteUnavailable, type ContactPreparationInput } from './contact-quote';
+import type { ContactPreparation, ContactPreparationSnapshot } from './contact-preparation';
 import { bindings } from '../../runtime/bindings';
 import { identityMatches } from '../dmp-settlement';
 import { problem } from '../dmp-api';

@@ -37,6 +37,8 @@ const lint = new ESLint({
       files: ['**/*.ts', '**/*.mts'],
       rules: {
         'no-undef': 'off', // TypeScript checks type/value names in type-check:runtime.
+        'no-redeclare': 'off',
+        '@typescript-eslint/no-redeclare': 'error',
         'no-unused-vars': 'off',
         '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_', ignoreRestSiblings: true }],
       },

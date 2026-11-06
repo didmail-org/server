@@ -374,7 +374,7 @@
     },
     {
       "file": "providers/didmail-http/host/loader.mjs",
-      "sha256": "df798386f1d23798923f1ebd5224160241c87194d59f0dd8b089b4d40df8bb5d"
+      "sha256": "85dacfb537be9834eaa8d591ecaca1b9f3a180b3855953a1d9f0798572edaae6"
     },
     {
       "file": "providers/didmail-http/host/preview-arc-websocket.mjs",
@@ -393,10 +393,6 @@
       "sha256": "b9a3513b54499dcc5e36d480eeddaf57d27d332f3f9a2901ba435b6dd05f7fd1"
     },
     {
-      "file": "providers/didmail-http/runtime-adapters.json",
-      "sha256": "e294baabfab1e94b0fb7e7a6478a43f7dce19718f0d1569e6d6e66d688ca2e09"
-    },
-    {
       "file": "providers/didmail-http/source/api/src/libs/afs-chain-reader.ts",
       "sha256": "bec131b949b0fce46232689bcd0c883626e932236d1d5feeda9cb028a108c42d"
     },
@@ -406,19 +402,19 @@
     },
     {
       "file": "providers/didmail-http/source/api/src/libs/alias-domain.ts",
-      "sha256": "9b89598a18b271dac1ff2481103b48784108e13b32708abf1dd60337d5a3b394"
+      "sha256": "5ba3fc2614e13353502715dd5fd0987794ae50c4683e2fcc9a668fced3318d90"
     },
     {
       "file": "providers/didmail-http/source/api/src/libs/alias-service.ts",
-      "sha256": "bc393e945d0ee49ae65894f4cc51733ede8ed0e9235306f89ca750d98bb1b9cd"
+      "sha256": "3e7fbf31b62f2803980fb71a33f28bcad15740c3de8ed0b27a91d2d8306bede1"
     },
     {
       "file": "providers/didmail-http/source/api/src/libs/attachment-cleanup.ts",
-      "sha256": "8374189dffc75e833e6480fc4bea30a28bcd5629e77107198e0144ddba1bdb7d"
+      "sha256": "9a64f4a95264f331cc0b2313ce99c9c374ea4dc8b852c45659fb2b05e47671c5"
     },
     {
       "file": "providers/didmail-http/source/api/src/libs/attachment-download.ts",
-      "sha256": "e3f7152435dbfeda96777293a9aeb77615023dc4af67564a3dd1a20e243c7bf3"
+      "sha256": "7e0f0505a0052487bf171c71e2eaf20b42f376a8bf3f8f1da4a59ff9ee4a6e65"
     },
     {
       "file": "providers/didmail-http/source/api/src/libs/attachment-pricing.ts",
@@ -426,19 +422,19 @@
     },
     {
       "file": "providers/didmail-http/source/api/src/libs/attachment.ts",
-      "sha256": "60b73285c6d84cc529025a079985167a841b24a49484bf733136aaadebca3783"
+      "sha256": "9a031a903e2f26a6c9823ff47394fba53a32c44ed05582420e3128db691ff4fe"
     },
     {
       "file": "providers/didmail-http/source/api/src/libs/auth.ts",
-      "sha256": "f4f97d7477ded2882e61a933d6f6fd79831eb23b4d1500c93cf94d49d436773a"
+      "sha256": "38c73f78836f8fb0a17b12f9a07e7a5dff9681b58697a508663d72e8079e8154"
     },
     {
       "file": "providers/didmail-http/source/api/src/libs/forge.ts",
-      "sha256": "a29b04de1138a68af59015c25b2c686b88f99cf5d5874306157475699a2c51f6"
+      "sha256": "7d0f7b2b63dd5fcf900e46d96b39ad8c9d519cf1941faf11520444a9f767dd54"
     },
     {
       "file": "providers/didmail-http/source/api/src/libs/gas-stake.ts",
-      "sha256": "f59bd85d2170c69b5558b1c80054991fc55da91bd6330f4968e2c5f3f724155d"
+      "sha256": "80486748181815e7eee20e2b9f88cd77a73488e250614a7a36018b9c8fee65c0"
     },
     {
       "file": "providers/didmail-http/source/api/src/libs/legacy-contact-payment.ts",
@@ -450,15 +446,15 @@
     },
     {
       "file": "providers/didmail-http/source/api/src/libs/mail-lifecycle.ts",
-      "sha256": "30bb9e13083b1c747fed7746dd88a3bc968bfe809c0666f342c63b741e52bdf3"
+      "sha256": "3e5d28f664981746c6dde979009e1bbba9058e263e604d08a89f8efe0c930d19"
     },
     {
       "file": "providers/didmail-http/source/api/src/libs/mail-service-policy.ts",
-      "sha256": "9d076f892512b65ddb8fd79b4437b5e509444e20ab71b47bee6dd40a03d919c4"
+      "sha256": "844772971a7174eaa40049d552be680116153e206d928079b176050766df45eb"
     },
     {
       "file": "providers/didmail-http/source/api/src/libs/node-scope.ts",
-      "sha256": "5eaa8a8af94a9c3ba94147c9684f8bcf43e2c1a0bbebb52e95e8796d84028766"
+      "sha256": "ff33c4a93c10628786463a2873358e7e713a4ddaef97d42c1a797a6752e88c62"
     },
     {
       "file": "providers/didmail-http/source/api/src/libs/node-stake-policy.ts",
@@ -466,7 +462,7 @@
     },
     {
       "file": "providers/didmail-http/source/api/src/libs/node-transfer.ts",
-      "sha256": "a0cb5377a5707fdc4691fa78e5c6024d521b8b213b199aa9db4c10c2d4858b73"
+      "sha256": "e820805587600087f4968e15c4373fb4f1ccda52d49b79d8ddb09cacafdee2b1"
     },
     {
       "file": "providers/didmail-http/source/api/src/libs/node-wallet.ts",
@@ -478,15 +474,15 @@
     },
     {
       "file": "providers/didmail-http/source/api/src/libs/server-factory.ts",
-      "sha256": "afba04e2739856d0ad391cf773d1ff887d4dc250255d5b1147a65e163a24e89e"
+      "sha256": "ffcbaa78b1ebab345a590403ace9c0ead13f922e9a94a13a11d8aef966a56dee"
     },
     {
       "file": "providers/didmail-http/source/api/src/libs/stake.ts",
-      "sha256": "c2295469fadabdc529587d8d79e989b36e3472f32383419267c9a5983c689fc5"
+      "sha256": "80b7b9f87541a8aa18f47176cb05a2635ef4e5cb7c48f1324cfefcd072cb66ca"
     },
     {
       "file": "providers/didmail-http/source/api/src/libs/template-list.ts",
-      "sha256": "e27b1617733d2d86f631492b631558fd6d993d09ce522aa17f87f3a8e7273e9a"
+      "sha256": "b51d6d11e2bf29f1768bc89dff8513c62945984fd20a339bb58b798c206ba3f5"
     },
     {
       "file": "providers/didmail-http/source/api/src/middleware/auth-middleware.ts",
@@ -498,23 +494,23 @@
     },
     {
       "file": "providers/didmail-http/source/api/src/nft/templates/server-node.ts",
-      "sha256": "4277fd7736cb8d2b6a9f3908bef5c5f9eb5c5247bab8de1df101d5e08fa35592"
+      "sha256": "034969bde823441255111d0c56bfb99a99f6538d057a95aefe2cf0ccb5c98cf6"
     },
     {
       "file": "providers/didmail-http/source/api/src/routes/account.ts",
-      "sha256": "7a8838d64f9f621c2dd3308b80d690414856036cca10e29bf9df446a010c14d0"
+      "sha256": "6c3723f10cd688c1d15834985ccd25bc78609795f23a1a5be24bd6d5a163bc90"
     },
     {
       "file": "providers/didmail-http/source/api/src/routes/admin.ts",
-      "sha256": "1e09a378bb23afe00ac46f490dacf5e1851aedd83035d213cab3a835f739f745"
+      "sha256": "a661865b0550e6f3d4d2b87092cd4720c88260fcef710ed72e05d69c4f5023c5"
     },
     {
       "file": "providers/didmail-http/source/api/src/routes/alias.ts",
-      "sha256": "f50de2dcaad5c959eb117c16c2d9dd224d6f7a9765ed23165e9f26ce4059a1de"
+      "sha256": "6381833b4d6a3c667364f119f590f53a9313c91e2457d81eb606153c6fbc7259"
     },
     {
       "file": "providers/didmail-http/source/api/src/routes/contact.ts",
-      "sha256": "0541c125191bb351b016a4c81e7e94c40730ea22e32d4709239245bce8d3e67b"
+      "sha256": "85800facf48ee0a1632c3f6ed11f4aa532acc7fe33d736a7309e0a5f7c6c787e"
     },
     {
       "file": "providers/didmail-http/source/api/src/routes/domains.ts",
@@ -522,31 +518,31 @@
     },
     {
       "file": "providers/didmail-http/source/api/src/routes/envelope.ts",
-      "sha256": "f9993db737ecf62daf5db5c6024892505c53ba6aff30d53fbcd8c01bf014d362"
+      "sha256": "272a394647c00f21bcf633756603cbac459d2e4177aa2d0c1e9842f5d43f7241"
     },
     {
       "file": "providers/didmail-http/source/api/src/routes/index.ts",
-      "sha256": "9b7802f39ebd8e6b38b29f4de12221591fdb085d16a4458a2e342917da114292"
+      "sha256": "a549d568d9230741a4089a582aa0724d73357a1b39fc0e8d49e521649b63a868"
     },
     {
       "file": "providers/didmail-http/source/api/src/routes/mail.ts",
-      "sha256": "831bd5b069b62bf367e476836d19af81a3c675eb68553c3f96441a2311b6e0ea"
+      "sha256": "9a83e51aa5ef9d16d920f5b1949725526224cdca476481950411af1bd32e7e6d"
     },
     {
       "file": "providers/didmail-http/source/api/src/routes/namecard.ts",
-      "sha256": "a43e445da6136ee15f674d924c2c35028554ed7c2e257a56119d70fcacb4fffd"
+      "sha256": "c1d8f47eacdba64ec321dce251e93684dd89b3af60a96265ae7c2de6b235bd00"
     },
     {
       "file": "providers/didmail-http/source/api/src/routes/servers.ts",
-      "sha256": "f739c613a04cd52a30081df2bcee20e89a5dae540d643a1b44b60893fef6dce1"
+      "sha256": "91ddc3e1dedb5753d74eafdd49b69fb151181835009ea4b872e9f979c7231335"
     },
     {
       "file": "providers/didmail-http/source/api/src/routes/stake.ts",
-      "sha256": "42d254d424bd44fec38fcbf74bca0384e459daf30b3be6a9adec162c2da58c49"
+      "sha256": "4fc2755535e121dacd601663199ef5ea6fc89f12136e5d9d81a045ceeaea9b45"
     },
     {
       "file": "providers/didmail-http/source/api/src/routes/storage.ts",
-      "sha256": "eb527fbaf68eab3cd649299386dcb451665769a93800c86d1bfcab9cc7fe777c"
+      "sha256": "c7ba1df41322d3e2e96dfda06bde623a0313c493b88f9ced48ed3eed450fa902"
     },
     {
       "file": "providers/didmail-http/source/api/src/runtime/arc-session.ts",
@@ -654,31 +650,51 @@
     },
     {
       "file": "providers/didmail-http/source/protocol/contact/contact-api.ts",
-      "sha256": "b136814fb4e3e319f388d06cea1953bf33273abe6dae7c0d0eb886c365c4366c"
+      "sha256": "37a8acaaec05ecb6d42c285032a880c0adb379462a5f926124132e3c121a7e5e"
+    },
+    {
+      "file": "providers/didmail-http/source/protocol/contact/contact-base58.ts",
+      "sha256": "92aef834c70c06813039ce699976d99857e18582e343d581ccc04f26dc984c12"
     },
     {
       "file": "providers/didmail-http/source/protocol/contact/contact-jobs.ts",
-      "sha256": "97e03ea627e1d6f1fa83a065843845370146b4ce09488961e0dd8ea43dde204c"
+      "sha256": "f3ba883e84ab9c673016da28bd7c564367ff810fafcf72b4b4e6a83e6b44621d"
     },
     {
       "file": "providers/didmail-http/source/protocol/contact/contact-ledger-read.ts",
       "sha256": "90a23f0f5ae32d4f96a220152a96e1cbd16b1452525207a3f265a850baf30182"
     },
     {
+      "file": "providers/didmail-http/source/protocol/contact/contact-mint-evidence.ts",
+      "sha256": "a01246d43c4987e60e2c43b3cca024e6ca64ed9b459adeb5122600f2a4e11c07"
+    },
+    {
+      "file": "providers/didmail-http/source/protocol/contact/contact-payment-evidence.ts",
+      "sha256": "3f62cd762fe6e79f392685d63c86abc309f3d13f1ec377d95aeab75416b872f3"
+    },
+    {
       "file": "providers/didmail-http/source/protocol/contact/contact-preparation-store.ts",
-      "sha256": "11482fa0fa573688f95f741e1fc8be1c097afbc1161c544750096b934efe1679"
+      "sha256": "910896267c468cc915c8686e3a69589e35d6944f012e215f67428e0c96efb3ea"
+    },
+    {
+      "file": "providers/didmail-http/source/protocol/contact/contact-preparation.ts",
+      "sha256": "44f2b655e85acf9ee3d39073057e41dc952c88c12a1ec02b17816fb030641732"
+    },
+    {
+      "file": "providers/didmail-http/source/protocol/contact/contact-quote.ts",
+      "sha256": "2c9cce057b377e182b7a5a3b933dd46247a7d58fedb37874d0f8d6306bf1940f"
     },
     {
       "file": "providers/didmail-http/source/protocol/contact/contact-quotes.ts",
-      "sha256": "7f6f291fad5a83af465b4026239466e3ba6cc4ef40529a0dca66417dc7b8b6a5"
+      "sha256": "0c193589054e9155923ab1e5cb787265632b7ae40767ae4205f909128175b8fd"
     },
     {
       "file": "providers/didmail-http/source/protocol/contact/contact-settlement.ts",
-      "sha256": "908029581eb7093bec1c9c7ce45401bd055141114319a6e83462438a8617854c"
+      "sha256": "c32c0062bf5db72c7433eea2984a614a59d92a26c149af29923acbb9a2a72390"
     },
     {
       "file": "providers/didmail-http/source/protocol/contact/contact-status.ts",
-      "sha256": "1a21d529edbdafbdcf0e12199b695beda94851cc25ce1729827f7cf4e3b42be6"
+      "sha256": "0f94860c0e60743513b4646ae46583fa2a9843ed55f53ddba8fb5b14fb6da567"
     },
     {
       "file": "providers/didmail-http/source/protocol/dmp-api.ts",
@@ -750,7 +766,7 @@
     },
     {
       "file": "providers/didmail-http/source/storage/database.ts",
-      "sha256": "f599fe9888271a4dcc0d269bc2764c218280e7d6303d3dc8cd441de44135e16d"
+      "sha256": "6ab2da162d93e3b2e4b49d5a800c5dae73c548d83a37dcdf4fe600e59d151d76"
     },
     {
       "file": "providers/didmail-http/source/storage/schema.json",
@@ -758,7 +774,15 @@
     },
     {
       "file": "providers/didmail-http/source/storage/template-cache-store.ts",
-      "sha256": "f1ec38182b0b5409576daeb3809ae1a2f57787e7d5166288ddc685d564341ddc"
+      "sha256": "3d0cae1c91e69f79eaa5c2599597c0833069f8d1063cfbc2c4e1fad7d7e2db4e"
+    },
+    {
+      "file": "providers/didmail-http/source/types/business.d.ts",
+      "sha256": "39b2ee3e38d2c223e751b1a8f009cea319bfc9998649eff654c50acc486254fd"
+    },
+    {
+      "file": "providers/didmail-http/source/types/third.d.ts",
+      "sha256": "d9f94d77d7afec5bacd602b8fa477aac47f6b0feb4c19cb335712318b6cd8eae"
     },
     {
       "file": "providers/didmail-http/source/ui/locales/config.d.ts",

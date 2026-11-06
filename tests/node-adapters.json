@@ -1,0 +1,11 @@
+{
+  "storage/database.ts": "tests/support/node/libs/sqlite.ts",
+  "storage/template-cache-store.ts": "tests/support/node/libs/template-cache-store.ts",
+  "runtime/rate-limit.ts": "tests/support/node/libs/rate-limit.ts",
+  "config/env.ts": "tests/support/node/libs/env.ts",
+  "identity/wallet.ts": "tests/support/node/runtime/wallet.ts",
+  "identity/payment-nonce.ts": "tests/support/node/runtime/payment-nonce.ts",
+  "identity/session.ts": "tests/support/node/runtime/session.ts",
+  "identity/chain-read.ts": "tests/support/node/runtime/chain-read.ts",
+  "runtime/template-token.ts": "tests/support/node/runtime/template-token.ts"
+}

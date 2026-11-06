@@ -1,5 +1,5 @@
 import { getHasher, types } from '@ocap/mcrypto';
-import { Attachment, getAttachmentConfig } from './sqlite';
+import { Attachment, getAttachmentConfig } from '../../../storage/database';
 
 export interface AttachmentInput {
   id: string;

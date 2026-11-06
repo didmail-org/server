@@ -1,19 +1,16 @@
-// The package owns shared source. Node-only legacy adapters remain outside the
-// artifact; unit tests resolve those adapters in the repository's virtual tree.
+// Only Node unit tests substitute legacy filesystem/SQLite/identity ports.
+// Production modules and the AFS business fixture use physical package imports.
 const path = require('node:path');
 const fs = require('node:fs');
+const ports = require('../tests/node-adapters.json');
+const root = path.resolve(__dirname, '..');
+const source = path.join(root, 'blocklet/providers/didmail-http/source');
+const adapters = new Map(
+  Object.entries(ports).map(([native, adapter]) => [
+    fs.realpathSync(path.join(source, native)), path.join(root, adapter),
+  ]),
+);
 module.exports = (request, options) => {
-  const marker = path.join('blocklet', 'providers', 'didmail-http', 'source') + path.sep;
-  if (request.startsWith('.') && options.basedir.includes(marker)) {
-    const root = options.basedir.slice(0, options.basedir.indexOf(marker));
-    const relative = options.basedir.slice(options.basedir.indexOf(marker) + marker.length);
-    const candidate = path.resolve(root, relative, request);
-    if (
-      [candidate, candidate + '.ts', candidate + '.mjs', candidate + '.js', path.join(candidate, 'index.ts')].some(
-        (file) => fs.existsSync(file),
-      )
-    )
-      return options.defaultResolver(candidate, options);
-  }
-  return options.defaultResolver(request, options);
+  const resolved = options.defaultResolver(request, options);
+  return adapters.get(resolved) || resolved;
 };

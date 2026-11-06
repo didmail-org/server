@@ -135,6 +135,7 @@ test('runtime loader leaves other apps alone and rejects unknown dependencies an
     assert.equal(resolve({ path: 'unrelated', importer: '/another-app/index.mjs' }), undefined);
     const importer = fileURLToPath(new URL('../blocklet/providers/didmail-http/host/runtime.mjs', import.meta.url));
     assert.throws(() => resolve({ path: 'undeclared-dependency', importer }), /Unpackaged/);
+    assert.throws(() => resolve({ path: process.execPath, importer }), /Outside packaged/);
     assert.throws(() => load({ path: process.execPath }), /Outside packaged/);
   } finally {
     globalThis.Bun = before;

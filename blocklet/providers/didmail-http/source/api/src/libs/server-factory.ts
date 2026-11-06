@@ -1,15 +1,29 @@
 import { createHash } from 'crypto';
 import { fromUnitToToken } from '@ocap/util';
-import { readTemplateCache, templateCacheGeneration, writeTemplateCache } from './template-cache-store';
+import { readTemplateCache, templateCacheGeneration, writeTemplateCache } from '../../../storage/template-cache-store';
+
+interface FactoryMetadata {
+  address: string;
+  description: string;
+  limit: number | string;
+  name: string;
+  owner: string;
+  price: string;
+  token: { address: string; value: string; symbol: string; decimal: number };
+  created_at: string | number;
+  minted?: number;
+  updated_at?: string | number;
+  display?: string;
+}
 
 // Persist immutable display metadata through the AFS database/object ports. Live counters and the SVG are read
 // only when details are requested; transaction preparation always uses the chain.
-export default async function readServerFactory(client: any, chainHost: string, address: string, refresh = false) {
+export default async function readServerFactory(client: any, chainHost: string, address: string, refresh = false): Promise<FactoryMetadata> {
   const scope = createHash('sha256')
     .update(JSON.stringify(['server-factory-v1', chainHost, address]))
     .digest('hex');
   if (!refresh) {
-    const cached = await readTemplateCache(scope, 'metadata');
+    const cached = await readTemplateCache<FactoryMetadata>(scope, 'metadata');
     if (cached) return cached;
   }
   const { state } = await client.getFactoryState({ address });

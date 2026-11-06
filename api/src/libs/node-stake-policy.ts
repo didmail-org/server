@@ -1,1 +1,0 @@
-../../../blocklet/providers/didmail-http/source/api/src/libs/node-stake-policy.ts

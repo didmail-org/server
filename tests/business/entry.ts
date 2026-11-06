@@ -1,7 +1,7 @@
 import type { TaskContext } from '../../blocklet/providers/didmail-http/source/runtime/contracts';
 // Test-only entry point. Never included by the production bundle or Wrangler deploy.
 import worker from '../../blocklet/providers/didmail-http/source/http/index';
-import { verifyContactPayment, isVerifiedContactPayment } from '../../api/src/libs/contact-payment-evidence';
+import { verifyContactPayment, isVerifiedContactPayment } from '../../blocklet/providers/didmail-http/source/protocol/contact/contact-payment-evidence';
 import { ContactPreparationStore } from '../../blocklet/providers/didmail-http/source/protocol/contact/contact-preparation-store';
 import { contactStoreFault } from './contact-store-faults';
 import { handleContactRequest } from '../../blocklet/providers/didmail-http/source/protocol/contact/contact-api';

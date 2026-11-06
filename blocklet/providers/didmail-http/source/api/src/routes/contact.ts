@@ -3,11 +3,11 @@ import GraphQLClient from '@ocap/client';
 import { getHasher, types } from '@ocap/mcrypto';
 import { toBase58, fromTokenToUnit } from '@ocap/util';
 import { fromAddress } from '@ocap/wallet';
-import getWallet from '../runtime/wallet';
-import nextPaymentNonce from '../runtime/payment-nonce';
-import env from '../libs/env';
+import getWallet from '../../../identity/wallet';
+import nextPaymentNonce from '../../../identity/payment-nonce';
+import env from '../../../config/env';
 import { getForgeState } from '../libs/forge';
-import { Contact } from '../libs/sqlite';
+import { Contact } from '../../../storage/database';
 import logger from '../libs/logger';
 import { verifyLegacyContactPayment } from '../libs/legacy-contact-payment';
 

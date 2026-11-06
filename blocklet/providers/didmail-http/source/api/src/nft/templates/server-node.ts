@@ -1,8 +1,8 @@
 import { getHasher, types } from '@ocap/mcrypto';
 import { createCredentialList } from '@arcblock/vc';
 import getCountryFlag from 'country-flag-icons/unicode';
-import getWallet from '../../runtime/wallet';
-import env from '../../libs/env';
+import getWallet from '../../../../identity/wallet';
+import env from '../../../../config/env';
 // import logger from '../../libs/logger';
 
 const wallet = getWallet();

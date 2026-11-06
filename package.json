@@ -8,7 +8,7 @@
     "build:client": "arc blocklet build blocklet",
     "type-check": "tsc --noEmit",
     "test": "jest --runInBand",
-    "lint": "tsc --noEmit && pnpm type-check:runtime && eslint api/src --ext .ts && pnpm lint:ui && pnpm lint:runtime",
+    "lint": "tsc --noEmit && pnpm type-check:runtime && eslint tests/unit tests/support --ext .ts && pnpm lint:ui && pnpm lint:runtime",
     "arc:check": "arc dsl validate blocklet && arc blocklet check blocklet",
     "arc:build": "arc blocklet build blocklet",
     "test:smoke": "node scripts/smoke.mjs",

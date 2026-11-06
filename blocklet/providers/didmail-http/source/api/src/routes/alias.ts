@@ -10,7 +10,7 @@ import {
   resolveAliasAddress,
 } from '../libs/alias-service';
 import logger from '../libs/logger';
-import { rateLimit } from '../libs/rate-limit';
+import { rateLimit } from '../../../runtime/rate-limit';
 
 const router = Router();
 

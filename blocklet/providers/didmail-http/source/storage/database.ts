@@ -104,7 +104,7 @@ class Model {
     if (options.order)
       sql +=
         ' ORDER BY ' +
-        options.order.map(([c, d]) => this.column(c) + (d?.toUpperCase() === 'DESC' ? ' DESC' : ' ASC')).join(',');
+        options.order.map(([c, d]) => this.column(c!) + (d?.toUpperCase() === 'DESC' ? ' DESC' : ' ASC')).join(',');
     if (options.limit !== undefined) {
       if (!Number.isSafeInteger(options.limit) || options.limit < 0 || options.limit > 1000)
         throw new Error('Invalid page size');

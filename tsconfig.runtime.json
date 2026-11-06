@@ -16,15 +16,9 @@
     "skipLibCheck": true,
     "strict": true,
     "useUnknownInCatchVariables": false,
-    "noEmit": true,
-    "rootDirs": [
-      ".",
-      "blocklet/providers/didmail-http/source"
-    ]
+    "noEmit": true
   },
   "include": [
-    "blocklet/providers/didmail-http/source/**/*.ts",
-    "api/*.d.ts",
-    "api/business.d.ts"
+    "blocklet/providers/didmail-http/source/**/*.ts"
   ]
 }

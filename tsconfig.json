@@ -6,8 +6,10 @@
     }
   },
   "compilerOptions": {
-    "rootDirs": [".", "blocklet/providers/didmail-http/source"],
-    "types": ["jest", "node"],
+    "types": [
+      "jest",
+      "node"
+    ],
     "target": "ES2022",
     "module": "commonjs",
     "noEmit": true,
@@ -21,8 +23,17 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "resolveJsonModule": true
   },
-  "include": ["api/**/*.ts"],
-  "exclude": ["node_modules", "api/dist"]
+  "include": [
+    "tests/unit/**/*.ts",
+    "tests/support/**/*.ts",
+    "blocklet/providers/didmail-http/source/types/*.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "artifacts",
+    "blocklet/dist"
+  ]
 }

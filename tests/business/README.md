@@ -4,6 +4,12 @@ These are protocol, authorization, identity, storage, original-payment-byte and
 recovery regressions for the native ARC server's shared modules. They are not a
 standalone Cloudflare backend or a deployment acceptance suite.
 
+Application imports point directly inside the Blocklet. The five contact encoding,
+preparation, quote and payment/mint evidence modules are under
+`providers/didmail-http/source/protocol/contact` in that package. The Node-only
+unit harness is separate: `tests/unit`, `tests/support/node` and the explicit
+Jest selections in `tests/node-adapters.json`. Those ports never enter this bundle.
+
 The default runner executes test files serially to isolate heavyweight HTTP
 containers; concurrency assertions inside each test still run concurrently.
 

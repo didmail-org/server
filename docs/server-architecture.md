@@ -13,7 +13,6 @@ blocklet/
     didmail-http/
       host/                    scoped loader, immutable environment, HTTP/WS
       source/                  readable application modules (below)
-      runtime-adapters.json    native substitutions for retained Node ports
       vendor/                  pinned dependency asset, facades and license texts
     didmail-business/          AFS SQL/object operations, initialization/migrations
     didmail-native/            verified-caller policy/configuration actions
@@ -41,13 +40,14 @@ All paths below are relative to `blocklet/providers/didmail-http/source/`:
 | Path | Responsibility |
 | --- | --- |
 | `http/` | Public fetch routing, account/admin endpoints, Express assembly |
-| `protocol/` | DMP handlers, settlement/jobs; `contact/` retains internal recovery |
+| `protocol/` | DMP handlers, settlement/jobs; `contact/` owns internal recovery including its encoding, quote and original-payment/mint evidence |
 | `identity/` | Session/membership, original wallet, chain reads, nonces/payment lanes |
 | `policy/` | Admission, envelope/namecard access and gas eligibility |
 | `storage/` | AFS SQL/object client, compatibility models, caches and policy port |
 | `config/` | Validated runtime/configuration access |
 | `runtime/` | Project-owned SQL/object/fetch/task contracts, bindings, scheduler and shims |
 | `api/src/` | Shared retained REST routes, business rules and signature helpers |
+| `types/` | Development-time business and third-party declarations |
 
 Dependency direction is host → HTTP/scheduler → business/identity/policy →
 explicit storage/fetch ports. Operator scripts do not belong in the production
@@ -77,21 +77,25 @@ regression facade; edit actual components, not a second browser implementation.
 
 ## Checks and adapters
 
-`api/src` compatibility symlinks point inward. Node unit checks still select
-historical filesystem/SQLite ports; native loading selects AFS and the installed
-signing environment. Nine entries in `runtime-adapters.json` identify that
-intentional host substitution. TypeScript `rootDirs` and the Jest resolver
-support those Node ports; the native loader and business test builder consume
-the map. Removing this remaining virtual tree requires explicit host/signing
-context isolation, not another rename or copied implementation.
+Production modules import physical package paths. The native loader resolves
+pinned dependency facades and rejects files outside the Blocklet; it has no
+repository-path substitutions. Package source imports are checked independently
+of the files reached by the current production entry, including internal recovery.
 
-`config/env.ts` reads immutable bindings directly. Native modules use actual
-package-relative imports where no host substitution is needed. The test builder
-keeps repository and package-virtual keys for the intentional Node ports.
+`tests/unit/` owns the 42 Node unit suites. `tests/support/node/` owns their
+filesystem/SQLite, wallet, environment, session and cache ports. Only Jest reads
+the nine explicit substitutions in `tests/node-adapters.json`; imports and mocks
+resolve to the same selected test module. The Node signing environment is a
+regression fixture, not a supported business runtime. No TypeScript `rootDirs`
+overlay, root `api/` source tree or inward source symlinks remain.
+
+`config/env.ts` reads immutable native bindings directly. The business test
+builder uses the same physical application imports and substitutes only its
+test environment and Express host; it rejects Node-only ports in its bundle.
 Miniflare is temporary HTTP isolation/historical reading only; its
 [migration endpoint](../tests/business/README.md) does not preserve a second product backend.
 
-`pnpm lint` combines TypeScript checks, existing Node adapter/facade lint and
+`pnpm lint` combines TypeScript checks, Node unit/support and UI facade lint and
 `lint:runtime`. The latter parses actual owned `blocklet/providers` TypeScript/
 JS and native component render/script files, plus the wallet/SQLite/chain operator tools and public CSS helper. It excludes `vendor`, generated outputs and pinned query/QR bodies within
 the browser script (with checked boundaries and original line numbers). Its

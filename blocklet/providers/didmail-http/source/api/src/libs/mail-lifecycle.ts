@@ -1,4 +1,4 @@
-import { Attachment, Mail } from './sqlite';
+import { Attachment, Mail } from '../../../storage/database';
 
 const destroyMailWithAttachments = async (mailId: number) => {
   await Attachment.destroy({ where: { mailId } });

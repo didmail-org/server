@@ -9,8 +9,11 @@ const require = createRequire(import.meta.url);
 require('ts-node').register({
   transpileOnly: true,
   project: fileURLToPath(new URL('../tsconfig.json', import.meta.url)),
+  // The package is ESM in ARC; this plain Node regression deliberately uses
+  // its CommonJS transform while retaining native structuredClone semantics.
+  moduleTypes: { 'blocklet/providers/didmail-http/source/protocol/contact/*.ts': 'cjs' },
 });
-const { verifyContactMint } = require('../api/src/libs/contact-mint-evidence.ts');
+const { verifyContactMint } = require('../blocklet/providers/didmail-http/source/protocol/contact/contact-mint-evidence.ts');
 const { fromBase58, toBase58 } = require('@ocap/util');
 const { decodeTx } = require('@didmail/ocap-message-cbor/cbor');
 const fixture = JSON.parse(

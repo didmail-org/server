@@ -3,20 +3,20 @@ import { fromAddress, type WalletObject } from '@ocap/wallet';
 import { formatFactoryState, preMintFromFactory } from '@ocap/asset';
 import { fromBase58, toUint8Array } from '@ocap/util';
 import { toTxHash } from '@ocap/mcrypto';
-import type { ContactNodePolicy } from '../../../../../../api/src/libs/contact-quote';
-import type { ContactPreparation } from '../../../../../../api/src/libs/contact-preparation';
-import { contactPreparationCommitment } from '../../../../../../api/src/libs/contact-preparation';
-import { verifyContactPayment } from '../../../../../../api/src/libs/contact-payment-evidence';
+import type { ContactNodePolicy } from './contact-quote';
+import type { ContactPreparation } from './contact-preparation';
+import { contactPreparationCommitment } from './contact-preparation';
+import { verifyContactPayment } from './contact-payment-evidence';
 import {
   contactMintVariables,
   prepareContactMint,
   verifyContactMint,
   type ContactMintBytes,
-} from '../../../../../../api/src/libs/contact-mint-evidence';
+} from './contact-mint-evidence';
 import type { ContactSettlementAdapter, ContactChainEvidence } from './contact-jobs';
 import { requestDmpChainRpc } from '../dmp-ledger-read';
 import { readContactLedgerRecord } from './contact-ledger-read';
-import { decodeContactBytes } from '../../../../../../api/src/libs/contact-base58';
+import { decodeContactBytes } from './contact-base58';
 
 type Operator = Pick<WalletObject<any>, 'address' | 'publicKey' | 'sign'>;
 const deny = (code = 'CONFLICTING_CHAIN_EVIDENCE'): never => {

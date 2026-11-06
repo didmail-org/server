@@ -21,6 +21,6 @@ export function routes(file) {
 const baseline = JSON.parse(fs.readFileSync(new URL('../docs/legacy-routes.json', import.meta.url), 'utf8'));
 test('every legacy router method and path is retained in the new server', () => {
   for (const [file, expected] of Object.entries(baseline)) {
-    assert.deepEqual(routes(path.join('api/src/routes', file)), expected, file);
+    assert.deepEqual(routes(path.join('blocklet/providers/didmail-http/source/api/src/routes', file)), expected, file);
   }
 });

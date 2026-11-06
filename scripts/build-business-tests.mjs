@@ -2,14 +2,7 @@
 import { build } from 'esbuild';
 import path from 'node:path';
 import fs from 'node:fs/promises';
-import runtimeAdapters from '../blocklet/providers/didmail-http/runtime-adapters.json' with { type: 'json' };
 const root = process.cwd();
-const replacements = new Map(
-  Object.entries(runtimeAdapters).map(([source, adapter]) => [path.join(root, source + '.ts'), path.join(root, 'blocklet/providers/didmail-http/source', adapter)]),
-);
-for (const [a, b] of [...replacements]) {
-  replacements.set(path.join(root, 'blocklet/providers/didmail-http/source', path.relative(root, a)), b);
-}
 const result = await build({
   entryPoints: ['tests/business/entry.ts'],
   outfile: 'artifacts/business-tests/test.mjs',
@@ -40,8 +33,6 @@ const result = await build({
             const base = path.resolve(args.resolveDir, args.path);
             if (base === path.join(root, 'blocklet/providers/didmail-http/host/environment.mjs')) return { path: path.join(root, 'tests/business/host/environment.ts') };
             if (base === path.join(root, 'blocklet/providers/didmail-http/host/app.mjs')) return { path: path.join(root, 'tests/business/host/app.ts') };
-            const replacement = replacements.get(base) || replacements.get(base + '.ts');
-            if (replacement) return { path: replacement };
           }
           if (
             /^(assert|buffer|crypto|events|fs|http|https|net|os|path|querystring|stream|stream\/.*|string_decoder|tls|tty|url|util|util\/types|vm|zlib|dns|async_hooks|timers|timers\/promises|module|process|punycode)$/.test(
@@ -55,8 +46,9 @@ const result = await build({
   ],
 });
 const inputs = Object.keys(result.metafile.inputs);
-for (const forbidden of ['sqlite3', 'sequelize/lib', 'api/src/runtime/wallet.ts', 'api/src/index.ts', 'http-proxy']) {
+for (const forbidden of ['sqlite3', 'sequelize/lib', 'tests/support/node/', 'http-proxy']) {
   if (inputs.some((p) => p.includes(forbidden))) throw new Error('Unexpected test-container dependency: ' + forbidden);
 }
+if (inputs.some(file => file.startsWith('api/'))) throw new Error('Retired source tree in the business fixture');
 await fs.writeFile('artifacts/business-tests/metafile.json', JSON.stringify(result.metafile, null, 2));
 console.log(`Business test fixture bundled: ${inputs.length} modules; no production deployment artifact generated`);

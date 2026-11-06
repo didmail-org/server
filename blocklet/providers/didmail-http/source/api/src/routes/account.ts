@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import GraphQLClient from '@ocap/client';
-import chainReads from '../runtime/chain-read';
+import chainReads from '../../../identity/chain-read';
 import { wallet } from '../libs/auth';
-import env from '../libs/env';
+import env from '../../../config/env';
 import logger from '../libs/logger';
 import { gasStakeQuote, stakeForGas, revokeGasStake, claimGasStake } from '../libs/gas-stake';
 import { nodeTransferQuote, transferToOwner } from '../libs/node-transfer';

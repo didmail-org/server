@@ -1,4 +1,4 @@
-import env from './env';
+import env from '../../../config/env';
 import logger from './logger';
 
 const GraphQLClient = require('@ocap/client');

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getAttachmentConfig, setAttachmentConfig } from '../libs/sqlite';
+import { getAttachmentConfig, setAttachmentConfig } from '../../../storage/database';
 
 const router = Router();
 
