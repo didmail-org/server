@@ -5,6 +5,7 @@ import fs from 'node:fs/promises';
 import { chromium } from 'playwright-core';
 import { browserDiagnostics } from './browser-diagnostics.mjs';
 import { isolateBrowserResources } from './browser-isolation.mjs';
+import { fixtureInstanceConfig } from './instance-config-browser-fixture.mjs';
 import { languages, messages, localeDirection, localizedPath } from '../ui/locales.js';
 import { adminTranslator } from '../ui/admin-i18n.js';
 const theme = process.env.DIDMAIL_BROWSER_THEME || 'light';
@@ -84,6 +85,37 @@ async function scenario(name, run, { role = 'owner' } = {}) {
     releases.push(unblock);
     return unblock;
   };
+  state.mailPolicy = { revision: 1, accessSource: 'arc', policy: { accessMode: 'public', ordinary: { enabled: false, baseFee: '0', retentionDays: 10, attachmentPricePerBytePerDay: '0' }, attachments: { enabled: true, maxCount: 20, maxFileBytes: 33554432, maxTotalBytes: 62914560 }, maxMessageCiphertextBytes: 67108864 } };
+  state.legacyConfigReads = 0;
+  await fixtureInstanceConfig(context, {
+    session: () => {
+      state.sessionCalls = (state.sessionCalls || 0) + 1;
+      return { authenticated: (state.role || role) !== 'anonymous', user: (state.role || role) === 'anonymous' ? null : { did: state.userDid || 'ui-test-user', role: state.role || role, fullName: 'UI Test Owner' } };
+    },
+    read: () => { state.legacyConfigReads++; throw new Error('Historical configuration must not be read by Settings'); },
+    update: () => { throw new Error('Historical configuration must not be written by Settings'); },
+    policy: message => {
+      if (!['owner', 'admin'].includes(state.role || role)) throw Object.assign(new Error('Administrator required'), { code: 'AFS_FORBIDDEN' });
+      if (message.type === 'afs_read') {
+        if (state.mailPolicyMissing) throw Object.assign(new Error('Not initialized'), { code: 'AFS_NOT_FOUND' });
+        return { content: JSON.stringify(state.mailPolicy) };
+      }
+      if (message.path.endsWith('/initialize-mail-policy')) {
+        state.mailPolicyMissing = false;
+        mutations.push({ path: message.path, method: 'EXEC', body: message.args });
+        return { revision: 1 };
+      }
+      if (message.path.endsWith('/list-access-entries')) return { revision: state.mailPolicy.revision, entries: [], nextCursor: null, kind: message.args.kind };
+      if (message.path.endsWith('/update-mail-policy')) {
+        if (state.configConflict) { state.configConflict = false; state.mailPolicy.revision++; state.mailPolicy.policy.attachments.maxCount = 8; }
+        if (message.args.expectedRevision !== state.mailPolicy.revision) throw Object.assign(new Error('Policy changed'), { code: 'MAIL_POLICY_CONFLICT' });
+        mutations.push({ path: message.path, method: 'EXEC', body: message.args });
+        state.mailPolicy.policy = structuredClone(message.args.policy);state.mailPolicy.revision++;
+        return { revision: state.mailPolicy.revision };
+      }
+      throw new Error('Unexpected policy operation');
+    },
+  });
   await page.route('**/api/**', async (route) => {
     const req = route.request(),
       url = new URL(req.url()),
@@ -429,7 +461,7 @@ try {
     assert.equal(new URL(page.url()).pathname, '/zh/admin/account');
     assert.equal(await page.locator('dialog[open]').count(), 0);
     await page.locator('[data-did-show="did:abt:test-node-did"]').first().waitFor();
-    await page.goto(`${origin}/en/admin/attachment`);
+    await page.goto(`${origin}/en/admin/storage`);
     await page.locator('[data-node-balance] strong').getByText('0', { exact: true }).waitFor();
     await page.locator('header [data-node-recharge]').click();
     await page.locator('[data-wallet-recharge] .dm-account-recharge > svg').waitFor();
@@ -894,9 +926,10 @@ try {
   await scenario('storage overview is compact, localized and responsive with safe payment/deletion details', async ({page,state})=>{
     const base={sender:'did:abt:z'+'1'.repeat(30),receiver:'did:abt:z'+'2'.repeat(30),envelope:'z'+'3'.repeat(30),hash:'a'.repeat(64),payment:'10000000000000000',credit:'8900000000000000',dividend:'1000000000000000',size:127,createdAt:'2026-10-30T08:20:00Z'};
     state.mails=['awaiting_signature','delivered','payment_pending'].map((sendStatus,index)=>{const id='00000000-0000-4000-8000-00000000000'+index;return{...base,id,storageKey:'dmp:'+id,sendStatus,...(index?{paymentTx:'b'.repeat(64)}:{})};});
+    state.mails.push({...base,id:'00000000-0000-4000-8000-000000000003',storageKey:'dmp:00000000-0000-4000-8000-000000000003',sendStatus:'payment_confirmed',paymentTx:'original-payment',assetTx:'current-nft',nextAttemptAt:'2026-11-06T00:00:00Z',indexAttempts:['rejected-nft'],deliveryProblem:{code:'INDEX_RETRY_SCHEDULED',detail:'The mail NFT transaction was rejected. The server will retry without another sender payment.'}});
     await page.goto(`${origin}/zh/admin/storage`);
     await page.getByText('待签名',{exact:true}).waitFor();
-    const rows=page.locator('[data-storage-row]');assert.equal(await rows.count(),3);
+    const rows=page.locator('[data-storage-row]');assert.equal(await rows.count(),4);
     assert.ok((await rows.first().boundingBox()).height<100);
     assert.equal(await rows.first().locator('.dm-did-icon[data-did-show]:visible').count(),0);
     const copyButton=await rows.first().locator('[data-did-copy]').first().boundingBox();assert.ok(copyButton.width>=24&&copyButton.height>=24);
@@ -907,6 +940,15 @@ try {
     await rows.nth(2).locator('[data-action="storage-details"]').click();
     assert.equal(await page.locator('#storage-mail-2 [data-action="delete-mail"]').isDisabled(),true);
     await rows.first().locator('[data-action="storage-details"]').click();await rows.nth(2).locator('[data-action="storage-details"]').click();
+    await rows.nth(3).locator('[data-action="storage-details"]').click();
+    const progress=page.locator('#storage-mail-3');
+    await progress.getByText('投递进度',{exact:true}).waitFor();
+    assert.ok((await progress.innerText()).includes('rejected-nft'));
+    assert.ok((await progress.innerText()).includes('无需发件人再次付款'));
+    assert.equal(await progress.locator('[data-action="delete-mail"]').isDisabled(),true);
+    assert.equal(await page.locator('[data-action*="refund"]').count(),0);
+    await fs.mkdir('artifacts/delivery-recovery',{recursive:true});
+    await page.screenshot({path:`artifacts/delivery-recovery/storage-desktop-${theme}.png`,fullPage:true});
     await page.screenshot({path:`.data/screenshots/storage-redesign-zh-desktop-${theme}.png`,fullPage:true});
     await page.setViewportSize({width:390,height:844});
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
@@ -1107,18 +1149,14 @@ try {
       assert.equal(mutations[0].path, '/api/storage/mails/delete/7');
       assert.equal(mutations[0].method, 'DELETE');
       await page.goto(`${origin}/zh/admin/attachment`);
-      await page.locator('.dm-legacy-settings > summary').click();
-      await page.getByRole('heading', { name: '附件策略', exact: true }).waitFor();
-      await page.getByLabel('单个文件大小上限', { exact: false }).fill('2.5');
-      await page.getByLabel('附件数量上限', { exact: false }).fill('3');
-      await page.getByLabel('每字节每天价格', { exact: false }).fill('900719925474099312345');
-      await page.getByRole('button', { name: '保存策略', exact: true }).click();
-      await page.getByRole('status').filter({ hasText: '附件策略已保存' }).waitFor();
-      assert.deepEqual(mutations.at(-1), {
-        path: '/api/admin/attachment-config',
-        method: 'PUT',
-        body: { maxFileSizeBytes: 2621440, maxFileCount: 3, pricePerBytePerDay: '900719925474099312345' },
-      });
+      await page.getByRole('heading', { name: '邮件服务', exact: true }).waitFor();
+      await page.getByLabel('单个附件大小上限（MiB）', { exact: true }).fill('2.5');
+      await page.getByLabel('附件最大数量', { exact: true }).fill('3');
+      await page.getByRole('button', { name: '保存邮件服务设置', exact: true }).click();
+      await page.getByText('邮件服务设置已保存。', { exact: true }).waitFor();
+      assert.equal(mutations.at(-1).path, '/didmail-native/.actions/update-mail-policy');
+      assert.equal(mutations.at(-1).body.policy.attachments.maxFileBytes,2621440);
+      assert.equal(mutations.at(-1).body.policy.attachments.maxCount,3);
       await page.setViewportSize({ width: 390, height: 844 });
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
       await page.screenshot({ path: `.data/screenshots/native-attachment-zh-mobile-${theme}.png`, fullPage: true });
@@ -1159,7 +1197,8 @@ try {
       for (const section of ['envelope', 'namecard', 'storage', 'attachment']) {
         await page.locator(`.dm-tabs a[href="/admin/${section}"]`).click();
         await page.locator('[data-content] .dm-card').first().waitFor();
-        await page.locator('[data-node-balance] strong').getByText('100 TBA', { exact: true }).waitFor();
+        if (section === 'attachment') assert.equal(await page.locator('[data-node-balance]:visible').count(), 0, 'instance configuration does not depend on a Worker balance');
+        else await page.locator('[data-node-balance] strong').getByText('100 TBA', { exact: true }).waitFor();
         assert.equal(await page.locator('[data-account]').count(), 0);
         assert.equal(calls('/api/account/state'), 1, 'fresh balance is reused across full-page navigation');
         assert.equal(calls('/api/stake/state'), 1, 'only Server requests stake');
@@ -1943,29 +1982,55 @@ try {
       await page.screenshot({ path: `.data/screenshots/default-envelope-mobile-${theme}.png`, fullPage: true });
     },
   );
-  await scenario('attachment policy preserves integer wei and updates exact fields', async ({ page, mutations }) => {
+  await scenario('mail policy initialization is explicit and uses native AFS without legacy policy endpoints', async ({ page, state, mutations, reads }) => {
+    state.mailPolicyMissing = true;
     await page.goto(`${origin}/admin/attachment`);
-    await page.locator('.dm-legacy-settings > summary').click();
-    await page.getByRole('button', { name: 'Save Policy' }).waitFor();
-    const price = page.getByLabel('Price Per Byte Per Day', { exact: false });
-    assert.equal(await price.inputValue(), '9007199254740993');
-    await page.getByLabel('Max File Size', { exact: false }).fill('2.5');
-    await page.getByLabel('Max File Count', { exact: false }).fill('3');
-    await price.fill('900719925474099312345');
-    await page.getByRole('button', { name: 'Save Policy' }).click();
-    await page.getByText('Attachment policy saved successfully.').waitFor();
-    assert.deepEqual(mutations[0], {
-      path: '/api/admin/attachment-config',
-      method: 'PUT',
-      body: { maxFileSizeBytes: 2621440, maxFileCount: 3, pricePerBytePerDay: '900719925474099312345' },
-    });
-    await page.setViewportSize({ width: 390, height: 844 });
-    await page.waitForFunction(() => {
-      const tab = document.querySelector('.dm-tabs [aria-current="page"]').getBoundingClientRect();
-      return tab.left >= 0 && tab.right <= innerWidth;
-    });
-    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
-    await page.screenshot({ path: `.data/screenshots/native-attachment-mobile-${theme}.png`, fullPage: true });
+    const initialize = page.getByRole('button', { name: 'Initialize mail service policy', exact: true });
+    await initialize.waitFor(); assert.equal(mutations.length, 0);
+    await initialize.click();
+    await page.getByRole('heading', { name: 'Mail service', exact: true }).waitFor();
+    assert.deepEqual(mutations, [{ path: '/didmail-native/.actions/initialize-mail-policy', method: 'EXEC', body: { expectedVersion: '!absent' } }]);
+    assert.equal(reads.some(url => ['/api/admin/mail-policy', '/api/admin/mail-access-list', '/api/runtime/session'].includes(url.pathname)), false);
+  });
+  await scenario('new-mail settings preserve the draft after a conflict and reject revoked access', async ({ page, state, mutations, reads }) => {
+    await page.goto(`${origin}/admin/attachment`);
+    await page.getByRole('heading', { name: 'Mail service', exact: true }).waitFor();
+    assert.equal(mutations.length,0,'opening settings never writes data');
+    await page.getByLabel('Maximum attachment count', { exact: true }).fill('4');
+    state.configConflict = true;
+    await page.getByRole('button', { name: 'Save mail service policy', exact: true }).click();
+    await page.getByRole('alert').getByText('Policy changed or is unavailable. Refresh and review before retrying.', { exact: true }).waitFor();
+    assert.equal(await page.getByLabel('Maximum attachment count', { exact: true }).inputValue(), '4');
+    assert.equal(state.mailPolicy.policy.attachments.maxCount,8);
+    assert.equal(mutations.length,0);
+    assert.equal(state.legacyConfigReads,0);
+    assert.equal(reads.some(url => ['/api/admin/attachment-config', '/api/account/state'].includes(url.pathname)),false);
+    await page.evaluate(() => sessionStorage.setItem('didmail:node-state:v1','public-test-snapshot'));
+    state.role = 'member';
+    await page.getByRole('button', { name: 'Save mail service policy', exact: true }).click();
+    await page.locator('[data-session]').getByText('Session expired. Refresh the page to sign in again.', { exact: true }).waitFor();
+    assert.equal(await page.locator('[data-workspace]').isVisible(),false);
+    assert.equal(await page.evaluate(() => sessionStorage.getItem('didmail:node-state:v1')),null);
+    assert.equal(mutations.length,0);
+  });
+  await scenario('settings omits historical configuration and saves only new-mail limits', async ({ page, state, mutations }) => {
+    await page.goto(`${origin}/admin/attachment`);
+    await page.getByRole('button', { name: 'Save mail service policy', exact: true }).waitFor();
+    assert.equal(await page.locator('.dm-legacy-settings, [data-attachment]').count(),0);
+    assert.equal(state.legacyConfigReads,0);
+    await page.getByLabel('Maximum file size (MiB)', { exact: true }).fill('2.5');
+    await page.getByLabel('Maximum attachment count', { exact: true }).fill('3');
+    await page.getByRole('button', { name: 'Save mail service policy', exact: true }).click();
+    await page.getByText('Mail service settings saved.', { exact: true }).waitFor();
+    assert.equal(mutations.length,1);
+    assert.equal(mutations[0].path,'/didmail-native/.actions/update-mail-policy');
+    assert.equal(mutations[0].body.policy.attachments.maxFileBytes,2621440);
+    assert.equal(mutations[0].body.policy.attachments.maxCount,3);
+    assert.equal(state.legacyConfigReads,0);
+    await page.setViewportSize({ width:390,height:844 });
+    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth<=innerWidth),true);
+    await fs.mkdir('artifacts/remove-legacy-settings',{recursive:true});
+    await page.screenshot({path:`artifacts/remove-legacy-settings/settings-mobile-${theme}.png`,fullPage:true});
   });
   await scenario(
     'member cannot load business data or actions',
@@ -1994,9 +2059,9 @@ try {
       assert.equal(new URL(page.url()).pathname, `/${code}/`);
       await page.goto(`${origin}/admin/attachment`);
       assert.equal(new URL(page.url()).pathname, `/${code}/admin/attachment`);
-      await page.locator('.dm-legacy-settings > summary').click();
-      await page.getByRole('heading', { name: t('Attachment Policy'), exact: true }).waitFor();
-      assert.equal(await page.getByLabel(t('Max File Count')).inputValue(), '5');
+      await page.getByRole('heading', { name: t('Mail service'), exact: true }).waitFor();
+      assert.equal(await page.getByLabel(t('Maximum attachment count'),{exact:true}).inputValue(),'20');
+      assert.equal(await page.locator('.dm-legacy-settings, [data-attachment]').count(),0);
       await page.locator(`.dm-tabs a[href="${localizedPath('/admin/storage', code)}"]`).click();
       await page.getByRole('heading', { name: t('Mails'), exact: true }).waitFor();
       await openMailDetails(page);

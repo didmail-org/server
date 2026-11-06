@@ -7,7 +7,8 @@ import { createServer } from 'node:http';
 import { spawn } from 'node:child_process';
 const name = process.argv[2];
 if (!['ui', 'admin', 'policy'].includes(name)) throw new Error('Usage: node scripts/browser-artifacts.mjs ui|admin|policy');
-const root = path.resolve('dist');
+const root = path.resolve('blocklet/.web-cache');
+const source = path.resolve('blocklet');
 const html = await fs.readFile(path.join(root, 'en/index.html'), 'utf8');
 const corePath = html.match(/href="(\/aup-core\.[a-f0-9]+\.css)"/)[1];
 if (!process.env.DIDMAIL_BROWSER_CORE_CSS) throw new Error('Supply DIDMAIL_BROWSER_CORE_CSS with the genuine public ARC stylesheet.');
@@ -26,8 +27,9 @@ const server = createServer(async (req, res) => {
       if (!match[1] && preferred) { res.writeHead(302, { location: `/${preferred}${pathname}${url.search}` }).end(); return; }
       pathname = '/' + (match[1] || 'en') + '/' + (match[2] ? match[2].replaceAll('/', '-') + '/' : '') + 'index.html';
     }
-    const file = path.resolve(root, '.' + pathname);
-    if (!file.startsWith(root + path.sep)) { res.writeHead(404).end(); return; }
+    const base = pathname.startsWith('/assets/') ? source : root;
+    const file = path.resolve(base, '.' + pathname);
+    if (!file.startsWith(base + path.sep)) { res.writeHead(404).end(); return; }
     const body = await fs.readFile(file);
     res.writeHead(200, { 'content-type': ({ '.html': 'text/html', '.css': 'text/css', '.js': 'application/javascript', '.svg': 'image/svg+xml', '.png': 'image/png', '.json': 'application/json' })[path.extname(file)] || 'application/octet-stream' }).end(body);
   } catch { res.writeHead(404).end('Missing native artifact'); }

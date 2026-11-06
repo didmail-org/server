@@ -1,31 +1,37 @@
 # Server documentation
 
-Status: active Worker implementation. English is the source language. Start with the [server README](../README.md) for installation and the [user guide](help/en.md) for UI tasks.
+Status: native ARC is the supported runtime; Workers is retired. English is the source language. Start with the [server README](../README.md) for installation and the [user guide](help/en.md) for UI tasks.
 
 ## Guides and references
 
-| Task/topic                                       | Document                                                                                                                 |
-| ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| Use the server and admin UI                      | [English help](help/en.md); [translations and authoring](help/README.md)                                                 |
-| Understand Worker/ARC/D1/R2 boundaries or deploy | [Runtime and deployment](workers-migration.md)                                                                           |
-| Plan ARC-native server migration                  | [ARC-native migration](arc-native-migration.md)                                                                          |
-| Preserve or restart local preview data           | [Preview persistence](local-preview-persistence.md)                                                                      |
-| Test phone invitations on LAN/USB                | [LAN and USB testing](lan-invitation-testing.md)                                                                         |
-| Configure membership and mailbox association     | [ARC onboarding](arc-mailbox-onboarding.md)                                                                              |
-| Implement the trusted membership adapter         | [Member-source contract](arc-members-source-compatibility.md)                                                            |
-| Understand admission and attachment policies     | [Policy API](mail-policy-api.md)                                                                                         |
-| Connect a private endpoint                       | [Private endpoint behavior](private-endpoint-mail-design.md)                                                             |
-| Preserve the node identity and assets            | [Node wallet model](node-identity-and-transactions.md)                                                                   |
-| Transfer available node funds                    | [Owner transfers](node-transfers.md)                                                                                     |
-| Manage native-token gas stake                    | [Gas staking](gas-staking.md)                                                                                            |
-| Manage service-node NFT stake                    | [Node NFT policy](node-staking.md)                                                                                       |
-| Diagnose unavailable balances/factories          | [Chain-read troubleshooting](troubleshoot-chain-reads.md)                                                                |
-| Change routes, rendering or UI caching           | [Native UI](native-ui.md)                                                                                                |
-| Maintain dependency upgrades and security patches | [Dependency compatibility](dependency-security.md)                                                                    |
-| Understand disabled contact-recovery work        | [Recovery scope](contact-recovery.md), [internal API](contact-recovery-api.md), [durable jobs](contact-recovery-jobs.md) |
-| Maintain historical data compatibility           | [Retired public-mail routes](mail-protocol-retirement-tests.md)                                                          |
+| Task/topic | Document |
+| --- | --- |
+| Understand source ownership and runtime boundaries | [Server architecture](server-architecture.md) |
+| Build and develop the native ARC package | [Local development](local-arc-development.md) |
+| Activate protocol HTTP, configure keys and understand lifecycle limits | [Packaged ARC runtime](arc-package-runtime.md) |
+| Import or initialize existing instance data | [Instance migration](instance-afs-migration.md) |
+| Back up business data and preserve transaction semantics | [AFS business storage](afs-business-storage.md) |
+| Preserve mail-policy admission locks and fences | [AFS policy/admission](afs-policy-admission.md) |
+| Recover data from retired Workers installations | [Historical recovery boundary](workers-migration.md) |
+| Evaluate hosted ARC installation and remaining gates | [ARC-native deployment contract](arc-native-migration.md) |
+| Use the server and admin UI | [English help](help/en.md); [translations and authoring](help/README.md) |
+| Recover historical D1/R2 preview state | [Preview persistence](local-preview-persistence.md) |
+| Test phone invitations on LAN/USB | [LAN and USB testing](lan-invitation-testing.md) |
+| Configure membership and mailbox association | [ARC onboarding](arc-mailbox-onboarding.md) |
+| Implement the trusted membership adapter | [Member-source contract](arc-members-source-compatibility.md) |
+| Understand mail policy APIs | [Policy API](mail-policy-api.md) |
+| Connect a private endpoint | [Private endpoint behavior](private-endpoint-mail-design.md) |
+| Preserve node identity and assets | [Node wallet model](node-identity-and-transactions.md) |
+| Transfer available node funds | [Owner transfers](node-transfers.md) |
+| Manage native-token gas stake | [Gas staking](gas-staking.md) |
+| Manage service-node NFT stake | [Node NFT policy](node-staking.md) |
+| Diagnose unavailable balances/factories | [Chain-read troubleshooting](troubleshoot-chain-reads.md) |
+| Change routes, rendering or UI caching | [Native UI](native-ui.md) |
+| Maintain dependency upgrades and security patches | [Dependency compatibility](dependency-security.md) |
+| Understand disabled contact-recovery work | [Recovery scope](contact-recovery.md), [internal API](contact-recovery-api.md), [durable jobs](contact-recovery-jobs.md) |
+| Maintain historical data compatibility | [Retired public-mail routes](mail-protocol-retirement-tests.md) |
 
-- [Worker and Blocklet distribution license audit](distribution-license-audit.md), [Worker inventory](worker-dependency-inventory.md), and [recovered package source evidence](license-source-evidence.json).
+- [Distribution license audit](distribution-license-audit.md), [historical Worker inventory](worker-dependency-inventory.md), and [recovered package source evidence](license-source-evidence.json).
 
 ## Authority and capability status
 

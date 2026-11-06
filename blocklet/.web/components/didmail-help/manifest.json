@@ -1,1 +1,7 @@
-{"name":"didmail-help","description":"Localized DIDMail Server help and operator guide","props":{},"hasScript":true,"seoStrategy":"full"}
+{
+  "name": "didmail-help",
+  "description": "Localized DIDMail Server help and operator guide",
+  "props": {},
+  "hasScript": false,
+  "seoStrategy": "full"
+}

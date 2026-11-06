@@ -1,0 +1,16 @@
+import {lib8 as lib} from './dependencies.mjs';
+export default lib.default ?? lib;
+const value1=lib.Router ?? lib.default?.Router;export {value1 as Router};
+const value2=lib.Response ?? lib.default?.Response;export {value2 as Response};
+const value3=lib.NextFunction ?? lib.default?.NextFunction;export {value3 as NextFunction};
+const value4=lib.Request ?? lib.default?.Request;export {value4 as Request};
+const value5=lib.Route ?? lib.default?.Route;export {value5 as Route};
+const value6=lib.application ?? lib.default?.application;export {value6 as application};
+const value7=lib.json ?? lib.default?.json;export {value7 as json};
+const value8=lib.query ?? lib.default?.query;export {value8 as query};
+const value9=lib.raw ?? lib.default?.raw;export {value9 as raw};
+const value10=lib.request ?? lib.default?.request;export {value10 as request};
+const value11=lib.response ?? lib.default?.response;export {value11 as response};
+const value12=lib.static ?? lib.default?.static;export {value12 as static};
+const value13=lib.text ?? lib.default?.text;export {value13 as text};
+const value14=lib.urlencoded ?? lib.default?.urlencoded;export {value14 as urlencoded};

@@ -1,20 +1,26 @@
 # Phone invitations over LAN or USB
 
-Status: local development procedure. Audience: contributors testing their own disposable identities. Preserve running state before changing preview configuration; see [preview persistence](local-preview-persistence.md).
+Status: local development procedure. Audience: contributors testing their own disposable identities. Preserve running state before changing private runtime configuration; see [native lifecycle](arc-package-runtime.md).
 
 ## LAN
 
-A computer's `.localhost` name does not reach that computer from a phone. Explicitly enable the intended LAN listener and alias; replace the example with the computer's current private IPv4 address. Run from `server/`:
+A computer's `.localhost` name does not reach that computer from a phone.
+For an explicitly authorized development instance, configure `listenHost` and
+`aliases` in private `protocol-runtime.json`, preserving all existing key,
+network, origin and scheduler values. A typical LAN listener uses `0.0.0.0`
+and an explicit alias such as `http://192.168.1.23:8788`; use the computer's
+current private IPv4 address. The original public origin can remain unchanged.
 
-```sh
-DIDMAIL_ARC_PREVIEW_HOST=0.0.0.0 \
-DIDMAIL_ARC_PREVIEW_ALIASES=http://192.168.1.23:8788 \
-NO_PROXY=127.0.0.1,localhost,.localhost,192.168.1.23 \
-no_proxy=127.0.0.1,localhost,.localhost,192.168.1.23 \
-pnpm arc:run
-```
+Use the [private configuration/lifecycle procedure](arc-package-runtime.md#configuration-keys-and-installation)
+to coordinate backup and restart of only the affected DIDMail instance. Activate
+the app after restart. The create-only install action cannot overwrite an
+existing configuration; changing a configured installation is a deliberate
+private operator action. Never reinitialize its wallet or business state.
 
-Keep any other required existing preview/network options. Do not start another runner against the same D1/R2 state or restart unrelated ARC instances.
+The retired preview's `DIDMAIL_ARC_PREVIEW_HOST` and alias environment variables
+do not configure the native listener. Starting ARC with those variables is not
+a configuration update. Do not start another signer against the same data or
+restart unrelated ARC instances.
 
 The computer can still use `http://didmail-server.localhost:8788`; the phone uses the configured LAN alias. Generate an invitation through that entry, or change only the origin of an authorized local invitation while preserving its full path/query. Do not commit valid invitations. Unknown hosts are rejected, and the internal ARC site namespace remains fixed; the trusted public alias controls callbacks.
 
@@ -24,7 +30,7 @@ Check same-network connectivity, client/guest Wi-Fi isolation and the host firew
 
 ## Android USB
 
-For an authorized disposable Android target, add explicit `http://localhost:8788,http://127.0.0.1:8788` preview aliases and run:
+For an authorized disposable Android target, add explicit `http://localhost:8788,http://127.0.0.1:8788` private runtime aliases and run:
 
 ```sh
 adb -s <device-serial> reverse tcp:8788 tcp:8788

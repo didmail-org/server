@@ -7,7 +7,7 @@ test('VC purge removes ciphertext, metadata and orphan objects; preserves NFT ma
  const mf=new Miniflare(convertV4MiniflareOptions({modules:true,script:'export default {fetch(){return new Response("isolated");}}',compatibilityDate:'2026-10-24',d1Databases:{DB:'purge-test'},r2Buckets:{BLOBS:'purge-test'},outboundService:()=>new Response('',{status:502})}));
  try {
   const db=await mf.getD1Database('DB'),blobs=await mf.getR2Bucket('BLOBS');
-  for(const file of (await fs.readdir('workers/migrations')).sort()) for(const sql of (await fs.readFile('workers/migrations/'+file,'utf8')).split(';').map(s=>s.replace(/^--.*$/gm,'').trim()).filter(Boolean)) await db.prepare(sql).run();
+  for(const file of (await fs.readdir('blocklet/providers/didmail-business/migrations')).sort()) for(const sql of (await fs.readFile('blocklet/providers/didmail-business/migrations/'+file,'utf8')).split(';').map(s=>s.replace(/^--.*$/gm,'').trim()).filter(Boolean)) await db.prepare(sql).run();
   await db.prepare('CREATE TABLE preserved_identity(id TEXT PRIMARY KEY)').run();await db.prepare("INSERT INTO preserved_identity VALUES('fixture')").run();
   await db.prepare("INSERT INTO ordinary_messages(id,sender_id,recipient_id,service_id,manifest_hash,manifest_json,terms_id,terms_json,created_at,updated_at,upload_expires_at) VALUES('vc','sender','recipient','node','hash','{}','terms','{}','now','now','later')").run();
   await db.prepare("INSERT INTO ordinary_chunks VALUES('vc','blob',0,'hash','ordinary/fixture',3)").run();

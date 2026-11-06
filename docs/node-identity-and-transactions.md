@@ -6,7 +6,7 @@ Status: current server model. Audience: operators and financial-operation mainta
 
 ARC authenticates the administrator. The mailbox DID identifies a client signer. The node wallet owns node assets and signs server-funded operations. An ARC login alone neither replaces the node wallet nor authorizes signing as the user's wallet.
 
-Keep one stable node wallet in private configuration/Workers Secrets. Existing deployments must retain the original application secret and expected `NODE_ADDRESS`, chain, factories and token configuration. A replacement address cannot inherit old assets, stakes or encrypted domain-key access. Never send the private key through chat, browser state, logs or documentation.
+Keep one stable node wallet in private instance configuration. Existing deployments must retain the original application secret and expected `NODE_ADDRESS`, chain, factories and token configuration. A replacement address cannot inherit old assets, stakes or encrypted domain-key access. Never send the private key through chat, browser state, logs or documentation.
 
 Encode the secret explicitly as `0x`-prefixed hexadecimal: a 32-byte ED25519 seed or a coherent 64-byte seed/public-key pair. The server rejects bare hex strings and inconsistent public-key halves; it never silently reinterprets an existing node's encoding. Before funding a newly provisioned address, independently derive its public key and verify a nontransaction ownership challenge through the configured signing path. Repeating an address derivation alone does not prove signing authority. If validation fails, retain the original address, recovery material and transaction records; deriving a different address is not recovery of the original funds.
 

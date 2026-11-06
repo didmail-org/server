@@ -15,11 +15,19 @@ Status: current implementation. Audience: UI contributors. The server uses AUP /
 | `/admin/envelope`   | `admin-envelope`   | Envelope templates, categories and publication             |
 | `/admin/namecard`   | `admin-namecard`   | Namecard templates, categories and publication             |
 | `/admin/storage`    | `admin-storage`    | Encrypted-mail metadata, search and authorized deletion    |
-| `/admin/attachment` | `admin-attachment` | Attachment settings and delivery operations                |
+| `/admin/attachment` | `admin-attachment` | Attachment settings                |
 
-Page sources are [blocklet/pages](../blocklet/pages/). Renderers and interactions live in [ui](../ui/), with component manifests/styles in [blocklet/.web/components](../blocklet/.web/components/). `pnpm build:client` bundles them, runs ARC check/build and generates `blocklet/dist` and Worker `dist` assets. Generated renderer/browser bundles are not hand-edited or committed. The shared [appearance adapter](../ui/native-appearance.js) prepares both built HTML and live ARC responses in the Worker: the native header and preference bootstrap stay consistent with the page-wide black brand scene, including before browser paint. It only adapts known DIDMail pages and the recognized native appearance initializer; identity and authorization responses retain their existing paths.
+Page sources are [blocklet/pages](../blocklet/pages/). Native renderers,
+styles, manifests and browser interactions are authored under
+[blocklet/.web/components](../blocklet/.web/components/). The shared
+`didmail-chrome` component retains named sections for existing interactions;
+`ui/` contains their Node regression facades. `arc blocklet build blocklet`
+reads these sources directly, generates the native page cache and produces
+`blocklet/dist`. No separate bundler or output-rewriting adapter is required.
+Layouts, metadata, routes, site settings and package identity survive builds.
+See [local ARC development](local-arc-development.md) for exact commands.
 
-The Worker maps public admin paths to flat native page IDs; it does not use a SPA fallback. Locale prefixes, queries and anchors retain their public meaning. ARC owns the single app header, language/theme/user menus and login; the platform Admin Console is separate from DIDMail business administration.
+The shared protocol handler maps public admin paths to flat native page IDs. Direct ARC hosting uses the manifest's explicit redirects from these bookmarks to their canonical flat pages. Locale prefixes, queries and anchors retain their public meaning. ARC owns the single app header, language/theme/user menus and login; the platform Admin Console is separate from DIDMail business administration.
 
 ## Authorization and state
 
@@ -31,11 +39,19 @@ Progressive regions render independently: account, stake, NFT/factory, template 
 
 Before spending, load current terms/balance/stake again. Cancel or invalidate pre-write reads so they cannot repopulate stale state. Preserve failed forms and saved snapshots with explicit stale/unavailable status. A returned transaction hash is submission evidence, not chain confirmation.
 
+Settings policy forms and Members access lists use the ARC session WebSocket
+and native `/didmail-native` AFS actions. They verify the native ARC role and do
+not require a Worker session or node balance. Missing policy offers explicit
+administrator initialization; malformed/inaccessible data never becomes a draft.
+Conflicts preserve unsaved input; revocation clears protected display snapshots.
+Delivery progress, diagnostic codes, next attempts and previous rejected NFT transaction IDs are shown in each Storage record. Settings contains only the new-mail service policy. It does not render or read/write the historical attachment configuration, and it does not request the separate delivery-health endpoint. Already accepted mail retains its recorded terms; historical configuration data and compatibility APIs remain available to their existing consumers. The original REST health contract remains available for compatibility.
+See [policy/admission guarantees](afs-policy-admission.md).
+
 ## Templates and list caches
 
 SVG samples are bundled, rendered as images and validated before use. Envelope samples require `mail.sender`; supported fields include subject, sender, creation/expiry and envelope metadata. Namecards require `{{contact.name}}` and use the contact rendering context. Factory details load on demand, while creation always checks actual factory fees before confirmation. Categories are assigned once and publication does not change them.
 
-Template list pages use D1 scope/version/pointer metadata and R2 JSON payloads. Normal cached pages avoid chain reads; a cache miss, explicit refresh or successful creation synchronizes. Publication flags are merged separately, never overwritten by chain refresh. Failed refresh keeps the last valid list. Version and pointer CAS reject stale writers and prevent deleting another writer's object. These are rebuildable display caches, not economic authorization or a complete orphan-cleanup mechanism.
+Template list pages use scope/version/pointer metadata and separate JSON payloads, stored in instance AFS. Historical D1/R2 cache records remain migration-compatible. Normal cached pages avoid chain reads; a cache miss, explicit refresh or successful creation synchronizes. Publication flags are merged separately, never overwritten by chain refresh. Failed refresh keeps the last valid list. Version and pointer CAS reject stale writers and prevent deleting another writer's object. These are rebuildable display caches, not economic authorization or a complete orphan-cleanup mechanism.
 
 ## Public brand entrance
 
@@ -47,13 +63,13 @@ Owned server form fields signal focus through a neutral border-color change with
 
 English is default; Simplified Chinese, Arabic, Japanese and Russian have matching message keys. SSR emits the requested language and localized links. Arabic uses RTL, while DIDs, amounts and code retain appropriate LTR isolation. Forms/dialogs have labels and keyboard interactions. The header exposes a direct Light/Dark toggle with a target-specific accessible name. Fixed choices persist; legacy explicit System resolves once during migration. Later OS palette changes have no effect. See the [product design authority](https://github.com/didmail-org/overview/blob/main/docs/product-design.md). Mobile navigation may scroll within its own strip without overflowing the page.
 
-The help renderer builds directly from [docs/help](help/README.md), preserving stable translated section IDs and escaping raw HTML. It is readable without JavaScript and does not request business data. Header/home/admin links and per-page contextual links expose it.
+The help renderer reads the public Markdown copies in `blocklet/.aup/locales`, preserving stable translated section IDs and escaping raw HTML. Update these together with [docs/help](help/README.md); the native package test checks equality. Help is readable without JavaScript and does not request business data. Header/home/admin links and per-page contextual links expose it.
 
 ## Verification
 
 Run `pnpm lint:ui`, `pnpm test:ui`, `pnpm build:client` and `pnpm test:browser`. With the local preview running, run `pnpm test:browser:admin`, `pnpm test:browser:ui` and `pnpm test:browser:help`; set `DIDMAIL_BROWSER_THEME=dark` for the dark UI regression. Help checks serve isolated artifacts and read only ARC's public core stylesheet from the preview.
 
-Standalone Workers serve native pages from `dist` without ARC's dynamic core CSS route. Before a standalone build, set `DIDMAIL_WORKER_CORE_CSS` to a genuine offline public ARC core stylesheet matching the `aup-core.<sha256-prefix>.css` reference emitted in the pages. `build:client` copies its exact bytes into `dist` and records the full digest in `worker-core-assets.json`; it does not fetch from a running ARC instance. Ordinary ARC builds can omit this input. Standalone `start` and `worker:deploy:dry` verify the asset and fail before serving/deploying if it is missing or its content hash differs. No replacement CSS or identity fixture is supplied by this packaging step.
+The native ARC build writes `blocklet/dist` and `.web-cache`; ARC serves its own genuine core CSS. Workers asset exports and deployment commands are retired. Browser artifact checks may read matching genuine ARC core CSS as an isolated fixture; this is not a second distribution.
 
 Browser tests use isolated identity/business API fixtures and must never broadcast real transactions. They cover routing, loading/failure states, precise amounts, forms, categories, themes, localization and mobile layout. They do not replace target-deployment login or real settlement acceptance.
 

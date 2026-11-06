@@ -8,7 +8,7 @@ This stake controls service-node discovery/admission and is separate from [nativ
 - Initial stake uses one node token under the existing NFT stake policy. Browser-supplied alternate amounts/waiting periods cannot change the signed parameters.
 - `CHAIN_ID=beta` uses a 120-second revocation waiting period for new stakes.
 - `CHAIN_ID=main` uses 604800 seconds (7 days) for new stakes.
-- Derive policy from chain configuration, not `NODE_ENV`; local workerd can run with production-mode code on beta.
+- Derive policy from chain configuration, not `NODE_ENV`; a local ARC instance can use production-mode code on beta.
 - `REVOKE_WAITING_PERIOD` does not override the fixed policy.
 - Existing chain stakes retain their actual historical waiting period.
 

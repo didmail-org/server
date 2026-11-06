@@ -2,7 +2,7 @@
 
 Status: internal implementation; not a published production capability. Audience: maintainers integrating namecard settlement/recovery.
 
-The repository has authenticated preparations, original-payment verification/storage, signed preparation proofs, read-only status and durable settlement jobs. The production Worker does not advertise `contact-recovery/1`, expose the private preparation handlers or schedule their consumer. Existing `/api/contact/send/sign` does not acquire these guarantees just because the new modules exist.
+The repository has authenticated preparations, original-payment verification/storage, signed preparation proofs, read-only status and durable settlement jobs. The native production entry does not advertise `contact-recovery/1`, expose the private preparation handlers or schedule their consumer. Existing `/api/contact/send/sign` does not acquire these guarantees just because the new modules exist.
 
 ## Why preserve original bytes
 

@@ -4,7 +4,16 @@ name: DIDMail Server
 did: did:blocklet:didmail-server
 version: 0.1.0
 description: Decentralized encrypted mail with the original REST API and native AUP Web Device UI
-logo: web/logo.svg
+author:
+  name: DIDMail
+keywords: [didmail, encrypted-mail, did, arc]
+homepage: https://didmail.org
+documentation: https://github.com/didmail-org/server/blob/main/docs/local-arc-development.md
+repository:
+  type: git
+  url: https://github.com/didmail-org/server.git
+support: https://github.com/didmail-org/server/issues
+logo: assets/logo.svg
 license: Apache-2.0
 save: false
 scope: app
@@ -14,8 +23,150 @@ instance:
 sites:
   - name: didmail-server
     domains: ["didmail-server.localhost"]
+    bindings:
+      - id: admin-account
+        path: /admin/account
+        redirect: /admin-account/
+      - id: admin-server
+        path: /admin/server
+        redirect: /admin-server/
+      - id: admin-envelope
+        path: /admin/envelope
+        redirect: /admin-envelope/
+      - id: admin-namecard
+        path: /admin/namecard
+        redirect: /admin-namecard/
+      - id: admin-storage
+        path: /admin/storage
+        redirect: /admin-storage/
+      - id: admin-attachment
+        path: /admin/attachment
+        redirect: /admin-attachment/
+      - id: admin-members
+        path: /admin/members
+        redirect: /admin-members/
+      - id: admin-account-en
+        path: /en/admin/account
+        redirect: /en/admin-account/
+      - id: admin-server-en
+        path: /en/admin/server
+        redirect: /en/admin-server/
+      - id: admin-envelope-en
+        path: /en/admin/envelope
+        redirect: /en/admin-envelope/
+      - id: admin-namecard-en
+        path: /en/admin/namecard
+        redirect: /en/admin-namecard/
+      - id: admin-storage-en
+        path: /en/admin/storage
+        redirect: /en/admin-storage/
+      - id: admin-attachment-en
+        path: /en/admin/attachment
+        redirect: /en/admin-attachment/
+      - id: admin-members-en
+        path: /en/admin/members
+        redirect: /en/admin-members/
+      - id: admin-account-zh
+        path: /zh/admin/account
+        redirect: /zh/admin-account/
+      - id: admin-server-zh
+        path: /zh/admin/server
+        redirect: /zh/admin-server/
+      - id: admin-envelope-zh
+        path: /zh/admin/envelope
+        redirect: /zh/admin-envelope/
+      - id: admin-namecard-zh
+        path: /zh/admin/namecard
+        redirect: /zh/admin-namecard/
+      - id: admin-storage-zh
+        path: /zh/admin/storage
+        redirect: /zh/admin-storage/
+      - id: admin-attachment-zh
+        path: /zh/admin/attachment
+        redirect: /zh/admin-attachment/
+      - id: admin-members-zh
+        path: /zh/admin/members
+        redirect: /zh/admin-members/
+      - id: admin-account-ar
+        path: /ar/admin/account
+        redirect: /ar/admin-account/
+      - id: admin-server-ar
+        path: /ar/admin/server
+        redirect: /ar/admin-server/
+      - id: admin-envelope-ar
+        path: /ar/admin/envelope
+        redirect: /ar/admin-envelope/
+      - id: admin-namecard-ar
+        path: /ar/admin/namecard
+        redirect: /ar/admin-namecard/
+      - id: admin-storage-ar
+        path: /ar/admin/storage
+        redirect: /ar/admin-storage/
+      - id: admin-attachment-ar
+        path: /ar/admin/attachment
+        redirect: /ar/admin-attachment/
+      - id: admin-members-ar
+        path: /ar/admin/members
+        redirect: /ar/admin-members/
+      - id: admin-account-ja
+        path: /ja/admin/account
+        redirect: /ja/admin-account/
+      - id: admin-server-ja
+        path: /ja/admin/server
+        redirect: /ja/admin-server/
+      - id: admin-envelope-ja
+        path: /ja/admin/envelope
+        redirect: /ja/admin-envelope/
+      - id: admin-namecard-ja
+        path: /ja/admin/namecard
+        redirect: /ja/admin-namecard/
+      - id: admin-storage-ja
+        path: /ja/admin/storage
+        redirect: /ja/admin-storage/
+      - id: admin-attachment-ja
+        path: /ja/admin/attachment
+        redirect: /ja/admin-attachment/
+      - id: admin-members-ja
+        path: /ja/admin/members
+        redirect: /ja/admin-members/
+      - id: admin-account-ru
+        path: /ru/admin/account
+        redirect: /ru/admin-account/
+      - id: admin-server-ru
+        path: /ru/admin/server
+        redirect: /ru/admin-server/
+      - id: admin-envelope-ru
+        path: /ru/admin/envelope
+        redirect: /ru/admin-envelope/
+      - id: admin-namecard-ru
+        path: /ru/admin/namecard
+        redirect: /ru/admin-namecard/
+      - id: admin-storage-ru
+        path: /ru/admin/storage
+        redirect: /ru/admin-storage/
+      - id: admin-attachment-ru
+        path: /ru/admin/attachment
+        redirect: /ru/admin-attachment/
+      - id: admin-members-ru
+        path: /ru/admin/members
+        redirect: /ru/admin-members/
 mounts:
+  - target: ./providers/didmail-http
+    path: /didmail-http
+    required: true
+    ops: [list, read, stat, explain, exec]
+  - target: ./providers/didmail-business
+    path: /didmail-business
+    required: true
+    ops: [list, read, stat, explain, exec]
+  - target: ./providers/didmail-native
+    path: /didmail-native
+    required: true
+    ops: [list, read, stat, explain, exec]
   - target: ./providers/didmail
     path: /didmail
     required: true
     ops: [list, read, stat, explain]
+networkRead:
+  - path: /instance/app/didmail/public/attachment-config.json
+    role: guest

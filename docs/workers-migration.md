@@ -1,45 +1,43 @@
-# Worker runtime and deployment
+# Retired Workers runtime and historical migration
 
-Status: current architecture and deployment boundary. Audience: operators and server contributors. The target and transition requirements for an ARC-native server are described in [ARC-native migration](arc-native-migration.md).
+Status: Cloudflare Workers and the external workerd preview are retired. The
+supported server is the [native ARC package](server-architecture.md). This path
+is retained for links from other DIDMail repositories and historical recovery.
+There is no current Workers build, startup, deployment or D1/R2 fallback workflow.
 
-## Runtime
+## Historical storage and identity
 
-[workers/index.ts](../workers/index.ts) is the production fetch/scheduled entry. Existing Express business handlers run through the Worker HTTP adapter. [workers/database.ts](../workers/database.ts) implements the required parameterized relational operations over D1; R2 holds encrypted bodies, attachments and large cache payloads. Workers Secrets supply the original node wallet.
+Former deployments stored relational metadata in D1 and encrypted bodies,
+attachments and cache payloads in R2. They used the original node signing wallet.
+D1, R2 and the chain never shared an atomic transaction. A D1-only export is not
+a complete backup, and an uncertain transaction outcome never authorizes a new
+payment. Preserve original signed bytes, keys, task evidence, leases and fences.
 
-[build-worker.mjs](../scripts/build-worker.mjs) substitutes Worker adapters and rejects filesystem wallets, native SQLite, Sequelize drivers, the Node gateway and test modules in the production graph. Local Node runners bridge development services; they are not production business servers.
+Keep existing private `.wrangler/state/arc-preview`, wallet/configuration and
+exports. Use the [checkpoint procedure](local-preview-persistence.md) for retained
+local source state. For a historical SQLite source, the read-only exporter is:
 
-Each node needs dedicated business D1/R2 bindings. ARC's platform storage is a separate resource. Multiple ARC tenants sharing one business database/bucket are not supported.
+```sh
+node scripts/migration/export-legacy-data.mjs \
+  --database /safe/original/didmail.sqlite \
+  --out /safe/new-private-export
+```
 
-## ARC integration
+Quiesce source writers and preserve matching encrypted objects and hashes. Never
+publish the export or overwrite the source. This exporter is a recovery tool,
+not a replacement for the active [AFS backup](afs-business-storage.md#import-backup-and-restore).
 
-Configure an authorized `ARC` Service Binding or a validated `ARC_ORIGIN` HTTPS endpoint for identity/platform forwarding. Mailbox association uses its separately scoped trusted membership integration. Do not infer a caller's role from supplied headers or a mailbox DID.
+## Import into ARC
 
-The local ARC runtime can serve the built page package. This does not prove that hosted ARC can load an arbitrary custom business module. The optional ARC page/provider package and the business Worker are separate deployment artifacts; publishing one does not deploy the other. Remote login, cookie/redirect/domain mapping, role checks and provider mounts need explicit acceptance on the target installation.
+Follow [instance migration](instance-afs-migration.md) and
+[business storage](afs-business-storage.md) to import into an empty target using
+conditional creation. Import policy/configuration separately and retain the
+original node identity. Verify counts/digests and coordinated restore on an
+isolated copy before serving traffic. Retained D1/R2 sources do not include later
+AFS changes and cannot be selected as an automatic rollback.
 
-## Chain reads
-
-Node balances, factories, NFTs, templates and stakes use [workers/chain-read.ts](../workers/chain-read.ts) through `ARC_CHAIN`, or the configured ARC connection. Optional `ARC_CHAIN_TOKEN` belongs in Secrets, scoped to read/list under the selected namespace. Browser session cookies and node signing keys must not travel with read RPC.
-
-| Business read              | AFS resource                                                    |
-| -------------------------- | --------------------------------------------------------------- |
-| Factory metadata and SVG   | `/dev/chain/<network>/factories/<address>`                      |
-| Account and precise tokens | `/dev/chain/<network>/accounts/<address>` and `/tokens`         |
-| Filtered NFT inventory     | `/dev/chain/<network>/assets`                                   |
-| Stake and asset evidence   | `/dev/chain/<network>/stakes/<address>` and `/assets/<address>` |
-| Nondefault pricing token   | `/dev/chain/<network>/tokens/<tokenId>`                         |
-
-Default beta/main mounts require matching canonical `CHAIN_ID`/`CHAIN_HOST`. A custom network requires explicit `ARC_CHAIN_PATH` and `ARC_CHAIN_ENDPOINT` matching the configured host and an independently configured provider mount. A configuration assertion does not create a mount.
-
-Validate provider capabilities, resource identities, response limits and complete pagination. Missing/unavailable providers cannot become zero balances or empty NFT lists. Filtered inventory enumeration is bounded to 10,000 entries / 32 MiB, with individual RPC responses bounded to 16 MiB. Repeated/incomplete pages fail and preserve the previous cache. Provider-side ordering is not assumed when the provider reports it ignored the request. Large inventories need verified server-side ordering/query support.
-
-Transaction preparation, signing/broadcast and immediate settlement evidence remain separate SDK paths. The compatibility Forge-state endpoint, aliases and contact/mail transaction verification are outside the administrative read adapter.
-
-## Storage consistency
-
-D1 batches provide atomic relational updates; D1/R2/chain do not share a distributed transaction. A crash between object creation and index commit can leave orphan objects. Automatic orphan-object sweeping is not provided. Durable tasks and fenced leases retain original transaction evidence rather than infer nonpayment from a timeout.
-
-Use dedicated resources, preserve the node wallet and back up matching metadata/objects. See [preview persistence](local-preview-persistence.md) for local checkpoints and the [server README](../README.md#deployment-and-data-migration) for deployment/export steps. Apply migrations before serving upgraded code.
-
-## Acceptance
-
-The repository includes real workerd/D1/R2 tests, binary/signature compatibility checks, WAL export/restore checks, native ARC page builds, isolated Chromium interactions and Wrangler packaging dry runs. These establish local implementation properties. They do not establish hosted ARC compatibility, remote resource provisioning, real paid-chain settlement, data import or production availability. The current [release gates](https://github.com/didmail-org/overview/blob/main/docs/status.md) remain explicit.
+Existing protocol, authorization and transaction recovery checks now live in
+`tests/business`; temporary Miniflare execution is a test fixture only. Historical
+deployment records and dependency/license evidence describe their recorded
+artifacts, not a supported runtime. Hosted ARC has its own
+[deployment contract](arc-native-migration.md).

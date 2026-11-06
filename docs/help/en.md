@@ -39,7 +39,7 @@ Open [DIDMail Admin](/admin). ARC verifies your session and role. The Help page 
 - [Members](/admin/members): ARC member status, linked mailboxes and blocked senders.
 - [Envelope](/admin/envelope) and [Namecard](/admin/namecard): create and publish templates.
 - [Storage](/admin/storage): encrypted-mail records, capacity, search and deletion.
-- [Settings](/admin/attachment): attachment policy and delivery operations.
+- [Settings](/admin/attachment): attachment policy.
 
 ARC's avatar menu can also show its platform **Admin Console**. That platform console and DIDMail Admin serve different purposes. Use the platform's organization tools for membership and DIDMail's pages for mail operations. Only the owner can transfer node funds or perform the node's native-token gas staking and withdrawal operations.
 
@@ -119,11 +119,15 @@ Clients store downloaded content locally. A readable body does not imply that al
 
 Node backups require the original node wallet, relational data and matching encrypted objects. A D1-only export is not a complete D1/R2 backup. Quiesce writes for a consistent cross-storage snapshot and keep all private exports outside the public application package.
 
+For the local AFS preview, back up instance business state and matching objects, policy/configuration and the original node wallet together with writes stopped. The retained D1/R2 source does not contain later AFS updates.
+
+Delivery progress and diagnostics belong to each Storage record. After payment confirmation, the server automatically retries creation of the mail NFT without another sender payment. An unknown transaction result is queried or rebroadcast using the original signed transaction. Only a verified rejection allows a replacement, and previous rejected transaction IDs are retained. Conflicting evidence pauses delivery for verification; do not delete or pay again to bypass that check.
+
 <a id="settings"></a>
 
 ## Limits and storage periods
 
-In **Settings**, configure the available attachment controls and review delivery operations. Attachment counts, per-file size and total attachment size apply alongside the whole-message ciphertext limit. Review the units shown in each field. A rejected oversized draft should be edited before a new submission.
+In **Settings**, configure the available attachment controls. Attachment counts, per-file size and total attachment size apply alongside the whole-message ciphertext limit. Review the units shown in each field. A rejected oversized draft should be edited before a new submission.
 
 Internal mail has no daily message-count, cumulative-storage or pending-upload task quotas. Internal tasks do not consume external unpaid-upload slots. The retention period is deployment configuration, with a default of 30 days, not an extra Members-page form. Message and attachment size limits, request rate limits and upload expiry still apply. Operators monitor actual infrastructure capacity.
 
@@ -145,7 +149,7 @@ Changes do not retroactively alter accepted terms. If a policy changed while you
 - **`DELIVERY_TERMS_CHANGED` or a policy conflict:** keep the draft, refresh the terms and review the new result. Do not reuse a previous payment authorization for a changed delivery.
 - **`ENVELOPE_REQUIRED`:** the recipient is not eligible for internal delivery. Select an available external envelope and review its charges; if none is published, ask the operator.
 - **Message or attachment size limit reached:** reduce the draft before retrying. For an external unpaid-upload limit, finish existing external uploads or wait for their expiry. Do not repeatedly create new upload tasks for the same failed send.
-- **Accepted, processing or uncertain result:** refresh the existing task and keep its message ID and original transaction hash, if any. Delivery operations may show items needing operator reconciliation. Do not pay again merely because a response timed out.
+- **Accepted, processing or uncertain result:** refresh the existing task and keep its message ID and original transaction hash, if any. Inspect delivery progress and diagnostics in the Storage record. Do not pay again merely because a response timed out.
 - **Body downloaded, attachment missing:** retry that attachment while the node retains it. Check local free space and connectivity. A missing historical private encryption key requires the original device-key backup, not another NFT lookup.
 
 When contacting the operator, provide the client version, server endpoint, message ID, error code and time. Never send a private key, mnemonic, recovery password, session cookie or unredacted mail content.
@@ -154,11 +158,11 @@ When contacting the operator, provide the client version, server endpoint, messa
 
 ## Operator setup and upgrades
 
-The active server uses Cloudflare Workers, D1 for relational data and R2 for encrypted objects. ARC supplies login and authoritative organization membership through the configured trusted integration. An HTTPS private endpoint does not, by itself, make this an air-gapped or enterprise-intranet deployment.
+ARC runs the protocol, signing and task service in its own process and stores business data and encrypted objects in instance AFS. The former Cloudflare Workers runtime is retired; retained D1/R2 data is for historical recovery and one-time migration only. ARC supplies login and authoritative organization membership through the configured trusted integration. An HTTPS private endpoint does not, by itself, make this an air-gapped or enterprise-intranet deployment.
 
-1. Configure the server's public HTTPS origin, intended network, dedicated D1/R2 resources and trusted ARC connection. Keep the node wallet secret in private configuration and verify its public node address.
+1. Configure the server's public HTTPS origin, intended network, required instance Space and trusted ARC connection. Keep the original node wallet secret in private instance configuration and verify its public node address.
 2. Configure the instance-scoped membership adapter and account-binding capability before offering member mail. Keep its credentials private and renew them before expiry. Do not substitute a role-only list for verified active membership.
-3. Build the protocol SDK before linked consumers, install server dependencies with its configured pnpm version, and build the server. Apply all pending D1 migrations in order; member direct storage requires `0016_member_mail.sql`.
+3. Build the native package with `pnpm build` and run it with `pnpm start`. Existing installations require explicit import; new installations require explicit initialization. Preserve the ordered SQL schema/migration history; never apply D1 runtime commands to the ARC instance or initialize over existing data.
 4. Preserve existing node identity and data. Use an isolated environment for testing, then verify login, membership, client receiving keys, internal synchronization and the external path you intend to offer.
 5. Distribute the correct endpoint and compatible clients. Keep scheduled delivery recovery and expiration cleanup operating. Watch capacity and items requiring reconciliation.
 
@@ -166,7 +170,7 @@ For development in this repository, use Node.js 24.14 or newer and run from `ser
 
 ```sh
 pnpm install --frozen-lockfile
-pnpm arc:run
+pnpm start
 ```
 
-The approved local ARC instance is `didmail-web`, exposed through `http://didmail-server.localhost:8788`. `pnpm start` is the separate Workers-only entry at port 8787. Stop only the affected business preview when needed; preserve its D1/R2 state and do not disturb other ARC instances. A local build or deployment dry run is not evidence that a remote production deployment has been completed.
+The approved local ARC instance is `didmail-web`. Open the ARC URL printed by `pnpm start` to activate the app, including after a cold restart; use the configured complete mail/UI origin `http://didmail-server.localhost:8788` for business operations. Workers and the external workerd executor are retired. Preserve instance data and the original wallet, and leave other ARC instances running. Local checks do not prove remote production deployment.

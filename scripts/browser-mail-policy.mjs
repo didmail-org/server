@@ -2,6 +2,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import {chromium} from 'playwright-core';
+import {fixtureInstanceConfig} from './instance-config-browser-fixture.mjs';
 import {fromRandom} from '@ocap/wallet';
 import {adminTranslator} from '../ui/admin-i18n.js';
 const origin=process.env.DIDMAIL_BROWSER_URL||'http://didmail-server.localhost:8788';
@@ -19,6 +20,21 @@ let membersOffline=false;
 const browser=await chromium.launch({headless:true,executablePath:process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE||'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'});
 try{
  const context=await browser.newContext({viewport:{width:1440,height:1000}});
+ await fixtureInstanceConfig(context, {
+  session: () => ({authenticated:true,user:{did:'policy-test-owner',role:'owner'}}),
+  read: () => ({content:JSON.stringify({maxFileSizeBytes:1048576,maxFileCount:3,pricePerBytePerDay:'0'}),meta:{version:'v1'}}),
+  update: () => { throw new Error('Attachment config writes are not part of this scenario'); },
+  policy: message => {
+   if(message.type==='afs_read')return {content:JSON.stringify(structuredClone({revision:state.revision,policy:state.policy,accessSource:'arc'}))};
+   if(message.path.endsWith('/list-access-entries'))return {revision:state.revision,kind:message.args.kind,entries:structuredClone(state.entries),nextCursor:null};
+   const body=message.args;
+   if(body.expectedRevision!==state.revision)throw Object.assign(new Error('Reload required'),{code:'MAIL_POLICY_CONFLICT'});
+   const isPolicy=message.path.endsWith('/update-mail-policy'),remove=message.path.endsWith('/remove-access-entry');
+   writes.push({p:message.path,method:remove?'DELETE':'PUT',body:structuredClone(body)});state.revision++;
+   if(isPolicy)state.policy=body.policy;else if(remove)state.entries=[];else state.entries=[{did:body.did,remark:body.remark,createdAt:'2026-10-28T00:00:00.000Z',createdBy:'fixture'}];
+   return {revision:state.revision};
+  },
+ });
  await context.route('https://fonts.gstatic.com/**',route=>route.abort());
  await context.route('https://fonts.googleapis.com/**',route=>route.fulfill({contentType:'text/css',body:''}));
  await context.route('**/.well-known/service/user/avatar/**',route=>route.fulfill({contentType:'image/svg+xml',body:'<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"/>'}));
@@ -57,15 +73,21 @@ try{
  const panel=page.locator('[data-mail-policy-panel]');await panel.getByRole('heading',{name:'邮件服务',exact:true}).waitFor();
  assert.equal(await panel.locator('[name="accessMode"]').count(),0);
  assert.equal(await panel.locator('[name="retentionDays"]').count(),0);
+ assert.equal(await panel.locator('[name="maxFileMiB"]').inputValue(),'32');
+ assert.equal(await panel.locator('[name="maxTotalMiB"]').inputValue(),'60');
+ assert.equal(await panel.locator('[name="maxMessageMiB"]').inputValue(),'64');
  await panel.locator('[name="maxCount"]').fill('12');
  assert.equal(await panel.locator('[data-settings-tab=access]').count(),0);
- await panel.getByRole('tab',{name:'邮件服务',exact:true}).press('ArrowRight');
- await panel.locator('[data-settings-panel="operations"]:not([hidden])').waitFor();
- await panel.getByRole('tab',{name:'投递运维',exact:true}).press('Home');
+ assert.equal(await panel.getByRole('tab').count(),0);
  assert.equal(await panel.locator('[name="maxCount"]').inputValue(),'12');
  assert.equal(await page.getByRole('link',{name:'设置',exact:true}).count(),1);
  await fs.mkdir('.data/screenshots',{recursive:true});
  await page.screenshot({path:'.data/screenshots/settings-desktop.png',fullPage:true});
+ await fs.mkdir('artifacts/attachment-size-format',{recursive:true});
+ await page.evaluate(()=>document.documentElement.dataset.mode='dark');
+ await page.screenshot({path:'artifacts/attachment-size-format/settings-dark.png',fullPage:true});
+ await page.evaluate(()=>document.documentElement.dataset.mode='light');
+ await page.screenshot({path:'artifacts/attachment-size-format/settings-light.png',fullPage:true});
  await panel.locator('[name="attachmentsEnabled"]').uncheck();
  await panel.getByRole('button',{name:'保存邮件服务设置',exact:true}).click();
  await panel.getByText('邮件服务设置已保存。',{exact:true}).waitFor();
@@ -73,29 +95,41 @@ try{
  assert.equal(writes[0].body.expectedRevision,1);
  await panel.locator('[name="maxCount"]').fill('13');
  state.revision++;
- await panel.locator('[name="maxFileBytes"]').fill('100');
+ await panel.locator('[name="maxFileMiB"]').fill('1.5');
  await panel.getByRole('button',{name:'保存邮件服务设置',exact:true}).click();
  await panel.getByRole('alert').getByText('设置已变更或当前不可用，请刷新并核对后重试。',{exact:true}).waitFor();
  assert.equal(writes.length,1);assert.equal(state.policy.attachments.maxCount,12);assert.equal(state.policy.attachments.maxFileBytes,33554432);
   assert.equal(await panel.locator('[name="maxCount"]').inputValue(),'13');
-  assert.equal(await panel.locator('[name="maxFileBytes"]').inputValue(),'100');
+  assert.equal(await panel.locator('[name="maxFileMiB"]').inputValue(),'1.5');
  await panel.getByRole('button',{name:'刷新',exact:true}).click();
   await panel.locator('[data-policy-notice][role="status"]').waitFor({state:'attached'});
-  assert.equal(await panel.locator('[name="maxFileBytes"]').inputValue(),'100');
+  assert.equal(await panel.locator('[name="maxFileMiB"]').inputValue(),'1.5');
   assert.equal(await panel.locator('[name="maxCount"]').inputValue(),'13');
   await panel.getByRole('button',{name:'保存邮件服务设置',exact:true}).click();
   await panel.getByText('邮件服务设置已保存。',{exact:true}).waitFor();
   assert.equal(writes.length,2);
   assert.equal(writes[1].body.expectedRevision,3);
   assert.equal(state.policy.attachments.maxCount,13);
-  assert.equal(state.policy.attachments.maxFileBytes,100);
+  assert.equal(state.policy.attachments.maxFileBytes,1572864);
+ // Arbitrary byte limits must survive display and save without rounding.
+ state.policy.attachments.maxFileBytes=33554433;
+ await page.reload({waitUntil:'domcontentloaded'});
+ await panel.locator('[name="maxFileMiB"]').waitFor();
+ assert.equal(Number(await panel.locator('[name="maxFileMiB"]').inputValue())*1048576,33554433);
+ await panel.getByRole('button',{name:'保存邮件服务设置',exact:true}).click();
+ await panel.getByText('邮件服务设置已保存。',{exact:true}).waitFor();
+ assert.equal(state.policy.attachments.maxFileBytes,33554433);
+ const savedWrites=writes.length;
+ await panel.locator('[name="maxFileMiB"]').fill('0.1');
+ await panel.getByRole('button',{name:'保存邮件服务设置',exact:true}).click();
+ await panel.getByRole('alert').getByText('请输入在允许范围内且可转换为整数字节的大小。',{exact:true}).waitFor();
+ assert.equal(writes.length,savedWrites);
+ await panel.locator('[name="maxFileMiB"]').fill('32');
  await page.setViewportSize({width:390,height:844});
  assert.ok(await panel.evaluate(el=>el.scrollWidth<=el.clientWidth+1));
  await page.screenshot({path:'.data/screenshots/mail-policy-zh-mobile.png',fullPage:true});
- await page.locator('.dm-legacy-settings > summary').click();
- await page.getByRole('button',{name:'保存策略',exact:true}).waitFor();
+ assert.equal(await page.locator('.dm-legacy-settings, [data-attachment]').count(),0);
  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
- await page.screenshot({path:'.data/screenshots/settings-legacy-mobile.png',fullPage:true});
  await page.evaluate(()=>document.documentElement.dataset.mode='dark');
  await page.screenshot({path:'.data/screenshots/settings-dark-mobile.png',fullPage:true});
  await page.setViewportSize({width:1440,height:1000});
@@ -141,7 +175,7 @@ try{
  await access.getByRole('button',{name:'确认屏蔽',exact:true}).click();
  await access.getByRole('button',{name:'解除屏蔽',exact:true}).waitFor();
  assert.equal(await access.locator('img').count(),0);
- assert.equal(writes[accessWriteStart].p,'/api/admin/mail-access-list');
+ assert.equal(writes[accessWriteStart].p,'/didmail-native/.actions/update-access-entry');
  assert.equal(writes[accessWriteStart].body.did,fixture.manifest.senderId);
  assert.equal(state.policy.accessMode,'public');
  await access.getByRole('button',{name:'编辑备注',exact:true}).click();
@@ -195,6 +229,13 @@ try{
   await target.getByRole('button',{name:t('Unblock'),exact:true}).click();
   await target.getByText(t('Sender unblocked.'),{exact:true}).waitFor();
   await page.locator('.dm-member-access').screenshot({path:'.data/screenshots/sender-panel-'+lang+'.png'});
+  await page.goto(origin+'/'+lang+'/admin/attachment',{waitUntil:'domcontentloaded'});
+  const settings=page.locator('[data-mail-policy-panel]');
+  await settings.getByLabel(t('Maximum file size (MiB)'),{exact:true}).waitFor();
+  await settings.getByLabel(t('Maximum total attachment size (MiB)'),{exact:true}).waitFor();
+  await settings.getByLabel(t('Maximum encrypted message size (MiB)'),{exact:true}).waitFor();
+  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+  await page.screenshot({path:'artifacts/attachment-size-format/settings-mobile-'+lang+'.png',fullPage:true});
   await page.setViewportSize({width:1440,height:1000});
  }
  assert.deepEqual(errors,[]);console.log('PASS mail-policy UI: attachment settings, retired terms preserved, sender access, remark escaping, deletion, CAS conflict and mobile layout');

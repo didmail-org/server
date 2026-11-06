@@ -2,8 +2,9 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import http from 'node:http';
 import { build } from 'esbuild';
+import path from 'node:path';
 import { Miniflare, convertV4MiniflareOptions } from 'miniflare';
-import { previewArcService } from './preview-arc-service.mjs';
+import { previewArcService } from '../tests/support/arc-service.mjs';
 
 function send(service, { url = 'http://didmail-server.localhost:8788/admin/server', method = 'GET', body = '' } = {}) {
   return new Promise((resolve, reject) => {
@@ -69,7 +70,7 @@ test('upstream failures return a generic uncached response', async () => {
   }
 });
 
-test('Worker-created ARC session requests preserve authentication through the external HTTP bridge', async () => {
+test('Native handler session requests in the isolated HTTP test container preserve authentication through the external HTTP bridge', async () => {
   const seen = [];
   const service = await previewArcService(async (request) => {
     seen.push({
@@ -89,7 +90,7 @@ test('Worker-created ARC session requests preserve authentication through the ex
   });
   const result = await build({
     stdin: {
-      contents: `import { arcFetch } from './workers/arc.ts';
+      contents: `import { arcFetch } from './blocklet/providers/didmail-http/source/identity/arc.ts';
       export default { async fetch(request) {
         const headers = new Headers({accept:'application/json'});
         for (const name of ['cookie','authorization']) if (request.headers.has(name)) headers.set(name,request.headers.get(name));
@@ -101,6 +102,7 @@ test('Worker-created ARC session requests preserve authentication through the ex
     format: 'esm',
     platform: 'neutral',
     external: ['cloudflare:*'],
+    plugins: [{name:'isolated-environment',setup(build){build.onResolve({filter:/environment\.mjs$/},()=>({path:path.resolve('tests/business/host/environment.ts')}));}}],
     write: false,
   });
   const mf = new Miniflare(
@@ -108,6 +110,7 @@ test('Worker-created ARC session requests preserve authentication through the ex
       modules: true,
       script: result.outputFiles[0].text,
       compatibilityDate: '2026-10-24',
+      bindings: { DIDMAIL_STORAGE_BACKEND: 'afs' },
       serviceBindings: { ARC: service.binding },
     }),
   );

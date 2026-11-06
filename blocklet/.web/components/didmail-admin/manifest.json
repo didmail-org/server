@@ -1,1 +1,12 @@
-{"name":"didmail-admin","description":"DIDMail business administration with native browser interactions","props":{"section":{"type":"string","default":"server"}},"hasScript":true,"seoStrategy":"full"}
+{
+  "name": "didmail-admin",
+  "description": "DIDMail business administration with native browser interactions",
+  "props": {
+    "section": {
+      "type": "string",
+      "default": "server"
+    }
+  },
+  "hasScript": false,
+  "seoStrategy": "full"
+}

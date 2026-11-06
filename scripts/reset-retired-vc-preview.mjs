@@ -1,6 +1,6 @@
 import fs from 'node:fs/promises';
 import net from 'node:net';
-import ts from 'typescript';
+import legacyResources from './migration/legacy-resources.json' with { type: 'json' };
 import assert from 'node:assert/strict';
 import { Miniflare, convertV4MiniflareOptions } from 'miniflare';
 import { snapshotPreviewPersistence, previewPersistenceOptions } from './preview-persistence.mjs';
@@ -14,10 +14,10 @@ const listening = await new Promise(resolve => {
   socket.once('timeout',()=>{socket.destroy();resolve(true);});
 });
 if(listening) throw Error('Stop the DIDMail preview before local data maintenance');
-const config=ts.parseConfigFileTextToJson('wrangler.jsonc',await fs.readFile('wrangler.jsonc','utf8')).config;
+const config=legacyResources;
 await snapshotPreviewPersistence({source:'.wrangler/state/arc-preview',destination:'.data/before-vc-reset-'+Date.now()});
 console.log('Private local recovery checkpoint verified');
-const mf=new Miniflare(convertV4MiniflareOptions({name:'didmail-arc-preview',modules:true,script:'export default {fetch(){return new Response("offline maintenance");}}',compatibilityDate:config.compatibility_date,compatibilityFlags:config.compatibility_flags,d1Databases:{DB:config.d1_databases[0].database_id},r2Buckets:{BLOBS:config.r2_buckets[0].bucket_name},...previewPersistenceOptions('.wrangler/state/arc-preview'),outboundService:()=>new Response('',{status:502})}));
+const mf=new Miniflare(convertV4MiniflareOptions({name:'didmail-arc-preview',modules:true,script:'export default {fetch(){return new Response("offline maintenance");}}',compatibilityDate:config.compatibilityDate,compatibilityFlags:['nodejs_compat'],d1Databases:{DB:config.databaseId},r2Buckets:{BLOBS:config.bucketName},...previewPersistenceOptions('.wrangler/state/arc-preview'),outboundService:()=>new Response('',{status:502})}));
 try {
  const db=await mf.getD1Database('DB'),blobs=await mf.getR2Bucket('BLOBS');
  const tables=['account_links','dmp_keys','dmp_messages','dmp_chunks','mails','mail_access_entries'];

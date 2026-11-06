@@ -1,3 +1,1 @@
-const logger = console;
-
-export default logger;
+../../../blocklet/providers/didmail-http/source/api/src/libs/logger.ts

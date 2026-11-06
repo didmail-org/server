@@ -30,4 +30,4 @@ arc afs ls /dev/chain/beta/accounts/NODE_ADDRESS/tokens --instance didmail-web -
 
 Replace `NODE_ADDRESS` with the node wallet's public address, not the logged-in user's DID. Use the actual configured network mount rather than beta on another network. Match the failure time to runtime logs; one successful read does not establish a permanent fix for intermittent upstream errors.
 
-Balance and fee checks occur before confirmation and again before submission. Failed reads preserve retryable UI state and must not sign a transaction. See [Worker integration](workers-migration.md) and [node identity](node-identity-and-transactions.md).
+Balance and fee checks occur before confirmation and again before submission. Failed reads preserve retryable UI state and must not sign a transaction. See [native runtime integration](arc-package-runtime.md) and [node identity](node-identity-and-transactions.md).

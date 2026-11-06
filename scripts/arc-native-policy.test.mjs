@@ -40,7 +40,7 @@ test('policy updates require an ARC administrator and conditional instance write
   const result = await invoke({ did: 'did:test:admin', roles: ['admin'] });
   assert.equal(result.success, true);
   assert.equal(calls.length, 1);
-  assert.equal(calls[0][0], '/instance/didmail/attachment-config.json');
+  assert.equal(calls[0][0], '/instance/app/didmail/public/attachment-config.json');
   assert.equal(calls[0][2].ifMatch, 'v1');
   const stored = JSON.parse(calls[0][1].content);
   assert.equal(stored.maxFileCount, policy.maxFileCount);

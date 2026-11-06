@@ -142,7 +142,7 @@ try {
         assert.equal(await page.locator('[data-account]').count(), 0);
         await page.locator('header [data-node-recharge]').click();
         await page.locator('[data-wallet-recharge] .dm-account-recharge > svg').waitFor();
-        assert.equal(new URL(page.url()).pathname, '/admin/account');
+        assert.match(new URL(page.url()).pathname, /^\/admin(?:\/|-)account\/?$/);
         const recharge = page.locator('[data-wallet-recharge]');
         assert.equal(await recharge.locator('[data-did-copy="did:abt:browser-fixture-node"]').count(), 1);
         await recharge.locator('[data-did-show="did:abt:browser-fixture-node"]').first().click();

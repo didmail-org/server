@@ -1,101 +1,106 @@
 # DIDMail Server
 
-DIDMail's active server, maintained as a standalone repository. It runs on Cloudflare Workers, stores relational metadata in D1 and encrypted mail bodies/attachments in R2, and uses ARC for login and trusted organization membership. The administration UI uses native AUP / Web Device pages and vanilla JavaScript.
+DIDMail Server runs as an ARC Blocklet. Protocol HTTP, original node signing,
+scheduled delivery, administration UI and instance AFS storage execute inside
+ARC. Cloudflare Workers and the external workerd preview are retired.
 
-Same-server mail between eligible, bound members is stored directly without an envelope, payment, mail NFT or on-chain notification. External mail retains NFT-envelope delivery. Read the [member-mail protocol and upgrade requirements](https://github.com/didmail-org/protocol/blob/main/docs/protocol/member-mail.md) before upgrading clients or enabling organization delivery. Historical ordinary/chain-VC delivery documents describe a retired feature, not a supported alternative to enable.
+Same-server mail between eligible bound members is stored directly without an
+envelope, payment, mail NFT or on-chain notification. External mail retains NFT
+envelope delivery. See the [member-mail contract](https://github.com/didmail-org/protocol/blob/main/docs/protocol/member-mail.md)
+before upgrading clients. Ordinary/chain-VC delivery remains retired.
 
-## Help and usage
+## Help and documentation
 
-Open `/help` on the server, or use the help icon in the header. Each administration page links to its relevant section. Help is public; administration data and actions still require owner/admin authorization.
+Open `/help` or the header help icon. Public help does not authorize administration.
+English is authoritative; [English](docs/help/en.md), [简体中文](docs/help/zh.md),
+[العربية](docs/help/ar.md), [日本語](docs/help/ja.md) and [Русский](docs/help/ru.md)
+are maintained together under the [authoring contract](docs/help/README.md).
 
-The English guide is authored first, then translated into the other supported UI languages:
+Start with [architecture and source ownership](docs/server-architecture.md),
+[local development](docs/local-arc-development.md) and the [documentation index](docs/README.md).
 
-- [English](docs/help/en.md) — `/help`
-- [简体中文](docs/help/zh.md) — `/zh/help`
-- [العربية](docs/help/ar.md) — `/ar/help`
-- [日本語](docs/help/ja.md) — `/ja/help`
-- [Русский](docs/help/ru.md) — `/ru/help`
+## Build and run
 
-The guides cover organization onboarding, identities and permissions, node wallets, service-node NFTs, members and bindings, internal/external delivery, envelopes, namecards, storage and backups, attachment limits, common errors, and operator setup. [Help authoring instructions](docs/help/README.md) explain translation parity and validation.
-
-## Local development
-
-Use Node.js 24.14 or newer, the pnpm version declared in this component's `package.json`, and the ARC CLI. The protocol SDK is pinned to a Git commit and built during installation. The pinned protocol repository is public. From the repository root:
+The native package builds with the ARC CLI alone. Repository operator tools and
+regression checks require Node.js 24.14 or newer and the pnpm version declared
+in package.json; the protocol SDK is pinned to a public Git revision.
 
 ```sh
-corepack pnpm install --frozen-lockfile
-corepack pnpm arc:run
+arc dsl validate blocklet
+arc blocklet check blocklet --profile basic
+pnpm build
+arc blocklet run blocklet/dist --instance didmail-web
 ```
 
-The approved local ARC instance is `didmail-web`; use `http://didmail-server.localhost:8788`. The combined preview serves real ARC pages/login and executes business APIs in workerd. Stopping the runner stops its business preview, not the ARC instance. Preserve existing D1/R2 state before restarting; see [local preview persistence](docs/local-preview-persistence.md). Do not recreate retired development instances or disturb other ARC projects.
+`pnpm start` runs the package source with the approved `didmail-web` instance.
+Open the ARC URL printed by the CLI to activate providers after a cold restart.
+The complete configured local mail/UI origin is `http://didmail-server.localhost:8788`;
+ARC owns its listener. The parent ARC origin supplies platform UI/login/AFS and
+is not the raw mail endpoint. See [activation and private setup](docs/arc-package-runtime.md).
 
-The ARC package ID and site namespace are `didmail-server` (`did:blocklet:didmail-server`). When adopting this name, update any local `DIDMAIL_URL`, `ARC_HOST` or `DIDMAIL_ARC_PREVIEW_URL` overrides that still select the former hostname; `DIDMAIL_URL` also controls the packaged site domain. Existing D1/R2 resource names and the `didmail-web` instance retain their names to preserve stored data and identity.
+Stable identity is `did:blocklet:didmail-server`; the site is `didmail-server`.
+The instance name remains `didmail-web`. Preserve its home, original node wallet,
+private configuration and all data. Leave unrelated ARC instances running.
 
-The package explicitly requires a real DID Space mounted at `/instance`. It declares no seed because it currently ships no instance initialization data. This requirement does not migrate the Worker's business data from D1/R2 into ARC storage.
-
-For an isolated ARC runtime experiment, see the [support-community Docker demo](examples/support-community-docker/README.md). It includes pinned runtime setup, native Settings fixes and a browser verification of login and persistence through container restart/replacement. Its credentials and instance data stay under ignored `artifacts/private/`; it does not deploy DIDMail or Cloudflare resources.
-
-`pnpm start` is a separate Workers-only entry on port 8787. Without a trusted ARC connection, protected administration APIs cannot authenticate users. Do not replace authorization with caller-supplied role headers. Development wallets and `.dev.vars` are private local files; keep them and `.wrangler`, `.arc`, databases and exports out of Git and public packages.
+The package requires a real Space at `/instance` and contains no seed, key or
+installation data. Initialize or import explicitly. Existing installations must
+be imported before initialization; missing/corrupt state never triggers an empty
+mailbox, new wallet or legacy-storage fallback. See [instance migration](docs/instance-afs-migration.md),
+[policy fencing](docs/afs-policy-admission.md) and [storage/backup](docs/afs-business-storage.md).
+Only one DIDMail signing instance per ARC process is currently supported.
 
 ## Verification
 
-Run from the repository root:
+Run checks appropriate to the change from this repository:
 
 ```sh
 pnpm lint
+pnpm type-check:runtime
 pnpm test
 pnpm test:scripts
-pnpm test:worker
-pnpm build
-pnpm test:browser
+pnpm test:business
 pnpm test:ui
-pnpm test:browser:help
-pnpm test:browser:admin
-pnpm test:browser:ui
-pnpm worker:deploy:dry
+pnpm build
+pnpm test:arc
 ```
 
-The help browser check serves real built ARC artifacts in isolation and reads only the public ARC core stylesheet from the running preview (`DIDMAIL_BROWSER_URL` can override its origin). The admin/UI browser checks use the running preview with isolated session and business-API fixtures. Automated tests must not broadcast chain transactions or send real mail. A successful build or dry run is not evidence of a completed remote deployment.
+Existing browser commands cover native rendering, help and isolated administrator
+flows. `pnpm test:smoke` uses GET-only checks against the configured running origin;
+`DIDMAIL_SMOKE_URL` selects another origin. Browser fixtures prove their bounded
+interactions, not paid-chain or hosted acceptance. For built-page checks without
+restarting a live instance, use `DIDMAIL_BROWSER_CORE_CSS` with genuine ARC core CSS
+and `node scripts/browser-artifacts.mjs ui` (also `admin` or `policy`).
 
-`pnpm test:smoke` checks the current Workers runtime, native page routes/assets, anonymous authorization and retired mail endpoints using GET requests only. It defaults to the approved preview; set `DIDMAIL_SMOKE_URL` to test another server origin. It sends no session credentials and does not load local wallet/environment files. For current built pages without changing a running preview, use `DIDMAIL_BROWSER_CORE_CSS=/absolute/path/to/genuine-arc-core.css node scripts/browser-artifacts.mjs ui` (also `admin` or `policy`). These browser checks use isolated business fixtures and do not prove live ARC authentication or chain settlement.
+`tests/business` retains protocol, storage, authorization and recovery regressions.
+Its disposable Miniflare host is test infrastructure; no production Worker is
+built or deployed. Cross-client codec checks may require sibling mobile and
+extension dependencies. Tests must not send real mail or chain transactions.
+Protocol fixtures retain their pinned-revision provenance.
 
-## Deployment and data migration
+## Migration and operation
 
-Production entry: `workers/index.ts`. Build adapters exclude native SQLite, Sequelize drivers, filesystem wallets and the legacy Node gateway. D1 holds metadata, R2 holds encrypted objects, Workers Secrets hold the original node wallet, and scheduled jobs handle recovery and expiration cleanup.
+The distributable native artifact is `blocklet/dist`. Private protocol setup,
+original node identity, policy, attachment compatibility configuration and business
+state/objects are coordinated runtime/backup inputs outside the artifact. See
+[packaged runtime](docs/arc-package-runtime.md) and [business backup/restore](docs/afs-business-storage.md).
+Retain signed transaction evidence, replay nonces, leases and closed fences.
 
-1. Create dedicated D1 and R2 resources, configure their actual identifiers and the server's public HTTPS origin in `wrangler.jsonc`.
-2. Connect a trusted ARC integration through an authorized Service Binding or operator-provided HTTPS origin. Verify login, cookie/domain mapping, active membership status and instance-scoped mailbox-binding capabilities.
-3. Securely configure the original node wallet and expected public address. Keep its chain/factory configuration. ARC login identity and the node's funding/signing identity are separate.
-4. Build the server and apply all pending D1 migrations in order. Member direct storage requires `0016_member_mail.sql`.
-5. Verify the intended client versions, receiving keys, membership checks, internal synchronization and external delivery in an isolated environment before changing the advertised endpoint.
+[Historical D1/R2 recovery](docs/local-preview-persistence.md) and the
+[retired Workers migration reference](docs/workers-migration.md) support one-time
+exports/imports. Preserved checkpoints do not contain later AFS writes. Do not
+restart the retired runtime or treat a stale checkpoint as an online fallback.
 
-See [Workers architecture, deployment and unresolved hosted ARC boundaries](docs/workers-migration.md). Local custom-module loading does not prove that hosted ARC supports that extension mechanism. Deploying the optional ARC page package alone does not deploy the business Worker.
-
-For a historical SQLite migration, the read-only exporter is:
-
-```sh
-node scripts/export-worker-data.mjs \
-  --database /safe/original/didmail.sqlite \
-  --out /safe/new-worker-export
-```
-
-The export is private. It contains a manifest, D1 SQL and encrypted objects for R2. Preserve the original node wallet; a new wallet cannot replace its asset ownership or encrypted domain-key access. Quiesce writes for consistent migration, verify object hashes and counts, upload the matching R2 objects, and import into an empty, migrated D1 database before switching traffic. D1 and R2 do not share an atomic transaction; a partial import is not ready for use.
-
-## Engineering references
-
-- [Native UI, routes and browser checks](docs/native-ui.md)
-- [Node identity and transactions](docs/node-identity-and-transactions.md)
-- [ARC mailbox onboarding and recovery](docs/arc-mailbox-onboarding.md)
-- [LAN invitation testing](docs/lan-invitation-testing.md)
-- [Member-mail protocol](https://github.com/didmail-org/protocol/blob/main/docs/protocol/member-mail.md)
-- [Repository contribution guide](https://github.com/didmail-org/overview/blob/main/CONTRIBUTING.md)
-
-Some older engineering documents retain historical paths and feature proposals. Use the current help guide and implementation for operator instructions; see [repository migration](https://github.com/didmail-org/overview/blob/main/docs/repository-migration.md) for path changes.
+[Hosted ARC installation](docs/arc-native-migration.md), large-mailbox throughput,
+real paid-chain acceptance and public distribution remain separate gates. An
+isolated [support-community Docker example](examples/support-community-docker/README.md)
+is ARC research, not DIDMail deployment acceptance.
 
 ## License
 
-DIDMail original code and documentation use [Apache-2.0](LICENSE). Available third-party notices are in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md); see the [Worker dependency inventory](docs/worker-dependency-inventory.md). Worker and Blocklet distribution remain blocked; see the [artifact license audit](docs/distribution-license-audit.md) for exact evidence, resolved items and remaining requirements. Other third-party components retain their own licenses; see the [licensing guide](https://github.com/didmail-org/overview/blob/main/docs/licensing.md).
-
-The full `pnpm test:worker` includes the cross-client codec test and requires sibling `mobile` and `extension` checkouts with dependencies installed. `pnpm test:worker:standalone` runs the remaining Worker tests without those private checkouts; run the full suite when the cross-client checkouts are available. Protocol fixtures in `test/fixtures/protocol` were copied from the pinned protocol revision.
-
-The 64 KiB contact test decodes the signed transaction with the independent OCAP reference codec in a disposable worker thread. This keeps Miniflare's host event loop and idle-connection cleanup responsive during the expensive conversion. It asserts host responsiveness before continuing the original mint/ledger checks. Concurrent full-suite runs also use separate temporary signer import directories. CI runs two contact settlement suites concurrently after the standalone suite; no network retry or relaxed timeout is used to hide transport failures.
+Original code and documentation use [Apache-2.0](LICENSE). Preserve [NOTICE](NOTICE),
+[third-party notices](THIRD_PARTY_NOTICES.md), license texts and source evidence.
+[Distribution review](docs/distribution-license-audit.md) verifies current native
+inputs and every built manifest file. Stable source/dependency evidence is
+committed; complete per-build hashes are written to ignored
+`artifacts/distribution/current-artifact-evidence.json`. Audit success remains
+independent of release permission. See the [project licensing guide](https://github.com/didmail-org/overview/blob/main/docs/licensing.md).

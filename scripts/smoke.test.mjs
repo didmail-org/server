@@ -11,7 +11,7 @@ function fixture({ arc = true, override = () => undefined } = {}) {
   const fetcher = async (url, options) => {
     const path = url.pathname; calls.push({ path, options });
     const changed = override(path); if (changed) return changed;
-    if (path === '/api/health') return Response.json({ status: 'ok', runtime: 'cloudflare-workers', storage: 'd1+r2', node: 'public-fixture', arc });
+    if (path === '/api/health') return Response.json({ status: 'ok', runtime: 'arc-native', storage: 'd1+r2', node: 'public-fixture', arc });
     if (path === '/') return html('DIDMail Server<link href="/aup-core.0123456789abcdef.css"><script src="/_arc/assets/native.js"></script>');
     if (path.endsWith('.css')) return new Response('.aup-app-header{}', { headers: { 'content-type': 'text/css' } });
     if (path.endsWith('.js')) return new Response('', { headers: { 'content-type': 'application/javascript' } });

@@ -18,10 +18,18 @@ Require `ok:true`, nonaggregated data, one exact DID/instance match and `paging.
 
 The fixed public Host/forwarded-host context and private service credential are configured by the operator, never by the browser. The Node HTTP bridge sends Host explicitly; a wrong site context can produce an authentication failure even with a valid credential. Do not conclude that ARC lacks Bearer support from that failure alone.
 
+For the current local installation the site scope is `didmail-server`; the daemon
+name `didmail-web` and the retired `didmail-arc` site name are not that scope.
+Verify the credential, Host and exact returned `instance_did` together after a
+site rename or import. An upstream 401 alone does not prove that an opaque key
+expired. The private protocol migration tool checks the scoped directory before
+staging/enabling a configured membership credential and leaves configuration
+unwritten when verification fails.
+
 The admin directory bridge separately permits bounded `/members` pagination/search and role/active filters. It validates returned scope, filter compliance, pagination and an explicit output-field allowlist. It does not read ARC's internal identity database.
 
 ## Credential and deployment boundary
 
-The local `ARC_MEMBERS_TOKEN` remains in the private bridge closure, not Worker bindings, public packages or logs. Do not export a browser session cookie for this integration. Production requires an equally restricted trusted service integration. Prefer the smallest available permission scope and rotate expiring credentials. A broad upstream admin token does not justify exposing generic ARC RPC to callers.
+The local `ARC_MEMBERS_TOKEN` remains in the private bridge closure, not public bindings, packages or logs. Do not export a browser session cookie for this integration. Production requires an equally restricted trusted service integration. Prefer the smallest available permission scope and rotate expiring credentials. A broad upstream admin token does not justify exposing generic ARC RPC to callers.
 
 Executable references: [bridge](../scripts/arc-members-bridge.mjs), [transport](../scripts/arc-http-transport.mjs) and their adjacent tests. These cover fixed host/scope, exact lookup, directory filtering, redirection refusal and failure-closed behavior without real member mutation.

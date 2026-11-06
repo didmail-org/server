@@ -1,20 +1,20 @@
 # Mail policy and admission API
 
-Status: current Worker policy contract. Audience: administrators and API maintainers.
+Status: native ARC policy and retained HTTP compatibility contract. Audience: administrators and API maintainers.
 
 ## Administration and revisions
 
 `/api/admin/mail-*` requires a server-verified ARC owner/admin session. Cookie-authenticated writes require the configured same-origin request. Self-reported DID/role headers cannot authorize administration; owner-only financial operations remain separate.
 
 | Method/path                          | Contract                                                           |
-| ------------------------------------ | ------------------------------------------------------------------ | -------------------------------------------------------------------------------------- |
+| ------------------------------------ | ------------------------------------------------------------------ |
 | `GET /api/admin/mail-policy`         | `{revision,policy,updatedAt,updatedBy}`                            |
 | `PUT /api/admin/mail-policy`         | Complete `{expectedRevision,policy}`; returns new revision         |
-| `GET /api/admin/mail-access-list`    | `kind=allow                                                        | deny`, `limit=1..100`, optional canonical-DID `after`; ordered entries and next cursor |
+| `GET /api/admin/mail-access-list`    | `kind=allow` or `kind=deny`, `limit=1..100`, optional canonical-DID `after`; ordered entries and next cursor |
 | `PUT /api/admin/mail-access-list`    | `{expectedRevision,kind,did,remark}`; remarks up to 500 characters |
 | `DELETE /api/admin/mail-access-list` | `{expectedRevision,kind,did}`; retains revision/audit semantics    |
 
-Policy/list mutations share a revision and atomic D1 audit batch. A stale revision returns `409 MAIL_POLICY_CONFLICT`; reread and review rather than blindly retry. Canonical mailbox DIDs are required. In ARC mode, legacy allowlist writes are rejected; the UI exposes blocking and ARC membership administration remains upstream.
+Policy/list mutations share a revision. Native ARC commits the private instance policy aggregate with AFS conditional writes. Historical D1 policy/audit tables are migration inputs only. See [policy/admission guarantees](afs-policy-admission.md) for admission fencing and [instance migration](instance-afs-migration.md) for native actions and rejected legacy writes. A stale revision returns `409 MAIL_POLICY_CONFLICT`; reread and review rather than blindly retry. Canonical mailbox DIDs are required. In ARC mode, legacy allowlist writes are rejected; the UI exposes blocking and ARC membership administration remains upstream.
 
 ## Automatic admission
 

@@ -3,7 +3,7 @@ import { AddressInfo } from 'net';
 import { fromRandom } from '@ocap/wallet';
 import { toBase58 } from '@ocap/util';
 
-import { createApp } from '../index';
+import { createApp } from '../../../tests/support/legacy-http';
 import { initializeDatabase } from './database';
 import env from '../libs/env';
 import runtimeEnv from './env';
@@ -15,7 +15,6 @@ jest.mock('../libs/forge', () => ({ getForgeState: jest.fn(() => Promise.resolve
 let server: http.Server;
 let arc: http.Server;
 let origin: string;
-let proxy: ReturnType<typeof createApp>['proxy'];
 const wallet = fromRandom();
 const headers = { 'X-DIDMail-did': wallet.address, 'X-DIDMail-pk': toBase58(wallet.publicKey) };
 const mailBytes = Buffer.from([11, 22, 33, 44]);
@@ -62,15 +61,13 @@ beforeAll(async () => {
   env.arcUrl = `http://127.0.0.1:${(arc.address() as AddressInfo).port}`;
   runtimeEnv.arcUrl = env.arcUrl;
   const created = createApp();
-  proxy = created.proxy;
-  server = http.createServer(created.app);
+  server = http.createServer(created);
   await new Promise<void>((resolve) => {
     server.listen(0, '127.0.0.1', resolve);
   });
   origin = `http://127.0.0.1:${(server.address() as AddressInfo).port}`;
 });
 afterAll(async () => {
-  proxy.close();
   await Promise.all(
     [server, arc].map(
       (s) =>

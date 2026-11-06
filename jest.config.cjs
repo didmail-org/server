@@ -1,5 +1,6 @@
 module.exports = {
   testEnvironment: 'node',
+  resolver: '<rootDir>/scripts/test-source-resolver.cjs',
   setupFilesAfterEnv: ['<rootDir>/scripts/test-setup.cjs'],
   testPathIgnorePatterns: ['/node_modules/', '/api/dist/', '/blocklet/dist/'],
   transform: {

@@ -18,8 +18,6 @@ jobs:
       - run: pnpm audit:dependencies
       - run: pnpm lint
       - run: pnpm test
-      - run: pnpm test:scripts
-      - run: pnpm test:ui
       - name: Install pinned ARC CLI
         run: |
           curl -fsSL --retry 3 https://dl.arcblock.io/arc-2.0.0-beta.74-linux-x64.tar.gz -o "$RUNNER_TEMP/arc.tar.gz"
@@ -28,17 +26,20 @@ jobs:
           tar -xzf "$RUNNER_TEMP/arc.tar.gz" --strip-components=1 --no-same-owner -C "$RUNNER_TEMP/arc"
           "$RUNNER_TEMP/arc/arc" --version
           echo "$RUNNER_TEMP/arc" >> "$GITHUB_PATH"
+      - run: pnpm test:scripts
+      - run: pnpm test:ui
       - run: pnpm build
+      - run: pnpm test:arc
       - name: Verify built distribution inventory and notices
         run: pnpm audit:distribution
-      - name: Worker tests without private client checkouts
-        run: pnpm test:worker:standalone
+      - name: Business tests without client checkouts
+        run: pnpm test:business:standalone
       - name: Concurrent contact settlement regression
         timeout-minutes: 5
         run: |
-          node --test tests/workers/contact-settlement.test.mjs &
+          node --test tests/business/contact-settlement.test.mjs &
           first_pid=$!
-          node --test tests/workers/contact-settlement.test.mjs &
+          node --test tests/business/contact-settlement.test.mjs &
           second_pid=$!
           first_status=0
           second_status=0

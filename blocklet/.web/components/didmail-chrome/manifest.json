@@ -1,0 +1,6 @@
+{
+  "name": "didmail-chrome",
+  "description": "DIDMail native header and business interactions",
+  "props": {},
+  "hasScript": true
+}

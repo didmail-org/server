@@ -1,39 +1,4 @@
-export default {
-  help: 'ヘルプ',
-  nodeRecharge: 'ノードに入金',
-  nodeBalance: '残高',
-  refreshNodeBalance: '残高を更新',
-  noBalance: '0',
-  balanceLoading: '読み込み中…',
-  balanceUnavailable: '残高を取得できません',
-  balanceUpdatedAt: '更新日時',
-  cachedNodeBalance: '前回の残高。クリックして更新',
-  home: 'ホーム',
-  admin: '管理',
-  language: '言語',
-  theme: '外観',
-  appearanceLight: 'ライト',
-  appearanceDark: 'ダーク',
-  switchToLight: 'ライトに切り替え',
-  switchToDark: 'ダークに切り替え',
-  login: 'ログイン',
-  brandHome: 'DIDMail Server ホーム',
-  navigation: 'メインナビゲーション',
-  logo: 'DIDMail ロゴ',
-  intro: '受信箱を自分の手に。DID で暗号化メールを送り、信頼するサーバーを選べます。',
-  tagline: 'ブラウザーで始めるか、組織のメールサーバーを運用しましょう。',
-  extension: 'ブラウザー拡張機能を入手',
-  runNode: 'サーバーノードを運用',
-  encryptionTitle: 'エンドツーエンド暗号化',
-  encryptionDescription:
-    'ArcBlock DID と Curve25519 により、すべてのメールは受信者だけが読めるよう暗号化されます。転送中も保存中も、サーバーノードを含め第三者は内容を読めません。',
-  didLink: 'ArcBlock DID',
-  networkTitle: '分散型サーバーネットワーク',
-  networkDescription:
-    '信頼するサーバーを選ぶか、組織向けに運用できます。切り替えても、既存のメールは元のサーバーに残ります。',
-  blockletsLink: 'ARC Blocklets',
-  envelopesTitle: 'NFT 封筒',
-  envelopesDescription:
-    'サービスノードは外部宛メール用の NFT 封筒を提供します。同一サーバーの対象メンバー間では、封筒やオンチェーン取引なしでメールを直接交換できます。',
-  footer: 'DIDMail · ARC により提供',
-};
+// Regression facade for the native Web Device component.
+import '../../blocklet/.web/components/didmail-chrome/script.js';
+const module = globalThis.DIDMailNativeUI["locales/ja.js"];
+export default module.default;

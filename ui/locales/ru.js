@@ -1,39 +1,4 @@
-export default {
-  help: 'Справка',
-  nodeRecharge: 'Пополнить узел',
-  nodeBalance: 'Баланс',
-  refreshNodeBalance: 'Обновить баланс',
-  noBalance: '0',
-  balanceLoading: 'Загрузка…',
-  balanceUnavailable: 'Баланс недоступен',
-  balanceUpdatedAt: 'Обновлено',
-  cachedNodeBalance: 'Предыдущее значение; нажмите для обновления',
-  home: 'Главная',
-  admin: 'Управление',
-  language: 'Язык',
-  theme: 'Оформление',
-  appearanceLight: 'Светлое',
-  appearanceDark: 'Тёмное',
-  switchToLight: 'Включить светлую тему',
-  switchToDark: 'Включить тёмную тему',
-  login: 'Войти',
-  brandHome: 'Главная DIDMail Server',
-  navigation: 'Основная навигация',
-  logo: 'Логотип DIDMail',
-  intro: 'Ваша почта принадлежит вам. Отправляйте зашифрованные письма с DID и выбирайте сервер, которому доверяете.',
-  tagline: 'Начните в браузере или запустите сервер для своей организации.',
-  extension: 'Установить расширение',
-  runNode: 'Запустить серверный узел',
-  encryptionTitle: 'Сквозное шифрование',
-  encryptionDescription:
-    'Благодаря ArcBlock DID и Curve25519 каждое письмо шифруется только для получателя. Его содержимое недоступно при передаче и хранении — даже серверным узлам.',
-  didLink: 'ArcBlock DID',
-  networkTitle: 'Децентрализованная сеть серверов',
-  networkDescription:
-    'Выберите доверенный сервер или запустите свой для организации. При смене сервера существующие письма остаются на исходном сервере.',
-  blockletsLink: 'ARC Blocklets',
-  envelopesTitle: 'NFT-конверты',
-  envelopesDescription:
-    'Сервисные узлы предлагают NFT-конверты для внешней почты. Участники одного сервера, отвечающие условиям, обмениваются письмами напрямую без конвертов и транзакций в блокчейне.',
-  footer: 'DIDMail · На базе ARC',
-};
+// Regression facade for the native Web Device component.
+import '../../blocklet/.web/components/didmail-chrome/script.js';
+const module = globalThis.DIDMailNativeUI["locales/ru.js"];
+export default module.default;

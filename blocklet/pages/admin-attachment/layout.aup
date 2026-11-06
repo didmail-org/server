@@ -1,5 +1,6 @@
 page admin-attachment {
   web-page page {
+    section chrome component=didmail-chrome
     section content component=didmail-admin section="attachment"
   }
 }

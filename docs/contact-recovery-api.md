@@ -25,7 +25,7 @@ Server quotation independently verifies the published node-owned template/factor
 
 ## Bounds, errors and durability
 
-Preparation lasts 10 minutes; first payment acceptance must occur before expiry, but an already accepted original payment remains readable/retryable. At most eight unexpired unpaid preparations per identity are admitted by atomic D1 conditions. Requests are bounded to 96 KiB, ciphertext to 64 KiB UTF-8, and original signatures to 68,000 characters. Responses are `private, no-store`.
+Preparation lasts 10 minutes; first payment acceptance must occur before expiry, but an already accepted original payment remains readable/retryable. At most eight unexpired unpaid preparations per identity are admitted by atomic relational conditions in the AFS transaction aggregate. Requests are bounded to 96 KiB, ciphertext to 64 KiB UTF-8, and original signatures to 68,000 characters. Responses are `private, no-store`.
 
 Known problems use problem JSON: 400 invalid/canonical fields, 401 authentication, 404 missing/foreign record, 409 conflict/replay, 410 expired first acceptance, 413 size, 415 media type, 429 quota/rate, 503 unavailable quotation/storage. A 503 is not proof that nothing was saved; keep the original intent/bytes and query again.
 

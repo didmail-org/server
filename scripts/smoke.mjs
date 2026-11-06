@@ -1,4 +1,4 @@
-// Read-only acceptance of the current Workers API and native ARC pages.
+// Read-only acceptance of the native ARC protocol API and pages.
 import assert from 'node:assert/strict';
 import { pathToFileURL } from 'node:url';
 
@@ -21,12 +21,12 @@ export async function runSmoke({ origin, fetcher = fetch, report = console.log }
     assert.doesNotMatch(html, /id="app"|react-dom|runtime-config\.js/);
   };
   let arc;
-  await check('Workers database readiness', async () => {
+  await check('Business storage readiness', async () => {
     const res = await request('/api/health'); assert.equal(res.status, 200);
     const health = await res.json();
     assert.equal(health.status, 'ok');
-    assert.equal(health.runtime, 'cloudflare-workers');
-    assert.equal(health.storage, 'd1+r2');
+    assert.equal(health.runtime, 'arc-native');
+    assert.ok(['d1+r2','instance-afs'].includes(health.storage));
     assert.equal(typeof health.node, 'string'); assert.ok(health.node);
     assert.equal(typeof health.arc, 'boolean'); arc = health.arc;
   });

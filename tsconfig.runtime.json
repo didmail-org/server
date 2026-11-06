@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "types": [
+      "node"
+    ],
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "useUnknownInCatchVariables": false,
+    "noEmit": true,
+    "rootDirs": [
+      ".",
+      "blocklet/providers/didmail-http/source"
+    ]
+  },
+  "include": [
+    "blocklet/providers/didmail-http/source/**/*.ts",
+    "api/*.d.ts",
+    "api/business.d.ts"
+  ]
+}

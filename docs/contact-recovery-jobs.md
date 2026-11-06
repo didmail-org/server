@@ -1,6 +1,6 @@
 # Internal contact settlement jobs
 
-Status: implemented and fault-tested internally; no production consumer/capability. Audience: settlement maintainers. Sources: [contact jobs](../workers/contact-jobs.ts), [settlement](../workers/contact-settlement.ts) and [API contract](contact-recovery-api.md).
+Status: implemented and fault-tested internally; no production consumer/capability. Audience: settlement maintainers. Sources: [contact jobs](../blocklet/providers/didmail-http/source/protocol/contact/contact-jobs.ts), [settlement](../blocklet/providers/didmail-http/source/protocol/contact/contact-settlement.ts) and [API contract](contact-recovery-api.md).
 
 ## Persistence and exclusion
 
@@ -26,6 +26,6 @@ The contact-only read profile permits 72 KiB original mint bytes for a 64 KiB ci
 
 ## Evidence and enablement
 
-Node/workerd tests exercise real codecs/signatures with isolated RPC fixtures, including lost responses before/after persistence, enqueue loss, lease replacement, concurrency, cross-protocol/role lanes, definite rejection, conflicting evidence and full persistence teardown/reopen. Public fixed seeds are not funded identities. No real chain broadcast is part of these tests.
+Node and isolated test-host regressions exercise real codecs/signatures with isolated RPC fixtures, including lost responses before/after persistence, enqueue loss, lease replacement, concurrency, cross-protocol/role lanes, definite rejection, conflicting evidence and full persistence teardown/reopen. Public fixed seeds are not funded identities. No real chain broadcast is part of these tests.
 
 Production enablement still requires the [integration gates](contact-recovery.md#references-and-gates). Existing public contact routes and a read-only client diagnostic do not imply that this durable protocol is enabled.

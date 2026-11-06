@@ -1,0 +1,10 @@
+import {lib2 as lib} from './dependencies.mjs';
+export default lib.default ?? lib;
+const value1=lib.types ?? lib.default?.types;export {value1 as types};
+const value2=lib.toTxHash ?? lib.default?.toTxHash;export {value2 as toTxHash};
+const value3=lib.getHasher ?? lib.default?.getHasher;export {value3 as getHasher};
+const value4=lib.Hasher ?? lib.default?.Hasher;export {value4 as Hasher};
+const value5=lib.Signer ?? lib.default?.Signer;export {value5 as Signer};
+const value6=lib.getRandomBytes ?? lib.default?.getRandomBytes;export {value6 as getRandomBytes};
+const value7=lib.getSigner ?? lib.default?.getSigner;export {value7 as getSigner};
+const value8=lib.webauthn ?? lib.default?.webauthn;export {value8 as webauthn};

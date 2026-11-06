@@ -1,0 +1,12 @@
+import {lib1 as lib} from './dependencies.mjs';
+export default lib.default ?? lib;
+const value1=lib.fromSecretKey ?? lib.default?.fromSecretKey;export {value1 as fromSecretKey};
+const value2=lib.WalletType ?? lib.default?.WalletType;export {value2 as WalletType};
+const value3=lib.WalletObject ?? lib.default?.WalletObject;export {value3 as WalletObject};
+const value4=lib.fromAddress ?? lib.default?.fromAddress;export {value4 as fromAddress};
+const value5=lib.fromPublicKey ?? lib.default?.fromPublicKey;export {value5 as fromPublicKey};
+const value6=lib.Wallet ?? lib.default?.Wallet;export {value6 as Wallet};
+const value7=lib.__esModule ?? lib.default?.__esModule;export {value7 as __esModule};
+const value8=lib.fromJSON ?? lib.default?.fromJSON;export {value8 as fromJSON};
+const value9=lib.fromRandom ?? lib.default?.fromRandom;export {value9 as fromRandom};
+const value10=lib.isValid ?? lib.default?.isValid;export {value10 as isValid};

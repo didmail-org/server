@@ -5,7 +5,10 @@ import Provider from '../blocklet/providers/didmail/index.mjs';
 
 test('AFS provider enumerates exactly its public read-only resources', async () => {
   const provider = new Provider('http://127.0.0.1:1');
-  assert.deepEqual((await provider.list('/')).data.map(x => x.path), ['/health.json', '/attachment-config.json']);
+  assert.deepEqual(
+    (await provider.list('/')).data.map((x) => x.path),
+    ['/health.json', '/attachment-config.json'],
+  );
   assert.equal((await provider.stat('/')).data.meta.accessMode, 'readonly');
   assert.equal(provider.write, undefined);
   assert.equal(provider.exec, undefined);
@@ -15,13 +18,39 @@ test('AFS provider enumerates exactly its public read-only resources', async () 
 
 test('AFS provider reads the public HTTP endpoint and reports upstream failures', async () => {
   let status = 200;
-  const server = http.createServer((req, res) => { assert.equal(req.url, '/api/mail/attachment-config'); res.statusCode = status; res.end('{"maxFileCount":5}'); });
-  await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+  const server = http.createServer((req, res) => {
+    assert.equal(req.url, '/api/mail/attachment-config');
+    res.statusCode = status;
+    res.end('{"maxFileCount":5}');
+  });
+  await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
   try {
     const provider = new Provider(`http://127.0.0.1:${server.address().port}`);
     const result = await provider.read('/attachment-config.json');
     assert.deepEqual(JSON.parse(result.data.content), { maxFileCount: 5 });
     status = 503;
     await assert.rejects(provider.read('/attachment-config.json'), /unavailable/);
-  } finally { await new Promise(resolve => server.close(resolve)); }
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
+
+test('native package health/public policy resolve from fixed instance providers without a business proxy', async () => {
+  const provider = new Provider(),
+    paths = [];
+  provider.onMount({
+    read: async (path) => {
+      paths.push(path);
+      return {
+        data: {
+          content: JSON.stringify(
+            path.includes('health') ? { runtime: 'arc-native', protocolIngress: true } : { maxFileCount: 5 },
+          ),
+        },
+      };
+    },
+  });
+  assert.equal(JSON.parse((await provider.read('/health.json')).data.content).protocolIngress, true);
+  assert.equal(JSON.parse((await provider.read('/attachment-config.json')).data.content).maxFileCount, 5);
+  assert.deepEqual(paths, ['/didmail-http/health.json', '/instance/app/didmail/public/attachment-config.json']);
 });

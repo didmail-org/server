@@ -1,39 +1,4 @@
-export default {
-  help: '帮助',
-  nodeRecharge: '充值',
-  nodeBalance: '余额',
-  refreshNodeBalance: '刷新余额',
-  noBalance: '0',
-  balanceLoading: '加载中…',
-  balanceUnavailable: '余额暂不可用',
-  balanceUpdatedAt: '更新于',
-  cachedNodeBalance: '上次读取值；点击刷新',
-  home: '首页',
-  admin: '管理',
-  language: '选择语言',
-  theme: '外观',
-  appearanceLight: '浅色',
-  appearanceDark: '深色',
-  switchToLight: '切换为明亮',
-  switchToDark: '切换为深色',
-  login: '登录',
-  brandHome: 'DIDMail Server 首页',
-  navigation: '主导航',
-  logo: 'DIDMail 标志',
-  intro: '掌控你的收件箱。使用 DID 发送加密邮件，自由选择你信任的服务器。',
-  tagline: '从浏览器开始使用，或为你的组织运行邮件服务器。',
-  extension: '获取浏览器扩展',
-  runNode: '运行服务节点',
-  encryptionTitle: '端到端加密',
-  encryptionDescription:
-    '基于 ArcBlock DID 与 Curve25519，每封邮件仅供收件人解密。无论传输还是存储，内容始终保持加密，服务节点也无法读取。',
-  didLink: 'ArcBlock DID',
-  networkTitle: '去中心化服务网络',
-  networkDescription:
-    '选择你信任的服务器，或为组织运行自己的服务器。切换服务器后，已有邮件仍保留在原服务器。',
-  blockletsLink: 'ARC Blocklet',
-  envelopesTitle: 'NFT 信封',
-  envelopesDescription:
-    '服务节点为外部邮件提供 NFT 信封。同一服务器内符合条件的成员可直接收发邮件，无需信封或链上交易。',
-  footer: 'DIDMail · 由 ARC 提供支持',
-};
+// Regression facade for the native Web Device component.
+import '../../blocklet/.web/components/didmail-chrome/script.js';
+const module = globalThis.DIDMailNativeUI["locales/zh.js"];
+export default module.default;

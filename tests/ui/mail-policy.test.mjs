@@ -8,7 +8,17 @@ test('policy hides retired VC pricing and activation while preserving attachment
  const fixture=JSON.parse(fs.readFileSync('test/fixtures/protocol/dmp-2/fixtures/ordinary-vc.json'));
  const p={accessMode:'allowlist',ordinary:{enabled:false,retentionDays:10,baseFee:'0',attachmentPricePerBytePerDay:'0'},attachments:{enabled:true,maxCount:20,maxFileBytes:33554432,maxTotalBytes:62914560},maxMessageCiphertextBytes:67108864};
  const html=renderMailPolicy({policy:p,revision:1},{kind:'allow',entries:[{did:fixture.manifest.senderId,remark:'<img src=x onerror=alert(1)>',createdAt:'2026-10-28T00:00:00.000Z'}],nextCursor:null},{transportEnabled:false},t);
+ assert.doesNotMatch(html,/data-mail-health|settings-operations-panel|any refund/);
  assert.doesNotMatch(html,/name="(?:ordinaryEnabled|baseFee|attachmentFee|retentionDays)"/);assert.match(html,/name="attachmentsEnabled"/);assert.match(html,/value="allowlist" selected/);assert.match(html,/&lt;img src=x onerror=alert\(1\)&gt;/);assert.doesNotMatch(html,/<img src=x/);
+ for (const locale of ['en','zh','ja','ru','ar']) {
+  const translate=adminTranslator(locale);
+  const rendered=renderMailPolicy({policy:p,revision:1},{kind:'allow',entries:[]},{},translate);
+  for (const [name,value,label] of [['maxFileMiB',32,'Maximum file size (MiB)'],['maxTotalMiB',60,'Maximum total attachment size (MiB)'],['maxMessageMiB',64,'Maximum encrypted message size (MiB)']]) {
+   assert.match(rendered,new RegExp(`name="${name}"[^>]+value="${value}"`));
+   assert.ok(rendered.includes(translate(label)));
+   if(locale!=='en') assert.notEqual(translate(label),label);
+  }
+ }
  assert.ok(html.includes('空名单拒绝新发信，不改变节点公开状态'));assert.ok(!html.includes('普通邮件和附件费用均为零'));assert.ok(html.includes('除黑名单外的所有发件人'));assert.ok(html.includes('外部收件人仍可下载自己的邮件'));
 });
 test('ARC member mode has no separately editable allowlist and retains deny controls',()=>{

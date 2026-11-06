@@ -5,6 +5,17 @@ import { renderStorageTable, storagePayment, storageFeeDetails, storageStatus } 
 const id='7c154444-4384-4edd-a5ee-c39e63e459af';
 const mail={id,storageKey:'dmp:'+id,sender:'did:abt:z'+'1'.repeat(30),receiver:'did:abt:z'+'2'.repeat(30),sendStatus:'awaiting_signature',size:127,payment:'10000000000000000',credit:'8900000000000000',dividend:'1000000000000000',createdAt:'2026-10-30T08:20:00.000Z',envelope:'z'+'3'.repeat(30),hash:'a'.repeat(64)};
 const t=adminTranslator('zh');
+test('storage owns retry progress and escapes backend diagnostics without exposing refund actions',()=>{
+ const row={...mail,sendStatus:'payment_confirmed',paymentTx:'original-payment',assetTx:'current-nft',nextAttemptAt:'2026-11-06T00:00:00Z',indexAttempts:['rejected-nft'],deliveryProblem:{code:'INDEX_RETRY_SCHEDULED',detail:'<img src=x onerror=alert(1)>'}};
+ for(const locale of ['en','zh','ja','ru','ar']){
+  const translate=adminTranslator(locale),html=renderStorageTable([row],translate,'TBA');
+  assert.ok(html.includes(translate('Waiting to retry')));assert.ok(html.includes(translate('Delivery progress')));
+  assert.ok(html.includes(translate('The server retries automatically using the saved delivery task. No additional sender payment is required.')));
+  assert.ok(html.includes('original-payment'));assert.ok(html.includes('current-nft'));assert.ok(html.includes('rejected-nft'));
+  assert.ok(html.includes('&lt;img'));assert.doesNotMatch(html,/<img src=x|data-action="refund/);
+  assert.match(html,/<button[^>]*data-action="delete-mail"[^>]*disabled/);
+ }
+});
 test('overview has short IDs, localized state, quote labeling and hidden technical/deletion details',()=>{
  const html=renderStorageTable([mail],t,'TBA');const overview=html.split('<tr class="dm-storage-detail-row"')[0];
  assert.ok(overview.includes('7c154444…59af'));assert.ok(overview.includes('待签名'));assert.ok(overview.includes('127 B'));assert.ok(overview.includes('报价'));

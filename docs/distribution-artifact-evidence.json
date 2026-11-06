@@ -1,1326 +1,1640 @@
 {
-  "schemaVersion": 1,
-  "reviewDate": "2026-11-04",
-  "sourceBaseline": "46b8fcccce0f75152353c8b655ac9e12963787b8",
-  "approval": {
-    "source": "may remain public within the audit scope",
-    "worker": "blocked",
-    "blocklet": "blocked"
-  },
-  "tools": {
-    "node": "24.14.0",
-    "pnpm": "12.11.2",
-    "esbuild": "0.28.2",
-    "arc": "2.0.0-beta.74 (49c9125c)",
-    "wrangler": "4.152.0"
-  },
-  "validation": {
-    "lint": "passed",
-    "build": "passed",
-    "jest": {
-      "suites": 42,
-      "passed": 362
+  "schemaVersion": 3,
+  "target": "arc-native-blocklet",
+  "scope": "Stable public package source inputs; actual generated artifact hashes are verified on every audit and recorded under ignored artifacts/distribution/.",
+  "distributionApproval": "blocked",
+  "sourceFiles": [
+    {
+      "file": ".aup/locales/ar.json",
+      "sha256": "b87537c5ffc6b7b289c328fd5e0083e07fcd6ac3897df4d243f33cabb43f86fd"
     },
-    "scriptTests": {
-      "passed": 147,
-      "skipped": 3
+    {
+      "file": ".aup/locales/en.json",
+      "sha256": "731652434790b1ca8e3930f8ae8ddc741cad567d736c85df984b7adce5bf3d3a"
     },
-    "uiTests": {
-      "passed": 49
+    {
+      "file": ".aup/locales/ja.json",
+      "sha256": "85303ffc85517991f9e67b35e4417d58d082aed24421b7590136f6d6484a7502"
     },
-    "browserArtifactChecks": "passed; 10 native page artifacts and five-language static output",
-    "workerStandaloneTests": {
-      "passed": 140,
-      "skipped": 1,
-      "excluded": "cross-client dmp-codec.test.mjs"
+    {
+      "file": ".aup/locales/ru.json",
+      "sha256": "baa9a6b847fa945c2b1f66095508dd7037e69b82bd890ab64d4ba50bb0379b7f"
     },
-    "distributionSnapshotAndCopyCheck": "passed; 151 Worker instances, 153 collected texts; two UI instances, three collected texts; 17 legal files in each target",
-    "npmTarballIntegrity": "nine releases re-downloaded and checked against registry integrity, including the validator metadata/license conflict",
-    "wranglerDryRun": "passed; no upload; does not validate referenced CSS availability or licenses",
-    "workerAssetVerification": "blocked: missing genuine /aup-core.d26223e73064f873.css",
-    "dependabot": {
-      "ghsa": "GHSA-gcqx-w48m-w2h4",
-      "severity": "low",
-      "githubState": "open",
-      "localPatchGate": "passed"
+    {
+      "file": ".aup/locales/zh.json",
+      "sha256": "c6648df2813b48b4c54e00d405806813eff55b48927a4b46dadcda4d4923405c"
     },
-    "documentationLinks": "changed Markdown files checked with the original repository offline checker; no standalone check:docs script",
-    "scopeLimits": [
-      "No hosted ARC or Cloudflare deployment",
-      "No authenticated admin/browser integration run",
-      "No claim of a complete credential/history scan",
-      "No publication of artifacts"
-    ]
-  },
-  "workerEntry": {
-    "file": ".worker/index.mjs",
-    "bytes": 7760713,
-    "sha256": "ecf61718e47ad7faf47796c05aed18434658e19dde7a8e3d8f67de85663fe299"
-  },
-  "wranglerUpload": {
-    "entry": {
-      "file": "artifacts/worker-upload/index.js",
-      "bytes": 7879301,
-      "sha256": "1b3dd13917ecaa46122ae3a7ae0024f0de3fb800117cb853774cc448e824b8a4"
+    {
+      "file": ".route/web",
+      "sha256": "916e041023512f86b7f7357e8552292745d12f5e58f3791bbbc3a41bb2e39e03"
     },
-    "positiveInputs": [
-      ".worker/index.mjs"
-    ],
-    "sourceMapIsNotADistributionAsset": true
-  },
-  "workerOfflineLegal": [
+    {
+      "file": ".web/components/didmail-admin/manifest.json",
+      "sha256": "dea4a69ebe22941ebca10e9d38c69baccd753f40b879c7e11f89ec34dee28549"
+    },
+    {
+      "file": ".web/components/didmail-admin/render.js",
+      "sha256": "d13eafd02574a9b955d41b447e27e94d22f3ba921003968a91163a1f1ec2c632"
+    },
+    {
+      "file": ".web/components/didmail-admin/style.css",
+      "sha256": "ca74c2013069848f457fe7b357a1e1f9c3633b9e77d4484d59c5ca7e4a1896c6"
+    },
+    {
+      "file": ".web/components/didmail-chrome/DEPENDENCIES.md",
+      "sha256": "2a2bc2ad5067511a68c5c96efe680abb56688be1496fb39de93af1ab5c30ab89"
+    },
+    {
+      "file": ".web/components/didmail-chrome/manifest.json",
+      "sha256": "01294587ce2e84819e0377754a61895ec3e204f16a989d4c5dad63ae8801ff4f"
+    },
+    {
+      "file": ".web/components/didmail-chrome/render.js",
+      "sha256": "797b719c81d722a046eb99f5d12b94977720e0051f7861ebe1eee9a254b53ab4"
+    },
+    {
+      "file": ".web/components/didmail-chrome/script.js",
+      "sha256": "e93f3c671365195bcf144bf47d30f5e5486777ed766d4ffd0257d0a928a07e29"
+    },
+    {
+      "file": ".web/components/didmail-chrome/style.css",
+      "sha256": "1ab8059c1a20982fd32906774a5037e815d04960a3b15110b79b2766b54e855f"
+    },
+    {
+      "file": ".web/components/didmail-help/manifest.json",
+      "sha256": "34cb603675da3ece6dacd2a7d7dba16dbd45be9b04d811e589bbd28946eaa3ef"
+    },
+    {
+      "file": ".web/components/didmail-help/render.js",
+      "sha256": "f438a6c053a150b75379e4b4d7f4f1b54806c24ab982e3dbdc4ec129bae17d6b"
+    },
+    {
+      "file": ".web/components/didmail-help/style.css",
+      "sha256": "f9cecf11041813f19d9f808213aeb8f17a319295300dc610e2bb7fd5683df600"
+    },
+    {
+      "file": ".web/components/didmail-home/manifest.json",
+      "sha256": "4ceb951c2969a8b78c82f92e1535db6c7fe570ba9b6bc46222d5ffb9f2c724d9"
+    },
+    {
+      "file": ".web/components/didmail-home/render.js",
+      "sha256": "a84dd4baa23f7f35270d608ab89314486f711eaf11873442a44f827cfd0f4a01"
+    },
+    {
+      "file": ".web/components/didmail-home/style.css",
+      "sha256": "b64cbfb4f3535ce15978a5f73d3a6c4f27d5afa859afcc73a594f919e60d7f7c"
+    },
+    {
+      "file": ".web/seo/og-image",
+      "sha256": "c9e5926f7cbe956de39bec2d5021829931b904b8023a51d486aad5b2526e8bf2"
+    },
+    {
+      "file": ".web/seo/og-site-name",
+      "sha256": "77850450ef0d4b133b369e7e5c32404da304cc55d4d955705056577bfe94340a"
+    },
+    {
+      "file": ".web/site.yaml",
+      "sha256": "a3a0efb38517c76361e457b44b48ad79bd186e4cff10bb9240d48e7856fc5e63"
+    },
+    {
+      "file": ".web/template/header-actions",
+      "sha256": "32500acc2498843d32600c1f9cd8e08ca6670e541a723b4cc48929e420711030"
+    },
+    {
+      "file": ".web/template/logo.svg",
+      "sha256": "f6f59bef8dce5191a2673197366173a3429ce070116a834dc30afc719b698ca6"
+    },
+    {
+      "file": ".web/template/navigation",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "file": "assets/logo.svg",
+      "sha256": "f6f59bef8dce5191a2673197366173a3429ce070116a834dc30afc719b698ca6"
+    },
+    {
+      "file": "blocklet.yaml",
+      "sha256": "36aec9e6bb1639d336e5f26ad6d684398852213744415fb3e28ba66f0b5697d4"
+    },
     {
       "file": "LICENSE",
-      "bytes": 11358,
       "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
     },
     {
       "file": "NOTICE",
-      "bytes": 382,
       "sha256": "9f42e64633ce4dd7556e59637e2a18de0ab39e89cd7b469635fe4c49ce0ba9a4"
     },
     {
-      "file": "THIRD_PARTY_NOTICES.md",
-      "bytes": 4009,
-      "sha256": "be3d9af7d213337c76feb47a1988fb24f38081c79932d7ef654dd199dfc842b1"
+      "file": "package.json",
+      "sha256": "89c47db7851f89caec72da4f215ebc21cf1e294aeef3b45d2583562d846ab035"
     },
     {
-      "file": "third_party_licenses/blocklet-bundle-licenses.txt",
-      "bytes": 3158,
-      "sha256": "53dd95b35a32f2c3d662a7a605b9d5475b991da93bb054988f1423d52d2af52d"
+      "file": "pages/admin/layout.aup",
+      "sha256": "f626027e2cd48dc94d5a77aa9a0b062f1d7d65253b0838c57b537aeb843cb495"
     },
     {
-      "file": "third_party_licenses/boolbase1.0.0.txt",
-      "bytes": 751,
-      "sha256": "cdf4d87ae0a6c160227263bf4e39a0a10e30e89ae7256e0f7ac7bde0836552c6"
+      "file": "pages/admin/seo/title",
+      "sha256": "aaf0d5d696080ebb39553ad5b729545d002a471bd21263f23f86d9306d85fb61"
     },
     {
-      "file": "third_party_licenses/cisco-go-hpke-bsd2.txt",
-      "bytes": 1323,
-      "sha256": "3aafec54d4b93c433948f294cb9e6493dada8613b11fe098c7ca9fd165a20225"
+      "file": "pages/admin-account/layout.aup",
+      "sha256": "ecbb1e0ba700b642c09d3537ec5826cbba5b2c7d9287690a84915fb23c12e0ce"
     },
     {
-      "file": "third_party_licenses/cookie-signature1.0.6-README-license.txt",
-      "bytes": 1111,
-      "sha256": "c0a936e4727a7503020745eaf063acffbb81291fcfd21a0cd8db4b4fce95d902"
+      "file": "pages/admin-account/seo/title",
+      "sha256": "00fb69de8ee76243d746dc8a079e6a2ed4bfb5c5fa9377d5e160883ebde760ee"
     },
     {
-      "file": "third_party_licenses/deepmerge4.3.1.txt",
-      "bytes": 1116,
-      "sha256": "6cfc4687cb2f2d86f4a77e6b526290d3878e5e512f3fec2f4cb36a9cb36f798b"
+      "file": "pages/admin-attachment/layout.aup",
+      "sha256": "c05d7fa8353cdc63cd1f05c15a0420ba3517d37552c945a8ff839c3a114dbcbc"
     },
     {
-      "file": "third_party_licenses/express-async-errors3.1.1.txt",
-      "bytes": 840,
-      "sha256": "2853a1f04aa49c6af26f9dac1ef233c18e319109319a2ba60313a8517dbdda95"
+      "file": "pages/admin-attachment/seo/title",
+      "sha256": "55ffd1b521729de9e74ef4f7f44c5322b8152c724c928f35325e7b198bc98a60"
     },
     {
-      "file": "third_party_licenses/google-closure-library-Apache-2.0.txt",
-      "bytes": 10173,
-      "sha256": "a6cba85bc92e0cff7a450b1d873c0eaa2e9fc96bf472df0247a26bec77bf3ff9"
+      "file": "pages/admin-envelope/layout.aup",
+      "sha256": "db23c0dd5b6c6dc4c35a7991af9e314cd927de254bd91b866f88b20fd500642c"
     },
     {
-      "file": "third_party_licenses/google-protobuf3.21.0-Closure-header.txt",
-      "bytes": 84,
-      "sha256": "6f451d925cddd9d9f35c5c112aebb058c6ac610515a04ae82aff2c1f966a3ac7"
+      "file": "pages/admin-envelope/seo/title",
+      "sha256": "664eef8fda1affe3a110627fa89b6d2003a6c997c4a913d107243f2998492c16"
     },
     {
-      "file": "third_party_licenses/jsonify0.0.1-README-license.txt",
-      "bytes": 26,
-      "sha256": "5845c1987e0995dc7f846bec7e9e892934a2591b1a12994aafca1316f84adb9f"
+      "file": "pages/admin-members/layout.aup",
+      "sha256": "c6f0c479e154475f1b9d4dd5a8b0d60fc350234820e9484d78526170546c01e9"
     },
     {
-      "file": "third_party_licenses/minimatch11.0.3.txt",
-      "bytes": 1550,
-      "sha256": "2c7c5d22ed5a8ee968c64757710979afcd77438c48b4a265b94e615babd8a901"
+      "file": "pages/admin-members/seo/title",
+      "sha256": "4a1f4ccca69981555a0b647bac089490192d7177a94425ab1407c43a77424ec4"
     },
     {
-      "file": "third_party_licenses/ocap-client1.19.15.txt",
-      "bytes": 554,
+      "file": "pages/admin-namecard/layout.aup",
+      "sha256": "8fab1537f6b98c0630fc438e37f29477058d37e4e39c16fa7c6fc322ace2c23c"
+    },
+    {
+      "file": "pages/admin-namecard/seo/title",
+      "sha256": "b1d1f97fb3470164f82a4d4decbe60ec0097b8d904dd8d3ee96a3c60b1942e43"
+    },
+    {
+      "file": "pages/admin-server/layout.aup",
+      "sha256": "c9ed99df7f1287a8c255886c3e85b8b1c52921f0f50a136942dcd06c827c9006"
+    },
+    {
+      "file": "pages/admin-server/seo/title",
+      "sha256": "aaf0d5d696080ebb39553ad5b729545d002a471bd21263f23f86d9306d85fb61"
+    },
+    {
+      "file": "pages/admin-storage/layout.aup",
+      "sha256": "634e41837de2135eca45e708f95a42ded60e53630cfe644c9663c6eed7c171fe"
+    },
+    {
+      "file": "pages/admin-storage/seo/title",
+      "sha256": "3356ad069ce75c3f1406045fef014c212723114767284adb964f9b2b5e38a2bc"
+    },
+    {
+      "file": "pages/help/layout.aup",
+      "sha256": "ffa031cc3b6c95609d6f7169462dd53e27343850b2e0878dd9efb11148d2f1e3"
+    },
+    {
+      "file": "pages/help/seo/title",
+      "sha256": "153c2a4641dcc031d78cac3f12032b14646ae883de37d50ab1f7996af5669655"
+    },
+    {
+      "file": "pages/index/layout.aup",
+      "sha256": "dc0e8fc8bbb30cb1b4108ea618e5eee8f3ed71212b1bd33bf1714c6df134604c"
+    },
+    {
+      "file": "pages/index/seo/title",
+      "sha256": "77850450ef0d4b133b369e7e5c32404da304cc55d4d955705056577bfe94340a"
+    },
+    {
+      "file": "providers/didmail/config.json",
+      "sha256": "2bd98c3f63ffa276bfae7674b3b976077b17bd1e7855cf6e8750fbf958c31b51"
+    },
+    {
+      "file": "providers/didmail/index.mjs",
+      "sha256": "e117258896795242495855e91090c4305f60913777e50bb593349543f1c83366"
+    },
+    {
+      "file": "providers/didmail-business/index.mjs",
+      "sha256": "12b6b47b13f4e829dd3496086b47241c82ba0e05be9a5554926efbf6d8ca9f20"
+    },
+    {
+      "file": "providers/didmail-business/initialize.mjs",
+      "sha256": "77f27529f03ae15faf8fadc4d0dc97583f3ad7d947557566244e6c0df8efaa8b"
+    },
+    {
+      "file": "providers/didmail-business/migrations/0001_legacy_schema.sql",
+      "sha256": "93cb619a17af9babca9e2ab305df8270709246b1b6ab9caeca61db127060ca2e"
+    },
+    {
+      "file": "providers/didmail-business/migrations/0002_distributed_rate_limits.sql",
+      "sha256": "3816db4b9a5539433143c86bd134c3fc1da43cf365b7cd83bfd04cbc26c10d3c"
+    },
+    {
+      "file": "providers/didmail-business/migrations/0003_template_list_cache.sql",
+      "sha256": "bb7f0ea41c4787e999d700f862a08985bd0b0af9a33d0a937d5e7f7bdf071457"
+    },
+    {
+      "file": "providers/didmail-business/migrations/0004_mail_service_policy.sql",
+      "sha256": "6a335c46c6560ecedd9541cf402a6086259ed23d9863c91e97f689033280b9d7"
+    },
+    {
+      "file": "providers/didmail-business/migrations/0005_dmp_protocol.sql",
+      "sha256": "8c472e5bbe6aae53224a859864ac783fef3c8474d1d407b9c01dff126ce1c624"
+    },
+    {
+      "file": "providers/didmail-business/migrations/0006_contact_preparations.sql",
+      "sha256": "641d83905f738af50ebf8c378cc0929b4c1df242aceff9ddf5c3722524d98912"
+    },
+    {
+      "file": "providers/didmail-business/migrations/0007_unpaid_session_indexes.sql",
+      "sha256": "82a711497d0c19faa7447e66432f5ded4dcc5509daf8a65e7d7f6009b2cc76a3"
+    },
+    {
+      "file": "providers/didmail-business/migrations/0008_contact_jobs.sql",
+      "sha256": "61b0234a034b2e720c304d0cc5212882d5f016f712e72b0852f1d5f80d5b443c"
+    },
+    {
+      "file": "providers/didmail-business/migrations/0009_mail_admission.sql",
+      "sha256": "e435fd57dd9892ed2ec0ea5401f419a7a4afcd0541e5230658b433522825d14d"
+    },
+    {
+      "file": "providers/didmail-business/migrations/0010_ordinary_mail.sql",
+      "sha256": "777fe4ea5e8a20b99bbe5199ea9ea2de8f2a1057d1ce7013c8a4f1701dec6c42"
+    },
+    {
+      "file": "providers/didmail-business/migrations/0011_ordinary_payments.sql",
+      "sha256": "174312d43fcca5b24373ff76d8765d19f92e1686efa6a08f698ae3dd7c80e524"
+    },
+    {
+      "file": "providers/didmail-business/migrations/0012_account_links.sql",
+      "sha256": "afae3a1d92ad0722acfec3193e9a8dfa03d7666950ac21e6804427bc4732f803"
+    },
+    {
+      "file": "providers/didmail-business/migrations/0013_member_envelopes.sql",
+      "sha256": "2451d99a401aae0384f3556b4109201b50e3e875438c930eb18c530a76943738"
+    },
+    {
+      "file": "providers/didmail-business/migrations/0014_envelope_categories.sql",
+      "sha256": "aedf4cad6f6d37b047fde19ed6317440341159b48cced27e1294e7c8b100f04d"
+    },
+    {
+      "file": "providers/didmail-business/migrations/0015_namecard_categories.sql",
+      "sha256": "24601d3d68e41cb71016436062ca50cc368ed85ef94fe391368ca3098ebb3800"
+    },
+    {
+      "file": "providers/didmail-business/migrations/0016_member_mail.sql",
+      "sha256": "c19609659857abad212caf41a75d44e8cd69cdd507318ca93b23d45702bd4616"
+    },
+    {
+      "file": "providers/didmail-business/migrations/0017_external_upload_sessions.sql",
+      "sha256": "9cb3444149027f4c01afa8a5d93db14575531d575ffe78d58fbf7365eb0b906d"
+    },
+    {
+      "file": "providers/didmail-business/migrations/0018_contact_payment_guard.sql",
+      "sha256": "dde518665eaaa77dfde56c87e27eb5432faf75577a57a50ec8ee92ed148b4a07"
+    },
+    {
+      "file": "providers/didmail-business/migrations/0019_alias_payment_guard.sql",
+      "sha256": "fdde712e2be08072b329a749b25f0e32de00a8e443c6d9aee2902c9bcef48f46"
+    },
+    {
+      "file": "providers/didmail-business/migrations/0020_legacy_payment_nonce.sql",
+      "sha256": "e559f9c62c016ec54780ff5a1af9dfa538bdcbd35fdc75027fb53155ce5349c8"
+    },
+    {
+      "file": "providers/didmail-business/migrations/0021_afs_admission_fences.sql",
+      "sha256": "26baaebefd5eda6e73bc54a305731dcac35293166373413d8f2fb644dea6afd5"
+    },
+    {
+      "file": "providers/didmail-business/migrations/0022_dmp_index_attempts.sql",
+      "sha256": "531ddedc621ca4bc1d05a82c3ca2639656fa395d9e2493285c78ee4aa512a7bb"
+    },
+    {
+      "file": "providers/didmail-business/operations.mjs",
+      "sha256": "556d294f70be539dd83800a712824e9958c67bfa3c502b071506168a036e6174"
+    },
+    {
+      "file": "providers/didmail-business/paths.mjs",
+      "sha256": "c52625906784b64ea2560c8d271494ace585450f0368e5aa8276cf69a9bb108b"
+    },
+    {
+      "file": "providers/didmail-business/policy-port.mjs",
+      "sha256": "338e0eec089ccf2daf72f192ed96d9a822a0a104f26966d7bd6c8457244255c8"
+    },
+    {
+      "file": "providers/didmail-business/recover.mjs",
+      "sha256": "017571e19907a695a155ba353cd1b3201e9f69cf0cb8fc27e8947854521c78b0"
+    },
+    {
+      "file": "providers/didmail-business/store.mjs",
+      "sha256": "51fe800ace285a5f360d155aee1c962cb83c0946db2be5f20161ba5148445094"
+    },
+    {
+      "file": "providers/didmail-http/config.mjs",
+      "sha256": "225b2a8db2b842c719e481233f9a582e71372c92594573506bc2090d95cb9e7f"
+    },
+    {
+      "file": "providers/didmail-http/host/app.d.mts",
+      "sha256": "bacccdc928be0c462f2a5c8e6c2698198e06daeb38fe56409e2f5342f900cf5f"
+    },
+    {
+      "file": "providers/didmail-http/host/app.mjs",
+      "sha256": "d0c1895673563c3d25167acd1d8ef048d38a93c917716b964964c8bb8863c467"
+    },
+    {
+      "file": "providers/didmail-http/host/arc-chain-bridge.mjs",
+      "sha256": "d226688ea62d11651865448f30ce992896fc0f8308b53036c8e3dbfa21b58982"
+    },
+    {
+      "file": "providers/didmail-http/host/arc-http-transport.mjs",
+      "sha256": "09eac69603500507298ad0c0e3048e13a6a1e6dfa1d8eea854fe4886e69c33f0"
+    },
+    {
+      "file": "providers/didmail-http/host/arc-members-bridge.mjs",
+      "sha256": "5ab4d614b8a5cc866da3d3bcc21d0be56431b0f0bb5e99120bcde10f909ded56"
+    },
+    {
+      "file": "providers/didmail-http/host/arc-response-headers.mjs",
+      "sha256": "43baeaabbaa2a8b5ceee2f86f190761d2210ab427b5ff7f76070b286a3658827"
+    },
+    {
+      "file": "providers/didmail-http/host/environment.d.mts",
+      "sha256": "5517065dd30f28583785b19777ae04fadd655b1adfa33e218681bc6c587c2aed"
+    },
+    {
+      "file": "providers/didmail-http/host/environment.mjs",
+      "sha256": "9878856fd72295d0e0114baae2fd1c965486768fabc035a9aa9d7c7eb88ebfc2"
+    },
+    {
+      "file": "providers/didmail-http/host/http-server.mjs",
+      "sha256": "ff6fa18507f12750f8e29f4402aba8a9ae84448fed45965e107dd144f77088f5"
+    },
+    {
+      "file": "providers/didmail-http/host/loader.mjs",
+      "sha256": "df798386f1d23798923f1ebd5224160241c87194d59f0dd8b089b4d40df8bb5d"
+    },
+    {
+      "file": "providers/didmail-http/host/preview-arc-websocket.mjs",
+      "sha256": "5b4ee36b506fdb4c722da8e7414a855d135951abec48f9e724e1b8d165c0821d"
+    },
+    {
+      "file": "providers/didmail-http/host/preview-routing.mjs",
+      "sha256": "0047c4f99e1a6b613d2b7a071f6ea5f4f03e2571f915901035fb9b7c1c2f98df"
+    },
+    {
+      "file": "providers/didmail-http/host/runtime.mjs",
+      "sha256": "36942f822f96e83881fe71be61d74a1bc673434ec19e55e4dc21334dc7602bce"
+    },
+    {
+      "file": "providers/didmail-http/index.mjs",
+      "sha256": "b9a3513b54499dcc5e36d480eeddaf57d27d332f3f9a2901ba435b6dd05f7fd1"
+    },
+    {
+      "file": "providers/didmail-http/runtime-adapters.json",
+      "sha256": "87ef919ae0b3bbab0b13e6296f8179d8f5642c68953f5d5503792b9b7827ee99"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/libs/afs-chain-reader.ts",
+      "sha256": "bec131b949b0fce46232689bcd0c883626e932236d1d5feeda9cb028a108c42d"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/libs/alias-crypto.ts",
+      "sha256": "adf232ba76ddf0d227c99e3053fc08206a8919a5d7ecf9e6a092aa8f542c8c9e"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/libs/alias-domain.ts",
+      "sha256": "9b89598a18b271dac1ff2481103b48784108e13b32708abf1dd60337d5a3b394"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/libs/alias-service.ts",
+      "sha256": "bc393e945d0ee49ae65894f4cc51733ede8ed0e9235306f89ca750d98bb1b9cd"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/libs/attachment-cleanup.ts",
+      "sha256": "8374189dffc75e833e6480fc4bea30a28bcd5629e77107198e0144ddba1bdb7d"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/libs/attachment-download.ts",
+      "sha256": "e3f7152435dbfeda96777293a9aeb77615023dc4af67564a3dd1a20e243c7bf3"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/libs/attachment-pricing.ts",
+      "sha256": "586a0180dbdc59a391eed416641415ce826b43248b5ecac26ff6e8488c027458"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/libs/attachment.ts",
+      "sha256": "60b73285c6d84cc529025a079985167a841b24a49484bf733136aaadebca3783"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/libs/auth.ts",
+      "sha256": "f4f97d7477ded2882e61a933d6f6fd79831eb23b4d1500c93cf94d49d436773a"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/libs/forge.ts",
+      "sha256": "a29b04de1138a68af59015c25b2c686b88f99cf5d5874306157475699a2c51f6"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/libs/gas-stake.ts",
+      "sha256": "f59bd85d2170c69b5558b1c80054991fc55da91bd6330f4968e2c5f3f724155d"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/libs/legacy-contact-payment.ts",
+      "sha256": "717d4f726b06fd166dd15b553cfa7a78b0c2c3dcda54fa54e60d7ee5a84b5be4"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/libs/logger.ts",
+      "sha256": "c3fc6c90c6cf705db288227c5cead108b0075d421626fd9b2975da64d8f657db"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/libs/mail-lifecycle.ts",
+      "sha256": "30bb9e13083b1c747fed7746dd88a3bc968bfe809c0666f342c63b741e52bdf3"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/libs/mail-service-policy.ts",
+      "sha256": "9d076f892512b65ddb8fd79b4437b5e509444e20ab71b47bee6dd40a03d919c4"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/libs/node-scope.ts",
+      "sha256": "5eaa8a8af94a9c3ba94147c9684f8bcf43e2c1a0bbebb52e95e8796d84028766"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/libs/node-stake-policy.ts",
+      "sha256": "9d2c4a7d426cb3160dd69303f159adf7cf627633f2cd3faf64adc445d984e896"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/libs/node-transfer.ts",
+      "sha256": "a0cb5377a5707fdc4691fa78e5c6024d521b8b213b199aa9db4c10c2d4858b73"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/libs/node-wallet.ts",
+      "sha256": "1fd2f999238b96074a9c4daf1e264b497b6fc602ceb5f6b7346b7106610f8d09"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/libs/purchase-balance.ts",
+      "sha256": "d5b759487ebc4cd7e7685adf76a90af3a56cb8b1c97b248e145b56128d2772a0"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/libs/server-factory.ts",
+      "sha256": "afba04e2739856d0ad391cf773d1ff887d4dc250255d5b1147a65e163a24e89e"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/libs/stake.ts",
+      "sha256": "c2295469fadabdc529587d8d79e989b36e3472f32383419267c9a5983c689fc5"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/libs/template-list.ts",
+      "sha256": "e27b1617733d2d86f631492b631558fd6d993d09ce522aa17f87f3a8e7273e9a"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/middleware/auth-middleware.ts",
+      "sha256": "9d406c986218b90757bcfdb748ffa231635b41c09df3d0796bd115d4699caeb2"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/middleware/didmail-middleware.ts",
+      "sha256": "b951508aace456e7b35f4deac38d1a83fbe7e29bf888d28d392a4134697a9d23"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/nft/templates/server-node.ts",
+      "sha256": "4277fd7736cb8d2b6a9f3908bef5c5f9eb5c5247bab8de1df101d5e08fa35592"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/routes/account.ts",
+      "sha256": "7a8838d64f9f621c2dd3308b80d690414856036cca10e29bf9df446a010c14d0"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/routes/admin.ts",
+      "sha256": "1e09a378bb23afe00ac46f490dacf5e1851aedd83035d213cab3a835f739f745"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/routes/alias.ts",
+      "sha256": "f50de2dcaad5c959eb117c16c2d9dd224d6f7a9765ed23165e9f26ce4059a1de"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/routes/contact.ts",
+      "sha256": "0541c125191bb351b016a4c81e7e94c40730ea22e32d4709239245bce8d3e67b"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/routes/domains.ts",
+      "sha256": "2d7575176649d9508ef58c22dacfcfe2963094984f3be89eb79018306238fafc"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/routes/envelope.ts",
+      "sha256": "f9993db737ecf62daf5db5c6024892505c53ba6aff30d53fbcd8c01bf014d362"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/routes/index.ts",
+      "sha256": "9b7802f39ebd8e6b38b29f4de12221591fdb085d16a4458a2e342917da114292"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/routes/mail.ts",
+      "sha256": "831bd5b069b62bf367e476836d19af81a3c675eb68553c3f96441a2311b6e0ea"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/routes/namecard.ts",
+      "sha256": "a43e445da6136ee15f674d924c2c35028554ed7c2e257a56119d70fcacb4fffd"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/routes/servers.ts",
+      "sha256": "f739c613a04cd52a30081df2bcee20e89a5dae540d643a1b44b60893fef6dce1"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/routes/stake.ts",
+      "sha256": "42d254d424bd44fec38fcbf74bca0384e459daf30b3be6a9adec162c2da58c49"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/routes/storage.ts",
+      "sha256": "eb527fbaf68eab3cd649299386dcb451665769a93800c86d1bfcab9cc7fe777c"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/runtime/arc-session.ts",
+      "sha256": "38d7da7574a4eb4672abda156117cd6d23dce15459f144346bdbf92dde362af4"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/runtime/arc-transport.ts",
+      "sha256": "db0105467d2de53f13fa6720a2e012033a41c59892a60b7510069e0095e20320"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/runtime/protocol-auth.ts",
+      "sha256": "8a5371f92ca07315fec76eb8f61ec2710502c5c63a3f8fa6b903046b1f607b08"
+    },
+    {
+      "file": "providers/didmail-http/source/api/src/runtime/template-cache-core.ts",
+      "sha256": "f7de0d70995fc5226488cb80d88a98e553da1b824e061803c1d35e15fcafcd79"
+    },
+    {
+      "file": "providers/didmail-http/source/config/env.ts",
+      "sha256": "996e0ad033d7c85abec921f26ef3296f67eea42413ace9a55fede4a9f2216599"
+    },
+    {
+      "file": "providers/didmail-http/source/config/instance-config.ts",
+      "sha256": "489bff817ef5e2d7a602d97f980b1c4ef9349e061cbd4797502b90dc92babbec"
+    },
+    {
+      "file": "providers/didmail-http/source/config/runtime-env.ts",
+      "sha256": "464e5a27a836647b294a50b9ddceef9cb20aa7d57698897f45dad596e9add23b"
+    },
+    {
+      "file": "providers/didmail-http/source/http/account-links.ts",
+      "sha256": "093318f3e6c6b5bafaf7ac231ee62bcc63f60c44c33f28508b8054d7deadc61d"
+    },
+    {
+      "file": "providers/didmail-http/source/http/app-factory.ts",
+      "sha256": "38602aca8778fd434f3c27bb38bf2f10594139f565d12e4e415243480918ec8b"
+    },
+    {
+      "file": "providers/didmail-http/source/http/envelope-list.ts",
+      "sha256": "3da1b212b3af455a7147a3820f1aff9d7c946d76b4cf1d5e6dd2897fd6e583e3"
+    },
+    {
+      "file": "providers/didmail-http/source/http/index.ts",
+      "sha256": "37402302d83157da7f7c22f3939179e2ae91877fd00cd118246b95cd0bd4e3bb"
+    },
+    {
+      "file": "providers/didmail-http/source/http/mail-policy-admin.ts",
+      "sha256": "36dec06deeea655c91bd3c759d77190247b938baa375476145ed7102823303cc"
+    },
+    {
+      "file": "providers/didmail-http/source/http/members-admin.ts",
+      "sha256": "ec9b20345fcacc26cc3832f688c509e19262d9100c02433dc68a80b8c9899969"
+    },
+    {
+      "file": "providers/didmail-http/source/http/storage-admin.ts",
+      "sha256": "015c867a6c651fef9b090098b821f7f09ec1241cb8010491ee53ebfb1ed2fc73"
+    },
+    {
+      "file": "providers/didmail-http/source/identity/arc-members.ts",
+      "sha256": "300e0af09bea047c75ce1f8a358aa7e84cd03b56c70239fc15e1f9d2e025eaec"
+    },
+    {
+      "file": "providers/didmail-http/source/identity/arc.ts",
+      "sha256": "ac7f1d54c1ac4d15a0e68e3a0a7a9512839e5488ddbdfaa15e635b395b60a385"
+    },
+    {
+      "file": "providers/didmail-http/source/identity/chain-read.ts",
+      "sha256": "3538e7ff682dcefd344eca79eac767d18721fa20b49facd48228be0ab8ba652b"
+    },
+    {
+      "file": "providers/didmail-http/source/identity/payment-nonce.ts",
+      "sha256": "65c5a6d26cb77b69de9be688add18fd04204fb35fa1f8401db9362ecb83d6701"
+    },
+    {
+      "file": "providers/didmail-http/source/identity/protocol-request.ts",
+      "sha256": "1074757c7df353d445ba457b2d86ab05245f0e0d433bc1ade1490a00ce86b488"
+    },
+    {
+      "file": "providers/didmail-http/source/identity/session.ts",
+      "sha256": "5dd71d81f0f47c65929ea4d4e8eff261c351b4d33fa44d4057438ecd6f018a0d"
+    },
+    {
+      "file": "providers/didmail-http/source/identity/wallet-lane.ts",
+      "sha256": "3cc0988f2b5efb9b6165f056db62e8ac03c388b24707967b0cac493565f3097f"
+    },
+    {
+      "file": "providers/didmail-http/source/identity/wallet.ts",
+      "sha256": "cfe6ba58343bc4922a7084e539dc632cc5077c5e0ed64238f5bc682019bc5b25"
+    },
+    {
+      "file": "providers/didmail-http/source/policy/envelope-access.ts",
+      "sha256": "50e3056d0806605233ded398c2e0b094836a32b5062a474154f5821cc87ec6ac"
+    },
+    {
+      "file": "providers/didmail-http/source/policy/mail-admission.ts",
+      "sha256": "0bf2013c12225707ebbadb48aa9484c5e4f28082af980ec718c93541da4b0fcb"
+    },
+    {
+      "file": "providers/didmail-http/source/policy/mail-gas-eligibility.ts",
+      "sha256": "b90f19876d18ebaea8a7330d085f210a8718eee61df9b7417384304220d70d26"
+    },
+    {
+      "file": "providers/didmail-http/source/policy/namecard-access.ts",
+      "sha256": "cb9bc6bec4254ea82da12f174de8462e2a51f6ea35af5c772e66c34a53da4368"
+    },
+    {
+      "file": "providers/didmail-http/source/policy/node-sending-access.ts",
+      "sha256": "b8036ddfe6558e6a46d4ad548972f50240634f44a1e0efe0ac00faa69ca066f7"
+    },
+    {
+      "file": "providers/didmail-http/source/protocol/contact/contact-api.ts",
+      "sha256": "b136814fb4e3e319f388d06cea1953bf33273abe6dae7c0d0eb886c365c4366c"
+    },
+    {
+      "file": "providers/didmail-http/source/protocol/contact/contact-jobs.ts",
+      "sha256": "97e03ea627e1d6f1fa83a065843845370146b4ce09488961e0dd8ea43dde204c"
+    },
+    {
+      "file": "providers/didmail-http/source/protocol/contact/contact-ledger-read.ts",
+      "sha256": "90a23f0f5ae32d4f96a220152a96e1cbd16b1452525207a3f265a850baf30182"
+    },
+    {
+      "file": "providers/didmail-http/source/protocol/contact/contact-preparation-store.ts",
+      "sha256": "11482fa0fa573688f95f741e1fc8be1c097afbc1161c544750096b934efe1679"
+    },
+    {
+      "file": "providers/didmail-http/source/protocol/contact/contact-quotes.ts",
+      "sha256": "7f6f291fad5a83af465b4026239466e3ba6cc4ef40529a0dca66417dc7b8b6a5"
+    },
+    {
+      "file": "providers/didmail-http/source/protocol/contact/contact-settlement.ts",
+      "sha256": "908029581eb7093bec1c9c7ce45401bd055141114319a6e83462438a8617854c"
+    },
+    {
+      "file": "providers/didmail-http/source/protocol/contact/contact-status.ts",
+      "sha256": "1a21d529edbdafbdcf0e12199b695beda94851cc25ce1729827f7cf4e3b42be6"
+    },
+    {
+      "file": "providers/didmail-http/source/protocol/dmp-api.ts",
+      "sha256": "1517466e10dabe661997182bead4b03b80b3d5d7089cce3f898261a720bde825"
+    },
+    {
+      "file": "providers/didmail-http/source/protocol/dmp-jobs.ts",
+      "sha256": "3ceab8883da46b94ec40039100ac0bd020aa085f6dc28da5a1a005ac384663ba"
+    },
+    {
+      "file": "providers/didmail-http/source/protocol/dmp-ledger-read.ts",
+      "sha256": "530bbed9eb1931823536c3ce5cebbd2342d0117f26ec22e68a78306eb219d17f"
+    },
+    {
+      "file": "providers/didmail-http/source/protocol/dmp-settlement.ts",
+      "sha256": "76f13a16a5903703442b22fdb3b57d519fd47c7e3eebdcf3f4afae2578b4376c"
+    },
+    {
+      "file": "providers/didmail-http/source/protocol/dmp-store.ts",
+      "sha256": "9dcdac694647381bb7e9aecbaa07e1e0671e69d27738e561b28e1f0e84dd4748"
+    },
+    {
+      "file": "providers/didmail-http/source/protocol/member-mail.ts",
+      "sha256": "94a94aacf8f70ea5833c1cc3e8ede63d660e50ddb93223a39774cd174d0ce970"
+    },
+    {
+      "file": "providers/didmail-http/source/runtime/bindings.ts",
+      "sha256": "f0a670dd664988afa49f0a19113a5b56fdcc99dcd0075ffd4061a14d6feb6e6e"
+    },
+    {
+      "file": "providers/didmail-http/source/runtime/contracts.ts",
+      "sha256": "fea0b1401b3386777ba6e2f019c17013404042be23f9162c45ba3f4863364a02"
+    },
+    {
+      "file": "providers/didmail-http/source/runtime/depd.cjs",
+      "sha256": "c31fe4178aba737395a67a77d9ddfd980c3e6da38adc5a14caba401d8c71724b"
+    },
+    {
+      "file": "providers/didmail-http/source/runtime/node-fetch.ts",
+      "sha256": "fae3588d8f689dfa5795486ff2e63c22cf0df9c1a1d23d586a9ac5c43af6c582"
+    },
+    {
+      "file": "providers/didmail-http/source/runtime/rate-limit.ts",
+      "sha256": "166833b7cabcafcf1e3f942e503499ccf8eb8557e38ba1d8be795a3cb98fc980"
+    },
+    {
+      "file": "providers/didmail-http/source/runtime/scheduler.ts",
+      "sha256": "5f07085f6872bb6883f98b4abd901bc630b533591382713240c2bb9957481158"
+    },
+    {
+      "file": "providers/didmail-http/source/runtime/sequelize.ts",
+      "sha256": "6dab8afe508c719048e55f8e63e243e441677163112039eccdd31301ca9ad4b3"
+    },
+    {
+      "file": "providers/didmail-http/source/runtime/template-token.ts",
+      "sha256": "1e081d8966e9648b86557f8c57b67cd7317f1741446d160ca5376d3d0c6add0c"
+    },
+    {
+      "file": "providers/didmail-http/source/runtime/ws.ts",
+      "sha256": "85c736bce0bc91bb0cb06f470c5f77046258323415549531f71922c3eb88a340"
+    },
+    {
+      "file": "providers/didmail-http/source/storage/afs-mail-policy.ts",
+      "sha256": "d493aeea72a56c5395daddca342b4de484179f931e2d1f8f49cbf1de392f4f2c"
+    },
+    {
+      "file": "providers/didmail-http/source/storage/afs-storage.ts",
+      "sha256": "af9ad5c70369f218192e4e2132e9b4bbb602d5894e2a6b4545bd9935df46db77"
+    },
+    {
+      "file": "providers/didmail-http/source/storage/database.ts",
+      "sha256": "f599fe9888271a4dcc0d269bc2764c218280e7d6303d3dc8cd441de44135e16d"
+    },
+    {
+      "file": "providers/didmail-http/source/storage/schema.json",
+      "sha256": "a0ddabe045120973a4b2d35c451b1f80b53b763ed8b46556f54a5186d44ef5ab"
+    },
+    {
+      "file": "providers/didmail-http/source/storage/template-cache-store.ts",
+      "sha256": "f1ec38182b0b5409576daeb3809ae1a2f57787e7d5166288ddc685d564341ddc"
+    },
+    {
+      "file": "providers/didmail-http/source/ui/locales/config.d.ts",
+      "sha256": "f5289137129e77e15c400406e9e445d164f15540995b14277f4c8fc6d032c9ad"
+    },
+    {
+      "file": "providers/didmail-http/source/ui/locales/config.js",
+      "sha256": "2c0c5a6a531c8b928841cb2ed80340233ebcb0fc36c530d4e7c5ebac97c8a358"
+    },
+    {
+      "file": "providers/didmail-http/vendor/dependencies.mjs",
+      "sha256": "fb656d4086b9218706cfd95c85f5f0e419c91438304acaeaadf4c1a2f91969a9"
+    },
+    {
+      "file": "providers/didmail-http/vendor/lib0.cjs",
+      "sha256": "3f65b16cc397326df2ca2012dc584d962d8461bfcb41c4772f6b6d94c903e4ea"
+    },
+    {
+      "file": "providers/didmail-http/vendor/lib0.mjs",
+      "sha256": "9b48a33bdc6d9ff6f8899c42f4ebeec9882860da34a75f72855514bb30be7c1e"
+    },
+    {
+      "file": "providers/didmail-http/vendor/lib1.cjs",
+      "sha256": "0f62a88a8255e075cf2fd5b540f1d46dbfff5d200463f2f41662024611ba61e9"
+    },
+    {
+      "file": "providers/didmail-http/vendor/lib1.mjs",
+      "sha256": "74a3c6ea98476edcbdde50d58a023232c1eb4bdcae581b02efaac36b6128fd3c"
+    },
+    {
+      "file": "providers/didmail-http/vendor/lib10.cjs",
+      "sha256": "f7dd4b641cd962f48cdff4a9ca67b303002b75b021e0c50e442d0c4cbbdddb85"
+    },
+    {
+      "file": "providers/didmail-http/vendor/lib10.mjs",
+      "sha256": "a503a3894e19881d596aa6a7954a8151b5b5aa7246065f171a2ece0e3c5493ed"
+    },
+    {
+      "file": "providers/didmail-http/vendor/lib11.cjs",
+      "sha256": "84b818ec1de781c8cc23afbb8cc652c9bbea06c0855682c1062b93ffc90b8b01"
+    },
+    {
+      "file": "providers/didmail-http/vendor/lib11.mjs",
+      "sha256": "6c8a75652d2b71d41a66006ffdb73cb314a571a1b9d93bee81639add2dfa2078"
+    },
+    {
+      "file": "providers/didmail-http/vendor/lib12.cjs",
+      "sha256": "7afd887da6e2795a647cfe2b2143adcd8f71ff1b537bfb2fae7084cb59f4acf6"
+    },
+    {
+      "file": "providers/didmail-http/vendor/lib12.mjs",
+      "sha256": "f09d433c883a1b9b3adf728b80f09c0ece6713263b08ad9fa8009c1678b67461"
+    },
+    {
+      "file": "providers/didmail-http/vendor/lib13.cjs",
+      "sha256": "08dddad535f81cceffa2bf83c267796bf342fb34870574d008b85213510e9faf"
+    },
+    {
+      "file": "providers/didmail-http/vendor/lib13.mjs",
+      "sha256": "a470d221eb35e5ff508aed4d07b57f41cf5b9ac8380b215324af3c744b30dfad"
+    },
+    {
+      "file": "providers/didmail-http/vendor/lib14.cjs",
+      "sha256": "cb814f5653394b823f7aebff84225b76cf32c50b91ab1b89ddddd2a88f60266d"
+    },
+    {
+      "file": "providers/didmail-http/vendor/lib14.mjs",
+      "sha256": "6087c9b0ae7d22e7fb08fc5ad3c0f8b874f7ccc50d938752a5f97e578fcc9876"
+    },
+    {
+      "file": "providers/didmail-http/vendor/lib15.cjs",
+      "sha256": "795bbe27a7f280257361ad19069e8ef9524c6fb4f68ae9508d059ca16eb76c4c"
+    },
+    {
+      "file": "providers/didmail-http/vendor/lib15.mjs",
+      "sha256": "3928ebea0368290da920dd15e0bbf7f59ae6a94775107cfbe402ff847b5447a2"
+    },
+    {
+      "file": "providers/didmail-http/vendor/lib16.cjs",
+      "sha256": "341de81bd36c2bf107da769a421feb14f2faddd4d96a13c0760773919b5408a0"
+    },
+    {
+      "file": "providers/didmail-http/vendor/lib16.mjs",
+      "sha256": "42a5aa5e156df1990e73fc55eabe0de7ccd77a728c0d365624571dab2c8c7e1d"
+    },
+    {
+      "file": "providers/didmail-http/vendor/lib17.cjs",
+      "sha256": "f4aa3aad4f0a4a923215eda71120da3ec5941f53b6bad47603a73b8d0f5ac6ed"
+    },
+    {
+      "file": "providers/didmail-http/vendor/lib17.mjs",
+      "sha256": "4f07ddf7880f6f306b4bab5b832d27ae85e12918b2302259e18439e502ac2643"
+    },
+    {
+      "file": "providers/didmail-http/vendor/lib2.cjs",
+      "sha256": "26229d0c2a8ead64347c33dd1c343da773e8013cb244f486cb3271b6b8f50fcc"
+    },
+    {
+      "file": "providers/didmail-http/vendor/lib2.mjs",
+      "sha256": "874064f4a0fe282923485b9157906356871545dedb4e9fb654504ac060c41b9b"
+    },
+    {
+      "file": "providers/didmail-http/vendor/lib3.cjs",
+      "sha256": "629720f7fe85f67363e2b2f1aaab5f81e83b75a00990f2eac84ae8499e057590"
+    },
+    {
+      "file": "providers/didmail-http/vendor/lib3.mjs",
+      "sha256": "72f97842254bd9d7adc720ae81af195a7f333c1dc71795ad17ccedb49eae7ad2"
+    },
+    {
+      "file": "providers/didmail-http/vendor/lib4.cjs",
+      "sha256": "3b5636a4d3da178c0ec3dd24a1c977f29d3da22a6e018471b10d9b7ce11fd62f"
+    },
+    {
+      "file": "providers/didmail-http/vendor/lib4.mjs",
+      "sha256": "fc8d5a071704755043e6f6948729f37ed1f4d009ddccaac26a7083719ab6a493"
+    },
+    {
+      "file": "providers/didmail-http/vendor/lib5.cjs",
+      "sha256": "579e960a19487c953d1ad87f0f4b9f0b3df28a4c8075c878c7b7b3a69bc9ab3e"
+    },
+    {
+      "file": "providers/didmail-http/vendor/lib5.mjs",
+      "sha256": "bc778139f7c40d5163822c6a47698673fe26e82f6ae911991cb9a567dcd5bf0d"
+    },
+    {
+      "file": "providers/didmail-http/vendor/lib6.cjs",
+      "sha256": "6411cef9e63d187edecdc1126b425de3dcdb538854083bd8ace28e4de9aa2ec7"
+    },
+    {
+      "file": "providers/didmail-http/vendor/lib6.mjs",
+      "sha256": "0e41a907a33d2e9d51b99c2ef364baada6c9633b201acd3cd849b0f39f80f8e5"
+    },
+    {
+      "file": "providers/didmail-http/vendor/lib7.cjs",
+      "sha256": "6c1c65e75aeb2cf11f647660222b56ba69502583d0263c20c170cb58ba671e72"
+    },
+    {
+      "file": "providers/didmail-http/vendor/lib7.mjs",
+      "sha256": "b94cfa6c32ef11cd4acdba7ccc31939a1da56d550d0384ff84e0a494cd961499"
+    },
+    {
+      "file": "providers/didmail-http/vendor/lib8.cjs",
+      "sha256": "064d37b2bd14fb38e9259b76a903437f13f3ff1e1ffa17e6828410ae1059a5ba"
+    },
+    {
+      "file": "providers/didmail-http/vendor/lib8.mjs",
+      "sha256": "0ee5d47712a150d64b9eca0c99e19a9307e72cdcb913b6b9250ba5e3e341213e"
+    },
+    {
+      "file": "providers/didmail-http/vendor/lib9.cjs",
+      "sha256": "f647fb1ba3f7a3089162b81cb6521b13497b66d179096d23a7333b41bacda9f9"
+    },
+    {
+      "file": "providers/didmail-http/vendor/lib9.mjs",
+      "sha256": "d9b3974fb2da6efd3d5444466e13ff6f9e83dd5137ce243050606c27d8b7fb45"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/@adraffy__ens-normalize@1.11.1/LICENSE",
+      "sha256": "3b458813ab3316b16bf004c4201d4a0583cf615514422dabf4d7c025988d613d"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/@arcblock__did-util@1.19.15/LICENSE",
       "sha256": "72053fcf79fb7a7863da2c1bb5a14ec555e982516761020070349105b0f7bd3a"
     },
     {
-      "file": "third_party_licenses/qrcode-generator1.4.4-source-header.txt",
-      "bytes": 489,
-      "sha256": "7bab270ae530f8bd20fe784effd62cd5ad337476b037f8d3e62accc5fa4929e6"
+      "file": "providers/didmail-http/vendor/licenses/@arcblock__did@1.19.15/LICENSE",
+      "sha256": "72053fcf79fb7a7863da2c1bb5a14ec555e982516761020070349105b0f7bd3a"
     },
     {
-      "file": "third_party_licenses/qrcode-generator1.4.4.txt",
-      "bytes": 1071,
-      "sha256": "3a850fa5f08101db6f40676c2786e10bd2cd5fff7b12ffdf1e0c434d4e49d90c"
+      "file": "providers/didmail-http/vendor/licenses/@arcblock__jwt@1.19.15/LICENSE",
+      "sha256": "72053fcf79fb7a7863da2c1bb5a14ec555e982516761020070349105b0f7bd3a"
     },
     {
-      "file": "third_party_licenses/worker-bundle-licenses.txt",
-      "bytes": 217660,
-      "sha256": "bdcffb8972511872150c6004e8f4d8621b0db8dabfa4a63a7a3fde1a449f4e74"
-    }
-  ],
-  "workerAssets": [
-    {
-      "file": ".access.json",
-      "bytes": 25,
-      "sha256": "3f7034bff5388fdf875a592b7853ecddf4c53ffd41ac447aa07a38a705a32884"
+      "file": "providers/didmail-http/vendor/licenses/@arcblock__sdk-util@0.36.4/LICENSE",
+      "sha256": "72053fcf79fb7a7863da2c1bb5a14ec555e982516761020070349105b0f7bd3a"
     },
     {
-      "file": ".artifacts.json",
-      "bytes": 1040,
-      "sha256": "1913debf3612048f10107881adf079df053e984b4312de8cbe9ecc720f5ed508"
+      "file": "providers/didmail-http/vendor/licenses/@arcblock__validator@1.19.15/LICENSE",
+      "sha256": "72053fcf79fb7a7863da2c1bb5a14ec555e982516761020070349105b0f7bd3a"
     },
     {
-      "file": ".prerender-manifest.json",
-      "bytes": 35972,
-      "sha256": "fc492864287a1a2172688b7ec7e8fc9334a0610de036e5263ff880939c2d1fa0"
+      "file": "providers/didmail-http/vendor/licenses/@arcblock__vc@1.19.15/LICENSE",
+      "sha256": "72053fcf79fb7a7863da2c1bb5a14ec555e982516761020070349105b0f7bd3a"
     },
     {
-      "file": "LICENSE",
-      "bytes": 11358,
+      "file": "providers/didmail-http/vendor/licenses/@didmail__protocol@1.0.0-draft.1/LICENSE",
       "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
     },
     {
-      "file": "NOTICE",
-      "bytes": 382,
+      "file": "providers/didmail-http/vendor/licenses/@didmail__protocol@1.0.0-draft.1/NOTICE",
       "sha256": "9f42e64633ce4dd7556e59637e2a18de0ab39e89cd7b469635fe4c49ce0ba9a4"
     },
     {
-      "file": "THIRD_PARTY_NOTICES.md",
-      "bytes": 4009,
-      "sha256": "be3d9af7d213337c76feb47a1988fb24f38081c79932d7ef654dd199dfc842b1"
+      "file": "providers/didmail-http/vendor/licenses/@hapi__hoek@9.3.0/LICENSE.md",
+      "sha256": "798002f736a7ad3e26518903eb0e9ace73d98d5418fe94547a4c1bdc90be54e2"
     },
     {
-      "file": "_arc/assets/3fd5df1428d89576dfef4cc84e4368af646271b6ac1b40c9a127ce62e7561ca5.css",
-      "bytes": 88697,
-      "sha256": "3fd5df1428d89576dfef4cc84e4368af646271b6ac1b40c9a127ce62e7561ca5"
+      "file": "providers/didmail-http/vendor/licenses/@hapi__topo@5.1.0/LICENSE.md",
+      "sha256": "e31b3163ce6afe852a52344e4b492afe9b0bb286e326841b656512c2fc849d79"
     },
     {
-      "file": "_arc/assets/44ab37f40cd7197af27beef1f6f82af5568a57c6810048c9b8071bc5f98cffa5.js",
-      "bytes": 508715,
-      "sha256": "44ab37f40cd7197af27beef1f6f82af5568a57c6810048c9b8071bc5f98cffa5"
+      "file": "providers/didmail-http/vendor/licenses/@noble__curves@1.2.0/LICENSE",
+      "sha256": "4f221aee6e072336700c408c68ab3b96a3fc09f6aebe6f48f1bd99e5ef13faec"
     },
     {
-      "file": "_arc/assets/4ac3477e640ecddf88bd2b5cb9ead34054a389860c848b6586a093c8cd051338.css",
-      "bytes": 32987,
-      "sha256": "4ac3477e640ecddf88bd2b5cb9ead34054a389860c848b6586a093c8cd051338"
+      "file": "providers/didmail-http/vendor/licenses/@noble__curves@2.4.0/LICENSE",
+      "sha256": "4f221aee6e072336700c408c68ab3b96a3fc09f6aebe6f48f1bd99e5ef13faec"
     },
     {
-      "file": "_arc/assets/5a32d5b3e49f0833e03c16f43a73fb5b24160deb1a6eaa561f8a84f48ab1aff8.js",
-      "bytes": 107565,
-      "sha256": "5a32d5b3e49f0833e03c16f43a73fb5b24160deb1a6eaa561f8a84f48ab1aff8"
+      "file": "providers/didmail-http/vendor/licenses/@noble__ed25519@3.2.0/LICENSE",
+      "sha256": "394c2e6e5552e5dba202bee6390b9d6aa2754d657f5b9869e83b3d265a315501"
     },
     {
-      "file": "_arc/assets/6febf929c41729c74f07cbee275af12deac8f8290500523dab7ce62aa5380396.css",
-      "bytes": 30183,
-      "sha256": "6febf929c41729c74f07cbee275af12deac8f8290500523dab7ce62aa5380396"
+      "file": "providers/didmail-http/vendor/licenses/@noble__hashes@1.3.2/LICENSE",
+      "sha256": "4f221aee6e072336700c408c68ab3b96a3fc09f6aebe6f48f1bd99e5ef13faec"
     },
     {
-      "file": "_arc/assets/a96633bcaaf5a2bd215870c3e6ff2013b110a8424399386c4aa757b819600f33.css",
-      "bytes": 26332,
-      "sha256": "a96633bcaaf5a2bd215870c3e6ff2013b110a8424399386c4aa757b819600f33"
+      "file": "providers/didmail-http/vendor/licenses/@noble__hashes@2.4.0/LICENSE",
+      "sha256": "4f221aee6e072336700c408c68ab3b96a3fc09f6aebe6f48f1bd99e5ef13faec"
     },
     {
-      "file": "_arc/assets/cc67cac7ed20bb9b4806287db738bf17ca31798fe143b255570040eee81104fe.js",
-      "bytes": 71522,
-      "sha256": "cc67cac7ed20bb9b4806287db738bf17ca31798fe143b255570040eee81104fe"
+      "file": "providers/didmail-http/vendor/licenses/@ocap__asset@1.19.15/LICENSE",
+      "sha256": "72053fcf79fb7a7863da2c1bb5a14ec555e982516761020070349105b0f7bd3a"
     },
     {
-      "file": "_arc/assets/f6f59bef8dce5191a2673197366173a3429ce070116a834dc30afc719b698ca6.svg",
-      "bytes": 34888,
-      "sha256": "f6f59bef8dce5191a2673197366173a3429ce070116a834dc30afc719b698ca6"
+      "file": "providers/didmail-http/vendor/licenses/@ocap__client@1.19.15/LICENSE",
+      "sha256": "72053fcf79fb7a7863da2c1bb5a14ec555e982516761020070349105b0f7bd3a"
     },
     {
-      "file": "ar/admin/index.html",
-      "bytes": 41310,
-      "sha256": "ceb988e18f3ba4c28089826d978e6d350ec262319a3ef7f0edbc391e7c4c7699"
+      "file": "providers/didmail-http/vendor/licenses/@ocap__contract@1.19.15/LICENSE",
+      "sha256": "72053fcf79fb7a7863da2c1bb5a14ec555e982516761020070349105b0f7bd3a"
     },
     {
-      "file": "ar/admin-account/index.html",
-      "bytes": 42004,
-      "sha256": "803cb6dd362e7873a4fc977177158306560b5878ad5678e716b3c27f2c765166"
+      "file": "providers/didmail-http/vendor/licenses/@ocap__mcrypto@1.30.24/LICENSE",
+      "sha256": "f57b5558ec63e0823459d7a7666c833cc9bfefa2817e0c29f0dddd61ff6c3742"
     },
     {
-      "file": "ar/admin-attachment/index.html",
-      "bytes": 41430,
-      "sha256": "1ea96f8c9bada01409fbf085ce87cfa598d8af9470c7bb915c50c4f79bde8b7b"
+      "file": "providers/didmail-http/vendor/licenses/@ocap__message@1.19.15/LICENSE",
+      "sha256": "72053fcf79fb7a7863da2c1bb5a14ec555e982516761020070349105b0f7bd3a"
     },
     {
-      "file": "ar/admin-envelope/index.html",
-      "bytes": 41399,
-      "sha256": "09d0f893a82208421a125124a3615bd7bdd47f27a52fdb948f9fa7e262aa295b"
+      "file": "providers/didmail-http/vendor/licenses/@ocap__message@1.30.24/LICENSE",
+      "sha256": "f57b5558ec63e0823459d7a7666c833cc9bfefa2817e0c29f0dddd61ff6c3742"
     },
     {
-      "file": "ar/admin-members/index.html",
-      "bytes": 41394,
-      "sha256": "e0cc514d20f79b574da543185259bd12bde9673f3c0cdf8ddb63fed9508496e2"
+      "file": "providers/didmail-http/vendor/licenses/@ocap__proto@1.19.15/LICENSE",
+      "sha256": "72053fcf79fb7a7863da2c1bb5a14ec555e982516761020070349105b0f7bd3a"
     },
     {
-      "file": "ar/admin-namecard/index.html",
-      "bytes": 41429,
-      "sha256": "d4c5d55210d28d747347d65767094ef85966e23faa54d60ec0c8d4de03c76462"
+      "file": "providers/didmail-http/vendor/licenses/@ocap__util@1.19.15/LICENSE",
+      "sha256": "72053fcf79fb7a7863da2c1bb5a14ec555e982516761020070349105b0f7bd3a"
     },
     {
-      "file": "ar/admin-server/index.html",
-      "bytes": 41373,
-      "sha256": "27071047118a2f816b2046b49ef2e68bea4ac3255c0011360691fa99e59ae2d4"
+      "file": "providers/didmail-http/vendor/licenses/@ocap__wallet@1.19.15/LICENSE",
+      "sha256": "72053fcf79fb7a7863da2c1bb5a14ec555e982516761020070349105b0f7bd3a"
     },
     {
-      "file": "ar/admin-storage/index.html",
-      "bytes": 41425,
-      "sha256": "9f7a288b31bdc0f1549a236fe1f9382f051dde7253fcdadf06b1bf25caba1aff"
+      "file": "providers/didmail-http/vendor/licenses/@sideway__address@4.1.5/LICENSE.md",
+      "sha256": "63787ce28ce784032665ec6bf25addbebcdbe1e167d7bf293aa7ac9a3108dd2d"
     },
     {
-      "file": "ar/help/index.html",
-      "bytes": 67251,
-      "sha256": "c5360c1c8d3ba41721a7564585f639beddaf17b30880038c5da4ea92d57a1ce5"
+      "file": "providers/didmail-http/vendor/licenses/@sideway__formula@3.0.1/LICENSE.md",
+      "sha256": "5461133c96cc7de7640afb44cda9a0ac52f98f789dcc83a422568be44a34d709"
     },
     {
-      "file": "ar/index.html",
-      "bytes": 87587,
-      "sha256": "9ad04336ec481642caad831085946a43d98194c1473da71aafb998ad12632049"
+      "file": "providers/didmail-http/vendor/licenses/@sideway__pinpoint@2.0.0/LICENSE.md",
+      "sha256": "ba0d033841c22f7843f6aed8f0a8d1988cc4b2d00cbb983643a521bf82440407"
     },
     {
-      "file": "ar/search/index.html",
-      "bytes": 31462,
-      "sha256": "45a2e92679d3f10e591842835aca3627d537dd94932a42ea418b174fc23e6308"
+      "file": "providers/didmail-http/vendor/licenses/accepts@1.3.8/LICENSE",
+      "sha256": "71f83c4c0621102a56d9853812777b85751bce7e9726f686f5b056c1f8a4b0e6"
     },
     {
-      "file": "en/admin/index.html",
-      "bytes": 41078,
-      "sha256": "a81920c0a1aa200ccddc959f87282056d4a68e29ee7ac15452bf02e03f93f4ce"
+      "file": "providers/didmail-http/vendor/licenses/aes-js@4.0.0-beta.5/LICENSE.txt",
+      "sha256": "fca281420c800a4aae284a3b478b48b7a8d83c37285bbf2512bf52a5d597a503"
     },
     {
-      "file": "en/admin-account/index.html",
-      "bytes": 41687,
-      "sha256": "d30a152ad210540eaded930c4c37fd9158ee5123016dfad85c9e9c57c9a4ea1b"
+      "file": "providers/didmail-http/vendor/licenses/append-field@1.0.0/LICENSE",
+      "sha256": "fe9a7f8b8afc8cea446e8d65a3bbf9bbe278d96c35320b43e57c47f26e447619"
     },
     {
-      "file": "en/admin-attachment/index.html",
-      "bytes": 41194,
-      "sha256": "c0be9285e3190f5fe68430f00c12298258f473fbbc2d19ee53caa79f0f5cf4d3"
+      "file": "providers/didmail-http/vendor/licenses/array-flatten@1.1.1/LICENSE",
+      "sha256": "4eeb3271453a891df609e5a9f4ee79a68307f730c13417a3bfeffa604ac8cf25"
     },
     {
-      "file": "en/admin-envelope/index.html",
-      "bytes": 41181,
-      "sha256": "6bd53a298f60f78b94ad07f8b92c50f3d2746d8e7aedca290959635e0c79cfec"
+      "file": "providers/didmail-http/vendor/licenses/axios@1.21.0/LICENSE",
+      "sha256": "82761059eaedacb3356803aea8a170d8298609f91b14fc32ee1bfb40d690183c"
     },
     {
-      "file": "en/admin-members/index.html",
-      "bytes": 41148,
-      "sha256": "7e276a7eb29261a1e01cc6ebd19364f09ab173e32905ab5abc1e33913a3875c5"
+      "file": "providers/didmail-http/vendor/licenses/base-x@4.0.1/LICENSE.md",
+      "sha256": "a192bdfbed999ea06e52a3f5a85dd27dfed6ff3ad5a55050b345baba31afb0de"
     },
     {
-      "file": "en/admin-namecard/index.html",
-      "bytes": 41181,
-      "sha256": "90df46656da18bb9ba9602ec9fef47e8aca2da1ad262bb2e53ca1849a6e5ddb9"
+      "file": "providers/didmail-http/vendor/licenses/base64-url@2.3.3/LICENSE",
+      "sha256": "43bda2e60921e9aadc4177b4969d63cc465beb32b09e60983681b1c3d3260f61"
     },
     {
-      "file": "en/admin-server/index.html",
-      "bytes": 41141,
-      "sha256": "41b43cd959b8075d00926b1836e8d4cd0cb89b98fe278006945452a22adca778"
+      "file": "providers/didmail-http/vendor/licenses/bn.js@5.2.3/LICENSE",
+      "sha256": "445739f5b5eb63e5aeff5aeb0f35a45080a421615dce0d97f9939aeea498acdd"
     },
     {
-      "file": "en/admin-storage/index.html",
-      "bytes": 41163,
-      "sha256": "f2a1f4d5530f4624dbbc8768bf7420ebc8884b72bbb1f18c116a4af2cdef0e44"
+      "file": "providers/didmail-http/vendor/licenses/bn.js@5.2.5/LICENSE",
+      "sha256": "445739f5b5eb63e5aeff5aeb0f35a45080a421615dce0d97f9939aeea498acdd"
     },
     {
-      "file": "en/help/index.html",
-      "bytes": 60358,
-      "sha256": "eb86c697bfac88a1df23bde4054c05fb300ed410f1775fdddb8d4d3926e6ea30"
+      "file": "providers/didmail-http/vendor/licenses/body-parser@1.20.9/LICENSE",
+      "sha256": "23d466b1b134b415b66fa50c6526b4cf3e7b9258554da88d3abb371721e7ce68"
     },
     {
-      "file": "en/index.html",
-      "bytes": 87248,
-      "sha256": "fa9881ea0458d1ba6914febf79f864b704054431cd3adc4b1a853efb91c32d0d"
+      "file": "providers/didmail-http/vendor/licenses/bs58@5.0.0/LICENSE",
+      "sha256": "57efbd615689807b8341d557af0038fae58da7e2831f29f52d02902f657deb25"
     },
     {
-      "file": "en/search/index.html",
-      "bytes": 31462,
-      "sha256": "6ff15f1281312f79f6ec73817b4bb896449236cca32ea6b6608d753d657d655e"
+      "file": "providers/didmail-http/vendor/licenses/busboy@1.6.0/LICENSE",
+      "sha256": "d06b5d27bbbbe22c36b1fd88406b1208876e2d37d795f5b8eaed951a459a3111"
     },
     {
-      "file": "index.html",
-      "bytes": 87248,
-      "sha256": "fa9881ea0458d1ba6914febf79f864b704054431cd3adc4b1a853efb91c32d0d"
+      "file": "providers/didmail-http/vendor/licenses/bytes@3.1.2/LICENSE",
+      "sha256": "e3b44af066615de2ea48d18d852d0762f18c0b2efcea714fa48a6f729d405b85"
     },
     {
-      "file": "ja/admin/index.html",
-      "bytes": 41641,
-      "sha256": "f7958ba6157d5dab029eda32886204f2eda6761d43248631a67483bac885849d"
+      "file": "providers/didmail-http/vendor/licenses/call-bind-apply-helpers@1.0.2/LICENSE",
+      "sha256": "5e325595b4ea8cfec3802f545b1def5d7b73e4a5b8e9ba63e32a320f67732292"
     },
     {
-      "file": "ja/admin-account/index.html",
-      "bytes": 42304,
-      "sha256": "81dcbf8abd41b5d55d4ed36934ebb16f03d0e8bd7fba7f7069d8e139234e8dee"
+      "file": "providers/didmail-http/vendor/licenses/call-bind@1.0.8/LICENSE",
+      "sha256": "39c5ec504cf6bd5cd782a7c695828e09189df79f5d94840e4f08feb97b9fd416"
     },
     {
-      "file": "ja/admin-attachment/index.html",
-      "bytes": 41725,
-      "sha256": "1cc68f54a9a1a098d9169d313aa5d2e8f5fd94ebf52c94c9c08f6b0150238edb"
+      "file": "providers/didmail-http/vendor/licenses/call-bound@1.0.4/LICENSE",
+      "sha256": "5e325595b4ea8cfec3802f545b1def5d7b73e4a5b8e9ba63e32a320f67732292"
     },
     {
-      "file": "ja/admin-envelope/index.html",
-      "bytes": 41715,
-      "sha256": "eccf6f1f5af409c718912548c5e1b566f019f2966c8a29cf4bab8b429f529e41"
+      "file": "providers/didmail-http/vendor/licenses/content-disposition@0.5.4/LICENSE",
+      "sha256": "bd47ce7b88c7759630d1e2b9fcfa170a0f1fde522be09e13fb1581a79d090400"
     },
     {
-      "file": "ja/admin-members/index.html",
-      "bytes": 41710,
-      "sha256": "0ae66605372da4a446a12597166bdc03883af5b25f49a210f80b492591a4dbd0"
+      "file": "providers/didmail-http/vendor/licenses/content-type@1.0.5/LICENSE",
+      "sha256": "257aed98914108e91a337912727b6a802eef218248507f74b76faffaff517a38"
     },
     {
-      "file": "ja/admin-namecard/index.html",
-      "bytes": 41715,
-      "sha256": "e32604968d372dbf161c3c73ea3dbe0c276039be64852b94ba103e8b43f0b739"
+      "file": "providers/didmail-http/vendor/licenses/cookie-parser@1.4.7/LICENSE",
+      "sha256": "5ef9942b81ff899615cea44743ff3bb8d9048b4975ba6bbf3f8b719a901ba56a"
     },
     {
-      "file": "ja/admin-server/index.html",
-      "bytes": 41704,
-      "sha256": "cd77f02b8a818af0636157259f57f0e37fabd3b5fb110ac8394a5acd0138a06f"
+      "file": "providers/didmail-http/vendor/licenses/cookie@0.7.2/LICENSE",
+      "sha256": "c02110eedc16c7114f1a9bdc026c65626ce1d9c7e27fd51a8e0feee8a48a6858"
     },
     {
-      "file": "ja/admin-storage/index.html",
-      "bytes": 41716,
-      "sha256": "3f25f181ff60b45d2e143f96cf53a209d5110f52b5f466a05b3e9b46fede167b"
+      "file": "providers/didmail-http/vendor/licenses/cors@2.8.5/LICENSE",
+      "sha256": "1aa9a12863eefb583779b2ca0e5d73c610b6e6d07529ae0472721769a6ea0a32"
     },
     {
-      "file": "ja/help/index.html",
-      "bytes": 64649,
-      "sha256": "87824192d378bf9c38aad73eb9d21e2a645eff9af2e66e15145fb03691d1f95c"
+      "file": "providers/didmail-http/vendor/licenses/country-flag-icons@1.5.18/LICENSE",
+      "sha256": "197bacbd1e1d9f40017ab2ae3dadd1383a5aa70bf7a2d749dcef474ec6e3c5eb"
     },
     {
-      "file": "ja/index.html",
-      "bytes": 87906,
-      "sha256": "ffc198aa3661abc361cd7ef598c85e78a6697dfd77d29e5bb2e3716612409aaa"
+      "file": "providers/didmail-http/vendor/licenses/css-select@5.1.0/LICENSE",
+      "sha256": "cb992345949ccd6e8394b2cd6c465f7b897c864f845937dbf64e8997f389e164"
     },
     {
-      "file": "ja/search/index.html",
-      "bytes": 31862,
-      "sha256": "d1af11b3b7ab0732cd451d0a52105321243506ab50231a676fda31ef99f7d686"
+      "file": "providers/didmail-http/vendor/licenses/css-tree@2.2.1/LICENSE",
+      "sha256": "be1fdbf86bfd2c72d8bce3b46fb28b24dd5e147b7d299c810c599509ddc0a66e"
     },
     {
-      "file": "llms-full.txt",
-      "bytes": 34,
-      "sha256": "aa782eabb42c1fc6e9ca2b8072ada763f2ee0358527ba4a0ac58fdc885c0ba4c"
+      "file": "providers/didmail-http/vendor/licenses/css-tree@2.3.1/LICENSE",
+      "sha256": "be1fdbf86bfd2c72d8bce3b46fb28b24dd5e147b7d299c810c599509ddc0a66e"
     },
     {
-      "file": "llms.txt",
-      "bytes": 408,
-      "sha256": "d558147a75f25c44729facf6ca48113c2450b63c2cded406dfec33c358e8c769"
+      "file": "providers/didmail-http/vendor/licenses/css-what@6.1.0/LICENSE",
+      "sha256": "cb992345949ccd6e8394b2cd6c465f7b897c864f845937dbf64e8997f389e164"
     },
     {
-      "file": "logo.svg",
-      "bytes": 34888,
-      "sha256": "f6f59bef8dce5191a2673197366173a3429ce070116a834dc30afc719b698ca6"
+      "file": "providers/didmail-http/vendor/licenses/csso@5.0.5/LICENSE",
+      "sha256": "911677be838162004a194bc653a2d6854ae5f55ea18270a456e841aa34caae56"
     },
     {
-      "file": "robots.txt",
-      "bytes": 75,
-      "sha256": "84bed4fcf44ab5f5ac11ed37023edf59aa3f92b6c4a4c8ff3296c1e000304fe1"
+      "file": "providers/didmail-http/vendor/licenses/debug@2.6.9/LICENSE",
+      "sha256": "98c970de440dcfc77471610aec2377c9d9b0db2b3be6d1add524a586e1d7f422"
     },
     {
-      "file": "ru/admin/index.html",
-      "bytes": 41342,
-      "sha256": "4d89985ac1d2dbafedce6bb84b5de408fc8680aa9297283296fce1fe64ba1d10"
+      "file": "providers/didmail-http/vendor/licenses/debug@4.4.0/LICENSE",
+      "sha256": "3a61c6c96caf5c1d9b623fb9b04c822b783dfcb78aa7e49c76a3f643e6ed7f95"
     },
     {
-      "file": "ru/admin-account/index.html",
-      "bytes": 41996,
-      "sha256": "eaa11e92ac7329141420543aaedad33faa1bcd48d03ac70c4db53b6ce07110b3"
+      "file": "providers/didmail-http/vendor/licenses/define-data-property@1.1.4/LICENSE",
+      "sha256": "b41d08bc3624d8c436fc80237d73ebb361985a67f4504bbcd703e5ca2b27254c"
     },
     {
-      "file": "ru/admin-attachment/index.html",
-      "bytes": 41436,
-      "sha256": "dfd00d5ff1c3461d0f76d64b5dd0ada34f3f0daa4924db9275fcd5e5c22d359c"
+      "file": "providers/didmail-http/vendor/licenses/destroy@1.2.0/LICENSE",
+      "sha256": "ffe370c8785b0b688d954977ce8dc52e19e5f17962cc5f80009c85eba4925d56"
     },
     {
-      "file": "ru/admin-envelope/index.html",
-      "bytes": 41435,
-      "sha256": "4616b4e9d004509ad2a47e4834768206a573523f88ee7af0901e2426de17399b"
+      "file": "providers/didmail-http/vendor/licenses/dom-serializer@2.0.0/LICENSE",
+      "sha256": "94cfe87de9b178e8fee313a19178e625129e2ce559db32e772e7bd95114ee6ff"
     },
     {
-      "file": "ru/admin-members/index.html",
-      "bytes": 41400,
-      "sha256": "ab461046b8e9e6ae87e8bd557c0607024cc03947bd2d8bf83a31e3f1e44eca4b"
+      "file": "providers/didmail-http/vendor/licenses/domelementtype@2.3.0/LICENSE",
+      "sha256": "cb992345949ccd6e8394b2cd6c465f7b897c864f845937dbf64e8997f389e164"
     },
     {
-      "file": "ru/admin-namecard/index.html",
-      "bytes": 41429,
-      "sha256": "0c4e5cfbe1ce3d847e162645dd312b086abf70a710df0d11c03991f783455f16"
+      "file": "providers/didmail-http/vendor/licenses/domhandler@5.0.3/LICENSE",
+      "sha256": "cb992345949ccd6e8394b2cd6c465f7b897c864f845937dbf64e8997f389e164"
     },
     {
-      "file": "ru/admin-server/index.html",
-      "bytes": 41405,
-      "sha256": "14428af3471e2363d61291f9a7dd7f85753d979039aebeaa163ad0af7c72b397"
+      "file": "providers/didmail-http/vendor/licenses/domutils@3.2.2/LICENSE",
+      "sha256": "cb992345949ccd6e8394b2cd6c465f7b897c864f845937dbf64e8997f389e164"
     },
     {
-      "file": "ru/admin-storage/index.html",
-      "bytes": 41422,
-      "sha256": "4a61543b1d5b97ff6332eb6aed4ff71fa0c737fa1601d76a64ef19756a336f87"
+      "file": "providers/didmail-http/vendor/licenses/dunder-proto@1.0.1/LICENSE",
+      "sha256": "2b770a704c15de238c3f622b01b0044ddd60b49ee30608ea6991ebf19db7a7a1"
     },
     {
-      "file": "ru/help/index.html",
-      "bytes": 73861,
-      "sha256": "d1e1fd75951e558f60533006bdbd2d58caa89373a6514441dc9e2b118ce259e6"
+      "file": "providers/didmail-http/vendor/licenses/ee-first@1.1.1/LICENSE",
+      "sha256": "965ef284f7f4c176842ec2e87fa13e79feed777d56d7a21a5a3b38f1bb6dc288"
     },
     {
-      "file": "ru/index.html",
-      "bytes": 87935,
-      "sha256": "7855fe1b50452ae850bd353e9159d8cc3f0796111cacac37306d070254202095"
+      "file": "providers/didmail-http/vendor/licenses/encodeurl@1.0.2/LICENSE",
+      "sha256": "7585ea7bba616ccbbe43cb54ecb67956688c3c5641bb84f3099a652a73193afe"
     },
     {
-      "file": "ru/search/index.html",
-      "bytes": 31462,
-      "sha256": "069d60ea09f45c6d8ee58195998e1a842a1cde4130ccd1bb97eef6ab66b24432"
+      "file": "providers/didmail-http/vendor/licenses/encodeurl@2.0.0/LICENSE",
+      "sha256": "7585ea7bba616ccbbe43cb54ecb67956688c3c5641bb84f3099a652a73193afe"
     },
     {
-      "file": "sitemap-pages.xml",
-      "bytes": 7087,
-      "sha256": "9a2c6099fcf7ad50a57d0199562957a38fe6b0aab0133d88557621d1660e5de3"
+      "file": "providers/didmail-http/vendor/licenses/entities@4.5.0/LICENSE",
+      "sha256": "cb992345949ccd6e8394b2cd6c465f7b897c864f845937dbf64e8997f389e164"
     },
     {
-      "file": "sitemap-pages.xml.br",
-      "bytes": 403,
-      "sha256": "673046038d50cf1d9348781bee75f5f34ad4f088c279114dd15fd21c62d4f03c"
+      "file": "providers/didmail-http/vendor/licenses/es-define-property@1.0.1/LICENSE",
+      "sha256": "5e325595b4ea8cfec3802f545b1def5d7b73e4a5b8e9ba63e32a320f67732292"
     },
     {
-      "file": "sitemap-pages.xml.gz",
-      "bytes": 517,
-      "sha256": "46332b10ebfb1af07ad56a9e86effc3a689ee85f9e65a9de4426ff36a049c677"
+      "file": "providers/didmail-http/vendor/licenses/es-errors@1.3.0/LICENSE",
+      "sha256": "5e325595b4ea8cfec3802f545b1def5d7b73e4a5b8e9ba63e32a320f67732292"
     },
     {
-      "file": "sitemap.xml",
-      "bytes": 209,
-      "sha256": "195c5118cf534d81edd17d4ba25e6c0b02904f041d957be1912764dfdf0b47b6"
+      "file": "providers/didmail-http/vendor/licenses/es-object-atoms@1.1.1/LICENSE",
+      "sha256": "5e325595b4ea8cfec3802f545b1def5d7b73e4a5b8e9ba63e32a320f67732292"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/escape-html@1.0.3/LICENSE",
+      "sha256": "255aa557a1f55224ce522f311629c0bf20854740a67955cefd798fbd1d3d1ded"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/esprima@4.0.1/LICENSE.BSD",
+      "sha256": "94bcb9959136723aa4fb36e1a6c4d5c662a2369978cfae344dabfb83ae619e79"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/etag@1.8.1/LICENSE",
+      "sha256": "a7996721249a136fbcfc1c201bcb5f414f38a701d4a24f28abe65e16cfcce813"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/ethers@6.17.0/LICENSE.md",
+      "sha256": "44eea86637405118248327fbe9d9fa95d04c7a57221c7e8c155f736db9f1b612"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/express@4.22.3/LICENSE",
+      "sha256": "95a5762890e5c1c9808921cef095661fc482c5e1f0bba31446ac85595df6237c"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/finalhandler@1.3.1/LICENSE",
+      "sha256": "47dcccf62bf40469d23849b0b1dc8df9fc91bce219b880c638d4dc4596e6b5cf"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/flat@5.0.2/LICENSE",
+      "sha256": "95a61f61553614db5421a2cefb17c22ff6b2b4b2206f5bc8913d04f72a22b033"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/forwarded@0.2.0/LICENSE",
+      "sha256": "bd47ce7b88c7759630d1e2b9fcfa170a0f1fde522be09e13fb1581a79d090400"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/fresh@0.5.2/LICENSE",
+      "sha256": "a0ec0dab16b3666f24950f86d257930ac2ad475557b4bfe245620e0817d8a45d"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/function-bind@1.1.2/LICENSE",
+      "sha256": "773e131a7684726005a7e4688a80b4620033bc08499bc1404dd1a1eb3bca725e"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/get-intrinsic@1.3.0/LICENSE",
+      "sha256": "39c5ec504cf6bd5cd782a7c695828e09189df79f5d94840e4f08feb97b9fd416"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/get-proto@1.0.1/LICENSE",
+      "sha256": "be46ce1e3b0479af9ce82d22b465a6d7d2ff084fca0aaf3d54172da2b5eb5781"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/google-protobuf@3.21.0/LICENSE",
+      "sha256": "103441a2584cb720426c60320bcba53807024aab3080b00e0da841c305757a34"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/gopd@1.2.0/LICENSE",
+      "sha256": "d90bf0a089da4cf43d644ed240a0b3825dcdb705e64e38371d56995a4cc9e4c5"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/graphql@16.14.2/LICENSE",
+      "sha256": "35a11da7e877009ddc57405844209908cfc567adda0ec1daf410368c9f5b0d01"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/has-property-descriptors@1.0.2/LICENSE",
+      "sha256": "0f0ca96f50793990031ebc488a38f7292ff70bce8ab6a8e5eeda674abc32ccdf"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/has-symbols@1.1.0/LICENSE",
+      "sha256": "206c1adcf206dc0031b11232f5b054ec5f1662407ab1ca415247921cab2068ab"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/hasown@2.0.4/LICENSE",
+      "sha256": "bf9b0d665be2a689851eea667ca9f42066ea1d903b38349c51e6a44b2577680a"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/http-errors@2.0.0/LICENSE",
+      "sha256": "dcb94ff9b1e037a847bc20589dc81a1066d041fd4c16deb18b0fa968c66cf395"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/http-errors@2.0.1/LICENSE",
+      "sha256": "dcb94ff9b1e037a847bc20589dc81a1066d041fd4c16deb18b0fa968c66cf395"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/iconv-lite@0.4.24/LICENSE",
+      "sha256": "ac779f7314c74f232ef847ea86e714abe25cf6eeb5cc97b69451b74e2af6492d"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/inherits@2.0.4/LICENSE",
+      "sha256": "5ffe28e7ade7d8f10d85d5337a73fd793dac5c462fb9a28fbf8c5046c7fbca3b"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/ipaddr.js@1.9.1/LICENSE",
+      "sha256": "62568a2d1337b77171ecca9db10579163446de1ba6151678e81f06cdc199971b"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/is-absolute-url@3.0.3/license",
+      "sha256": "48da2f39e100d4085767e94966b43f4fa95ff6a0698fba57ed460914e35f94a0"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/isarray@2.0.5/LICENSE",
+      "sha256": "68f12f6e2c33688699249c01d8f9623c534da20aa71989c57b061b7bc1676d14"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/joi@17.13.9/LICENSE.md",
+      "sha256": "7e274d6fde5f98024c1def8953e90011a08c6a84a8877bfb4d02935346a052c9"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/json-stable-stringify@1.2.1/LICENSE",
+      "sha256": "6512c0ff86b1aabe1d7d61fb547507016a8a908819e388e6ffcbf7bea04a3f51"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/jsonpack@1.1.5/LICENSE.md",
+      "sha256": "f22214362d290df56937c2c3caa8d6211bcc43765ef4a961aa25495389d16d63"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/lodash@4.18.1/LICENSE",
+      "sha256": "f71e8ed126b46346494aad5486874cd8f0aafe95092ed67d2e3cb6110f939abc"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/math-intrinsics@1.1.0/LICENSE",
+      "sha256": "2b770a704c15de238c3f622b01b0044ddd60b49ee30608ea6991ebf19db7a7a1"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/mdn-data@2.0.28/LICENSE",
+      "sha256": "36ffd9dc085d529a7e60e1276d73ae5a030b020313e6c5408593a6ae2af39673"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/mdn-data@2.0.30/LICENSE",
+      "sha256": "36ffd9dc085d529a7e60e1276d73ae5a030b020313e6c5408593a6ae2af39673"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/media-typer@0.3.0/LICENSE",
+      "sha256": "74d8054d56d522bdaa340d3d71130cb204997d523a5292c85ac1264dd77c8d06"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/merge-descriptors@1.0.3/LICENSE",
+      "sha256": "62fb7d7c1822fe783895866057247bbd50164b00631fce9e4981d3897bdee4d9"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/methods@1.1.2/LICENSE",
+      "sha256": "1da7f0788d14d545b2b953f78a27b916d320dfa174c2fcfa124c5aaffa81056e"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/mime-db@1.52.0/LICENSE",
+      "sha256": "cc1dfd4dafa27271e8212cd3b274eeb3f262e40a6fdab36ddc3f9696f706f58b"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/mime-types@2.1.35/LICENSE",
+      "sha256": "71f83c4c0621102a56d9853812777b85751bce7e9726f686f5b056c1f8a4b0e6"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/mime@1.6.0/LICENSE",
+      "sha256": "8f2658c03422c408b2b2ce4d151decc3b1a6fd3d86e5ca9433777bccdcdf75a2"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/ms@2.0.0/license.md",
+      "sha256": "6652830c2607c722b66f1b57de15877ab8fc5dca406cc5b335afeb365d0f32c1"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/ms@2.1.3/license.md",
+      "sha256": "1662fae9b5314d11cf51284e2dcd1f006a354f7343f08712a730fcff9a359801"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/multer@2.5.0/LICENSE",
+      "sha256": "cc8f87aafbf72a74bafed2a8f6925d8895e1c716b36bd3df7ee0c46be54e87bb"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/mustache@4.2.0/LICENSE",
+      "sha256": "e60b280838180a70cbb4b934f825c8119cdcf8912259ff4c6da20b284231c832"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/negotiator@0.6.3/LICENSE",
+      "sha256": "553d4d20029a24e315b428a1a54a9e109eaa340f2e958a4f50a92362c2c4070b"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/nth-check@2.1.1/LICENSE",
+      "sha256": "cb992345949ccd6e8394b2cd6c465f7b897c864f845937dbf64e8997f389e164"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/object-assign@4.1.1/license",
+      "sha256": "6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/object-inspect@1.13.4/LICENSE",
+      "sha256": "bd40cc437e28a3ad7bef2ad34e6b72e757b182e67bda1acadbab4ef0476f8232"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/object-keys@1.1.1/LICENSE",
+      "sha256": "5640e5cbe2e9f57f6ccfdd8dbfbeadb875495bdbcb69d2666ce3177ccd0942e4"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/on-finished@2.4.1/LICENSE",
+      "sha256": "8089bcc08845ec143e5761f4a101a65b8c792a0dedbfeeb90a15560c0b77f768"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/parseurl@1.3.3/LICENSE",
+      "sha256": "11d017c3b9f1ee3f44caf7203035f0461d5b57e0db8ce1bc03a9af34fa7d3f6b"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/path-to-regexp@0.1.13/LICENSE",
+      "sha256": "4eeb3271453a891df609e5a9f4ee79a68307f730c13417a3bfeffa604ac8cf25"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/proxy-addr@2.0.8/LICENSE",
+      "sha256": "a7996721249a136fbcfc1c201bcb5f414f38a701d4a24f28abe65e16cfcce813"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/qs@6.16.2/LICENSE.md",
+      "sha256": "e7dc37bf662d7f786efcb46c545615e70c1daf458a38385521c63cf6607cdfe1"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/randombytes@2.1.0/LICENSE",
+      "sha256": "ddc0dd5947bd2966b9a4cfde098566b011de0acfbe7814536955636ce9e3eced"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/range-parser@1.2.1/LICENSE",
+      "sha256": "f655e6291356ec0de7a8f0e69f294961a2cea86678ec94588be1e6a492e278ab"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/raw-body@2.5.3/LICENSE",
+      "sha256": "37876d7de8bdf5e5b9b58a697ebc34044624e493e6f49eff5c938e5226dcac6b"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/safe-buffer@5.2.1/LICENSE",
+      "sha256": "c7cc929b57080f4b9d0c6cf57669f0463fc5b39906344dfc8d3bc43426b30eac"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/safer-buffer@2.1.2/LICENSE",
+      "sha256": "4bc935e71be198c67ddf3c2b5fddb195f6edc182bfc155a96a6db61b44b494b9"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/sax@1.6.1/LICENSE.md",
+      "sha256": "8a1af140fdfbf5afd3df27f7e662f989c5b963a300020dfafce42033cae9e004"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/semver@7.7.1/LICENSE",
+      "sha256": "4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/send@0.19.0/LICENSE",
+      "sha256": "25a328069fe771f8ed5b6f983ed4b0e6c84b3312ac0f69b28c3d52dc277962c9"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/serve-static@1.16.2/LICENSE",
+      "sha256": "63b9a188d7d43e64b0558b7115255045b9fe20a5fc3ff483421cb899e7f52bcb"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/set-function-length@1.2.2/LICENSE",
+      "sha256": "bf9b0d665be2a689851eea667ca9f42066ea1d903b38349c51e6a44b2577680a"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/setprototypeof@1.2.0/LICENSE",
+      "sha256": "76d6d1ea0c268da37dd3c961b4fcfb23dee8417fff9e8786d4d44c585b781b69"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/side-channel-list@1.0.1/LICENSE",
+      "sha256": "5e325595b4ea8cfec3802f545b1def5d7b73e4a5b8e9ba63e32a320f67732292"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/side-channel-map@1.0.1/LICENSE",
+      "sha256": "5e325595b4ea8cfec3802f545b1def5d7b73e4a5b8e9ba63e32a320f67732292"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/side-channel-weakmap@1.0.2/LICENSE",
+      "sha256": "cfc3f455254c0af0655cc3ff46a41ed644b67599f6043346169d285bf2b3cf3b"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/side-channel@1.1.1/LICENSE",
+      "sha256": "cfc3f455254c0af0655cc3ff46a41ed644b67599f6043346169d285bf2b3cf3b"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/source-map-js@1.2.2/LICENSE",
+      "sha256": "6cb0631f71c7749763fd3dd1d5bee52dd1070ec17f2edc1710079ad070bd2fbd"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/statuses@2.0.1/LICENSE",
+      "sha256": "512cfa4d5e7a7569c7ae4dd95241cb6ae2aaf648ef9ebd080c01bd24868d26e9"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/statuses@2.0.2/LICENSE",
+      "sha256": "512cfa4d5e7a7569c7ae4dd95241cb6ae2aaf648ef9ebd080c01bd24868d26e9"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/streamsearch@1.1.0/LICENSE",
+      "sha256": "7c28463b739e2e73a49bf127d0bda427f8c55f0b37365a044c3c3f254716118b"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/supports-color@10.2.2/license",
+      "sha256": "5c932d88256b4ab958f64a856fa48e8bd1f55bc1d96b8149c65689e0c61789d3"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/svgo@3.3.5/LICENSE",
+      "sha256": "d2b5640808aeec9c243152ae733cf9cca3a86189ad7817bf50335290dbb31012"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/toidentifier@1.0.1/LICENSE",
+      "sha256": "a832d679750e49ab433626ab196350b89964b60eb0d3edd3341887c7d5f4c128"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/type-is@1.6.18/LICENSE",
+      "sha256": "23d466b1b134b415b66fa50c6526b4cf3e7b9258554da88d3abb371721e7ce68"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/unpipe@1.0.0/LICENSE",
+      "sha256": "1a526fbe8d8577f5a4b1c2821842b55b7c0e18862531c62ae4ce69c9b19b74b6"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/utils-merge@1.0.1/LICENSE",
+      "sha256": "6e7d699cdd1e4fa837ba7718ea49841aa67201b449ea8b3f9cf274be15974a64"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/vary@1.1.2/LICENSE",
+      "sha256": "bd47ce7b88c7759630d1e2b9fcfa170a0f1fde522be09e13fb1581a79d090400"
+    },
+    {
+      "file": "providers/didmail-http/vendor/licenses/ws@8.21.0/LICENSE",
+      "sha256": "2b29dcfe0d6471f7e8c92c5fb38c9f93edee10330937055440192f1832b1ecef"
+    },
+    {
+      "file": "providers/didmail-http/vendor/manifest.json",
+      "sha256": "c7c4b0f328fc017e48fb2947f2dfe8d17e84fd754a9af80400debad6f0ace279"
+    },
+    {
+      "file": "providers/didmail-http/vendor/README.md",
+      "sha256": "82e3ff6b8f11ad8c0480bd2d11f46428f32f0876aa92b89c66af70e726f297fb"
+    },
+    {
+      "file": "providers/didmail-native/did.mjs",
+      "sha256": "1d08f9f65141c4121ec06b6ea651f54a72f827b292a15a3f845ffe02f182da2a"
+    },
+    {
+      "file": "providers/didmail-native/index.mjs",
+      "sha256": "716d3d6f968e31f8e8c98b3f5df20728029c883cd322c1f8bfa97442b0736ff3"
+    },
+    {
+      "file": "providers/didmail-native/mail-policy.mjs",
+      "sha256": "3fb2864ac4ae97c2f17ae0af196f169b53187ac1dc6cced39745fe15ed0031b9"
+    },
+    {
+      "file": "providers/didmail-native/recover.d.mts",
+      "sha256": "f902298c5bce705e0987d0dad3f680f39f4e9986d657bdd0935cba5500fe1633"
+    },
+    {
+      "file": "providers/didmail-native/recover.mjs",
+      "sha256": "b5e6b5355a224ba4ee1cc6587855aee86177b3b631b8ef56a586d382f8af3c82"
+    },
+    {
+      "file": "providers/didmail-native/vendor/noble-hashes/_md.js",
+      "sha256": "60cf3010fda89e3e4d3f0e7ff1ce249e9c467f34b4fd41b6fd6101d9f69be763"
+    },
+    {
+      "file": "providers/didmail-native/vendor/noble-hashes/_u64.js",
+      "sha256": "b09da8c07fe8187c07649494cdb7cd0bcf13df90b506a9473d19e4d5f8c2e102"
+    },
+    {
+      "file": "providers/didmail-native/vendor/noble-hashes/LICENSE",
+      "sha256": "4f221aee6e072336700c408c68ab3b96a3fc09f6aebe6f48f1bd99e5ef13faec"
+    },
+    {
+      "file": "providers/didmail-native/vendor/noble-hashes/sha2.js",
+      "sha256": "471746bba6ec4c6238ca41358d1d3b40b6ff31cf3363f0b4d550c649c1a8e83b"
+    },
+    {
+      "file": "providers/didmail-native/vendor/noble-hashes/sha3.js",
+      "sha256": "9a81e1edb24eae27b335533220167609cfb58008c5690e140ce478acdc669f32"
+    },
+    {
+      "file": "providers/didmail-native/vendor/noble-hashes/utils.js",
+      "sha256": "037ad49adb78168b6b699598fd33f85f7877456b1d28b4d032e2a1a16807947c"
+    },
+    {
+      "file": "providers/didmail-native/vendor/README.md",
+      "sha256": "658b9675631796f5de15c6ab41f6e67a5e676890819635284b504a8deab38414"
     },
     {
       "file": "third_party_licenses/blocklet-bundle-licenses.txt",
-      "bytes": 3158,
       "sha256": "53dd95b35a32f2c3d662a7a605b9d5475b991da93bb054988f1423d52d2af52d"
     },
     {
       "file": "third_party_licenses/boolbase1.0.0.txt",
-      "bytes": 751,
       "sha256": "cdf4d87ae0a6c160227263bf4e39a0a10e30e89ae7256e0f7ac7bde0836552c6"
     },
     {
       "file": "third_party_licenses/cisco-go-hpke-bsd2.txt",
-      "bytes": 1323,
       "sha256": "3aafec54d4b93c433948f294cb9e6493dada8613b11fe098c7ca9fd165a20225"
     },
     {
       "file": "third_party_licenses/cookie-signature1.0.6-README-license.txt",
-      "bytes": 1111,
       "sha256": "c0a936e4727a7503020745eaf063acffbb81291fcfd21a0cd8db4b4fce95d902"
     },
     {
       "file": "third_party_licenses/deepmerge4.3.1.txt",
-      "bytes": 1116,
       "sha256": "6cfc4687cb2f2d86f4a77e6b526290d3878e5e512f3fec2f4cb36a9cb36f798b"
     },
     {
       "file": "third_party_licenses/express-async-errors3.1.1.txt",
-      "bytes": 840,
       "sha256": "2853a1f04aa49c6af26f9dac1ef233c18e319109319a2ba60313a8517dbdda95"
     },
     {
       "file": "third_party_licenses/google-closure-library-Apache-2.0.txt",
-      "bytes": 10173,
       "sha256": "a6cba85bc92e0cff7a450b1d873c0eaa2e9fc96bf472df0247a26bec77bf3ff9"
     },
     {
       "file": "third_party_licenses/google-protobuf3.21.0-Closure-header.txt",
-      "bytes": 84,
       "sha256": "6f451d925cddd9d9f35c5c112aebb058c6ac610515a04ae82aff2c1f966a3ac7"
     },
     {
       "file": "third_party_licenses/jsonify0.0.1-README-license.txt",
-      "bytes": 26,
       "sha256": "5845c1987e0995dc7f846bec7e9e892934a2591b1a12994aafca1316f84adb9f"
     },
     {
       "file": "third_party_licenses/minimatch11.0.3.txt",
-      "bytes": 1550,
       "sha256": "2c7c5d22ed5a8ee968c64757710979afcd77438c48b4a265b94e615babd8a901"
     },
     {
       "file": "third_party_licenses/ocap-client1.19.15.txt",
-      "bytes": 554,
       "sha256": "72053fcf79fb7a7863da2c1bb5a14ec555e982516761020070349105b0f7bd3a"
     },
     {
       "file": "third_party_licenses/qrcode-generator1.4.4-source-header.txt",
-      "bytes": 489,
       "sha256": "7bab270ae530f8bd20fe784effd62cd5ad337476b037f8d3e62accc5fa4929e6"
     },
     {
       "file": "third_party_licenses/qrcode-generator1.4.4.txt",
-      "bytes": 1071,
       "sha256": "3a850fa5f08101db6f40676c2786e10bd2cd5fff7b12ffdf1e0c434d4e49d90c"
     },
     {
       "file": "third_party_licenses/worker-bundle-licenses.txt",
-      "bytes": 217660,
       "sha256": "bdcffb8972511872150c6004e8f4d8621b0db8dabfa4a63a7a3fde1a449f4e74"
     },
     {
-      "file": "ui-build.json",
-      "bytes": 3914,
-      "sha256": "9a7b7103eb5cbf8015ffdb0d15ca0ce0dadff1ba0f1e1162481b07c25b8f9d8b"
-    },
-    {
-      "file": "zh/admin/index.html",
-      "bytes": 41512,
-      "sha256": "59284552e05d28186056f41876dad0e7487fe51ad1eba470e9201e032664647c"
-    },
-    {
-      "file": "zh/admin-account/index.html",
-      "bytes": 42136,
-      "sha256": "887a68045b350e77dccca293946f4ad8ad52984a646c72068a2a60f12d13bfe9"
-    },
-    {
-      "file": "zh/admin-attachment/index.html",
-      "bytes": 41608,
-      "sha256": "7717ce5d381c504caeca3de6ada057e976c7df8a3cb2fc4922aab68c8ba0b98a"
-    },
-    {
-      "file": "zh/admin-envelope/index.html",
-      "bytes": 41592,
-      "sha256": "78f6e82cd7239ad0e42965b67b860bf150315982705e8daec78355f343dfb94c"
-    },
-    {
-      "file": "zh/admin-members/index.html",
-      "bytes": 41571,
-      "sha256": "fceb78596a7c374154cbc89b181ff3a92f0d8cc61a2dd2d6b051c715b2edff84"
-    },
-    {
-      "file": "zh/admin-namecard/index.html",
-      "bytes": 41592,
-      "sha256": "657794401795f06a54ef0f63ddb3dbb80860e14214470438194c2da2477a2ce7"
-    },
-    {
-      "file": "zh/admin-server/index.html",
-      "bytes": 41575,
-      "sha256": "9a24db8ac0a30c08faec2a856e86a341a3589a51f50907634487e7f7199cc78d"
-    },
-    {
-      "file": "zh/admin-storage/index.html",
-      "bytes": 41581,
-      "sha256": "970142d05dc65938e23d553013ea3e790b9242a95b8d2354f2c7fcedbb6c6ba5"
-    },
-    {
-      "file": "zh/help/index.html",
-      "bytes": 57956,
-      "sha256": "3b813f89aa4aa579f177efa61308045bfa860891ee4d9eb05301c8697b974d6e"
-    },
-    {
-      "file": "zh/index.html",
-      "bytes": 87628,
-      "sha256": "4b132325fec96d1eaa423e36da5a93bad9d07deaeabd9e7ef6c836da1c24c89f"
-    },
-    {
-      "file": "zh/search/index.html",
-      "bytes": 31841,
-      "sha256": "e7bb61174c9cad287de563274028c8b9dd6ceb544025090c1901bc971cfe47d4"
+      "file": "THIRD_PARTY_NOTICES.md",
+      "sha256": "fa86b7d60cd29784f7588693db3bb9159a1da13d3ca5b89b1f870530b64edb54"
     }
-  ],
-  "blocklet": {
-    "manifest": {
-      "file": "blocklet/dist/.afs/manifest.json",
-      "bytes": 28223,
-      "sha256": "57ba88b2ca7a4820afc03002a2d7c8b4d759a3d32fd7caa3d1d4db389035b36f"
-    },
-    "files": [
-      {
-        "file": ".afs/manifest.json",
-        "bytes": 28223,
-        "sha256": "57ba88b2ca7a4820afc03002a2d7c8b4d759a3d32fd7caa3d1d4db389035b36f"
-      },
-      {
-        "file": ".route/web",
-        "bytes": 64,
-        "sha256": "04db082c825ea7cef7202492eb69ce53ac9a139ad9b1c383a3be30f5c03f0863"
-      },
-      {
-        "file": ".web/components/didmail-admin/manifest.json",
-        "bytes": 201,
-        "sha256": "6dbf31edda97b1a2d378db5147d7cb21c06c421abac4f72b7d9b7c12a20e6008"
-      },
-      {
-        "file": ".web/components/didmail-admin/render.js",
-        "bytes": 323640,
-        "sha256": "f091ce50840dd56e1dd34969317dc4b77c9a02de0b019c880ea7df5c7df34e05"
-      },
-      {
-        "file": ".web/components/didmail-admin/script.js",
-        "bytes": 508715,
-        "sha256": "44ab37f40cd7197af27beef1f6f82af5568a57c6810048c9b8071bc5f98cffa5"
-      },
-      {
-        "file": ".web/components/didmail-admin/style.css",
-        "bytes": 62364,
-        "sha256": "a4552d12d508015e754b0a0329adcd0774cbedde8932fa1f65c0177652178961"
-      },
-      {
-        "file": ".web/components/didmail-help/manifest.json",
-        "bytes": 138,
-        "sha256": "f24502d56043148aae57a05d238a03fb2a965b717e46dd28ba524fc082d98e2f"
-      },
-      {
-        "file": ".web/components/didmail-help/render.js",
-        "bytes": 243684,
-        "sha256": "20f5a8f9cc699fb78c7fdd9ec8c7b6a42909ae9a387491115e0a0d2c2693d4a0"
-      },
-      {
-        "file": ".web/components/didmail-help/script.js",
-        "bytes": 71522,
-        "sha256": "cc67cac7ed20bb9b4806287db738bf17ca31798fe143b255570040eee81104fe"
-      },
-      {
-        "file": ".web/components/didmail-help/style.css",
-        "bytes": 3850,
-        "sha256": "f9cecf11041813f19d9f808213aeb8f17a319295300dc610e2bb7fd5683df600"
-      },
-      {
-        "file": ".web/components/didmail-home/manifest.json",
-        "bytes": 126,
-        "sha256": "39ed514358a17087e8b2daffd4ca355e85a8c22c2542c75f46462067a35f057b"
-      },
-      {
-        "file": ".web/components/didmail-home/render.js",
-        "bytes": 57159,
-        "sha256": "6b6d1073bb8d8b41c915339117c3caa96e6b14b886e34e847bcf8cb6061edf6c"
-      },
-      {
-        "file": ".web/components/didmail-home/script.js",
-        "bytes": 71522,
-        "sha256": "cc67cac7ed20bb9b4806287db738bf17ca31798fe143b255570040eee81104fe"
-      },
-      {
-        "file": ".web/components/didmail-home/style.css",
-        "bytes": 6654,
-        "sha256": "b64cbfb4f3535ce15978a5f73d3a6c4f27d5afa859afcc73a594f919e60d7f7c"
-      },
-      {
-        "file": ".web/seo/og-image",
-        "bytes": 86,
-        "sha256": "c9e5926f7cbe956de39bec2d5021829931b904b8023a51d486aad5b2526e8bf2"
-      },
-      {
-        "file": ".web/seo/og-site-name",
-        "bytes": 14,
-        "sha256": "77850450ef0d4b133b369e7e5c32404da304cc55d4d955705056577bfe94340a"
-      },
-      {
-        "file": ".web/site.yaml",
-        "bytes": 140,
-        "sha256": "e5bc981fbf8d86dc778a408bf927d5106c299aadc9bd09f88c7461fa290efca6"
-      },
-      {
-        "file": ".web/template/header-actions",
-        "bytes": 218,
-        "sha256": "32500acc2498843d32600c1f9cd8e08ca6670e541a723b4cc48929e420711030"
-      },
-      {
-        "file": ".web/template/logo.svg",
-        "bytes": 34888,
-        "sha256": "f6f59bef8dce5191a2673197366173a3429ce070116a834dc30afc719b698ca6"
-      },
-      {
-        "file": ".web/template/navigation",
-        "bytes": 3,
-        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
-      },
-      {
-        "file": ".web-cache/.access.json",
-        "bytes": 25,
-        "sha256": "3f7034bff5388fdf875a592b7853ecddf4c53ffd41ac447aa07a38a705a32884"
-      },
-      {
-        "file": ".web-cache/.artifacts.json",
-        "bytes": 1040,
-        "sha256": "1913debf3612048f10107881adf079df053e984b4312de8cbe9ecc720f5ed508"
-      },
-      {
-        "file": ".web-cache/_arc/assets/3fd5df1428d89576dfef4cc84e4368af646271b6ac1b40c9a127ce62e7561ca5.css",
-        "bytes": 88697,
-        "sha256": "3fd5df1428d89576dfef4cc84e4368af646271b6ac1b40c9a127ce62e7561ca5"
-      },
-      {
-        "file": ".web-cache/_arc/assets/44ab37f40cd7197af27beef1f6f82af5568a57c6810048c9b8071bc5f98cffa5.js",
-        "bytes": 508715,
-        "sha256": "44ab37f40cd7197af27beef1f6f82af5568a57c6810048c9b8071bc5f98cffa5"
-      },
-      {
-        "file": ".web-cache/_arc/assets/4ac3477e640ecddf88bd2b5cb9ead34054a389860c848b6586a093c8cd051338.css",
-        "bytes": 32987,
-        "sha256": "4ac3477e640ecddf88bd2b5cb9ead34054a389860c848b6586a093c8cd051338"
-      },
-      {
-        "file": ".web-cache/_arc/assets/5a32d5b3e49f0833e03c16f43a73fb5b24160deb1a6eaa561f8a84f48ab1aff8.js",
-        "bytes": 107565,
-        "sha256": "5a32d5b3e49f0833e03c16f43a73fb5b24160deb1a6eaa561f8a84f48ab1aff8"
-      },
-      {
-        "file": ".web-cache/_arc/assets/6febf929c41729c74f07cbee275af12deac8f8290500523dab7ce62aa5380396.css",
-        "bytes": 30183,
-        "sha256": "6febf929c41729c74f07cbee275af12deac8f8290500523dab7ce62aa5380396"
-      },
-      {
-        "file": ".web-cache/_arc/assets/a96633bcaaf5a2bd215870c3e6ff2013b110a8424399386c4aa757b819600f33.css",
-        "bytes": 26332,
-        "sha256": "a96633bcaaf5a2bd215870c3e6ff2013b110a8424399386c4aa757b819600f33"
-      },
-      {
-        "file": ".web-cache/_arc/assets/cc67cac7ed20bb9b4806287db738bf17ca31798fe143b255570040eee81104fe.js",
-        "bytes": 71522,
-        "sha256": "cc67cac7ed20bb9b4806287db738bf17ca31798fe143b255570040eee81104fe"
-      },
-      {
-        "file": ".web-cache/_arc/assets/f6f59bef8dce5191a2673197366173a3429ce070116a834dc30afc719b698ca6.svg",
-        "bytes": 34888,
-        "sha256": "f6f59bef8dce5191a2673197366173a3429ce070116a834dc30afc719b698ca6"
-      },
-      {
-        "file": ".web-cache/ar/admin/index.html",
-        "bytes": 41310,
-        "sha256": "ceb988e18f3ba4c28089826d978e6d350ec262319a3ef7f0edbc391e7c4c7699"
-      },
-      {
-        "file": ".web-cache/ar/admin-account/index.html",
-        "bytes": 42004,
-        "sha256": "803cb6dd362e7873a4fc977177158306560b5878ad5678e716b3c27f2c765166"
-      },
-      {
-        "file": ".web-cache/ar/admin-attachment/index.html",
-        "bytes": 41430,
-        "sha256": "1ea96f8c9bada01409fbf085ce87cfa598d8af9470c7bb915c50c4f79bde8b7b"
-      },
-      {
-        "file": ".web-cache/ar/admin-envelope/index.html",
-        "bytes": 41399,
-        "sha256": "09d0f893a82208421a125124a3615bd7bdd47f27a52fdb948f9fa7e262aa295b"
-      },
-      {
-        "file": ".web-cache/ar/admin-members/index.html",
-        "bytes": 41394,
-        "sha256": "e0cc514d20f79b574da543185259bd12bde9673f3c0cdf8ddb63fed9508496e2"
-      },
-      {
-        "file": ".web-cache/ar/admin-namecard/index.html",
-        "bytes": 41429,
-        "sha256": "d4c5d55210d28d747347d65767094ef85966e23faa54d60ec0c8d4de03c76462"
-      },
-      {
-        "file": ".web-cache/ar/admin-server/index.html",
-        "bytes": 41373,
-        "sha256": "27071047118a2f816b2046b49ef2e68bea4ac3255c0011360691fa99e59ae2d4"
-      },
-      {
-        "file": ".web-cache/ar/admin-storage/index.html",
-        "bytes": 41425,
-        "sha256": "9f7a288b31bdc0f1549a236fe1f9382f051dde7253fcdadf06b1bf25caba1aff"
-      },
-      {
-        "file": ".web-cache/ar/help/index.html",
-        "bytes": 67251,
-        "sha256": "c5360c1c8d3ba41721a7564585f639beddaf17b30880038c5da4ea92d57a1ce5"
-      },
-      {
-        "file": ".web-cache/ar/index.html",
-        "bytes": 87587,
-        "sha256": "9ad04336ec481642caad831085946a43d98194c1473da71aafb998ad12632049"
-      },
-      {
-        "file": ".web-cache/ar/search/index.html",
-        "bytes": 31462,
-        "sha256": "45a2e92679d3f10e591842835aca3627d537dd94932a42ea418b174fc23e6308"
-      },
-      {
-        "file": ".web-cache/en/admin/index.html",
-        "bytes": 41078,
-        "sha256": "a81920c0a1aa200ccddc959f87282056d4a68e29ee7ac15452bf02e03f93f4ce"
-      },
-      {
-        "file": ".web-cache/en/admin-account/index.html",
-        "bytes": 41687,
-        "sha256": "d30a152ad210540eaded930c4c37fd9158ee5123016dfad85c9e9c57c9a4ea1b"
-      },
-      {
-        "file": ".web-cache/en/admin-attachment/index.html",
-        "bytes": 41194,
-        "sha256": "c0be9285e3190f5fe68430f00c12298258f473fbbc2d19ee53caa79f0f5cf4d3"
-      },
-      {
-        "file": ".web-cache/en/admin-envelope/index.html",
-        "bytes": 41181,
-        "sha256": "6bd53a298f60f78b94ad07f8b92c50f3d2746d8e7aedca290959635e0c79cfec"
-      },
-      {
-        "file": ".web-cache/en/admin-members/index.html",
-        "bytes": 41148,
-        "sha256": "7e276a7eb29261a1e01cc6ebd19364f09ab173e32905ab5abc1e33913a3875c5"
-      },
-      {
-        "file": ".web-cache/en/admin-namecard/index.html",
-        "bytes": 41181,
-        "sha256": "90df46656da18bb9ba9602ec9fef47e8aca2da1ad262bb2e53ca1849a6e5ddb9"
-      },
-      {
-        "file": ".web-cache/en/admin-server/index.html",
-        "bytes": 41141,
-        "sha256": "41b43cd959b8075d00926b1836e8d4cd0cb89b98fe278006945452a22adca778"
-      },
-      {
-        "file": ".web-cache/en/admin-storage/index.html",
-        "bytes": 41163,
-        "sha256": "f2a1f4d5530f4624dbbc8768bf7420ebc8884b72bbb1f18c116a4af2cdef0e44"
-      },
-      {
-        "file": ".web-cache/en/help/index.html",
-        "bytes": 60358,
-        "sha256": "eb86c697bfac88a1df23bde4054c05fb300ed410f1775fdddb8d4d3926e6ea30"
-      },
-      {
-        "file": ".web-cache/en/index.html",
-        "bytes": 87248,
-        "sha256": "fa9881ea0458d1ba6914febf79f864b704054431cd3adc4b1a853efb91c32d0d"
-      },
-      {
-        "file": ".web-cache/en/search/index.html",
-        "bytes": 31462,
-        "sha256": "6ff15f1281312f79f6ec73817b4bb896449236cca32ea6b6608d753d657d655e"
-      },
-      {
-        "file": ".web-cache/index.html",
-        "bytes": 87248,
-        "sha256": "fa9881ea0458d1ba6914febf79f864b704054431cd3adc4b1a853efb91c32d0d"
-      },
-      {
-        "file": ".web-cache/ja/admin/index.html",
-        "bytes": 41641,
-        "sha256": "f7958ba6157d5dab029eda32886204f2eda6761d43248631a67483bac885849d"
-      },
-      {
-        "file": ".web-cache/ja/admin-account/index.html",
-        "bytes": 42304,
-        "sha256": "81dcbf8abd41b5d55d4ed36934ebb16f03d0e8bd7fba7f7069d8e139234e8dee"
-      },
-      {
-        "file": ".web-cache/ja/admin-attachment/index.html",
-        "bytes": 41725,
-        "sha256": "1cc68f54a9a1a098d9169d313aa5d2e8f5fd94ebf52c94c9c08f6b0150238edb"
-      },
-      {
-        "file": ".web-cache/ja/admin-envelope/index.html",
-        "bytes": 41715,
-        "sha256": "eccf6f1f5af409c718912548c5e1b566f019f2966c8a29cf4bab8b429f529e41"
-      },
-      {
-        "file": ".web-cache/ja/admin-members/index.html",
-        "bytes": 41710,
-        "sha256": "0ae66605372da4a446a12597166bdc03883af5b25f49a210f80b492591a4dbd0"
-      },
-      {
-        "file": ".web-cache/ja/admin-namecard/index.html",
-        "bytes": 41715,
-        "sha256": "e32604968d372dbf161c3c73ea3dbe0c276039be64852b94ba103e8b43f0b739"
-      },
-      {
-        "file": ".web-cache/ja/admin-server/index.html",
-        "bytes": 41704,
-        "sha256": "cd77f02b8a818af0636157259f57f0e37fabd3b5fb110ac8394a5acd0138a06f"
-      },
-      {
-        "file": ".web-cache/ja/admin-storage/index.html",
-        "bytes": 41716,
-        "sha256": "3f25f181ff60b45d2e143f96cf53a209d5110f52b5f466a05b3e9b46fede167b"
-      },
-      {
-        "file": ".web-cache/ja/help/index.html",
-        "bytes": 64649,
-        "sha256": "87824192d378bf9c38aad73eb9d21e2a645eff9af2e66e15145fb03691d1f95c"
-      },
-      {
-        "file": ".web-cache/ja/index.html",
-        "bytes": 87906,
-        "sha256": "ffc198aa3661abc361cd7ef598c85e78a6697dfd77d29e5bb2e3716612409aaa"
-      },
-      {
-        "file": ".web-cache/ja/search/index.html",
-        "bytes": 31862,
-        "sha256": "d1af11b3b7ab0732cd451d0a52105321243506ab50231a676fda31ef99f7d686"
-      },
-      {
-        "file": ".web-cache/llms-full.txt",
-        "bytes": 34,
-        "sha256": "aa782eabb42c1fc6e9ca2b8072ada763f2ee0358527ba4a0ac58fdc885c0ba4c"
-      },
-      {
-        "file": ".web-cache/llms.txt",
-        "bytes": 408,
-        "sha256": "d558147a75f25c44729facf6ca48113c2450b63c2cded406dfec33c358e8c769"
-      },
-      {
-        "file": ".web-cache/logo.svg",
-        "bytes": 34888,
-        "sha256": "f6f59bef8dce5191a2673197366173a3429ce070116a834dc30afc719b698ca6"
-      },
-      {
-        "file": ".web-cache/robots.txt",
-        "bytes": 75,
-        "sha256": "84bed4fcf44ab5f5ac11ed37023edf59aa3f92b6c4a4c8ff3296c1e000304fe1"
-      },
-      {
-        "file": ".web-cache/ru/admin/index.html",
-        "bytes": 41342,
-        "sha256": "4d89985ac1d2dbafedce6bb84b5de408fc8680aa9297283296fce1fe64ba1d10"
-      },
-      {
-        "file": ".web-cache/ru/admin-account/index.html",
-        "bytes": 41996,
-        "sha256": "eaa11e92ac7329141420543aaedad33faa1bcd48d03ac70c4db53b6ce07110b3"
-      },
-      {
-        "file": ".web-cache/ru/admin-attachment/index.html",
-        "bytes": 41436,
-        "sha256": "dfd00d5ff1c3461d0f76d64b5dd0ada34f3f0daa4924db9275fcd5e5c22d359c"
-      },
-      {
-        "file": ".web-cache/ru/admin-envelope/index.html",
-        "bytes": 41435,
-        "sha256": "4616b4e9d004509ad2a47e4834768206a573523f88ee7af0901e2426de17399b"
-      },
-      {
-        "file": ".web-cache/ru/admin-members/index.html",
-        "bytes": 41400,
-        "sha256": "ab461046b8e9e6ae87e8bd557c0607024cc03947bd2d8bf83a31e3f1e44eca4b"
-      },
-      {
-        "file": ".web-cache/ru/admin-namecard/index.html",
-        "bytes": 41429,
-        "sha256": "0c4e5cfbe1ce3d847e162645dd312b086abf70a710df0d11c03991f783455f16"
-      },
-      {
-        "file": ".web-cache/ru/admin-server/index.html",
-        "bytes": 41405,
-        "sha256": "14428af3471e2363d61291f9a7dd7f85753d979039aebeaa163ad0af7c72b397"
-      },
-      {
-        "file": ".web-cache/ru/admin-storage/index.html",
-        "bytes": 41422,
-        "sha256": "4a61543b1d5b97ff6332eb6aed4ff71fa0c737fa1601d76a64ef19756a336f87"
-      },
-      {
-        "file": ".web-cache/ru/help/index.html",
-        "bytes": 73861,
-        "sha256": "d1e1fd75951e558f60533006bdbd2d58caa89373a6514441dc9e2b118ce259e6"
-      },
-      {
-        "file": ".web-cache/ru/index.html",
-        "bytes": 87935,
-        "sha256": "7855fe1b50452ae850bd353e9159d8cc3f0796111cacac37306d070254202095"
-      },
-      {
-        "file": ".web-cache/ru/search/index.html",
-        "bytes": 31462,
-        "sha256": "069d60ea09f45c6d8ee58195998e1a842a1cde4130ccd1bb97eef6ab66b24432"
-      },
-      {
-        "file": ".web-cache/sitemap-pages.xml",
-        "bytes": 7087,
-        "sha256": "9a2c6099fcf7ad50a57d0199562957a38fe6b0aab0133d88557621d1660e5de3"
-      },
-      {
-        "file": ".web-cache/sitemap-pages.xml.br",
-        "bytes": 403,
-        "sha256": "673046038d50cf1d9348781bee75f5f34ad4f088c279114dd15fd21c62d4f03c"
-      },
-      {
-        "file": ".web-cache/sitemap-pages.xml.gz",
-        "bytes": 517,
-        "sha256": "46332b10ebfb1af07ad56a9e86effc3a689ee85f9e65a9de4426ff36a049c677"
-      },
-      {
-        "file": ".web-cache/sitemap.xml",
-        "bytes": 209,
-        "sha256": "195c5118cf534d81edd17d4ba25e6c0b02904f041d957be1912764dfdf0b47b6"
-      },
-      {
-        "file": ".web-cache/zh/admin/index.html",
-        "bytes": 41512,
-        "sha256": "59284552e05d28186056f41876dad0e7487fe51ad1eba470e9201e032664647c"
-      },
-      {
-        "file": ".web-cache/zh/admin-account/index.html",
-        "bytes": 42136,
-        "sha256": "887a68045b350e77dccca293946f4ad8ad52984a646c72068a2a60f12d13bfe9"
-      },
-      {
-        "file": ".web-cache/zh/admin-attachment/index.html",
-        "bytes": 41608,
-        "sha256": "7717ce5d381c504caeca3de6ada057e976c7df8a3cb2fc4922aab68c8ba0b98a"
-      },
-      {
-        "file": ".web-cache/zh/admin-envelope/index.html",
-        "bytes": 41592,
-        "sha256": "78f6e82cd7239ad0e42965b67b860bf150315982705e8daec78355f343dfb94c"
-      },
-      {
-        "file": ".web-cache/zh/admin-members/index.html",
-        "bytes": 41571,
-        "sha256": "fceb78596a7c374154cbc89b181ff3a92f0d8cc61a2dd2d6b051c715b2edff84"
-      },
-      {
-        "file": ".web-cache/zh/admin-namecard/index.html",
-        "bytes": 41592,
-        "sha256": "657794401795f06a54ef0f63ddb3dbb80860e14214470438194c2da2477a2ce7"
-      },
-      {
-        "file": ".web-cache/zh/admin-server/index.html",
-        "bytes": 41575,
-        "sha256": "9a24db8ac0a30c08faec2a856e86a341a3589a51f50907634487e7f7199cc78d"
-      },
-      {
-        "file": ".web-cache/zh/admin-storage/index.html",
-        "bytes": 41581,
-        "sha256": "970142d05dc65938e23d553013ea3e790b9242a95b8d2354f2c7fcedbb6c6ba5"
-      },
-      {
-        "file": ".web-cache/zh/help/index.html",
-        "bytes": 57956,
-        "sha256": "3b813f89aa4aa579f177efa61308045bfa860891ee4d9eb05301c8697b974d6e"
-      },
-      {
-        "file": ".web-cache/zh/index.html",
-        "bytes": 87628,
-        "sha256": "4b132325fec96d1eaa423e36da5a93bad9d07deaeabd9e7ef6c836da1c24c89f"
-      },
-      {
-        "file": ".web-cache/zh/search/index.html",
-        "bytes": 31841,
-        "sha256": "e7bb61174c9cad287de563274028c8b9dd6ceb544025090c1901bc971cfe47d4"
-      },
-      {
-        "file": "LICENSE",
-        "bytes": 11358,
-        "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
-      },
-      {
-        "file": "NOTICE",
-        "bytes": 382,
-        "sha256": "9f42e64633ce4dd7556e59637e2a18de0ab39e89cd7b469635fe4c49ce0ba9a4"
-      },
-      {
-        "file": "THIRD_PARTY_NOTICES.md",
-        "bytes": 4009,
-        "sha256": "be3d9af7d213337c76feb47a1988fb24f38081c79932d7ef654dd199dfc842b1"
-      },
-      {
-        "file": "blocklet.dist.json",
-        "bytes": 659,
-        "sha256": "693ee220d3dc9f459d3e3a2a854e316bfc307d5fcdbf3fb39da3074e3311c5f6"
-      },
-      {
-        "file": "blocklet.yaml",
-        "bytes": 440,
-        "sha256": "111bfe18a2d3a6c9c0f7bc861e8be8c670645db9e8de92058b216f480a70aef6"
-      },
-      {
-        "file": "pages/admin/layout.aup",
-        "bytes": 98,
-        "sha256": "87b5716b65d1c80072a129049c2593710ef72b37503c99c542ad1d29db0d3cc2"
-      },
-      {
-        "file": "pages/admin/seo/title",
-        "bytes": 23,
-        "sha256": "aaf0d5d696080ebb39553ad5b729545d002a471bd21263f23f86d9306d85fb61"
-      },
-      {
-        "file": "pages/admin-account/layout.aup",
-        "bytes": 107,
-        "sha256": "c863a145b83e207b09e905fd594dccbc42f7892c97781bf896a7da42658c1ba4"
-      },
-      {
-        "file": "pages/admin-account/seo/title",
-        "bytes": 24,
-        "sha256": "00fb69de8ee76243d746dc8a079e6a2ed4bfb5c5fa9377d5e160883ebde760ee"
-      },
-      {
-        "file": "pages/admin-attachment/layout.aup",
-        "bytes": 113,
-        "sha256": "631a337e9760905716d144963974687ba315e32b5558b68259848bf66ca00046"
-      },
-      {
-        "file": "pages/admin-attachment/seo/title",
-        "bytes": 25,
-        "sha256": "55ffd1b521729de9e74ef4f7f44c5322b8152c724c928f35325e7b198bc98a60"
-      },
-      {
-        "file": "pages/admin-envelope/layout.aup",
-        "bytes": 109,
-        "sha256": "31865d2654ee640c89d707aa98f9942f4a5deb47547f5cf8c70fba23b2e8df89"
-      },
-      {
-        "file": "pages/admin-envelope/seo/title",
-        "bytes": 25,
-        "sha256": "664eef8fda1affe3a110627fa89b6d2003a6c997c4a913d107243f2998492c16"
-      },
-      {
-        "file": "pages/admin-members/layout.aup",
-        "bytes": 107,
-        "sha256": "e158ce503e9d12221b59bfee8cc6ea33ca7dec1f7531e6d5cdea009c6a3d19b3"
-      },
-      {
-        "file": "pages/admin-members/seo/title",
-        "bytes": 24,
-        "sha256": "4a1f4ccca69981555a0b647bac089490192d7177a94425ab1407c43a77424ec4"
-      },
-      {
-        "file": "pages/admin-namecard/layout.aup",
-        "bytes": 109,
-        "sha256": "74bf65c5049b9594a4c6970a8fb92ec8bc5308172f673033a49e2c0617b6d441"
-      },
-      {
-        "file": "pages/admin-namecard/seo/title",
-        "bytes": 25,
-        "sha256": "b1d1f97fb3470164f82a4d4decbe60ec0097b8d904dd8d3ee96a3c60b1942e43"
-      },
-      {
-        "file": "pages/admin-server/layout.aup",
-        "bytes": 105,
-        "sha256": "4adbf87267168448e8ed30f7027a8a5fcf954a30d0103b0e0d92fd412ca0b8ea"
-      },
-      {
-        "file": "pages/admin-server/seo/title",
-        "bytes": 23,
-        "sha256": "aaf0d5d696080ebb39553ad5b729545d002a471bd21263f23f86d9306d85fb61"
-      },
-      {
-        "file": "pages/admin-storage/layout.aup",
-        "bytes": 107,
-        "sha256": "496b4888571c1d4f2fc920232e1bb4d67522c96e4e776fe453ceed51330221a4"
-      },
-      {
-        "file": "pages/admin-storage/seo/title",
-        "bytes": 24,
-        "sha256": "3356ad069ce75c3f1406045fef014c212723114767284adb964f9b2b5e38a2bc"
-      },
-      {
-        "file": "pages/help/layout.aup",
-        "bytes": 79,
-        "sha256": "2665d1db28ebaa3baf83157fd0ef967c23d0f4638c1e1e941623e17d9e5f40fe"
-      },
-      {
-        "file": "pages/help/seo/title",
-        "bytes": 22,
-        "sha256": "153c2a4641dcc031d78cac3f12032b14646ae883de37d50ab1f7996af5669655"
-      },
-      {
-        "file": "pages/index/layout.aup",
-        "bytes": 80,
-        "sha256": "1ca8fb818accd5606193ef989f1026124e8d18a0d90c6f35d3e915f91d9eaa3f"
-      },
-      {
-        "file": "pages/index/seo/title",
-        "bytes": 14,
-        "sha256": "77850450ef0d4b133b369e7e5c32404da304cc55d4d955705056577bfe94340a"
-      },
-      {
-        "file": "providers/didmail/config.json",
-        "bytes": 37,
-        "sha256": "cee95788240b6288728ac2fac515df82134624c760454f8906c4ee1b6ad1f613"
-      },
-      {
-        "file": "providers/didmail/index.mjs",
-        "bytes": 2337,
-        "sha256": "2231b08c423787aca1edd233c7424e2b3f7506590e692ef088dc7d92622e7bc9"
-      },
-      {
-        "file": "providers/didmail-native/index.mjs",
-        "bytes": 5951,
-        "sha256": "10d81896b2ceb906ec56cbe1a30f617f81640f141a1e5b7736e8b95134c4f04f"
-      },
-      {
-        "file": "third_party_licenses/blocklet-bundle-licenses.txt",
-        "bytes": 3158,
-        "sha256": "53dd95b35a32f2c3d662a7a605b9d5475b991da93bb054988f1423d52d2af52d"
-      },
-      {
-        "file": "third_party_licenses/boolbase1.0.0.txt",
-        "bytes": 751,
-        "sha256": "cdf4d87ae0a6c160227263bf4e39a0a10e30e89ae7256e0f7ac7bde0836552c6"
-      },
-      {
-        "file": "third_party_licenses/cisco-go-hpke-bsd2.txt",
-        "bytes": 1323,
-        "sha256": "3aafec54d4b93c433948f294cb9e6493dada8613b11fe098c7ca9fd165a20225"
-      },
-      {
-        "file": "third_party_licenses/cookie-signature1.0.6-README-license.txt",
-        "bytes": 1111,
-        "sha256": "c0a936e4727a7503020745eaf063acffbb81291fcfd21a0cd8db4b4fce95d902"
-      },
-      {
-        "file": "third_party_licenses/deepmerge4.3.1.txt",
-        "bytes": 1116,
-        "sha256": "6cfc4687cb2f2d86f4a77e6b526290d3878e5e512f3fec2f4cb36a9cb36f798b"
-      },
-      {
-        "file": "third_party_licenses/express-async-errors3.1.1.txt",
-        "bytes": 840,
-        "sha256": "2853a1f04aa49c6af26f9dac1ef233c18e319109319a2ba60313a8517dbdda95"
-      },
-      {
-        "file": "third_party_licenses/google-closure-library-Apache-2.0.txt",
-        "bytes": 10173,
-        "sha256": "a6cba85bc92e0cff7a450b1d873c0eaa2e9fc96bf472df0247a26bec77bf3ff9"
-      },
-      {
-        "file": "third_party_licenses/google-protobuf3.21.0-Closure-header.txt",
-        "bytes": 84,
-        "sha256": "6f451d925cddd9d9f35c5c112aebb058c6ac610515a04ae82aff2c1f966a3ac7"
-      },
-      {
-        "file": "third_party_licenses/jsonify0.0.1-README-license.txt",
-        "bytes": 26,
-        "sha256": "5845c1987e0995dc7f846bec7e9e892934a2591b1a12994aafca1316f84adb9f"
-      },
-      {
-        "file": "third_party_licenses/minimatch11.0.3.txt",
-        "bytes": 1550,
-        "sha256": "2c7c5d22ed5a8ee968c64757710979afcd77438c48b4a265b94e615babd8a901"
-      },
-      {
-        "file": "third_party_licenses/ocap-client1.19.15.txt",
-        "bytes": 554,
-        "sha256": "72053fcf79fb7a7863da2c1bb5a14ec555e982516761020070349105b0f7bd3a"
-      },
-      {
-        "file": "third_party_licenses/qrcode-generator1.4.4-source-header.txt",
-        "bytes": 489,
-        "sha256": "7bab270ae530f8bd20fe784effd62cd5ad337476b037f8d3e62accc5fa4929e6"
-      },
-      {
-        "file": "third_party_licenses/qrcode-generator1.4.4.txt",
-        "bytes": 1071,
-        "sha256": "3a850fa5f08101db6f40676c2786e10bd2cd5fff7b12ffdf1e0c434d4e49d90c"
-      },
-      {
-        "file": "third_party_licenses/worker-bundle-licenses.txt",
-        "bytes": 217660,
-        "sha256": "bdcffb8972511872150c6004e8f4d8621b0db8dabfa4a63a7a3fde1a449f4e74"
-      },
-      {
-        "file": "web/logo.svg",
-        "bytes": 34888,
-        "sha256": "f6f59bef8dce5191a2673197366173a3429ce070116a834dc30afc719b698ca6"
-      }
-    ]
-  },
-  "excludedLocalEvidence": [
-    ".worker/test.mjs",
-    ".worker/test-metafile.json",
-    ".worker/metafile.json",
-    "artifacts/worker-upload/index.js.map",
-    "artifacts/worker-upload/metafile.json"
   ]
 }

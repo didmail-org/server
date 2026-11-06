@@ -1,21 +1,17 @@
-# DIDMail ARC / Workers
+# DIDMail ARC server
 
-This is the standalone DIDMail server repository. Never edit the historical legacy server.
+This is the standalone DIDMail server repository. The supported runtime is the
+native ARC Blocklet. Cloudflare Workers and the external workerd preview are
+retired; do not restore deployment, startup or fallback paths for them.
 
-- Production runtime is Cloudflare Workers: workers/index.ts, workers/app.ts, workers/database.ts.
-- UI source is ui/ (framework-free browser interactions and component renderers); page layouts are blocklet/pages/\*/layout.aup, with styles/manifests under blocklet/.web/components. No React runtime. Original Express routes remain in api/src/routes.
-- UI changes follow the single authority at the DIDMail project design documentation, including neutral semantic surfaces, direct Light/Dark switching and platform-specific runtime acceptance.
-- pnpm build:client generates the component artifacts and ARC page cache. Never restore the old SPA fallback: preserve /admin/\* by mapping each route to its matching native page in workers/index.ts.
-- workers adapters are substituted at build time by scripts/build-worker.mjs. Never ship the filesystem wallet, sqlite3, Sequelize driver or Node gateway into the Worker.
-- D1 stores relational metadata; R2 stores encrypted mail bodies/attachments; Workers Secrets hold the original application wallet. ARC identity/platform requests go through an explicit Service Binding or HTTPS origin.
-- pnpm start runs Wrangler/workerd, not the legacy Node API. start:legacy is reference only.
-- Verify pnpm lint, pnpm test, pnpm test:scripts, pnpm test:worker, pnpm build, pnpm test:browser, pnpm test:ui, pnpm test:browser:admin, pnpm test:browser:ui, pnpm worker:deploy:dry.
-- Keep methods/paths in docs/legacy-routes.json and preserve wallet derivation, ciphertext and signed download compatibility.
-- Never commit .env.local, .dev.vars, wallets, SQLite, exports, .wrangler or .arc homes. Never put them in the public blocklet package.
-- Keep the original node wallet when migrating existing assets and encrypted domain keys; ARC login identity is separate.
-- Do not stop other ARC instances, especially purpose=observe. Use isolated test resources.
-- Local DIDMail development uses only ARC instance `didmail-web` with `pnpm arc:run`, exposed at `http://didmail-server.localhost:8788`. Historical DIDMail instances were retired on 2026-10-27; do not recreate them for normal development. `pnpm start` is the separate Workers-only entry at 8787.
-- Do not broadcast chain transactions or external messages from tests. Report actual runtime/deployment limits honestly.
-- Read docs/workers-migration.md for the unresolved hosted ARC application/extension deployment boundary. Local ARC module imports do not prove Workers support.
-
-- Local preview persistence uses `resourcePersistencePath` at `.wrangler/state/arc-preview`; Miniflare ignores legacy `d1Persist`/`r2Persist` options. Preserve an existing ephemeral D1/R2 state before restarting it; checkpoint tools and verified migration procedure are documented in `docs/local-preview-persistence.md`.
+- Read README.md, docs/server-architecture.md and docs/arc-package-runtime.md before editing runtime/source ownership. Production source lives in blocklet/providers/didmail-http/source: api/src contains shared REST handlers; http, protocol, identity, storage, config and runtime separate their responsibilities. Remaining api/src compatibility symlinks point inward. Never create a second copy of shared code.
+- Standard startup/build is pnpm start / pnpm build, invoking ARC directly. Use arc dsl validate blocklet and arc blocklet check blocklet --profile basic. Agent/settings recipe scaffolds are optional, not mandatory modules. Keep stable did:blocklet:didmail-server, required /instance, site routing and provider mounts.
+- Native UI source is blocklet/.web/components (render.js, style.css, script.js), AUP layouts are blocklet/pages/*/layout.aup. ui/ contains Node regression facades. No React or separate UI bundle/postprocessing. Follow overview/docs/product-design.md. Preserve localized admin route bindings and canonical protocol HTTP mappings; never restore SPA fallback.
+- Local ARC runs protocol HTTP, original signing and scheduling inside ARC with instance AFS. didmail-business/store.mjs uses ephemeral in-memory SQLite to preserve original SQL predicates/transactions, then CAS-commits the AFS aggregate. No D1/R2 runtime fallback, replication or automatic initialization is supported.
+- Attachment compatibility configuration is authoritative at /instance/app/didmail/public/attachment-config.json; policy/access/audit at /instance/app/didmail/private/mail-policy.json. Business state/objects are private. Preserve AFS CAS locks, closed relational fence tombstones, exact account-link predicates, original transaction bytes and nonce/idempotency rules. Close the fence before releasing its lock; never reopen/prune tokens for delayed writers. Read docs/afs-policy-admission.md, docs/afs-business-storage.md and docs/instance-afs-migration.md.
+- Canonical ordered SQL migrations live in blocklet/providers/didmail-business/migrations. They are schema/history contracts even without direct imports. D1/R2 checkpoints and read-only legacy exports are one-time migration/recovery inputs, not a supported deployment. Preserve ignored .wrangler/state/arc-preview; see docs/local-preview-persistence.md.
+- Normal local development uses only ARC instance didmail-web. Use the URL printed by arc blocklet run blocklet --instance didmail-web and activate the app after cold restart. The complete configured UI/mail origin is http://didmail-server.localhost:8788, owned by ARC; the parent ARC port is not the raw mail endpoint. Leave unrelated ARC instances/services running, especially purpose=observe.
+- Private protocol configuration/original key is /instance/app/didmail/private/protocol-runtime.json. Preserve original node wallet, scheduler interval, namespaces, ciphertext and data. Configuration changes need an affected ARC restart. Only one DIDMail signing instance per ARC process is supported. Never regenerate wallets as recovery or initialize over an existing instance.
+- Keep wallets, environment files, SQLite, exports, .arc, .wrangler and private evidence out of Git, logs and blocklet/. Never expose control ports/descriptors or raw private AFS paths. Keep LICENSE, NOTICE, third-party terms, provenance and fixture metadata. Vendor changes require deliberate version/hash/license maintenance.
+- Verification follows the changed area: pnpm lint, pnpm type-check:runtime, pnpm test, pnpm test:scripts, pnpm test:business, pnpm test:ui, pnpm build and pnpm test:arc; relevant browser checks preserve existing coverage. tests/business uses an isolated Miniflare test host only; it is not a production Cloudflare runtime. Do not remove assertions or add production test routes to pass checks.
+- Automated checks must not send real mail or broadcast chain transactions. Use disposable isolated resources. Report actual local, native, hosted and distribution limits separately. Hosted ARC and public distribution remain gated by docs/arc-native-migration.md and docs/distribution-license-audit.md.

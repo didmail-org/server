@@ -1285,6 +1285,9 @@ body:has([data-didmail-admin]) .aup-app-header[data-density] .aup-app-header-nav
 .dm-app .dm-storage-detail-row > td { padding: 0; }
 .dm-storage-detail { background: var(--dm-subtle); padding: 20px; }
 .dm-storage-detail-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.2fr) minmax(0,1fr); gap: 28px; }
+.dm-storage-delivery { grid-column: 1 / -1; border-top: 1px solid var(--dm-border); padding-top: 16px; }
+.dm-storage-delivery dl { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0 28px; }
+.dm-storage-delivery p { margin-bottom: 0; }
 .dm-storage-detail h3 { font-size: 0.75rem; font-weight: 600; margin: 0 0 12px; }
 .dm-storage-detail dl { margin: 0; font-size: 0.75rem; }
 .dm-storage-detail dl > div { margin-bottom: 10px; }
@@ -1318,6 +1321,7 @@ body:has([data-didmail-admin]) .aup-app-header[data-density] .aup-app-header-nav
   .dm-storage-detail-row, .dm-storage-detail-row > td { display: block; width: 100%; }
   .dm-storage-detail { padding: 16px; }
   .dm-storage-detail-grid { grid-template-columns: minmax(0,1fr); gap: 16px; }
+  .dm-storage-delivery dl { grid-template-columns: minmax(0,1fr); }
   .dm-storage-detail-grid > div + div { border-top: 1px solid var(--dm-border); padding-top: 16px; }
   .dm-card.dm-storage-summary { padding: 12px 16px; }
   .dm-storage-summary > div { flex-wrap: wrap; gap: 4px 10px; }

@@ -1,65 +1,133 @@
-# Worker and Blocklet distribution license audit
+# Native ARC package distribution audit
 
-Status: release decision record, reviewed 2026-11-04. Source baseline: public Server `46b8fcccce0f75152353c8b655ac9e12963787b8`, protocol dependency pinned to `20c21de1fe89397bf4be35435d7a8a3bbc0ee59a`. The fixes accompanying this report preserve the Apache-2.0 project license and do not change protocol, cryptography, payment or delivery behavior. No artifact was uploaded or deployed.
+Status: reproducible native artifact evidence updated 2026-11-06; **public
+Blocklet/Store distribution remains blocked**. The supported runtime is the ARC
+package. Independent Workers deployment has been retired; historical Worker
+inventories are retained only as dependency/license provenance.
 
-## Decisions
+A successful build, byte audit or local runtime check does not grant a license,
+approve publication or establish hosted/Store acceptance. Original DIDMail code
+remains Apache-2.0. Preserve all applicable third-party terms.
 
-| Scope | Decision | Reason |
-| --- | --- | --- |
-| Public Server source | May remain public on this review's evidence | Original source license/notices retained; identified dependency texts and blockers are disclosed. This is not a blanket approval of dependencies or retained history. |
-| Worker distribution, including its static assets | **Blocked** | Exact grants/attributions for `@ocap/util@1.30.24` and `interface@1.2.1` remain unavailable; ARC-generated resource provenance is unresolved. The normal build also lacks referenced core CSS. |
-| Blocklet distribution (`blocklet/dist`, not a legacy Node package) | **Blocked** | Its two npm UI dependencies now have verified notice coverage, but ARC-generated script/template output needs an authoritative redistribution/provenance basis. The Worker-only missing licenses are not code dependencies of this Blocklet. |
+## Current evidence and reproduction
 
-A successful test or dry run does not change these decisions. Public source visibility and distribution of compiled third-party code are distinct scopes.
+The package owns source, dependency assets, native AUP pages, providers and
+public notices. Its actual `.afs/manifest.json` is the artifact inventory.
+`providers/didmail-http/vendor/manifest.json` records the dependency-only native
+asset, import/require facades, 157 package versions, declared terms, copied
+sidecars and SDK/lockfile/OCAP-patch provenance. Native DID validation also retains
+unmodified `@noble/hashes@2.4.0` source and its MIT license.
 
-## Actual artifacts and repeatability
+From the repository root, with the documented ARC CLI and Node >=24.14:
 
-Node 24.14.0, pnpm 12.11.2, esbuild 0.28.2 and ARC `2.0.0-beta.74 (49c9125c)` were used. The unqualified Homebrew `pnpm` wrapper could not switch versions; `corepack pnpm` uses the declared version successfully. No install or lockfile regeneration was needed.
+```sh
+arc blocklet build blocklet
+node scripts/audit-distribution.mjs --write
+# Review evidence changes. The command does not edit build output or grant approval.
+node scripts/audit-distribution.mjs
+```
 
-- Production Worker: 1,260 compiler inputs, **1,102 positive-byte inputs / 151 installed instances**. [Inventory](worker-dependency-inventory.csv), [input and notice hashes](distribution-dependency-evidence.json). All 151 have license declarations, including legacy `licenses` arrays; declarations are not treated as full grants. The existing aggregate 147-file collection was replaced with reproducible per-instance collection and recovered texts.
-- Five UI builds: **64 distinct positive-byte inputs / two npm instances**, `qrcode-generator@1.4.4` and `@tanstack/query-core@5.104.5`. All renderer and browser entry points are included; the copied help browser script is identical to the home script. The Blocklet also carries source renderers, provider modules (only the read-only `didmail` mount is declared) and ARC-generated cache assets; it does not contain the business Worker, Node dependencies, native SQLite or a bundled ARC binary.
-- `wrangler deploy --dry-run --outdir artifacts/worker-upload --metafile artifacts/worker-upload/metafile.json` compiled the final upload. Its single positive input is `.worker/index.mjs`; it introduced no additional npm module. The generated source map remains ignored local evidence, not a published asset.
-- [Audit script](../scripts/audit-distribution.mjs) rejects test-only metafiles, compares current input/notice hashes with checked-in evidence, checks legal files in all three output directories and validates every hash in the actual ARC `.afs/manifest.json`. [Artifact hashes](distribution-artifact-evidence.json) bind the tested final files. This is scoped evidence, not a universal SBOM for other platforms, tool versions or optional offline assets.
+The collector needs no `node_modules`, Worker bundle/metafile or ignored UI
+compiler metadata. A package built in an isolated directory can be checked with
+`--package /absolute/path/to/blocklet/dist`. The checked-in public package source
+notices are compared with delivered bytes. Normal verification fails on stale
+evidence; update only after reviewing intentional source/dependency changes.
 
-Builds copy the complete curated `third_party_licenses/` tree rather than a fixed stale list. Worker legal files go both to `.worker/legal` for an offline distribution and to `dist` for Wrangler ASSETS upload. ARC legal files survive into `blocklet/dist` and its manifest. This fixes the previous absence of Worker distribution sidecars and omission of UI dependency texts. Packaging continues to refuse symlinks, hardlinks and special files; tests use private-data canaries.
+The collector:
 
-## Missing-text investigations and resolutions
+- verifies every actual ARC manifest hash and rejects unlisted outputs, unsafe
+  paths, duplicate entries, symlinks, hardlinks, special files and known private
+  data/development paths, including wallets, runtime descriptors and databases;
+- verifies the native dependency asset digest and every recorded facade digest;
+- requires each import/require facade and declared license sidecar to be listed
+  in the artifact, with nonempty license text; recovered texts are bound by hash;
+- records missing texts explicitly and keeps distribution approval blocked;
+- binds stable public source inputs to [source evidence](distribution-artifact-evidence.json)
+  and package/license data to [dependency evidence](distribution-dependency-evidence.json);
+- writes the complete verified inventory and actual ARC manifest digest from each
+  build to ignored `artifacts/distribution/current-artifact-evidence.json`. This
+  report is an output, never an input required by a clean checkout.
 
-The [npm source evidence](license-source-evidence.json) records exact version metadata, tarball URL/integrity and downloaded SHA-256 for the eight initially investigated packages. Original files were read from official tarballs, not reconstructed from SPDX templates.
+ARC may retain old content-addressed resources in `.web-cache/_arc/assets`
+when building in place. A clean isolated build can omit those older assets while
+producing the same current pages. Generated output therefore is not compared
+with another build's committed hash list. Every actual file still must be listed
+and hash-match its own manifest; the full per-build report preserves those bytes'
+identity. `--write` updates only stable source/dependency evidence, never generated
+HTML, caches, asset hashes or release approval. Use a clean isolated package build
+for release artifact review.
 
-| Package | Evidence and action | Target/result |
-| --- | --- | --- |
-| `boolbase@1.0.0` | Published package has ISC metadata but no text. Upstream [license-adding commit `be0bcd8`](https://github.com/fb55/boolbase/commit/be0bcd8a4e917a0a5895e95b523fbbed05a64871) explicitly adds Felix Boehm's ISC license. Its `index.js` is byte-identical to npm 1.0.0. Preserved [original text](../third_party_licenses/boolbase1.0.0.txt). | Worker: resolved text and attribution. |
-| `express-async-errors@3.1.1` | npm `gitHead` `478ebf7` has no license file. Upstream [license-adding commit `f99d8fc`](https://github.com/davidbanham/express-async-errors/commit/f99d8fc2d238306a65653b4cdf64632981749536) includes both Nikolay Nemshilov and David Banham ISC attributions. Its `index.js` is byte-identical to the published 3.1.1 file. Preserved [original text](../third_party_licenses/express-async-errors3.1.1.txt). | Worker: resolved text and attribution. |
-| `jsonify@0.0.1` | Official npm README explicitly declares public domain. Preserved [exact section](../third_party_licenses/jsonify0.0.1-README-license.txt); no invented copyright or substituted license. Release `gitHead`: `d26197e6c6357c9f3deec052a97056359f0497ac`. | Worker: missing documentary declaration resolved; public-domain status recorded as stated by publisher. |
-| `cookie-signature@1.0.6` | Existing [MIT README section](../third_party_licenses/cookie-signature1.0.6-README-license.txt) was checked against the official npm release (`gitHead` `391b56c`). It retains TJ Holowaychuk's attribution and the original permission/disclaimer. | Worker: existing fix verified; copied bytes checked. |
-| `interface@1.2.1` | npm declares MIT, author Charlie Duong, but has no license text. Repository redirects from `charlieduong94/interface-js` to `ctdio/interface-js`. The [release gitHead tree](https://github.com/ctdio/interface-js/tree/f29d1edb221ed0527b274eabbc8f27cbf95ce6a9), current master `12feb839f0e288998391f739c3558e2d6449bacb`, README and LICENSE history query yielded no full license. | Worker: **blocked**. Need an authoritative grant and copyright/notice text applicable to this release, or an independently reviewed replacement. It is used by crypto code; no incidental replacement was attempted. |
-| `@ocap/util@1.30.24` | Official tarball has Apache-2.0 metadata, no LICENSE/NOTICE; `gitHead` `e074a74510ab4386bc3cbff27003ae1f14548f39`. Package points to `ArcBlock/blockchain`; repository API and pinned raw license URL returned 404 with available access. [Official library docs](https://www.arcblock.io/en/docs/blockchain-utils/) identify the library but do not provide the exact source/license/notice set. Adjacent release 1.30.23 also points to that repository; an older package's license is not evidence for this version's complete contents. | Worker: **blocked**. Need official source or release license/NOTICE and embedded-code provenance for 1.30.24. |
+These checks detect packaging mistakes, not arbitrary secrets disguised as source
+or a fabricated upstream manifest. Dependency updates still require review of the
+actual source, licenses, provenance and content. The generated evidence is scoped
+to the built package, not an independently verified full transitive SBOM.
 
-The other two previously questioned ArcBlock releases, `@ocap/proto@1.30.24` (`gitHead` `87990c8b5e215107fc587c1ced0d6b3e2cd2483e`) and `@arcblock/ws@1.30.24` (`e074a745…`), likewise lack license files in official npm tarballs and refer to the inaccessible repository. **Neither contributes to either target.** The Worker uses `@ocap/proto@1.19.15` (its available license is collected) and substitutes `workers/ws.ts` for `@arcblock/ws`. These 1.30.24 gaps are tracked for future dependency changes, not used to block unrelated current code.
+Source/vendor changes require a reviewed `--write`; regenerated cache differences
+alone do not change committed evidence.
 
-## Nested code and other obligations
+See the [current native inventory](blocklet-dependency-inventory.md) and its
+[CSV](blocklet-dependency-inventory.csv). The old Worker/UI evidence was preserved
+privately before replacing snapshots; tracked earlier evidence remains in Git.
+The retained [Worker CSV](worker-dependency-inventory.csv) and license collections
+are explicitly historical and are not inputs to current evidence reconstruction.
 
-- Protocol `dist/index.mjs` embeds `@noble/ciphers`, `@noble/curves`, `@noble/hashes` and `@scure/base` 2.4.0. Their original MIT notices are already inside the pinned SDK's `THIRD_PARTY_NOTICES`, collected verbatim together with SDK LICENSE and NOTICE. Compiler comments and package versions match that set. It is not counted as four new installed packages.
-- `google-protobuf@3.21.0` embeds Closure Library code despite BSD-3-Clause package metadata. Its original embedded Apache header is now [preserved](../third_party_licenses/google-protobuf3.21.0-Closure-header.txt), together with the full [upstream Apache text](https://github.com/google/closure-library/blob/b312823ec5f84239ff1db7526f4a75cba0420a33/LICENSE). The package's separate BSD text remains in the Worker collection. This fixes a concrete nested-license omission; it does not infer unseen code provenance from one SPDX field.
-- `@arcblock/validator@1.19.15` has conflicting metadata: the manifest says MIT, but its original packaged LICENSE is an ArcBlock Apache-2.0 notice. A fresh official npm tarball passed registry integrity and its LICENSE matches the installed file byte-for-byte. The audit retains that Apache notice and the full Apache terms in the DIDMail distribution's `LICENSE`; it does not invent or substitute an MIT grant. The conflict is explicit in the per-package evidence, without changing upstream metadata.
-- Axios' browser CJS bundle has its original copyright header and MIT file; Esprima's webpack bundle includes the same BSD notice as `LICENSE.BSD`; Lodash's collected LICENSE includes its Underscore and other embedded-code credits. `@ocap/util`/`@ocap/mcrypto` rolldown helper output is visible; exact source/embedded-code verification for the inaccessible util source remains part of its blocker.
-- QR Code npm 1.4.4 has only a short source header. Upstream tag [`js1.4.4`, commit `9bd2163`](https://github.com/kazuhikoarase/qrcode-generator/tree/9bd2163ddc1628d1ec8ff22ea288a747275ef442) includes the full MIT grant; `js/qrcode.js` is byte-identical to the installed runtime input. Both [license](../third_party_licenses/qrcode-generator1.4.4.txt) and [source header](../third_party_licenses/qrcode-generator1.4.4-source-header.txt) are now preserved. TanStack's installed MIT license is in the UI collection.
-- All observed installed-package declarations fall within MIT, ISC, Apache-2.0, BSD-2/3-Clause, CC0-1.0, BlueOak-1.0.0 and public domain. License bodies were cross-checked against those declarations; the validator conflict above is handled by retaining the packaged Apache grant. MIT/ISC require their permission/copyright text; BSD binary redistribution requires the original notices, conditions and disclaimers (and applicable non-endorsement terms); Apache requires the full terms, applicable attribution/NOTICE and modification information. CC0 waiver text and the BlueOak toolchain notice are preserved as supplied. No observed declaration demands a copyleft source offer for these targets; unresolved embedded content prevents a blanket conclusion that no other obligation exists.
-- The three patched dependencies retain their original texts and [modification descriptions](../THIRD_PARTY_NOTICES.md). `@ocap/client` is actually bundled; deepmerge and minimatch are toolchain-only in these compiler results. No dependency upgrade was made as a licensing shortcut.
-- The historical Cisco HPKE vectors are absent from both builds and this fresh source tree. Their existing BSD-2-Clause provenance text is retained unchanged and verified in the output legal trees. The pinned SDK's production crypto contains no test-vector fixture. Deleted repositories and history backups were not reconstructed.
-- Final-tree extension/content scan found no native library or font binary in either target. HTML links to Google Fonts and ARC `/__blocklet__.js`/`aup-core.*.css` reference externally served resources; these are not bytes included in the build. Self-hosting or adding offline copies requires a new exact-file license audit. Runtime availability is a separate deployment requirement.
+## Unresolved release gates
 
-## Remaining ARC and deployment gate
+| Scope | Current requirement |
+| --- | --- |
+| `@ocap/util@1.30.24` | Exact official release license/NOTICE and embedded-code provenance remain unavailable. Its Apache metadata alone is insufficient. |
+| `interface@1.2.1` | MIT metadata has no authoritative complete grant/attribution text for this release. Obtain it or independently review a replacement. |
+| `@ocap/proto@1.30.24` | Present in the current native vendor inventory without a root license sidecar. The old statement that this version did not contribute applied to historical builds and is no longer applicable. Verify release-specific terms/provenance. |
+| `utf8@3.0.0` | Present without a collected license text in the native inventory. Its metadata is not a substitute for the original applicable text. |
+| ARC-generated runtime/template output | Obtain an authoritative release/output-code license or vendor confirmation covering the actual generated assets and all required third-party notices. The CLI binary is not redistributed by this package. |
+| Full artifact obligations | Review nested bundled code, external runtime resources, modifications and all attributions against current bytes before public distribution. |
 
-Both static targets contain a generated common script (asset SHA-256 `5a32d5b3e49f0833e03c16f43a73fb5b24160deb1a6eaa561f8a84f48ab1aff8`, including ARC masonry/widget runtime) beyond the two npm UI inputs. It is emitted by the pinned official ARC binary, not by the five esbuild jobs. The installed official CLI distribution and assets exposed no applicable standalone LICENSE/NOTICE for that generated runtime; the compiled binary itself is not redistributed. Public official site/library documentation did not supply an output-code redistribution grant or complete embedded dependency notice set. Treat generated ARC templates/runtime as **unverified**, not as DIDMail-authored Apache code or automatically covered by unrelated ArcBlock npm licenses.
+The native vendor inventory is broader than the old positive-byte Worker compiler
+inventory. Inclusion in the native metadata is treated conservatively as requiring
+review; this audit does not infer that unlicensed entries were tree-shaken away.
 
-To clear this gate, the owner needs an authoritative ARC release/output license or vendor confirmation explicitly covering these generated runtime/template assets, plus required attribution/third-party notices. Exact script hashes are in the artifact evidence. For standalone Workers, the normal build also references `/aup-core.d26223e73064f873.css` without copying it. `node scripts/verify-worker-assets.mjs` fails for that missing genuine stylesheet, as designed. `DIDMAIL_WORKER_CORE_CSS` can package a hash-matching public offline stylesheet once its source and distribution license are established; no guessed CSS or unreviewed vendor file was added. Blocklet relies on the ARC host for this stylesheet and `/__blocklet__.js`.
+## Preserved license investigations
 
-The owner can help by obtaining the release-specific ArcBlock materials and an `interface@1.2.1` grant from their maintainers. Ready-to-send correspondence, including explicit AI-preparation disclosure, is preserved in the [ArcBlock request](license-requests/arcblock.md) and [interface request](license-requests/interface.md). These templates do not establish delivery, a response or permission to distribute. No existing private source access is assumed. The audit did not contact maintainers, use real ABT, send mail, broadcast transactions, restart services, or inspect private wallets/runtime state.
+The [official npm release evidence](license-source-evidence.json) preserves release
+metadata, tarball integrity and source hashes. Recovered original texts remain in
+`third_party_licenses/` and the packaged public notice tree:
 
-## Verification and security separation
+| Evidence | Applicable retained result |
+| --- | --- |
+| `boolbase@1.0.0` | [ISC text](../third_party_licenses/boolbase1.0.0.txt) from upstream license-adding commit `be0bcd8a4e917a0a5895e95b523fbbed05a64871`; its source matched the release. |
+| `express-async-errors@3.1.1` | [ISC text](../third_party_licenses/express-async-errors3.1.1.txt), retaining Nikolay Nemshilov and David Banham attribution, from source-matching commit `f99d8fc2d238306a65653b4cdf64632981749536`. |
+| `cookie-signature@1.0.6` | [Published README MIT section](../third_party_licenses/cookie-signature1.0.6-README-license.txt), including original attribution/disclaimer. |
+| `jsonify@0.0.1` | [Published README public-domain declaration](../third_party_licenses/jsonify0.0.1-README-license.txt); no substitute grant invented. |
+| `google-protobuf@3.21.0` | Retain its BSD text and the embedded [Closure Apache header](../third_party_licenses/google-protobuf3.21.0-Closure-header.txt) plus [Apache terms](../third_party_licenses/google-closure-library-Apache-2.0.txt). |
+| `@arcblock/validator@1.19.15` | Metadata declares MIT while its packaged LICENSE supplies an ArcBlock Apache notice. Retain the original Apache text and flag the conflict; do not invent an MIT grant. |
+| `qrcode-generator@1.4.4` | [MIT grant](../third_party_licenses/qrcode-generator1.4.4.txt) and [source header](../third_party_licenses/qrcode-generator1.4.4-source-header.txt) from source-matching `js1.4.4` commit `9bd2163ddc1628d1ec8ff22ea288a747275ef442`, including DENSO WAVE trademark attribution. |
 
-Build/type checks, package alias/canary tests, dependency attack regressions, UI tests, current audit gate and final manifest/notice byte checks are run with these changes. Exact final results and hashes are recorded in [artifact evidence](distribution-artifact-evidence.json). Browser/hosted ARC acceptance is not claimed by these packaging checks.
+The pinned protocol SDK embeds noble/scure crypto with its nested notices; retain
+those notices without counting them as independent installed package instances.
+Axios, Esprima and Lodash also contain embedded/bundled code whose supplied notices
+remain required. OCAP generated helper and inaccessible upstream-code provenance
+still require review. The patched OCAP client retains its original license and
+modification description. Toolchain deepmerge/minimatch notices and historical
+Cisco HPKE fixture provenance remain useful evidence even when they are not
+native application inputs. Do not delete them based on missing code imports.
 
-`audit:dependencies` still reports one low-severity [deepmerge advisory](https://github.com/advisories/GHSA-gcqx-w48m-w2h4). It verifies the checked-in remediation hash `9d8a360bac073908357aa7158b5f6f8ba7bb8b1b91e8474a01741b3d3bd56cd5`, all three installed modified entry points and attack regressions. The gate passes with the raw advisory retained. This means locally remediated under those checks, not an upstream fixed version or closure of GitHub's version-based alert. The MIT notice remains a separate obligation.
+The historical collections `worker-bundle-licenses.txt` and
+`blocklet-bundle-licenses.txt` preserve original texts, including the previous UI
+TanStack license. They are supplemental evidence, not current package inventories.
+Authoritative current native sidecars live with the vendor assets and are hashed
+by this audit. No generic SPDX template replaces missing original text.
+
+## Host resources and approval boundary
+
+Native HTML references host resources such as `/__blocklet__.js` and
+`/aup-core.*.css`, and external Google Fonts. A manifest proves only bytes shipped
+inside the package. Host resources need runtime availability and appropriate
+terms; adding offline copies requires a new exact-file audit. Generated files
+already inside `.web-cache/` remain covered by the unresolved output-code gate.
+
+The retained [ArcBlock request](license-requests/arcblock.md) and
+[interface request](license-requests/interface.md) are drafts, not evidence of
+contact, a reply or permission. Current audit commands send no messages, perform
+no chain transactions, read no wallet/private configuration and restart no ARC
+instance. Byte integrity and legal approval remain separate from dependency
+security checks and local/native/hosted runtime acceptance.

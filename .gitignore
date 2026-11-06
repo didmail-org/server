@@ -19,24 +19,7 @@ blocklet/pages/index/layout.json
 .dev.vars
 .dev.vars.*
 
-blocklet/.web/components/didmail-admin/script.js
-blocklet/.web/components/didmail-home/render.js
-blocklet/.web/components/didmail-admin/render.js
-
-blocklet/.web/components/didmail-home/script.js
-
-# Copied from the repository root during ARC packaging.
-blocklet/LICENSE
-blocklet/NOTICE
-
-blocklet/.web/components/didmail-help/render.js
-blocklet/.web/components/didmail-help/script.js
-
 *.pem
 *.key
 .private/
 private/
-
-# Generated public-package notices copied from the repository root.
-blocklet/THIRD_PARTY_NOTICES.md
-blocklet/third_party_licenses/

@@ -1,29 +1,46 @@
-# Local preview persistence and restart
+# Historical D1/R2 checkpoint recovery
 
-Status: current development procedure. Audience: contributors operating the local preview.
+Status: retained recovery procedure for private data from the retired preview.
+Current backups use [instance AFS](afs-business-storage.md). This document does
+not provide an alternative runtime or instructions to restart workerd.
 
 ## Storage location
 
-The approved `didmail-web` ARC instance serves UI/identity. Its business preview runs workerd at `http://didmail-server.localhost:8788`; [run-arc-worker.mjs](../scripts/run-arc-worker.mjs) uses Miniflare `resourcePersistencePath` at `.wrangler/state/arc-preview` for D1/R2. Legacy `d1Persist`/`r2Persist` options can be ignored by current Miniflare; their presence is not proof of persistence. Do not merge old state roots blindly.
+The historical Miniflare source is `.wrangler/state/arc-preview`. It used
+`resourcePersistencePath`; old `d1Persist`/`r2Persist` options were ignored by
+some Miniflare versions. Retain all existing state roots until audited; never
+merge them blindly. The active `didmail-web` instance now runs native ARC with
+AFS at `http://didmail-server.localhost:8788`.
 
-Wallets, environment files, `.data`, `.arc`, `.wrangler`, snapshots and reports are private ignored data, never public package contents.
+Wallets, configuration, runtime homes, snapshots and exports remain private,
+ignored data outside the package. A checkpoint is not a node-key backup and does
+not include subsequent AFS writes.
 
-## Restart procedure
+## Checkpoint procedure
 
-1. Verify the listening workerd's parent runner, working directory, storage files and launch configuration belong to this checkout. Preserve its required launch options privately. Do not stop the ARC daemon or another project's process.
-2. Quiesce writes by gracefully stopping only the business-preview runner. Do not run two previews against the same D1/R2 state.
-3. Call `snapshotPreviewPersistence` from [preview-persistence.mjs](../scripts/preview-persistence.mjs) with the existing state root and a new private, nonnested destination.
-4. Verify the snapshot and preserve the original node wallet/configuration separately. The checkpoint does not copy the node secret.
-5. Restart the affected runner with the same intended configuration. Verify health, localized pages, node identity and original application table/object contents.
+1. Confirm the source belongs to this installation and is no longer being
+   written. If a historical process is still running, identify and quiesce only
+   that process before copying; leave ARC and unrelated services running.
+2. Call `snapshotPreviewPersistence` from [preview-persistence.mjs](../scripts/preview-persistence.mjs)
+   with the existing state root and a new private, nonnested destination.
+3. Verify the checkpoint and preserve the original wallet/configuration separately.
+4. Export/import from that consistent copy using [instance migration](instance-afs-migration.md)
+   and [business import](afs-business-storage.md#import-backup-and-restore).
+   Verify counts and object hashes before publishing an empty target aggregate.
 
-The checkpoint uses SQLite online backup, integrity checks and streamed object hashes. It refuses symlinks, overlapping roots and existing destinations; failures remove only its newly created incomplete destination. Directly copying an active SQLite main/WAL/SHM set is not a consistent backup. D1/R2 consistency still depends on quiesced writes; the tool cannot create a cross-storage transaction.
+The checkpoint uses SQLite online backup, integrity checks and streamed object
+hashes. It refuses symlinks, overlapping roots and existing destinations; failures
+remove only its newly created incomplete destination. Copying an active SQLite
+main/WAL/SHM set is not a consistent backup. D1/R2 consistency requires quiesced
+writers; the tool supplies no cross-storage transaction.
 
-## Local ARC bridge
-
-[preview-arc-service.mjs](../scripts/preview-arc-service.mjs) uses a loopback-only HTTP bridge with workerd's external PROXY transport. It preserves public URL, binary bodies and repeated cookies while regenerating hop-specific headers. The routing allowlist remains fixed; this is not an open proxy or a production Node backend.
-
-Constructed ARC requests set Host from the trusted request URL. Forwarding arbitrary caller Host or browser credentials into privileged chain/member adapters is not allowed. Health success alone cannot prove that a host is registered for native pages/login/invites.
+Never initialize over existing AFS state, replace the original wallet, or roll
+back a paid installation to a stale checkpoint. Preserve task/nonce/fence and
+original signed transaction evidence during reconciliation.
 
 ## Verification
 
-Adjacent script tests cover active-WAL snapshots, nonempty encrypted objects, full Miniflare teardown/reopen, repeated preservation, bad destinations and symlink rejection. The bridge tests cover complete repeated HTML, original URL/body/cookies, session authentication and failures. These are local persistence/transport guarantees, not a remote Cloudflare restore drill.
+Adjacent checkpoint tests exercise WAL snapshots, nonempty encrypted objects,
+full fixture teardown/reopen and invalid destinations. Disposable Miniflare
+fixtures establish recovery properties, not a supported Cloudflare deployment
+or a hosted restore drill.

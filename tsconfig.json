@@ -6,10 +6,8 @@
     }
   },
   "compilerOptions": {
-    "types": [
-      "jest",
-      "node"
-    ],
+    "rootDirs": [".", "blocklet/providers/didmail-http/source"],
+    "types": ["jest", "node"],
     "target": "ES2022",
     "module": "commonjs",
     "noEmit": true,
@@ -25,11 +23,6 @@
     "noImplicitOverride": true,
     "skipLibCheck": true
   },
-  "include": [
-    "api/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "api/dist"
-  ]
+  "include": ["api/**/*.ts"],
+  "exclude": ["node_modules", "api/dist"]
 }

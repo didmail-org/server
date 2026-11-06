@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { toBase58 } from '@ocap/util';
-import { decodeOcapReference } from '../tests/workers/ocap-reference-codec.mjs';
+import { decodeOcapReference } from '../tests/business/ocap-reference-codec.mjs';
 
 test('reference codec transfers exact bytes while the host event loop runs', async () => {
   const bytes = Uint8Array.from({ length: 512 }, (_, i) => i % 256);

@@ -8,7 +8,8 @@ import { chromium } from 'playwright-core';
 import { languages, localizedPath, localeDirection, messages } from '../ui/locales.js';
 import { compileHelp } from '../ui/help-markdown.js';
 
-const root = path.resolve('dist');
+const root = path.resolve('blocklet/.web-cache');
+const source = path.resolve('blocklet');
 const preview = process.env.DIDMAIL_BROWSER_URL || 'http://didmail-server.localhost:8788';
 const html = await fs.readFile(path.join(root, 'en/help/index.html'), 'utf8');
 const corePath = html.match(/href="(\/aup-core\.[a-f0-9]+\.css)"/)?.[1];
@@ -44,8 +45,9 @@ const server = createServer(async (req, res) => {
     const match = /^\/(?:((?:en|zh|ja|ar|ru))\/)?(help|admin(?:\/[a-z]+)?)\/?$/.exec(pathname);
     if (match) pathname = `/${match[1] || 'en'}/${match[2].replaceAll('/', '-')}/index.html`;
     else if (/^\/(?:en|zh|ja|ar|ru)?\/?$/.test(pathname)) pathname = `${pathname.replace(/\/$/, '')}/index.html`;
-    const file = path.resolve(root, `.${pathname}`);
-    if (!file.startsWith(root + path.sep)) throw new Error('Outside artifact directory');
+    const base = pathname.startsWith('/assets/') ? source : root;
+    const file = path.resolve(base, `.${pathname}`);
+    if (!file.startsWith(base + path.sep)) throw new Error('Outside artifact directory');
     const body = await fs.readFile(file);
     res.writeHead(200, { 'content-type': contentTypes[path.extname(file)] || 'application/octet-stream' }).end(body);
   } catch {
