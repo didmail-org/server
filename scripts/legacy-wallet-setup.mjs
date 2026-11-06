@@ -1,9 +1,7 @@
-import { mkdirSync, existsSync, writeFileSync, readFileSync, copyFileSync } from 'node:fs';
+import { mkdirSync, existsSync, writeFileSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
-if (!existsSync('.env.local') && existsSync('.env.example')) copyFileSync('.env.example', '.env.local');
-require('dotenv-flow').config({ silent: true });
 const { fromRandom, fromSecretKey, WalletType } = require('@ocap/wallet');
 const { types } = require('@ocap/mcrypto');
 export const walletType = WalletType({ role: types.RoleType.ROLE_APPLICATION, pk: types.KeyType.ED25519, hash: types.HashType.SHA3 });
@@ -23,4 +21,7 @@ export function setup() {
   console.log(`Node DID: ${wallet.address}`);
   return wallet;
 }
-if (process.argv[1] === new URL(import.meta.url).pathname) setup();
+if (process.argv[1] === new URL(import.meta.url).pathname) {
+  if (process.argv.includes('--help')) console.log('Usage: pnpm legacy:wallet:setup\nCreates a historical local Node wallet only when explicitly invoked. ARC uses private instance configuration; existing identities must be imported, never regenerated.');
+  else setup();
+}

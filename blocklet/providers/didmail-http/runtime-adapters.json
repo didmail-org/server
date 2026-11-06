@@ -3,7 +3,6 @@
   "api/src/libs/template-cache-store": "storage/template-cache-store.ts",
   "api/src/libs/rate-limit": "runtime/rate-limit.ts",
   "api/src/libs/env": "config/env.ts",
-  "api/src/runtime/env": "config/runtime-env.ts",
   "api/src/runtime/wallet": "identity/wallet.ts",
   "api/src/runtime/payment-nonce": "identity/payment-nonce.ts",
   "api/src/runtime/session": "identity/session.ts",

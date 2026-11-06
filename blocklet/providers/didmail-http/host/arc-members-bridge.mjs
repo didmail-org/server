@@ -8,7 +8,7 @@ async function json(response) {
     chunks = [];
   let size = 0;
   try {
-    while (true) {
+    for (;;) {
       const { done, value } = await reader.read();
       if (done) break;
       size += value.length;
@@ -77,7 +77,7 @@ export default function createMembersForward({ origin, publicOrigin, instanceId,
       const active = incoming.searchParams.get('active') || '';
       if ((role && !roles.has(role)) || (active && !['active', 'inactive'].includes(active)))
         return reply({ code: 'INVALID_MEMBER_QUERY' }, 400);
-      if (!Number.isSafeInteger(page) || page < 1 || page > 10000 || search.length > 100 || /[\x00-\x1f]/.test(search))
+      if (!Number.isSafeInteger(page) || page < 1 || page > 10000 || search.length > 100 || Array.from(search).some(character => character.charCodeAt(0) < 32))
         return reply({ code: 'INVALID_MEMBER_QUERY' }, 400);
       try {
         const target = new URL('/.well-known/service/api/team/members', source);

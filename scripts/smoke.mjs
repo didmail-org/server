@@ -26,7 +26,7 @@ export async function runSmoke({ origin, fetcher = fetch, report = console.log }
     const health = await res.json();
     assert.equal(health.status, 'ok');
     assert.equal(health.runtime, 'arc-native');
-    assert.ok(['d1+r2','instance-afs'].includes(health.storage));
+    assert.equal(health.storage, 'instance-afs');
     assert.equal(typeof health.node, 'string'); assert.ok(health.node);
     assert.equal(typeof health.arc, 'boolean'); arc = health.arc;
   });

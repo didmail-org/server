@@ -24,22 +24,10 @@ Package audits can continue to report the deepmerge version despite this checked
 
 ## Validation
 
-From `server/`, using its declared pnpm version:
-
-```sh
-pnpm audit --prod
-pnpm audit
-pnpm test:scripts
-pnpm lint
-pnpm test
-pnpm test:business
-pnpm type-check:runtime
-pnpm build
-pnpm test:browser
-pnpm test:ui
-pnpm test:browser:admin
-pnpm test:browser:ui
-pnpm test:arc
-```
+Run raw `pnpm audit --prod` and `pnpm audit` and retain their results separately
+from the patch-aware `pnpm audit:dependencies` gate. Follow the
+[development check matrix](local-arc-development.md#change-a-feature-and-choose-checks)
+for source/regression/native commands rather than treating every browser or
+release check as a dependency-update prerequisite.
 
 The focused checks are [dependency-security.test.mjs](../scripts/dependency-security.test.mjs), [legacy-contact-payment.test.ts](../api/src/libs/__tests__/legacy-contact-payment.test.ts), [contact-service.test.ts](../api/src/routes/contact-service.test.ts) and the [business codec checks](../tests/business/dmp-codec.test.mjs). Native Node tests, packaged ARC execution and real-browser checks exercise different boundaries; one does not replace another.

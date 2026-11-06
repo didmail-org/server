@@ -61,7 +61,7 @@ export default function chainReads<T>(_client: T): T {
       const decoder = new TextDecoder();
       const chunks: string[] = [];
       let bytes = 0;
-      while (true) {
+      for (;;) {
         const { value: chunk, done } = await stream.read();
         if (done) break;
         bytes += chunk.byteLength;

@@ -1,130 +1,109 @@
-# Server source and runtime boundaries
+# Server architecture
 
-The supported runtime is the native ARC package. Production source and its pinned
-dependency assets live inside that package. Cloudflare Workers and the external
-workerd preview are retired. See [local development](local-arc-development.md)
-for commands and [packaged runtime](arc-package-runtime.md) for activation/setup.
+The package is the production source authority; the only supported business
+runtime is native ARC. Read [development](local-arc-development.md) for commands
+and [operations](arc-package-runtime.md) for installation, configuration and recovery.
 
-## Source ownership
+## Native host and providers
 
 ```text
 blocklet/
-  blocklet.yaml              stable identity, sites, instance and mounts
-  pages/                     AUP layouts and metadata
-  .web/                      Web Device components and site config
-  .aup/locales/              translations and public help
+  blocklet.yaml                stable identity, sites, /instance and mount ops
   providers/
     didmail-http/
-      source/api/src/        retained REST routes and business rules
-      source/http/           protocol HTTP dispatch and administration endpoints
-      source/protocol/       mail/tasks/settlement and internal contact recovery
-      source/identity/       sessions, membership, signing, replay and chain reads
-      source/policy/         admission, access and gas eligibility
-      source/storage/        AFS relational/object ports and caches
-      source/config/         validated runtime/configuration access
-      source/runtime/        host-neutral bindings and compatibility shims
-      host/                  native loader, HTTP transport and lifecycle
-      runtime-adapters.json  native compatibility substitution map
-      vendor/                pinned dependency assets and license evidence
-    didmail-business/        AFS transaction/object port and ordered migrations
-    didmail-native/          verified-caller configuration/policy actions
-    didmail/                 public discovery and compatibility projection
-api/                         historical Node host/models and inward source links
-ui/                          regression facades over native components
-scripts/                     native build, operator, migration and checks
-tests/business/              isolated protocol/storage/recovery regressions
-tests/ui/, test/             UI regressions, vectors and compatibility evidence
-docs/                        current contracts, operations and source evidence
+      host/                    scoped loader, immutable environment, HTTP/WS
+      source/                  readable application modules (below)
+      runtime-adapters.json    native substitutions for retained Node ports
+      vendor/                  pinned dependency asset, facades and license texts
+    didmail-business/          AFS SQL/object operations, initialization/migrations
+    didmail-native/            verified-caller policy/configuration actions
+    didmail/                   public discovery/compatibility projection
 ```
 
-Remaining `api/src` compatibility links point inward. Edit canonical package
-source, never a second copy or generated snapshot. Ordered SQL migrations live
-in `providers/didmail-business/migrations`. Their filenames, SQL predicates,
-instance storage keys and the opaque `r2://` object marker remain durable
-contracts despite retirement of the D1/R2 runtime.
+The HTTP provider reads private instance configuration, activates business
+storage and checks single-instance signing ownership. `host/runtime.mjs`
+configures immutable bindings, verifies the original wallet and loads HTTP/jobs.
+`host/http-server.mjs` owns framing, body limits, Host/Origin checks, caller-header
+filtering, repeated cookies, streams, WebSockets and connection cleanup.
+Unmount waits for startup before releasing listener ownership.
 
-The scoped native loader uses `runtime-adapters.json` to replace historical Node
-environment/database/wallet ports. Test bundling reuses production modules with
-a disposable test host. Miniflare is test infrastructure only; the package does
-not depend on Cloudflare to run. Dependency shims and inventories retain their
-explicit native maintenance boundary.
+The scoped Bun loader resolves package TypeScript and pinned dependency facades;
+unknown dependencies fail closed and other ARC apps are unaffected. These
+installed-runtime constraints are exercised by native tests, not inferred from
+a template. `basic` is the applicable package checker profile. Site identity,
+routes, allowed mount operations and public leaves are declared in
+[the manifest](../blocklet/blocklet.yaml); empty agent/settings modules are unnecessary.
 
-## Runtime dependency direction
+## Business modules
 
-The HTTP provider loads private configuration, activates business storage,
-checks single-instance identity ownership and loads `host/runtime.mjs`.
-The runtime configures immutable bindings, validates the original wallet and
-loads the shared fetch/scheduled core. `host/http-server.mjs` handles only HTTP
-and WebSocket transport: origin validation, incoming header filtering, body
-limits, cookies, streams and connection cleanup. The runtime owns initialization
-and scheduling. Shared REST routes use the selected environment, wallet,
-database and chain adapters rather than importing an operator script.
+All paths below are relative to `blocklet/providers/didmail-http/source/`:
 
-Native business storage evaluates existing SQL transactions using ephemeral
-SQLite and conditionally commits the instance AFS aggregate. It is not a durable
-SQLite file. Ciphertext objects, configuration, policy, nonce fences and original
-transaction evidence retain their documented instance paths. Read
-[storage and backup](afs-business-storage.md), [admission fencing](afs-policy-admission.md)
-and [migration order](instance-afs-migration.md) before changing persistence.
+| Path | Responsibility |
+| --- | --- |
+| `http/` | Public fetch routing, account/admin endpoints, Express assembly |
+| `protocol/` | DMP handlers, settlement/jobs; `contact/` retains internal recovery |
+| `identity/` | Session/membership, original wallet, chain reads, nonces/payment lanes |
+| `policy/` | Admission, envelope/namecard access and gas eligibility |
+| `storage/` | AFS SQL/object client, compatibility models, caches and policy port |
+| `config/` | Validated runtime/configuration access |
+| `runtime/` | Project-owned SQL/object/fetch/task contracts, bindings, scheduler and shims |
+| `api/src/` | Shared retained REST routes, business rules and signature helpers |
 
-Providers stop accepting new startup work on unmount and await in-flight startup
-before releasing their listener ownership. Wallet/environment configuration is
-still immutable for the process; this does not enable hot key replacement.
-Shutdown does not establish an exactly-once job drain: durable job recovery and
-idempotency remain necessary after interrupted work.
+Dependency direction is host → HTTP/scheduler → business/identity/policy →
+explicit storage/fetch ports. Operator scripts do not belong in the production
+graph. `didmail-business` evaluates SQL in ephemeral SQLite and CAS-commits the
+instance aggregate; it is not another durable database. Read the
+[storage transaction contract](afs-business-storage.md) and
+[admission fence protocol](afs-policy-admission.md) before changing predicates.
 
-## Build and distribution boundaries
+Ordered [SQL migrations](../blocklet/providers/didmail-business/migrations),
+instance keys, `r2://` object pointers and versioned export formats are persisted
+contracts. Relational attachment/policy readers remain for historical-record
+regressions/import checks over AFS ports. Production fixes all backend selectors
+to AFS; they do not enable another host or online storage fallback.
 
-`pnpm build` invokes `arc blocklet build blocklet`, emitting `blocklet/dist`.
-`pnpm start` runs the source package through ARC; installed-artifact acceptance
-runs `blocklet/dist` with the required instance Space. Production build/run
-requires no repository node_modules or preparation/bundle script.
+## Native UI
 
-`pnpm test:business` compiles only the disposable regression harness and executes
-`tests/business`; no test-only legacy dispatch is part of the native package.
-`pnpm test:arc` checks the actual isolated ARC HTTP runtime. Historical Node
-source remains compatibility/reference material, not another supported server.
+`blocklet/pages/*/layout.aup` composes pages. `blocklet/.web/site.yaml` owns locale
+and rendering configuration; `.web/template/` supplies the native shell.
+`.web/components/*/{render.js,style.css}` owns rendering/styles, and the named
+sections of `didmail-chrome/script.js` own browser interactions. Native renderers
+are self-contained; there is no React runtime, arbitrary renderer import graph
+or separate application UI bundle.
 
-`blocklet/.web-cache` and `blocklet/dist` are generated and ignored. Retained
-root `dist`/`.worker` artifacts are obsolete local outputs, not deployable
-products. `.arc`, `.wrangler`, `.data`, environment files and exports remain
-private instance/operator state. Vendor manifests, license evidence and protocol
-vectors remain maintained provenance. Public distribution and hosted execution
-have separate acceptance gates.
+`.aup/locales/*.json` supplies first-paint translations and help. Maintain
+[help sources and native copies](help/README.md) together. Root `ui/` is a Node
+regression facade; edit actual components, not a second browser implementation.
 
-## Applicable ARC contract
+## Checks and adapters
 
-Checked CLI: `2.0.0-beta.74 (49c9125c)`, build stamp 2026-10-27. Use
-`arc blocklet check blocklet --profile basic` and `arc dsl validate blocklet`.
-The installed `recipe explain basic` requires a manifest; `minimal-app` is a
-scaffold for web + AUP + agent + settings, not a requirement for every web app.
-DIDMail does not claim that profile or add unused agents/settings.
+`api/src` compatibility symlinks point inward. Node unit checks still select
+historical filesystem/SQLite ports; native loading selects AFS and the installed
+signing environment. Nine entries in `runtime-adapters.json` identify that
+intentional host substitution. TypeScript `rootDirs` and the Jest resolver
+support those Node ports; the native loader and business test builder consume
+the map. Removing this remaining virtual tree requires explicit host/signing
+context isolation, not another rename or copied implementation.
 
-The manifest fixes `did:blocklet:didmail-server`, `scope: app`, required
-`/instance`, four provider mounts with explicit operations, site domain and
-localized administration route bindings. Only attachment public configuration
-is declared for guest network reads. Providers enforce verified caller actions;
-private business/control/key paths are not public resources. Page composition,
-locale coverage, manifest hashes and package confinement are checked by the
-isolated package regression; native HTTP execution is exercised separately.
+`config/env.ts` reads immutable bindings directly. Native modules use actual
+package-relative imports where no host substitution is needed. The test builder
+keeps repository and package-virtual keys for the intentional Node ports.
+Miniflare is temporary HTTP isolation/historical reading only; its
+[migration endpoint](../tests/business/README.md) does not preserve a second product backend.
 
-The official [Blocklet reference](https://www.arcblock.io/en/docs/blocklets/reference/)
-and [package overview](https://www.arcblock.io/en/docs/blocklets/) distinguish
-package, AUP, Web Device and AFS capabilities. Their published evidence baseline
-is beta.28; installed beta.74 help/check/build and actual execution take
-precedence for version-specific behavior. These checks do not certify Store
-licensing, hosted scheduling, remote instance durability or paid-chain delivery.
-Directory organization and the native adapter map are DIDMail engineering
-choices, not ARC schema requirements.
+`pnpm lint` combines TypeScript checks, existing Node adapter/facade lint and
+`lint:runtime`. The latter parses actual owned `blocklet/providers` TypeScript/
+JS and native component render/script files, plus the wallet/SQLite/chain operator tools and public CSS helper. It excludes `vendor`, generated outputs and pinned query/QR bodies within
+the browser script (with checked boundaries and original line numbers). Its
+recommended correctness rules are distinct from TypeScript and the older Node
+style rules; the source file list is maintained in `scripts/lint-runtime.mjs`.
 
-## Retained data compatibility code
+## Artifact boundary
 
-`storage/database.ts` retains the historical relational attachment-configuration
-reader and policy/admission modules retain relational policy predicates used by
-compatibility regressions. These operate on the same SQL/object interfaces over
-AFS in tests. The production host fixes configuration/policy/storage backends to
-AFS; private configuration cannot select another backend. They are not D1/R2
-runtime fallback or supported deployment choices. Retire these data-compatibility
-branches only after replacing their historical-record regressions and preserving
-the one-time import contract. The `r2://` object marker and old export format
-names remain durable identifiers and must not be renamed.
+Only `blocklet/` authored inputs and pinned assets are required for native
+build/run. `blocklet/dist` and `.web-cache` are generated. Private instance homes,
+wallets, environment files, checkpoints and exports stay outside the package.
+The [distribution audit](distribution-license-audit.md) owns dependency/source
+hashes and per-build evidence; it does not grant deployment or legal approval.
+The [operations status table](arc-package-runtime.md#capability-status) is the
+single acceptance summary.

@@ -1,6 +1,6 @@
 # interface 1.2.1 license clarification request
 
-Status: maintained correspondence template based on the 2026-11-04 [distribution audit](../distribution-license-audit.md). This template does not record delivery or a maintainer response, and does not change release decisions.
+Status: maintained correspondence template aligned with the current native ARC [distribution audit](../distribution-license-audit.md). This template does not record delivery or a maintainer response, and does not change release decisions.
 
 Subject: Request for authoritative license and copyright text for interface@1.2.1
 
@@ -10,11 +10,10 @@ Hi interface maintainers,
 
 This message was prepared by AI using DIDMail's recorded npm, source and build-artifact audit evidence. Items requesting maintainer confirmation remain unverified.
 
-We maintain [DIDMail Server](https://github.com/didmail-org/server), an Apache-2.0 project, and are reviewing third-party notices before distributing our compiled Cloudflare Worker. We have not released the build artifacts.
+We maintain [DIDMail Server](https://github.com/didmail-org/server), an Apache-2.0 project, and are reviewing third-party notices before distributing our native ARC Blocklet package. Independent Workers execution has been retired. The native package remains blocked from public distribution pending the required evidence.
 
-Our audit on November 4, 2026 established that:
+The current native vendor inventory contains `interface@1.2.1` without a collected complete license text. Earlier release investigations established that:
 
-- `interface@1.2.1` contributes code to our production Worker bundle.
 - The [official npm release metadata](https://registry.npmjs.org/interface/1.2.1) declares MIT and names Charlie Duong as the author. The downloaded tarball passes npm's declared integrity check, but we found no complete license text.
 - Its recorded `gitHead` is `f29d1edb221ed0527b274eabbc8f27cbf95ce6a9`.
 - The repository URL redirects from `charlieduong94/interface-js` to `ctdio/interface-js`.
@@ -30,7 +29,7 @@ A version-specific official file or an explicit written confirmation from the re
 
 We intend to bundle and potentially minify the code while retaining the required legal notices. We have left the copyright wording unresolved rather than inventing it from the author field or substituting a generic MIT template.
 
-This evidence would allow us to address the **interface-specific Worker distribution blocker**, subject to verifying and including the required notices. Other independent release checks would remain. `interface@1.2.1` is not part of our current Blocklet artifact.
+This evidence would allow us to address the **interface-specific native Blocklet distribution blocker**, subject to verifying and including the required notices. Other independent release checks would remain. `interface@1.2.1` is part of the current native vendor inventory; the historical statement that it was absent from the Blocklet no longer applies.
 
 Our findings are documented in the [distribution audit](https://github.com/didmail-org/server/blob/main/docs/distribution-license-audit.md), with [release provenance and tarball hashes](https://github.com/didmail-org/server/blob/main/docs/license-source-evidence.json).
 

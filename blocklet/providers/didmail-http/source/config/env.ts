@@ -1,10 +1,10 @@
-import runtime from './runtime-env';
 import getWallet from '../identity/wallet';
 import { value } from '../runtime/bindings';
 import nodeStakeWaitingPeriod from '../api/src/libs/node-stake-policy';
 const chainId = value('CHAIN_ID', 'beta');
 export default {
-  ...runtime,
+  appUrl: value('DIDMAIL_URL'),
+  appName: 'DIDMail Server',
   chainId,
   appId: getWallet().address,
   chainHost: value('CHAIN_HOST', 'https://beta.abtnetwork.io/api/'),

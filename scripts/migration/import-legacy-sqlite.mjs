@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
 import { pathToFileURL } from 'node:url';
-import { dataDir, walletFile, walletType } from './setup.mjs';
+import { dataDir, walletFile, walletType } from '../legacy-wallet-setup.mjs';
 const require = createRequire(import.meta.url);
 const { fromSecretKey } = require('@ocap/wallet');
 const sqlite3 = require('sqlite3');
@@ -64,8 +64,10 @@ export async function migrate({ source, keyFile, destination = dataDir, targetWa
 if (process.argv[1] && pathToFileURL(path.resolve(process.argv[1])).href === import.meta.url) {
   const args = process.argv.slice(2);
   const value = flag => { const i = args.indexOf(flag); return i < 0 ? undefined : args[i + 1]; };
-  if (!value('--database') || !value('--wallet')) {
-    console.error('Usage: pnpm migrate --database /export/didmail.sqlite --wallet /export/node-wallet.json [--expected-address z...]');
+  if (args.includes('--help')) {
+    console.log('Usage: pnpm legacy:sqlite:import --database /export/didmail.sqlite --wallet /export/node-wallet.json [--expected-address z...]\nHistorical SQLite/wallet import into an empty local destination; this does not initialize ARC.');
+  } else if (!value('--database') || !value('--wallet')) {
+    console.error('Usage: pnpm legacy:sqlite:import --database /export/didmail.sqlite --wallet /export/node-wallet.json [--expected-address z...]');
     process.exitCode = 1;
   } else {
     try { console.log(JSON.stringify(await migrate({ source: value('--database'), keyFile: value('--wallet'), expectedAddress: value('--expected-address') }), null, 2)); }

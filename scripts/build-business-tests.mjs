@@ -2,15 +2,13 @@
 import { build } from 'esbuild';
 import path from 'node:path';
 import fs from 'node:fs/promises';
-import { realpathSync } from 'node:fs';
 import runtimeAdapters from '../blocklet/providers/didmail-http/runtime-adapters.json' with { type: 'json' };
 const root = process.cwd();
 const replacements = new Map(
   Object.entries(runtimeAdapters).map(([source, adapter]) => [path.join(root, source + '.ts'), path.join(root, 'blocklet/providers/didmail-http/source', adapter)]),
 );
 for (const [a, b] of [...replacements]) {
-  replacements.set(realpathSync(a), realpathSync(b));
-  replacements.set(path.join(root, 'blocklet/providers/didmail-http/source', path.relative(root, a)), realpathSync(b));
+  replacements.set(path.join(root, 'blocklet/providers/didmail-http/source', path.relative(root, a)), b);
 }
 const result = await build({
   entryPoints: ['tests/business/entry.ts'],
@@ -31,8 +29,8 @@ const result = await build({
       name: 'business-test-container',
       setup(b) {
         b.onResolve({ filter: /.*/ }, (args) => {
-          // The Worker uses Axios' fetch adapter; keep Node HTTP/2 and proxy
-          // transports out of the production bundle entirely.
+          // The isolated test host uses Axios' fetch adapter; exclude Node
+          // HTTP/2 and proxy transports from this fixture.
           if (args.path === 'axios') return { path: path.join(root, 'node_modules/axios/dist/browser/axios.cjs') };
           if (args.path === 'node-fetch') return { path: path.join(root, 'blocklet/providers/didmail-http/source/runtime/node-fetch.ts') };
           if (args.path === 'depd') return { path: path.join(root, 'blocklet/providers/didmail-http/source/runtime/depd.cjs') };

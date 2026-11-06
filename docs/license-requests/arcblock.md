@@ -1,8 +1,11 @@
 # ArcBlock license clarification request
 
-Status: maintained correspondence template based on the 2026-11-04 [distribution audit](../distribution-license-audit.md). The requested Chinese message is preserved below; engineering audit documentation remains in English. This template does not record delivery or a maintainer response, and does not change release decisions.
+Status: correspondence template aligned with the current native ARC
+[distribution audit](../distribution-license-audit.md). Historical release
+investigations remain evidence, not a maintainer reply or distribution grant.
+The requested Chinese message is retained below.
 
-Subject: 请求核实 DIDMail 使用的 OCAP 包及 ARC 生成资源的许可与再分发材料
+Subject: 请求核实 DIDMail 原生 ARC 包中 OCAP 依赖及 ARC 生成资源的许可与再分发材料
 
 ## Message
 
@@ -10,65 +13,37 @@ ArcBlock 团队你好，
 
 本邮件由 AI 根据 DIDMail 已记录的源码、npm 包及构建产物审计证据整理；需要维护者确认的事项仍属待核实内容。
 
-我们正在完成 [DIDMail Server](https://github.com/didmail-org/server) 的 Worker 和 Blocklet 构建产物许可审计。项目源码采用 Apache-2.0，构建产物尚未发布。根据 2026-11-04 的审计结果，想请你们协助提供以下版本对应的权威材料。
+我们正在完成 [DIDMail Server](https://github.com/didmail-org/server) 原生 ARC Blocklet 的分发许可审计。项目自有源码采用 Apache-2.0；这不替代第三方授权。独立 Workers 运行方式已经退役。当前原生依赖资产清单包含以下版本，其缺失许可材料仍阻止包发布。
 
-**1. `@ocap/util@1.30.24`——当前 Worker 发布阻塞**
+**1. `@ocap/util@1.30.24` 与 `@ocap/proto@1.30.24`——当前原生包发布阻塞**
 
-我们已核实：
+两个版本均已进入原生包的 vendor inventory，均缺少已收集的完整许可文本，不能沿用旧构建中“proto 不在产物内”的结论。现有调查记录为：
 
-- 官方 npm tarball 通过 registry 声明的完整性校验。
-- 包内 manifest 声明 `Apache-2.0`，但未发现独立 LICENSE 或 NOTICE。
-- npm 记录的 `gitHead` 为 `e074a74510ab4386bc3cbff27003ae1f14548f39`。
-- 包指向 `ArcBlock/blockchain`；仓库 API 和固定提交的原始许可文件地址，在我们当前访问条件下均返回 404。
-- 官方文档介绍了该库，但未提供这个版本完整的许可、版权及嵌入代码 notice。
-- 该版本确实向生产 Worker 输出贡献代码。
+- 官方 npm metadata 声明 Apache-2.0，但包内未发现完整 LICENSE/NOTICE。
+- util 的 npm `gitHead` 为 `e074a74510ab4386bc3cbff27003ae1f14548f39`；proto 为 `87990c8b5e215107fc587c1ced0d6b3e2cd2483e`。
+- 包指向 `ArcBlock/blockchain`；历史调查中，仓库 API 和固定提交的原始许可文件在当时访问条件下返回 404。现有材料不足以证明具体版本的完整授权和嵌入代码来源。
 
-请协助提供：
+请分别提供明确适用于这两个 npm 版本的完整原始许可、准确版权声明、应随再分发保留的 NOTICE/attribution，以及随包预打包、复制或嵌入代码的来源、版本和适用条款。若无独立 NOTICE 或额外分发要求，也请明确确认。材料可以是固定版本官方源码/发行附件，或具备授权权限主体的书面确认；我们不会根据 SPDX 字段自行补写授权。
 
-- 明确适用于这个 npm 发行版本的完整许可正文及准确版权声明。
-- 应随再分发产物保留的 NOTICE、attribution 和其他第三方声明；如果没有独立 NOTICE，请明确确认。
-- 包内预打包、复制或嵌入代码的来源、版本及适用许可，或能够核实这些信息的官方源码／发行材料。
-- 如仍适用 Apache-2.0，请确认该许可覆盖此发行版本及其随包代码，并说明有无额外分发要求。
+**2. ARC `2.0.0-beta.74 (49c9125c)` 生成资源——当前原生包发布阻塞**
 
-材料可以是固定版本的官方链接、发行附件，或由具备授权权限的主体作出的书面确认。我们希望保留原始文本，而不是根据 SPDX 字段自行补写。
+ARC 导出的 `.web-cache/` 包含公共 widget/runtime 脚本及模板资源，超出 npm 依赖清单本身。我们尚未收集到足以确认该版本输出代码再分发条件的完整许可及嵌入第三方 notices；ARC CLI 二进制本身不随 DIDMail 包分发。
 
-**2. ARC `2.0.0-beta.74 (49c9125c)` 生成资源——当前 Worker 和 Blocklet 共同阻塞**
+请提供适用于该版本导出 JS、CSS 和模板的许可或输出物条款，明确覆盖它们随原生 Blocklet 包分发的场景，以及应保留的版权、attribution、NOTICE 和嵌入第三方依赖清单。
 
-该版本 ARC 导出的静态产物包含公共 widget/runtime 脚本，其中一个实际文件的 SHA-256 为：
+页面还引用由 ARC 主机提供的 `/__blocklet__.js` 与 `/aup-core.*.css`。如需离线复制这些资源，请提供官方可验证原文件、哈希和离线分发条件。我们尚未把历史某次缓存的资源哈希当作当前完整产物。每次构建的实际文件均依其 manifest 核验，并保留完整独立审计记录。
 
-```text
-5a32d5b3e49f0833e03c16f43a73fb5b24160deb1a6eaa561f8a84f48ab1aff8
-```
+**3. 其他许可归属澄清**
 
-该脚本包含 masonry/widget runtime，由 ARC 生成，位于我们的 npm 编译依赖清单之外。我们检查的官方 CLI 安装包、资源目录及公开文档，尚未提供足以确认这些输出资源再分发条件的许可和完整 notices。
+- `@arcblock/validator@1.19.15` 的 metadata 声明 MIT，但官方 tarball 的 LICENSE 是 ArcBlock Apache-2.0 notice。我们保留了该原文及 Apache 条款，请确认具体版本的适用许可和声明。
+- `@arcblock/ws@1.30.24` 的历史许可材料缺口仍可补档，但当前加载器使用包内适配器；不要把它与已进入原生清单的 proto 混为同一范围。
 
-此外，生成页面引用：
-
-```text
-/aup-core.d26223e73064f873.css
-```
-
-Blocklet 依赖 ARC 主机提供它；独立 Worker 的正常构建尚未包含对应文件。
-
-请协助提供：
-
-- 适用于该 ARC 版本导出 JS、CSS 和模板资源的许可或输出物再分发条款，明确覆盖作为独立 Worker 静态资源和 Blocklet 包内容进行分发的场景。
-- 这些资源应携带的版权、attribution、NOTICE，以及内嵌第三方代码的许可清单；若无额外要求，请明确说明。
-- 上述核心 CSS 对应的官方原文件或可验证获取方式、内容哈希及离线分发条件。
-
-这部分材料用于解除两个产物的 ARC 输出资源授权阻塞；CSS 文件及许可核实后，我们还需实际打包并验证独立 Worker 的资源完整性。
-
-**3. 可一并澄清的事项，不作为当前新增阻塞**
-
-- `@ocap/proto@1.30.24`、`@arcblock/ws@1.30.24` 的官方 npm 包也声明 Apache-2.0，但未发现独立许可文本，并指向上述暂不可访问的仓库。这两个版本没有进入当前 Worker 或 Blocklet 产物；如有对应的官方许可／NOTICE 材料，也希望一并补档。
-- `@arcblock/validator@1.19.15` 的 manifest 声明 MIT，但官方 tarball 中的 LICENSE 是 ArcBlock Apache-2.0 notice。我们已保留该原文及完整 Apache 条款，希望你们确认该版本的准确适用许可及应保留的声明。
-
-收到材料后，我们会补齐原始许可和 attribution、核对最终产物并重新审计。`@ocap/util` 的材料只解除 Worker 的对应依赖阻塞；Worker 另有独立的 `interface@1.2.1` 许可问题正在向其维护者核实。
+收到材料后，我们仍需核对原始授权、嵌入代码与最终产物，不能仅凭声明立即发布。`interface@1.2.1` 和 `utf8@3.0.0` 的文本缺口等独立门槛仍保留。
 
 供参考：
 
-- [完整审计报告](https://github.com/didmail-org/server/blob/main/docs/distribution-license-audit.md)
+- [当前分发审计与缺失材料](https://github.com/didmail-org/server/blob/main/docs/distribution-license-audit.md)
 - [官方 npm 版本、gitHead、tarball 及完整性证据](https://github.com/didmail-org/server/blob/main/docs/license-source-evidence.json)
-- [实际构建产物及文件哈希](https://github.com/didmail-org/server/blob/main/docs/distribution-artifact-evidence.json)
+- [当前原生包依赖和许可证据](https://github.com/didmail-org/server/blob/main/docs/distribution-dependency-evidence.json)
 
 感谢协助。

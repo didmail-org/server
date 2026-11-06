@@ -162,7 +162,7 @@ ARC 在自身进程内运行协议、签名与任务服务，并使用实例 AFS
 
 1. 配置公开 HTTPS origin、目标网络、必需的实例 Space 和可信 ARC 连接。原节点钱包密钥放在私有实例配置中，并核对公开节点地址。
 2. 提供成员邮件前，配置限定实例的成员适配器和账户绑定能力。保护凭据，过期前轮换；不能用仅包含角色的列表替代已验证活跃状态。
-3. 使用 `pnpm build` 构建原生包，通过 `pnpm start` 运行。已有安装必须显式导入，新安装必须显式初始化。保留有序 SQL schema 与迁移历史；不要对 ARC 实例执行 D1 运行命令，也不要初始化覆盖已有数据。
+3. 使用 `pnpm build` 构建原生包，通过 `pnpm start --instance <instance-name>` 运行。已有安装必须显式导入，新安装必须显式初始化。保留有序 SQL schema 与迁移历史；不要对 ARC 实例执行 D1 运行命令，也不要初始化覆盖已有数据。
 4. 保留原节点身份和数据。在隔离环境测试，再验收登录、成员、接收密钥、内部同步及计划提供的外部投递路径。
 5. 分发正确 endpoint 和兼容客户端，保持定时投递恢复与到期清理运行，监控容量和需对账的任务。
 
@@ -170,7 +170,7 @@ ARC 在自身进程内运行协议、签名与任务服务，并使用实例 AFS
 
 ```sh
 pnpm install --frozen-lockfile
-pnpm start
+pnpm start --instance <instance-name>
 ```
 
-本地规定使用 ARC 实例 `didmail-web`。打开 `pnpm start` 输出的 ARC 地址激活应用，ARC 冷重启后也需要再次激活；业务操作请使用已配置的完整邮件与页面地址 `http://didmail-server.localhost:8788`。Workers 与外部 workerd 执行器已退役。保留实例数据和原始钱包，不干扰其他 ARC 实例。本地验证不代表已完成远端生产部署。
+选择该安装的实例名（`didmail-web` 是此工作区现有的本地实例）。打开 `pnpm start --instance <instance-name>` 输出的 ARC 地址激活应用，ARC 冷重启后也需要再次激活；业务操作请使用已配置的完整邮件与页面地址 `http://didmail-server.localhost:8788`。Workers 与外部 workerd 执行器已退役。保留实例数据和原始钱包，不干扰其他 ARC 实例。本地验证不代表已完成远端生产部署。

@@ -4,7 +4,7 @@ import { toBase58,toUint8Array } from '@ocap/util';
 import { toTxHash } from '@ocap/mcrypto';
 import { isDeepStrictEqual } from 'node:util';
 import { getAddress,parseUnits } from 'ethers';
-import { addressOf,identityId,b64u,unb64u,canonicalize,utf8,digest,confirmationPolicy,validateChainConfirmation,type ChainConfirmation,type Manifest,type Quote,type Settlement,type Discovery } from '@didmail/protocol';
+import { addressOf,b64u,unb64u,canonicalize,utf8,digest,confirmationPolicy,validateChainConfirmation,type ChainConfirmation,type Manifest,type Quote,type Settlement } from '@didmail/protocol';
 import env from '../config/env';
 import wallet from '../identity/wallet';
 import { Envelope } from '../storage/database';

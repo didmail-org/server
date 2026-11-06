@@ -1,45 +1,28 @@
 # ARC-native deployment contract
 
-Status: the native ARC implementation is active locally. Hosted ARC execution,
-installation and public distribution remain unverified. This retained path is
+Status: the native ARC implementation is active locally. Hosted ARC installation
+and execution remain unverified; public distribution remains gated. This retained path is
 linked by other DIDMail repositories; it now records the remaining deployment
 contract rather than the completed local implementation plan.
 
 ## Target and boundaries
 
 The versioned Blocklet supplies UI, protocol HTTP, original signing and scheduled
-work inside ARC, with durable data in an instance-scoped Space. The [Workers runtime is retired](workers-migration.md); its retained D1/R2 sources
+work inside ARC, with durable data in an instance-scoped Space. The Workers runtime is retired; its retained [D1/R2 recovery sources](local-preview-persistence.md)
 are migration evidence, never an automatic fallback.
 
 Current source ownership and adapters are described in [server architecture](server-architecture.md).
 Use [local ARC development](local-arc-development.md) for commands,
 [packaged runtime](arc-package-runtime.md) for activation, identity and local
-acceptance, and [instance migration](instance-afs-migration.md) for explicit import.
+acceptance, and [instance migration](arc-package-runtime.md#existing-installation-import-before-initialization) for explicit import.
 
-## Verified baseline and gaps
+## Target-runtime evidence
 
-The local baseline uses ARC `2.0.0-beta.74 (49c9125c)`. Package-only build and
-native HTTP/restart tests exercise the actual ARC binary without repository
-node_modules or a business Worker. The [runtime acceptance](arc-package-runtime.md#local-acceptance-and-limits)
-records what these tests establish. Local business storage uses the
-[AFS transaction aggregate](afs-business-storage.md), preserving SQL predicates
-and conditional commits; [policy admission](afs-policy-admission.md) retains
-CAS locks and relational fences.
-
-The inspected beta.74 bundled `collections` and `work-board` notes state that
-the Node daemon imports module mounts while the Cloudflare scope activator skips
-module-target mounts. This version-specific limitation must be rechecked on the
-actual hosted target. Local `./providers/...` execution is not hosted acceptance.
-Static Pages package hosting, denied anonymous AFS probes and a successful basic
-package check also do not establish executable hosting or storage guarantees.
-
-Earlier scaffold, proxy, CAS and static-hosting probes were implementation
-research. Their per-run evidence remains in ignored private artifacts and Git
-history; they are superseded as operating instructions by the current runtime
-documents. Reusable isolated checks remain in
-[instance tests](../scripts/arc-instance-live.test.mjs),
-[proxy tests](../scripts/arc-provider-live.test.mjs) and
-[native HTTP tests](../scripts/arc-http-package-live.test.mjs).
+The [capability table](arc-package-runtime.md#capability-status) owns the current
+acceptance summary. For a hosted target, recheck its exact module-mount activation,
+listener, scheduling and instance storage contracts; the local CLI's Node/Bun
+provider loading is not hosted evidence. Static Pages and a basic package check
+cannot establish executable hosting or durability.
 
 ## Required contracts before cutover
 
@@ -76,9 +59,8 @@ runtime and storage-provider versions:
 
 Use focused existing compatibility, authorization, concurrent-write, interruption,
 restart and encrypted-delivery checks for the capability being changed. Synthetic
-fixtures and local deployment dry runs remain local evidence. Hosted ingress,
-real authentication, paid-chain settlement and distribution need their own
-explicit acceptance; automated checks must not send real mail or chain transactions.
+fixtures and local deployment dry runs remain local evidence. Hosted ingress/authentication, paid-chain settlement and distribution need
+target-specific acceptance; automated checks must not send real mail or chain transactions.
 
 Reference contracts: [manifest](https://www.arcblock.io/en/docs/blocklets/manifest-and-capabilities/),
 [package and instance](https://www.arcblock.io/en/docs/blocklets/package-and-instance/),

@@ -162,7 +162,7 @@ ARC runs the protocol, signing and task service in its own process and stores bu
 
 1. Configure the server's public HTTPS origin, intended network, required instance Space and trusted ARC connection. Keep the original node wallet secret in private instance configuration and verify its public node address.
 2. Configure the instance-scoped membership adapter and account-binding capability before offering member mail. Keep its credentials private and renew them before expiry. Do not substitute a role-only list for verified active membership.
-3. Build the native package with `pnpm build` and run it with `pnpm start`. Existing installations require explicit import; new installations require explicit initialization. Preserve the ordered SQL schema/migration history; never apply D1 runtime commands to the ARC instance or initialize over existing data.
+3. Build the native package with `pnpm build` and run it with `pnpm start --instance <instance-name>`. Existing installations require explicit import; new installations require explicit initialization. Preserve the ordered SQL schema/migration history; never apply D1 runtime commands to the ARC instance or initialize over existing data.
 4. Preserve existing node identity and data. Use an isolated environment for testing, then verify login, membership, client receiving keys, internal synchronization and the external path you intend to offer.
 5. Distribute the correct endpoint and compatible clients. Keep scheduled delivery recovery and expiration cleanup operating. Watch capacity and items requiring reconciliation.
 
@@ -170,7 +170,7 @@ For development in this repository, use Node.js 24.14 or newer and run from `ser
 
 ```sh
 pnpm install --frozen-lockfile
-pnpm start
+pnpm start --instance <instance-name>
 ```
 
-The approved local ARC instance is `didmail-web`. Open the ARC URL printed by `pnpm start` to activate the app, including after a cold restart; use the configured complete mail/UI origin `http://didmail-server.localhost:8788` for business operations. Workers and the external workerd executor are retired. Preserve instance data and the original wallet, and leave other ARC instances running. Local checks do not prove remote production deployment.
+Choose the installation's instance name (`didmail-web` is this workspace's existing local instance). Open the ARC URL printed by `pnpm start --instance <instance-name>` to activate the app, including after a cold restart; use the configured complete mail/UI origin `http://didmail-server.localhost:8788` for business operations. Workers and the external workerd executor are retired. Preserve instance data and the original wallet, and leave other ARC instances running. Local checks do not prove remote production deployment.

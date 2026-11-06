@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { runSmoke } from './smoke.mjs';
 
-// Public synthetic responses only. Production workerd/artifact acceptance is
+// Public synthetic responses only. Native runtime/artifact acceptance is
 // run separately; these cases make sure the smoke gate rejects regressions.
 function fixture({ arc = true, override = () => undefined } = {}) {
   const calls = [];
@@ -11,7 +11,7 @@ function fixture({ arc = true, override = () => undefined } = {}) {
   const fetcher = async (url, options) => {
     const path = url.pathname; calls.push({ path, options });
     const changed = override(path); if (changed) return changed;
-    if (path === '/api/health') return Response.json({ status: 'ok', runtime: 'arc-native', storage: 'd1+r2', node: 'public-fixture', arc });
+    if (path === '/api/health') return Response.json({ status: 'ok', runtime: 'arc-native', storage: 'instance-afs', node: 'public-fixture', arc });
     if (path === '/') return html('DIDMail Server<link href="/aup-core.0123456789abcdef.css"><script src="/_arc/assets/native.js"></script>');
     if (path.endsWith('.css')) return new Response('.aup-app-header{}', { headers: { 'content-type': 'text/css' } });
     if (path.endsWith('.js')) return new Response('', { headers: { 'content-type': 'application/javascript' } });
@@ -29,7 +29,7 @@ function fixture({ arc = true, override = () => undefined } = {}) {
 }
 
 for (const arc of [false, true]) {
-  test(`smoke accepts native Workers with ARC ${arc ? 'connected' : 'unavailable'}, issuing only credential-free GETs`, async () => {
+  test(`smoke accepts native ARC runtime with membership ${arc ? 'connected' : 'unavailable'}, issuing only credential-free GETs`, async () => {
     const f = fixture({ arc }); assert.equal((await f.run()).length, 9);
     for (const { options } of f.calls) {
       assert.equal(options.method, 'GET');
@@ -42,7 +42,7 @@ for (const arc of [false, true]) {
 }
 
 for (const [name, path, response] of [
-  ['legacy ARC health', '/api/health', () => Response.json({ status: 'ok', runtime: 'arc', storage: 'd1+r2', node: 'fixture', arc: true })],
+  ['legacy ARC health', '/api/health', () => Response.json({ status: 'ok', runtime: 'arc', storage: 'instance-afs', node: 'fixture', arc: true })],
   ['React SPA deep-link fallback', '/admin/account', () => new Response('<div id="app">DIDMail Server</div>')],
   ['missing core stylesheet', '/aup-core.0123456789abcdef.css', () => new Response('Missing', { status: 404 })],
   ['forged owner authorization', '/api/account/state', () => Response.json({ address: 'private-account' })],

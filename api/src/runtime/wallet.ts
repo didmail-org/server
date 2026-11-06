@@ -8,7 +8,9 @@ let wallet: WalletObject | undefined;
 export default function getWallet(): WalletObject {
   if (wallet) return wallet;
   if (!fs.existsSync(runtimeEnv.walletFile)) {
-    throw new Error('Node wallet missing. Run pnpm setup, or import the original node wallet with pnpm migrate.');
+    throw new Error(
+      'Node wallet missing. For historical Node data only, run pnpm legacy:wallet:setup or import the original wallet with pnpm legacy:sqlite:import. ARC uses private instance configuration.',
+    );
   }
   const saved = JSON.parse(fs.readFileSync(runtimeEnv.walletFile, 'utf8'));
   if (typeof saved.secretKey !== 'string') {

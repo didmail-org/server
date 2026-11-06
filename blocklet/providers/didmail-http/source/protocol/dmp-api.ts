@@ -3,7 +3,7 @@ import { internalPolicy, memberPair, checkInternalQuote } from './member-mail';
 import { accountLinksEnabled } from '../identity/arc-members';
 import { requireMemberStake } from '../policy/mail-gas-eligibility';
 import { requireEnvelopeAccess, envelopeAdmission } from '../policy/envelope-access';
-import { addressOf,b64u,unb64u,canonicalize,parseCanonical,utf8,text,digest,uuid,isUuid,signArtifact,verifyArtifact,validateManifest,validateKeyRecord,manifestHash,chunkSize,amount,type Manifest,type Quote,type KeyRecord,type KeyRevocation,type Discovery,type Problem,type Proof } from '@didmail/protocol';
+import { addressOf,b64u,unb64u,canonicalize,parseCanonical,digest,uuid,isUuid,signArtifact,verifyArtifact,validateManifest,validateKeyRecord,manifestHash,chunkSize,amount,type Manifest,type Quote,type KeyRecord,type KeyRevocation,type Discovery,type Problem } from '@didmail/protocol';
 import { parseUnits } from 'ethers';
 import { toUint8Array } from '@ocap/util';
 import { admissionSql, admissionValues, checkSenderAdmission, checkMessageLimits, readMailPolicy, readEffectiveMailPolicy } from '../policy/mail-admission';

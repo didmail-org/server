@@ -14,7 +14,7 @@ export async function readMembersAdmin(request: Request): Promise<Response> {
     return admissionError(400, 'INVALID_MEMBER_QUERY', 'Invalid member query');
   const page = Number(url.searchParams.get('page') || 1),
     search = url.searchParams.get('search') || '';
-  if (!Number.isSafeInteger(page) || page < 1 || page > 10000 || search.length > 100 || /[\x00-\x1f]/.test(search))
+  if (!Number.isSafeInteger(page) || page < 1 || page > 10000 || search.length > 100 || Array.from(search).some(character => character.charCodeAt(0) < 32))
     return admissionError(400, 'INVALID_MEMBER_QUERY', 'Invalid member query');
   const role = url.searchParams.get('role') || '',
     active = url.searchParams.get('active') || '';

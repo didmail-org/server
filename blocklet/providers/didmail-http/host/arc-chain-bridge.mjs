@@ -14,7 +14,7 @@ export default function createChainForward(origin, fetcher = fetch) {
       !['read', 'list'].includes(body?.method) ||
       typeof path !== 'string' ||
       !/^\/dev\/chain\/[a-z][a-z0-9-]*(?:\/|$)/.test(path) ||
-      /[%\\?#\u0000]/.test(path) ||
+      (/[%\\?#]/.test(path) || path.includes('\0')) ||
       path.includes('//') ||
       path.split('/').some((part) => part === '.' || part === '..')
     )

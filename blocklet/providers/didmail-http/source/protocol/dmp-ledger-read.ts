@@ -11,7 +11,7 @@ export async function requestDmpChainRpc(endpoint:string,query:string,variables:
   const response=await fetcher(endpoint,{method:'POST',headers:{'content-type':'application/json',accept:'application/json'},redirect:'manual',signal:AbortSignal.timeout(20000),body});
   if(!response.ok||!response.body)throw new Error('LEDGER_RPC_UNAVAILABLE');
   const stream=response.body.getReader(),parts:Uint8Array[]=[];let size=0;
-  while(true){const {done,value}=await stream.read();if(done)break;size+=value.byteLength;if(size>8*1024*1024){await stream.cancel();throw new Error('LEDGER_RPC_RESPONSE_TOO_LARGE');}parts.push(value);}
+  for(;;){const {done,value}=await stream.read();if(done)break;size+=value.byteLength;if(size>8*1024*1024){await stream.cancel();throw new Error('LEDGER_RPC_RESPONSE_TOO_LARGE');}parts.push(value);}
   const result=JSON.parse(new TextDecoder('utf-8',{fatal:true,ignoreBOM:true}).decode(concat(...parts)));
   if(/\bsendTx\s*\(/.test(query)&&Array.isArray(result?.errors)&&result.errors.length&&result.errors.every((e:any)=>e?.code==='INVALID_TX_SIZE'))throw Object.assign(new Error('CHAIN_TRANSACTION_REJECTED'),{chainRejectionCode:'INVALID_TX_SIZE'});
   if(/\bsendTx\s*\(/.test(query)&&Array.isArray(result?.errors)&&result.errors.length&&result.errors.every((e:any)=>e?.code==='INTERNAL'&&e?.message==='LEDGER_WRITE_FAILED: Entry with this hash already exists'))throw new Error('CHAIN_LEDGER_RECONCILIATION_REQUIRED');

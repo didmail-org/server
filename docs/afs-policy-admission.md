@@ -1,8 +1,8 @@
 # Instance mail policy and fenced admission
 
-Status: active native ARC contract. The policy object and relational business
-aggregate are separate AFS transaction participants. Workers/D1 deployment is
-retired; retained D1 tables are historical migration evidence only.
+For maintainers changing mail-policy authorization or concurrent admission.
+The policy object and business aggregate are separate AFS transaction participants.
+See [capability status](arc-package-runtime.md#capability-status) for acceptance boundaries.
 
 ## Authority and authorization
 
@@ -73,46 +73,20 @@ throughput and multi-daemon behavior need separate acceptance before changing
 this representation. Unsupported conditional-write capability, unavailable AFS,
 malformed stored data or mismatched access source reject admission without an automatic legacy policy fallback.
 
-## Local runtime and migration
+## Runtime and coordinated import
 
-The native runtime sets `DIDMAIL_POLICY_BACKEND=afs` and supplies the private
-in-process `ARC_MAIL_POLICY` binding. The packaged business provider owns fixed
-instance paths and performs admission recovery. Public callers cannot select an
-operator origin, SQL port or storage path. Migration `0021_afs_admission_fences.sql`
-retains the relational coordination schema. Recovery must close the fence in the
-business aggregate before removing the policy token, even when HTTP ingress is
-down. See [native runtime](arc-package-runtime.md).
+The native runtime fixes `DIDMAIL_POLICY_BACKEND=afs` and supplies the private
+in-process `ARC_MAIL_POLICY` port. The business provider owns fixed instance paths
+and admission recovery; callers cannot select operator origins, SQL ports or paths.
+Migration `0021_afs_admission_fences.sql` retains the coordination schema. Recovery
+must close the business fence before removing its policy token, even with ingress
+down. Lazy app activation must not be mistaken for missing durable state.
 
-On beta.74 the application instance projection is lazy. The preview activates
-its known `didmail-server` application before private reads/startup recovery, so
-an API-only client after daemon restart does not mistake an inactive projection
-for missing state. This uses the existing `didmail-web` instance and identity.
-
-For an existing installation, quiesce all business writers and checkpoint D1/R2
-with the documented [preview persistence procedure](local-preview-persistence.md).
-Export/import the original policy and lists from the consistent SQLite snapshot:
-
-```sh
-node scripts/migrate-arc-mail-policy.mjs --instance didmail-web \
-  --database /absolute/private/checkpoint/database.sqlite \
-  --access-source arc --export /absolute/private/original-policy.json
-```
-
-Choose the actual configured `arc` or `legacy` access source explicitly. Export
-uses one read-only SQLite transaction and preserves revision, exact amounts,
-entry metadata and retained audit history, including existing history gaps.
-Import rejects active tokens, requires `!absent`, verifies exact readback and
-never deletes the source or overwrites an existing AFS object. This is an
-operator operation, independent of `arc blocklet build blocklet`. New package
-builds need no custom preparation script.
-
-On 2026-11-05 the current instance was imported, checkpointed and restarted with
-exact policy/list/audit readback. API-first startup succeeded and original wallet
-and private configuration hashes matched. Evidence and exports stay under ignored
-`artifacts/private/mail-policy-afs-20261105/`. Do not copy these into documentation
-or packages. Backups/restores must coordinate policy and business aggregates with all
-writers stopped; never restore either participant online or select stale D1
-policy as a fallback.
+Follow [operations](arc-package-runtime.md#existing-installation-import-before-initialization)
+for coordinated import and [backup/restore](arc-package-runtime.md#backup-and-restore).
+Keep the original revision, exact amounts, entries and audit gaps; reject active
+locks, use conditional target creation and verify readback. Never restore either
+participant online or select stale source policy as fallback.
 
 ## Verification
 
@@ -142,7 +116,7 @@ initialization, edits and conflicts without legacy policy HTTP calls.
 Local encrypted mail, tasks, account links, keys, nonces and reservations use
 [AFS business storage](afs-business-storage.md), including coordinated backup and
 restore. Native HTTP, signing, delivery and admission recovery execute inside
-ARC. See [instance migration](instance-afs-migration.md) and
+ARC. See [operations](arc-package-runtime.md) and
 [runtime ownership](server-architecture.md).
 
 References: ArcBlock's [Data and AFS](https://www.arcblock.io/en/docs/blocklets/data-and-afs/),

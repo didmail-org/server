@@ -11,7 +11,7 @@ network, origin and scheduler values. A typical LAN listener uses `0.0.0.0`
 and an explicit alias such as `http://192.168.1.23:8788`; use the computer's
 current private IPv4 address. The original public origin can remain unchanged.
 
-Use the [private configuration/lifecycle procedure](arc-package-runtime.md#configuration-keys-and-installation)
+Use the [private configuration/lifecycle procedure](arc-package-runtime.md#private-configuration)
 to coordinate backup and restart of only the affected DIDMail instance. Activate
 the app after restart. The create-only install action cannot overwrite an
 existing configuration; changing a configured installation is a deliberate

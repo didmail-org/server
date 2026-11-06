@@ -6,23 +6,23 @@
   "sourceFiles": [
     {
       "file": ".aup/locales/ar.json",
-      "sha256": "b87537c5ffc6b7b289c328fd5e0083e07fcd6ac3897df4d243f33cabb43f86fd"
+      "sha256": "2c5dc6b515c1f25728f77d774ee0661e4367c1a3adcd0f62036f3a6b1c510581"
     },
     {
       "file": ".aup/locales/en.json",
-      "sha256": "731652434790b1ca8e3930f8ae8ddc741cad567d736c85df984b7adce5bf3d3a"
+      "sha256": "49e41974c510af7505d6d27f7efb56100fedaf55af33903cca75eeeb1165e4de"
     },
     {
       "file": ".aup/locales/ja.json",
-      "sha256": "85303ffc85517991f9e67b35e4417d58d082aed24421b7590136f6d6484a7502"
+      "sha256": "4d7f8630bd35137e1c606e876a1500bf39a29298f8df2ab65b907d53ca6955a7"
     },
     {
       "file": ".aup/locales/ru.json",
-      "sha256": "baa9a6b847fa945c2b1f66095508dd7037e69b82bd890ab64d4ba50bb0379b7f"
+      "sha256": "97cd39280d874f51b811f45953d32a0723d84d3edbb4f079deba9d33ee5f9623"
     },
     {
       "file": ".aup/locales/zh.json",
-      "sha256": "c6648df2813b48b4c54e00d405806813eff55b48927a4b46dadcda4d4923405c"
+      "sha256": "bd5ade955da838ade66a221fe9589aa1dae6099b7e39c61a222d7778a2e325cb"
     },
     {
       "file": ".route/web",
@@ -346,7 +346,7 @@
     },
     {
       "file": "providers/didmail-http/host/arc-chain-bridge.mjs",
-      "sha256": "d226688ea62d11651865448f30ce992896fc0f8308b53036c8e3dbfa21b58982"
+      "sha256": "8d267f7424e43c5c34c3845a786e1e24975b265355fdf79308802204b471dcfa"
     },
     {
       "file": "providers/didmail-http/host/arc-http-transport.mjs",
@@ -354,7 +354,7 @@
     },
     {
       "file": "providers/didmail-http/host/arc-members-bridge.mjs",
-      "sha256": "5ab4d614b8a5cc866da3d3bcc21d0be56431b0f0bb5e99120bcde10f909ded56"
+      "sha256": "27a512f55716524359d73e91323a5545444d3d2adfeb729a113b0171c0bdc362"
     },
     {
       "file": "providers/didmail-http/host/arc-response-headers.mjs",
@@ -394,7 +394,7 @@
     },
     {
       "file": "providers/didmail-http/runtime-adapters.json",
-      "sha256": "87ef919ae0b3bbab0b13e6296f8179d8f5642c68953f5d5503792b9b7827ee99"
+      "sha256": "e294baabfab1e94b0fb7e7a6478a43f7dce19718f0d1569e6d6e66d688ca2e09"
     },
     {
       "file": "providers/didmail-http/source/api/src/libs/afs-chain-reader.ts",
@@ -566,15 +566,11 @@
     },
     {
       "file": "providers/didmail-http/source/config/env.ts",
-      "sha256": "996e0ad033d7c85abec921f26ef3296f67eea42413ace9a55fede4a9f2216599"
+      "sha256": "92eb1c7f68ba835c2d72e291365aa22e1ac9cdba52a3a8d55b975c46ced0969f"
     },
     {
       "file": "providers/didmail-http/source/config/instance-config.ts",
       "sha256": "489bff817ef5e2d7a602d97f980b1c4ef9349e061cbd4797502b90dc92babbec"
-    },
-    {
-      "file": "providers/didmail-http/source/config/runtime-env.ts",
-      "sha256": "464e5a27a836647b294a50b9ddceef9cb20aa7d57698897f45dad596e9add23b"
     },
     {
       "file": "providers/didmail-http/source/http/account-links.ts",
@@ -598,7 +594,7 @@
     },
     {
       "file": "providers/didmail-http/source/http/members-admin.ts",
-      "sha256": "ec9b20345fcacc26cc3832f688c509e19262d9100c02433dc68a80b8c9899969"
+      "sha256": "3e26c7da8d8dc2aae3eaaf1a0c68404ea356089f7d66d470595fc54c476d1255"
     },
     {
       "file": "providers/didmail-http/source/http/storage-admin.ts",
@@ -614,7 +610,7 @@
     },
     {
       "file": "providers/didmail-http/source/identity/chain-read.ts",
-      "sha256": "3538e7ff682dcefd344eca79eac767d18721fa20b49facd48228be0ab8ba652b"
+      "sha256": "74442aac2b00eb49738fac49ef852f10835c8189079957a157fa1904334aa29c"
     },
     {
       "file": "providers/didmail-http/source/identity/payment-nonce.ts",
@@ -686,7 +682,7 @@
     },
     {
       "file": "providers/didmail-http/source/protocol/dmp-api.ts",
-      "sha256": "1517466e10dabe661997182bead4b03b80b3d5d7089cce3f898261a720bde825"
+      "sha256": "2327077ff79252dccfccd22cc115b08b4da301d938c161811116ec0051dc4770"
     },
     {
       "file": "providers/didmail-http/source/protocol/dmp-jobs.ts",
@@ -694,11 +690,11 @@
     },
     {
       "file": "providers/didmail-http/source/protocol/dmp-ledger-read.ts",
-      "sha256": "530bbed9eb1931823536c3ce5cebbd2342d0117f26ec22e68a78306eb219d17f"
+      "sha256": "66490f49ba7e01d1e7a04a149d134dadacbc4f4a51b1e95bace3f28b62277c92"
     },
     {
       "file": "providers/didmail-http/source/protocol/dmp-settlement.ts",
-      "sha256": "76f13a16a5903703442b22fdb3b57d519fd47c7e3eebdcf3f4afae2578b4376c"
+      "sha256": "f76b87cb53eba93899a4039d3b10faf56006f6e4bec3e11d58f07148d10028d0"
     },
     {
       "file": "providers/didmail-http/source/protocol/dmp-store.ts",

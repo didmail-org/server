@@ -65,11 +65,25 @@ to the built package, not an independently verified full transitive SBOM.
 Source/vendor changes require a reviewed `--write`; regenerated cache differences
 alone do not change committed evidence.
 
-See the [current native inventory](blocklet-dependency-inventory.md) and its
-[CSV](blocklet-dependency-inventory.csv). The old Worker/UI evidence was preserved
-privately before replacing snapshots; tracked earlier evidence remains in Git.
-The retained [Worker CSV](worker-dependency-inventory.csv) and license collections
-are explicitly historical and are not inputs to current evidence reconstruction.
+### Current and historical inventories
+
+The [native CSV](blocklet-dependency-inventory.csv) and
+[dependency JSON](distribution-dependency-evidence.json) record 157 native vendor
+package instances, declared license metadata and actual delivered sidecar/recovered
+text hashes. They derive from the built vendor manifest; native noble-hashes source
+is recorded separately. Four entries lack collected text, as listed below. A
+collected license text alone does not complete nested-code or distribution review.
+
+The [historical Worker CSV](worker-dependency-inventory.csv) records 151 installed
+package instances from the retired compiler inventory. Its
+[license collection](../third_party_licenses/worker-bundle-licenses.txt) preserves
+original and recovered texts, including protocol nested notices. The historical
+[UI collection](../third_party_licenses/blocklet-bundle-licenses.txt) also retains
+applicable grants. These are provenance inputs for review, not current runtime
+inventories. Historical compiler counts and missing-text conclusions must not be
+carried over without checking current native bytes. Earlier tracked artifact
+snapshots remain in Git; unique uncommitted evidence was preserved privately
+before replacement. None is required to rebuild current audit evidence.
 
 ## Unresolved release gates
 

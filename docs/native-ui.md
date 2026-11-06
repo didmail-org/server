@@ -17,15 +17,9 @@ Status: current implementation. Audience: UI contributors. The server uses AUP /
 | `/admin/storage`    | `admin-storage`    | Encrypted-mail metadata, search and authorized deletion    |
 | `/admin/attachment` | `admin-attachment` | Attachment settings                |
 
-Page sources are [blocklet/pages](../blocklet/pages/). Native renderers,
-styles, manifests and browser interactions are authored under
-[blocklet/.web/components](../blocklet/.web/components/). The shared
-`didmail-chrome` component retains named sections for existing interactions;
-`ui/` contains their Node regression facades. `arc blocklet build blocklet`
-reads these sources directly, generates the native page cache and produces
-`blocklet/dist`. No separate bundler or output-rewriting adapter is required.
-Layouts, metadata, routes, site settings and package identity survive builds.
-See [local ARC development](local-arc-development.md) for exact commands.
+The [architecture source map](server-architecture.md#native-ui) is authoritative
+for authored UI inputs and regression facades; the [development guide](local-arc-development.md)
+owns build/run commands.
 
 The shared protocol handler maps public admin paths to flat native page IDs. Direct ARC hosting uses the manifest's explicit redirects from these bookmarks to their canonical flat pages. Locale prefixes, queries and anchors retain their public meaning. ARC owns the single app header, language/theme/user menus and login; the platform Admin Console is separate from DIDMail business administration.
 
@@ -67,10 +61,7 @@ The help renderer reads the public Markdown copies in `blocklet/.aup/locales`, p
 
 ## Verification
 
-Run `pnpm lint:ui`, `pnpm test:ui`, `pnpm build:client` and `pnpm test:browser`. With the local preview running, run `pnpm test:browser:admin`, `pnpm test:browser:ui` and `pnpm test:browser:help`; set `DIDMAIL_BROWSER_THEME=dark` for the dark UI regression. Help checks serve isolated artifacts and read only ARC's public core stylesheet from the preview.
-
-The native ARC build writes `blocklet/dist` and `.web-cache`; ARC serves its own genuine core CSS. Workers asset exports and deployment commands are retired. Browser artifact checks may read matching genuine ARC core CSS as an isolated fixture; this is not a second distribution.
-
-Browser tests use isolated identity/business API fixtures and must never broadcast real transactions. They cover routing, loading/failure states, precise amounts, forms, categories, themes, localization and mobile layout. They do not replace target-deployment login or real settlement acceptance.
-
-If the approved preview is unavailable, `node scripts/browser-artifacts.mjs ui` (or `admin` or `policy`) runs the existing interaction checks against the current built native artifacts on a disposable loopback HTTP server. Supply `DIDMAIL_BROWSER_CORE_CSS=/absolute/path/to/cached-aup-core.css` containing the genuine public ARC stylesheet; help and appearance checks accept the same file. Unhandled business mutations are rejected. This validates generated pages and isolated interactions, not the running ARC integration, and does not start another ARC instance.
+Use the [UI check row](local-arc-development.md#change-a-feature-and-choose-checks)
+for commands. Browser fixtures cover routing, failure states, precise amounts,
+forms, categories, themes, localization and mobile layout without real mutations.
+They do not replace target-runtime authentication or settlement acceptance.

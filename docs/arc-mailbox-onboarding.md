@@ -16,7 +16,7 @@ Only active owner/admin/member identities with unrevoked mailbox associations qu
 
 ## Configuration
 
-Apply `0012_account_links.sql` and later migrations before enabling associations. Preserve the original node identity and matching state: native ARC uses instance AFS; historical D1/R2 sources remain migration inputs only. For an existing native installation, follow the [instance migration sequence](instance-afs-migration.md) rather than applying D1 commands to ARC.
+Apply `0012_account_links.sql` and later migrations before enabling associations. Preserve the original node identity and matching state: native ARC uses instance AFS; historical D1/R2 sources remain migration inputs only. For an existing native installation, follow the [instance migration sequence](arc-package-runtime.md#existing-installation-import-before-initialization) rather than applying D1 commands to ARC.
 
 | Setting/binding                   | Contract                                                                                        |
 | --------------------------------- | ----------------------------------------------------------------------------------------------- |
@@ -33,6 +33,23 @@ The membership source must prove both role and active status. See the [adapter c
 The optional online encrypted recovery capsule is a snapshot, not continuous backup of future device keys. Existing signed update/delete APIs remain compatible; the extension binding flow does not silently update historical online backups. Keep complete client backups and the original recovery password. Passkey/origin changes require explicit migration rather than silently changing a registered origin.
 
 `/admin/members` displays the trusted instance directory joined with local associations. It searches/paginates and filters verified role/active status; membership and invitations remain managed by ARC. It exposes sender blocking, not a second member or editable allowlist copy. Directory-source errors appear as unavailable, not an empty organization. Private recovery ciphertext, proofs, tokens and personal email are not directory output.
+
+## Private endpoint connections
+
+A client may connect directly to a server's HTTPS endpoint without discovering it through a staked service-node NFT. This does not create, purchase or stake a node asset. Default member admission and all signed authorization still apply.
+
+### Discovery and sending
+
+`GET /api/mail/service-config` exposes public connection metadata. Updated clients validate node identity, configured network/token and advertised capabilities. Member-capable nodes may be connectable without a published envelope; automatic eligible member delivery uses internal node policy. External sending still requires a visible published real envelope and a verified quote. A zero sender price may represent a node-sponsored NFT, not offline internal delivery.
+
+A capability error is not an empty/free plan. Incompatible identity/network or unavailable authoritative state must remain visible failures. Member-only template lists require mailbox request signatures; public discovery cannot reveal private membership lists or grant access.
+
+### Privacy and compatibility
+
+Internal mail is discovered from the bound node, without a chain mail notification. External NFT metadata remains public even when the server endpoint was distributed privately. HTTPS alone does not make a deployment air-gapped or provide enterprise-intranet isolation. This implementation adds no SMTP gateway or cross-server member federation.
+
+Stored messages retain their original service/endpoint identity. Selecting another server does not migrate historical ciphertext or reconstruct missing keys. Accepted tasks keep their original signed terms.
+
 
 ## Evidence
 
