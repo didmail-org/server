@@ -5,7 +5,7 @@ startup, deployment or fallback. Read README â†’ docs/local-arc-development.md â
 docs/server-architecture.md; consult docs/arc-package-runtime.md only for operation/state changes.
 
 - Inspect Git changes first. This is an independent repository; preserve unrelated work and private state.
-- Edit canonical package sources/components, not `ui/` regression facades. Unit tests live in `tests/unit`; Node-only ports live in `tests/support/node`. Keep test substitutions outside the native loader and never copy shared implementations. Source ownership is in the architecture guide.
+- Edit the canonical ARC sources and components in `blocklet/`. `ui/` holds regression facades. Unit tests live in `tests/unit`; Node-only ports live in `tests/support/node`. Keep test substitutions outside the native loader and never copy shared implementations. Source ownership is in the architecture guide.
 - Preserve `did:blocklet:didmail-server`, `/instance`, route/method contracts, original identities, exact amounts, signed bytes, replay/lease/fence predicates and encrypted objects. SQL migrations and fixtures are compatibility contracts, not dead files.
 - For persistence changes read docs/afs-business-storage.md and docs/afs-policy-admission.md. Close relational fences before releasing policy locks; never reopen delayed-writer tokens or silently initialize over missing/corrupt state.
 - Existing local operation uses `didmail-web`. Configuration/provider changes require controlled restart; leave unrelated services (especially purpose=observe) running. Follow operations for coordinated backup/import; never regenerate a wallet as recovery.

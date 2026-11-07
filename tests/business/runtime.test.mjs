@@ -244,7 +244,7 @@ test('Business HTTP fixture: REST, AFS, auth, binary compatibility and scheduled
       const favicon = await fetcher('/favicon.ico');
       assert.equal(favicon.status, 200);
       assert.equal(favicon.headers.get('content-type'), 'image/svg+xml');
-      assert.equal((await favicon.json()).path, '/logo.svg');
+      assert.equal((await favicon.json()).path, '/assets/logo.svg');
       assert.equal((await fetcher('/admin', { method: 'POST' })).status, 405);
     });
     await t.test('domain verification uses Fetch API and preserves pricing defaults', async () => {

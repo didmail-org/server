@@ -13,6 +13,8 @@ function fixture(run) {
   const write = (name, bytes) => { fs.mkdirSync(path.dirname(path.join(cwd,name)),{recursive:true}); fs.writeFileSync(path.join(cwd,name),bytes); };
   const prefix = 'providers/didmail-http/vendor/';
   const contents = {
+    'assets/logo.svg': '<svg/>', '.web/template/logo.svg': '<svg/>',
+    'blocklet.yaml': 'public package manifest', 'package.json': '{"type":"module","private":true}\n',
     LICENSE: 'public project license', NOTICE: 'public project notice', 'THIRD_PARTY_NOTICES.md': 'public notices',
     'third_party_licenses/retained.txt': 'retained historical provenance',
     [prefix+'dependencies.mjs']: 'export const fixture = 1;',
@@ -25,12 +27,15 @@ function fixture(run) {
   const vendor = { schemaVersion:1, applicationModules:false, sha256:hash(contents[prefix+'dependencies.mjs']), entryFiles:{'lib0.mjs':hash(contents[prefix+'lib0.mjs']),'lib0.cjs':hash(contents[prefix+'lib0.cjs'])}, specifiers:{fixture:{import:'lib0.mjs',require:'lib0.cjs'}}, packages:[{name:'fixture',version:'1.0.0',license:'MIT',licenseFiles:['licenses/fixture/LICENSE']}], provenance:{source:'public fixture'} };
   const seal = () => {
     contents[prefix+'manifest.json'] = JSON.stringify(vendor);
+    write('blocklet/'+prefix+'manifest.json',contents[prefix+'manifest.json']);
+    write('blocklet/dist/blocklet.dist.json', JSON.stringify({ did: 'did:blocklet:didmail-server' }));
     for (const [file,bytes] of Object.entries(contents)) write('blocklet/dist/'+file,bytes);
-    write('blocklet/dist/.afs/manifest.json',JSON.stringify({files:Object.entries(contents).map(([file,bytes])=>({path:file,sha256:hash(bytes)}))}));
+    write('blocklet/dist/.afs/manifest.json',JSON.stringify({files:Object.entries(contents).map(([file,bytes])=>({path:file,sha256:hash(bytes),size:Buffer.byteLength(bytes)}))}));
   };
-  for (const file of ['LICENSE','NOTICE','THIRD_PARTY_NOTICES.md','third_party_licenses/retained.txt']) write('blocklet/'+file,contents[file]);
-  fs.mkdirSync(path.join(cwd,'docs'));
   seal();
+  const files = Object.keys(contents).filter(file => !file.startsWith('.web-cache/'));
+  for (const file of files) write('blocklet/'+file,contents[file]);
+  write('docs/distribution-artifact-evidence.json', JSON.stringify({ sourceFiles: files.map(file => ({ file })) }));
   const invoke = (...args) => spawnSync(process.execPath,[script,...args],{cwd,encoding:'utf8'});
   try { run({cwd,write,invoke,contents,vendor,seal,prefix}); }
   finally { fs.rmSync(cwd,{recursive:true,force:true}); }
@@ -61,31 +66,37 @@ test('audit refuses modified assets, stale evidence and unhashed vendor facades'
 test('audit rejects unlisted, private and aliased output even during evidence update',()=>fixture(({cwd,write,invoke,contents,seal})=>{
   write('blocklet/dist/unlisted.js','unlisted'); assert.match(invoke('--write').stderr,/Unlisted ARC output/);
   fs.unlinkSync(path.join(cwd,'blocklet/dist/unlisted.js'));
+  contents['providers/surprise.mjs']='synthetic canary'; seal(); assert.match(invoke('--write').stderr,/Unexpected ARC manifest path/);
+  delete contents['providers/surprise.mjs']; fs.unlinkSync(path.join(cwd,'blocklet/dist/providers/surprise.mjs'));
+  const injectedPage = '.web-cache/en/admin-extra/index.html';
+  contents[injectedPage]='synthetic canary'; seal(); assert.match(invoke('--write').stderr,/Unexpected ARC manifest path/);
+  delete contents[injectedPage]; fs.unlinkSync(path.join(cwd,'blocklet/dist',injectedPage));
   contents['private/wallet.json']='synthetic canary'; seal(); assert.match(invoke('--write').stderr,/Private\/development data/);
   delete contents['private/wallet.json']; fs.rmSync(path.join(cwd,'blocklet/dist/private'),{recursive:true}); seal();
   fs.symlinkSync('../LICENSE',path.join(cwd,'blocklet/dist/alias')); assert.match(invoke('--write').stderr,/must not be aliases/);
 }));
-test('missing sidecars fail integrity, missing grants remain explicit and cannot imply release approval',()=>fixture(({invoke,vendor,seal,contents,prefix})=>{
+test('missing sidecars fail integrity, missing grants remain explicit and cannot imply release approval',()=>fixture(({write,invoke,vendor,seal,contents,prefix})=>{
   vendor.packages[0].licenseFiles=['licenses/missing']; seal(); assert.match(invoke('--write').stderr,/ARC manifest omits/);
   vendor.packages[0].licenseFiles=[]; seal(); const result=invoke('--write'); assert.equal(result.status,0,result.stderr);
   assert.deepEqual(JSON.parse(result.stdout).unresolvedLicenseTexts,['fixture@1.0.0']);
   assert.equal(JSON.parse(result.stdout).distributionApproval,'blocked');
-  vendor.packages[0].licenseFiles=['licenses/fixture/LICENSE']; contents[prefix+'licenses/fixture/LICENSE']=''; seal();
+  vendor.packages[0].licenseFiles=['licenses/fixture/LICENSE']; contents[prefix+'licenses/fixture/LICENSE']=''; write('blocklet/'+prefix+'licenses/fixture/LICENSE',''); seal();
   assert.match(invoke('--write').stderr,/Empty license text/);
 }));
 
 test('ordinary verification checks a valid clean rebuild without replacing stable snapshots',()=>fixture(({cwd,write,invoke,contents,seal})=>{
   assert.equal(invoke('--write').status,0);
   const baseline=fs.readFileSync(path.join(cwd,'docs/distribution-artifact-evidence.json'),'utf8');
-  contents['.web-cache/_arc/assets/older.js']='old generated cache asset'; seal();
+  const oldAsset = '.web-cache/_arc/assets/' + hash('old generated cache asset') + '.js';
+  contents[oldAsset]='old generated cache asset'; seal();
   assert.equal(invoke().status,0);
-  delete contents['.web-cache/_arc/assets/older.js'];
-  fs.unlinkSync(path.join(cwd,'blocklet/dist/.web-cache/_arc/assets/older.js'));
+  delete contents[oldAsset];
+  fs.unlinkSync(path.join(cwd,'blocklet/dist',oldAsset));
   contents['.web-cache/index.html']='fresh valid ARC render';seal();
   assert.equal(invoke().status,0);
   assert.equal(fs.readFileSync(path.join(cwd,'docs/distribution-artifact-evidence.json'),'utf8'),baseline);
   const report=JSON.parse(fs.readFileSync(path.join(cwd,'artifacts/distribution/current-artifact-evidence.json')));
-  assert(!report.files.some(file=>file.file.endsWith('older.js')));
+  assert(!report.files.some(file=>file.file === oldAsset));
   assert.equal(report.files.find(file=>file.file==='.web-cache/index.html').sha256,hash('fresh valid ARC render'));
   write('blocklet/dist/.web-cache/index.html','tampered after build');
   assert.match(invoke().stderr,/ARC manifest hash mismatch/);

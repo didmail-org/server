@@ -1,4 +1,5 @@
 // Real native-artifact playback; fixtures reject every business mutation.
+import { nativePackage } from './native-package-audit.mjs';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -174,7 +175,7 @@ try {
     await fs.writeFile(path.join(output, 'delayed-module-first-paint.json'), JSON.stringify(paints, null, 2));
   });
   await run('slow original image consumes entrance without delaying actions', { colorScheme: 'light' }, async ({ page, context, origin }) => {
-    const html = await fs.readFile('blocklet/.web-cache/en/index.html', 'utf8');
+    const html = await fs.readFile(`${nativePackage}/.web-cache/en/index.html`, 'utf8');
     const original = await fs.readFile('public/images/dove.svg');
     const prepared = html.replace(/(class="dm-home-emblem"><img src=")[^"]+/, '$1/motion-original-dove.svg');
     assert.notEqual(prepared, html);

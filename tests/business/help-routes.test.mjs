@@ -57,7 +57,7 @@ for (const native of [true])
       const unknown = await mf.dispatchFetch('https://help.test/help/missing', { headers: { cookie: 'arc_lang=zh' } });
       assert.equal((await unknown.json()).path, '/help/missing');
       const asset = await mf.dispatchFetch('https://help.test/logo.svg', { headers: { cookie: 'arc_lang=ru' } });
-      assert.equal((await asset.json()).path, '/logo.svg');
+      assert.equal((await asset.json()).path, '/assets/logo.svg');
       if (native) assert.equal((await mf.dispatchFetch('https://help.test/help', { method: 'POST' })).status, 405);
     } finally {
       await mf.dispose();

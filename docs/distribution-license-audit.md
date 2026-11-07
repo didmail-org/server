@@ -18,20 +18,22 @@ asset, import/require facades, 157 package versions, declared terms, copied
 sidecars and SDK/lockfile/OCAP-patch provenance. Native DID validation also retains
 unmodified `@noble/hashes@2.4.0` source and its MIT license.
 
-From the repository root, with the documented ARC CLI and Node >=24.14:
+Use a clean checkout of the reviewed release commit. From its repository root,
+with the documented ARC CLI and Node >=24.14:
 
 ```sh
+arc dsl validate blocklet
+arc blocklet check blocklet --profile basic
 arc blocklet build blocklet
-node scripts/audit-distribution.mjs --write
-# Review evidence changes. The command does not edit build output or grant approval.
 node scripts/audit-distribution.mjs
 ```
 
 The collector needs no `node_modules`, Worker bundle/metafile or ignored UI
 compiler metadata. A package built in an isolated directory can be checked with
-`--package /absolute/path/to/blocklet/dist`. The checked-in public package source
-notices are compared with delivered bytes. Normal verification fails on stale
-evidence; update only after reviewing intentional source/dependency changes.
+`--package /absolute/path/to/installed-package`. The reviewed source paths are checked against delivered bytes. Edit the source evidence path
+list explicitly when changing package membership. `--write` refreshes hashes
+for the reviewed entries after intentional source changes. Review those evidence
+changes before preparing a clean release build.
 
 The collector:
 
@@ -48,42 +50,9 @@ The collector:
   build to ignored `artifacts/distribution/current-artifact-evidence.json`. This
   report is an output, never an input required by a clean checkout.
 
-ARC may retain old content-addressed resources in `.web-cache/_arc/assets`
-when building in place. A clean isolated build can omit those older assets while
-producing the same current pages. Generated output therefore is not compared
-with another build's committed hash list. Every actual file still must be listed
-and hash-match its own manifest; the full per-build report preserves those bytes'
-identity. `--write` updates only stable source/dependency evidence, never generated
-HTML, caches, asset hashes or release approval. Use a clean isolated package build
-for release artifact review.
-
-These checks detect packaging mistakes, not arbitrary secrets disguised as source
-or a fabricated upstream manifest. Dependency updates still require review of the
-actual source, licenses, provenance and content. The generated evidence is scoped
-to the built package, not an independently verified full transitive SBOM.
-
-Source/vendor changes require a reviewed `--write`; regenerated cache differences
-alone do not change committed evidence.
-
-### Current and historical inventories
-
-The [native CSV](blocklet-dependency-inventory.csv) and
-[dependency JSON](distribution-dependency-evidence.json) record 157 native vendor
-package instances, declared license metadata and actual delivered sidecar/recovered
-text hashes. They derive from the built vendor manifest; native noble-hashes source
-is recorded separately. Four entries lack collected text, as listed below. A
-collected license text alone does not complete nested-code or distribution review.
-
-The [historical Worker CSV](worker-dependency-inventory.csv) records 151 installed
-package instances from the retired compiler inventory. Its
-[license collection](../third_party_licenses/worker-bundle-licenses.txt) preserves
-original and recovered texts, including protocol nested notices. The historical
-[UI collection](../third_party_licenses/blocklet-bundle-licenses.txt) also retains
-applicable grants. These are provenance inputs for review, not current runtime
-inventories. Historical compiler counts and missing-text conclusions must not be
-carried over without checking current native bytes. Earlier tracked artifact
-snapshots remain in Git; unique uncommitted evidence was preserved privately
-before replacement. None is required to rebuild current audit evidence.
+A clean checkout starts without a web cache or dist. ARC creates render output
+and manifests under blocklet/.web-cache and blocklet/dist. The audit checks actual paths and bytes against the ARC manifest and
+records per-build hashes under ignored `artifacts/distribution/`.
 
 ## Unresolved release gates
 

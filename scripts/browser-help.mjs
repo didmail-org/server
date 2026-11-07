@@ -1,5 +1,6 @@
 // Real ARC artifacts served in isolation. Only ARC's public core stylesheet is
 // read from the running preview; all sessions and business APIs stay isolated.
+import { nativePackage } from './native-package-audit.mjs';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -8,8 +9,8 @@ import { chromium } from 'playwright-core';
 import { languages, localizedPath, localeDirection, messages } from '../ui/locales.js';
 import { compileHelp } from '../ui/help-markdown.js';
 
-const root = path.resolve('blocklet/.web-cache');
-const source = path.resolve('blocklet');
+const root = path.resolve(`${nativePackage}/.web-cache`);
+const source = path.resolve(nativePackage);
 const preview = process.env.DIDMAIL_BROWSER_URL || 'http://didmail-server.localhost:8788';
 const html = await fs.readFile(path.join(root, 'en/help/index.html'), 'utf8');
 const corePath = html.match(/href="(\/aup-core\.[a-f0-9]+\.css)"/)?.[1];

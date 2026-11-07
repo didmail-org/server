@@ -4,11 +4,16 @@ import { realpathSync, readFileSync, existsSync, statSync } from 'node:fs';
 import { builtinModules } from 'node:module';
 import manifest from '../vendor/manifest.json' with { type: 'json' };
 const base = realpathSync(fileURLToPath(new URL('../', import.meta.url))) + path.sep;
-const packageBase = realpathSync(fileURLToPath(new URL('../../../', import.meta.url))) + path.sep;
+const providers = path.dirname(base.slice(0, -1)) + path.sep;
+const moduleRoots = ['didmail-http', 'didmail-business', 'didmail-native'].map(name => providers + name + path.sep);
 const namespace = 'didmail-source';
 function resolveFile(file) {
   for (const candidate of [file, file + '.ts', file + '.mjs', file + '.js', file + '.json', file + '/index.ts'])
-    if (existsSync(candidate) && statSync(candidate).isFile()) return realpathSync(candidate);
+    if (existsSync(candidate) && statSync(candidate).isFile()) {
+      const resolved = realpathSync(candidate);
+      if (resolved !== candidate) throw Error('Aliased DIDMail source module');
+      return resolved;
+    }
   throw Error('Unpackaged DIDMail source module');
 }
 function target(specifier, importer, kind = 'import') {
@@ -29,7 +34,7 @@ function target(specifier, importer, kind = 'import') {
     file = base + 'vendor/' + entry[kind];
   }
   file = resolveFile(file);
-  if (!file.startsWith(packageBase)) throw Error('Outside packaged DIDMail module scope');
+  if (!moduleRoots.some(root => file.startsWith(root))) throw Error('Outside packaged DIDMail module scope');
   // Existing pure providers and the immutable environment retain their normal
   // module identity. Every application/dependency module is loaded from dist.
   if (!file.startsWith(base) || [base + 'host/environment.mjs', base + 'host/runtime.mjs'].includes(file)) return file;

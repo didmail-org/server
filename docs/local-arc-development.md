@@ -8,7 +8,9 @@ They never require the historical Workers backend.
 
 | Task | Required tools |
 | --- | --- |
-| Build/run the native package | ARC CLI; no repository node_modules, Node tool installation or pnpm step |
+| Build from source | Pinned ARC CLI |
+| Run a verified, installed package | Matching ARC CLI/runtime and a configured named instance |
+| Audit a distribution | Node.js >=24.14 and the built package |
 | Edit source and run repository checks | Node.js >=24.14, Corepack with pnpm 12.11.2, and ARC for package/native tests |
 | Provision/import a real instance | Operator access and private installation data; see [operations](arc-package-runtime.md) |
 
@@ -25,7 +27,7 @@ agent/settings recipe scaffolds are not prerequisites for this app.
 
 ## Run an already configured package
 
-Build and run without installing Node dependencies:
+The authored ARC package lives in `blocklet/`. From the repository root:
 
 ```sh
 arc dsl validate blocklet
@@ -34,19 +36,34 @@ arc blocklet build blocklet
 arc blocklet run blocklet/dist --instance <instance-name>
 ```
 
-Replace `<instance-name>` with the configured installation's instance name;
-this selects an instance and does not rename or migrate it.
-Open the printed app URL after a cold start. ARC lazily activates providers;
-use the configured public mail origin for protocol APIs. The parent ARC port is
-not the mail REST endpoint. [Operations](arc-package-runtime.md#activation-and-health)
-explains activation and health diagnosis.
+With development tooling installed, `corepack pnpm arc:check`,
+`corepack pnpm build` and `corepack pnpm start --instance <instance-name>`
+call these ARC commands directly. The root package.json and lockfile serve the
+development toolchain. The minimal `blocklet/package.json` supplies native ESM
+semantics. Building and running need only ARC.
 
-For source iteration, `arc blocklet run blocklet --instance <instance-name>` is the
-direct entry; `pnpm dev --instance <instance-name>` / `pnpm start --instance <instance-name>`
-pass that selection to ARC when Node tooling is installed. `pnpm build` aliases
-the ARC build; `pnpm preview:local --instance <instance-name>` runs its dist.
-Supply the instance argument explicitly; these aliases do not select the
-workspace's historical instance name for another installation.
+ARC scans the selected package directory when constructing its manifest. Keep
+development tools, tests and instance data outside `blocklet/`. Prepare a clean
+checkout and follow the [distribution audit](distribution-license-audit.md)
+before installing or publishing a release. The audit rejects unexpected files,
+aliases and changed inputs. It requires Node.js and no installed dependencies.
+
+The CLI writes `blocklet/dist/` and prerender cache under `blocklet/.web-cache/`.
+When an instance is serving that dist, build the next version in a separate
+checkout and install it at a versioned path.
+
+For an installed, audited copy, ARC alone serves the self-contained directory:
+
+```sh
+arc blocklet run /absolute/path/to/installed-package --instance <instance-name>
+```
+
+The named instance must already know the installed package path. See
+[operations](arc-package-runtime.md#rebind-an-existing-installation) to change that
+binding. Open the printed app URL after a cold start. ARC lazily activates
+providers. Use the configured mail origin for protocol APIs and the
+[activation read](arc-package-runtime.md#activation-and-health) for diagnosis.
+
 There is no guaranteed hot reload: source/provider or private configuration
 changes require a controlled restart of the affected ARC instance. Preserve its
 home and coordinated data; do not stop unrelated services.
@@ -76,13 +93,15 @@ Run a bounded first check, then the isolated native runtime:
 ```sh
 corepack pnpm lint
 corepack pnpm test:ui
+corepack pnpm build
+corepack pnpm audit:distribution
 corepack pnpm test:arc
 ```
 
-`test:arc` builds a temporary package and creates/removes its own disposable ARC
-instance with public fixtures. It exercises real native HTTP/signing/storage
-without using an operator wallet, broadcasting a chain transaction or sending
-real mail. Do not enable synthetic-caller facilities on the existing instance.
+`test:arc` copies the verified artifact outside the checkout and creates/removes
+its own named ARC instance with public fixtures. It exercises native web routes,
+provider mounts, HTTP/WS, signing, storage and restart recovery. Keep the
+synthetic caller configuration confined to this fixture.
 
 ## Change a feature and choose checks
 
@@ -118,7 +137,7 @@ export DIDMAIL_BROWSER_CORE_CSS="$(node scripts/cache-arc-core.mjs)"
 node scripts/browser-artifacts.mjs ui
 ```
 
-The helper starts and stops only its own disposable ARC instance, obtains the
+The helper creates and removes its own disposable ARC instance, obtains the
 public stylesheet matching the built HTML hash and caches it under ignored
 `artifacts/browser-core/`. It needs the same ARC version used for the build, not
 an existing configured mail instance, operator key or live service restart.

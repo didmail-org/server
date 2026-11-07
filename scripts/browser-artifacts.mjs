@@ -1,14 +1,15 @@
 // Run existing browser interactions on generated native pages when the approved
 // ARC preview is unavailable. Business APIs are still supplied by each test's
 // isolated browser fixtures; this server rejects every unhandled mutation.
+import { nativePackage } from './native-package-audit.mjs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { createServer } from 'node:http';
 import { spawn } from 'node:child_process';
 const name = process.argv[2];
 if (!['ui', 'admin', 'policy'].includes(name)) throw new Error('Usage: node scripts/browser-artifacts.mjs ui|admin|policy');
-const root = path.resolve('blocklet/.web-cache');
-const source = path.resolve('blocklet');
+const root = path.resolve(`${nativePackage}/.web-cache`);
+const source = path.resolve(nativePackage);
 const html = await fs.readFile(path.join(root, 'en/index.html'), 'utf8');
 const corePath = html.match(/href="(\/aup-core\.[a-f0-9]+\.css)"/)[1];
 if (!process.env.DIDMAIL_BROWSER_CORE_CSS) throw new Error('Supply DIDMAIL_BROWSER_CORE_CSS with the genuine public ARC stylesheet.');

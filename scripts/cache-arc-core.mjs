@@ -1,5 +1,6 @@
 // Cache a public stylesheet using a disposable, unconfigured ARC instance.
 // No existing instance, signing configuration or npm package dependency is required.
+import { nativePackage } from './native-package-audit.mjs';
 import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
@@ -11,7 +12,7 @@ import { createPublicPackageWriter } from './public-package-files.mjs';
 if (process.argv.includes('--help')) {
   console.log('Usage: node scripts/cache-arc-core.mjs\nBuild the Blocklet first. Prints the cached public ARC stylesheet path. Starts/stops only a new disposable instance; never reads an existing wallet/configuration.');
 } else {
-  const html = await fs.readFile('blocklet/.web-cache/en/help/index.html', 'utf8');
+  const html = await fs.readFile(`${nativePackage}/.web-cache/en/help/index.html`, 'utf8');
   const reference = html.match(/href="(\/aup-core\.[a-f0-9]{16}\.css)"/)?.[1];
   if (!reference) throw Error('Build native pages first; the ARC core stylesheet reference is missing');
   const directory = await fs.mkdtemp(path.join(os.tmpdir(), 'didmail-public-core-'));
@@ -22,7 +23,7 @@ if (process.argv.includes('--help')) {
   try {
     attempted = true;
     const result = await arc('service', 'start', '--instance', instance, '--home', path.join(directory, 'home'),
-      '--blocklet', path.resolve('blocklet/dist'), '--port', '0', '--purpose', 'evidence', '--no-advertise', '--print', 'port');
+      '--blocklet', path.resolve(nativePackage), '--port', '0', '--purpose', 'evidence', '--no-advertise', '--print', 'port');
     const port = Number(result.stdout.trim().split('\n').at(-1));
     if (!Number.isInteger(port) || port < 1 || port > 65535) throw Error('Disposable ARC port unavailable');
     const response = await fetch(`http://127.0.0.1:${port}${reference}`, { redirect: 'error', signal: AbortSignal.timeout(10000) });
@@ -35,7 +36,7 @@ if (process.argv.includes('--help')) {
     writer.write(reference.slice(1), bytes);
     console.log(path.join(writer.root, reference.slice(1)));
   } finally {
-    try { if (attempted) await arc('service', 'stop', '--instance', instance); }
+    try { if (attempted) await arc('service', 'delete', '--instance', instance, '--force', '--yes'); }
     finally { await fs.rm(directory, { recursive: true, force: true }); }
   }
 }

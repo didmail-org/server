@@ -28,10 +28,11 @@ jobs:
           echo "$RUNNER_TEMP/arc" >> "$GITHUB_PATH"
       - run: pnpm test:scripts
       - run: pnpm test:ui
+      - run: pnpm arc:check
       - run: pnpm build
-      - run: pnpm test:arc
       - name: Verify built distribution inventory and notices
         run: pnpm audit:distribution
+      - run: pnpm test:arc
       - name: Business tests without client checkouts
         run: pnpm test:business:standalone
       - name: Concurrent contact settlement regression

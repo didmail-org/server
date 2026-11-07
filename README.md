@@ -17,19 +17,18 @@ owns client wire contracts; operators and users can open `/help` on the server.
 3. [Architecture](docs/server-architecture.md): source ownership, modules and
    dependency boundaries.
 
-With ARC installed and the selected instance already configured,
-the shortest source-package launch is:
+With ARC installed, build the package from the repository root and select an
+already configured ARC instance:
 
 ```sh
-arc blocklet run blocklet --instance <instance-name>
+arc blocklet build blocklet
+arc blocklet run blocklet/dist --instance <instance-name>
 ```
 
-Replace `<instance-name>` with the installation's actual instance name.
-Open the URL ARC prints to activate the app, then use its configured mail origin.
-This does not install a new instance or create a signing wallet. Follow the
-[development guide](docs/local-arc-development.md#run-an-already-configured-package)
-for the authoritative build/run sequence. A new developer can use isolated
-regressions without obtaining an operator's wallet or modifying live data.
+Open the URL ARC prints to activate the app, then use its configured mail
+origin. The [development guide](docs/local-arc-development.md#run-an-already-configured-package)
+covers source builds and running an installed package. Existing installations
+with an older package path follow the [rebind procedure](docs/arc-package-runtime.md#rebind-an-existing-installation).
 
 ## By task
 

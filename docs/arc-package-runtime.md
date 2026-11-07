@@ -45,6 +45,41 @@ Host and Origin allowlists, caller-header stripping, ARC session/CSRF checks and
 WebSocket credentials remain enforced. Never use supplied role/DID headers as
 operator authorization or expose private loopback descriptors/SQL ports.
 
+## Rebind an existing installation
+
+For a path-only upgrade, build and audit the package using the
+[development guide](local-arc-development.md#run-an-already-configured-package).
+Copy the verified output to a stable, versioned installation directory outside
+the checkout and audit that copy. Retain the exact previous package in a separate
+rollback directory. For a binding that serves a source checkout, build and
+retain the pinned previous revision in a separate clean directory before
+taking downtime.
+
+Record `arc service status --instance <instance-name> --json` privately, including
+the instance ID, home, Space root, port, host, purpose and full ordered
+`blocklets` list. Follow the [coordinated backup procedure](#backup-and-restore)
+for the same instance. In the maintenance window, stop only the selected service and restart
+with its recorded settings and replacement path:
+
+```sh
+arc service stop --instance <instance-name>
+arc service start --instance <instance-name> \
+  --home /absolute/path/to/existing-home \
+  --port <recorded-port> --host <recorded-host> --purpose <recorded-purpose> \
+  --blocklet /absolute/path/to/new-installed-package
+```
+
+Use one `--blocklet` flag per path. Replace the old DIDMail entries with the
+single verified package path. Preserve any other entries in their original order,
+along with the recorded advertise and peer-browse settings. Pass `--space-root`
+only for an installation already configured with an explicit folder-as-DID-Space.
+With the default Space root, ARC derives it from the existing home. Verify the instance ID,
+home and Space, then activate the app and confirm the original node address,
+provider health and ingress. Use the same stop/start sequence with the retained
+previous package path to roll back. A path-only rollback keeps the current
+instance data and wallet. Build or install the next package at a separate path
+while the active package is serving.
+
 ## Private configuration
 
 `/instance/app/didmail/private/protocol-runtime.json` is the validated protocol

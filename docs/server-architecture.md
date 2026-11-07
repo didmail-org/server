@@ -26,8 +26,9 @@ configures immutable bindings, verifies the original wallet and loads HTTP/jobs.
 filtering, repeated cookies, streams, WebSockets and connection cleanup.
 Unmount waits for startup before releasing listener ownership.
 
-The scoped Bun loader resolves package TypeScript and pinned dependency facades;
-unknown dependencies fail closed and other ARC apps are unaffected. These
+The scoped Bun loader resolves package TypeScript and pinned dependency facades.
+It confines resolved modules to the HTTP, business and native provider trees
+and rejects aliases and unknown dependencies. These
 installed-runtime constraints are exercised by native tests, not inferred from
 a template. `basic` is the applicable package checker profile. Site identity,
 routes, allowed mount operations and public leaves are declared in
@@ -104,10 +105,27 @@ style rules; the source file list is maintained in `scripts/lint-runtime.mjs`.
 
 ## Artifact boundary
 
-Only `blocklet/` authored inputs and pinned assets are required for native
-build/run. `blocklet/dist` and `.web-cache` are generated. Private instance homes,
-wallets, environment files, checkpoints and exports stay outside the package.
-The [distribution audit](distribution-license-audit.md) owns dependency/source
-hashes and per-build evidence; it does not grant deployment or legal approval.
-The [operations status table](arc-package-runtime.md#capability-status) is the
-single acceptance summary.
+The `blocklet/` directory is the complete authored package and the sole ARC
+source authority. ARC directly builds it into `blocklet/dist/`. The root
+`package.json`, lockfile, `docs/`, `scripts/`, `tests/` and `ui/` support development
+and verification. The package's minimal ESM package.json preserves native module
+semantics.
+
+The package contains copies of the root LICENSE, NOTICE, third-party notices
+and license texts. Keep those copies byte-identical. The shell logo at
+`blocklet/.web/template/logo.svg` and the public `blocklet/assets/logo.svg` also retain
+identical bytes for ARC's two conventions.
+
+ARC selects files by the input directory. Its package scan does not apply the
+repository's Git ignore rules as a release allowlist. Build releases from a clean
+checkout, then audit the actual manifest and file tree against
+[source evidence](distribution-artifact-evidence.json). Review input-list changes
+explicitly and refresh source hashes after intentional edits.
+`scripts/native-package-audit.mjs` shares integrity checks between the distribution
+audit and regressions. It participates in verification.
+
+Generated dist/cache files and private instance homes, wallets, configuration,
+checkpoints and exports stay outside authored source. The
+[distribution audit](distribution-license-audit.md) owns dependency/source hashes
+and per-build evidence. The [operations status table](arc-package-runtime.md#capability-status)
+records local, hosted and distribution acceptance.

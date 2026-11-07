@@ -136,6 +136,9 @@ test('runtime loader leaves other apps alone and rejects unknown dependencies an
     const importer = fileURLToPath(new URL('../blocklet/providers/didmail-http/host/runtime.mjs', import.meta.url));
     assert.throws(() => resolve({ path: 'undeclared-dependency', importer }), /Unpackaged/);
     assert.throws(() => resolve({ path: process.execPath, importer }), /Outside packaged/);
+    for (const file of ['../../../../scripts/native-package-audit.mjs', '../../../../tests/support/legacy-http.ts', '../../../../package.json']) {
+      assert.throws(() => resolve({ path: file, importer }), /Outside packaged DIDMail module scope/);
+    }
     assert.throws(() => load({ path: process.execPath }), /Outside packaged/);
   } finally {
     globalThis.Bun = before;

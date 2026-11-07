@@ -113,8 +113,8 @@ export default {
       }
     }
     const target = new URL(request.url);
-    // ARC's default favicon is the SVG logo; serve its real path/MIME in both UI modes.
-    if (target.pathname === '/favicon.ico') target.pathname = '/logo.svg';
+    // Serve the favicon and legacy logo URL from the canonical ARC brand asset.
+    if (['/favicon.ico', '/logo.svg'].includes(target.pathname)) target.pathname = '/assets/logo.svg';
     const locales = localeConfig.languages.map(({ code }) => code);
     const segment = target.pathname.split('/')[1];
     const localePrefix = locales.includes(segment) ? `/${segment}` : '';

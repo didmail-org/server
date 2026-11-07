@@ -374,7 +374,7 @@
     },
     {
       "file": "providers/didmail-http/host/loader.mjs",
-      "sha256": "85dacfb537be9834eaa8d591ecaca1b9f3a180b3855953a1d9f0798572edaae6"
+      "sha256": "83b48a41021f7bc7fb6b1bef73de3e5ac49ecf3e35f594cf6e95b814c4508f98"
     },
     {
       "file": "providers/didmail-http/host/preview-arc-websocket.mjs",
@@ -582,7 +582,7 @@
     },
     {
       "file": "providers/didmail-http/source/http/index.ts",
-      "sha256": "37402302d83157da7f7c22f3939179e2ae91877fd00cd118246b95cd0bd4e3bb"
+      "sha256": "f41af5386d041f406058772e2b024fbdf03c42d1ec35e12aa055be2aa37949c7"
     },
     {
       "file": "providers/didmail-http/source/http/mail-policy-admin.ts",

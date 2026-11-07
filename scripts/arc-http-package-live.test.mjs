@@ -21,6 +21,7 @@ import { businessDatabase, createNativeStorageBinding, nativeStorageOperation } 
 import { localPolicyRoot } from './arc-mail-policy-bridge.mjs';
 import { MailPolicyStore } from '../blocklet/providers/didmail-native/mail-policy.mjs';
 import { initialPolicyState } from './afs-policy-fixture.mjs';
+import { loadInputs, nativePackage, verifyNativePackage } from './native-package-audit.mjs';
 
 export async function freePort() {
   const server = http.createServer();
@@ -34,11 +35,12 @@ test(
   { skip: process.env.DIDMAIL_ARC_HTTP_TEST !== '1', timeout: 180000 },
   async () => {
     const directory = await fs.mkdtemp(path.join(os.tmpdir(), 'didmail-native-http-')),
-      app = directory + '/app',
+      app = directory + '/installed',
       instance = 'didmail-native-http-' + randomUUID();
     const run = promisify(execFile),
       arc = (...args) =>
         run('arc', args, {
+          cwd: directory,
           timeout: 45000,
           maxBuffer: 2 * 1024 * 1024,
           env: { ...process.env, AFS_TEST_ALLOW_CALLER_HEADER: '1' },
@@ -47,26 +49,12 @@ test(
       platform,
       occupied;
     try {
-      await fs.cp('blocklet/providers', app + '/providers', { recursive: true });
-      await fs.writeFile(app + '/package.json', '{"type":"module","private":true}');
-      await fs.writeFile(
-        app + '/blocklet.yaml',
-        'specVersion: 2\nid: didmail-server\nname: Native HTTP evidence\ndid: did:blocklet:didmail-server\nversion: 0.1.0\nscope: app\ninstance:\n  required: true\nmounts:\n' +
-          ['didmail-business', 'didmail-native', 'didmail-http']
-            .map(
-              (name) =>
-                '  - target: ./providers/' +
-                name +
-                '\n    path: /' +
-                name +
-                '\n    required: true\n    ops: [list,read,stat,explain,exec]\n',
-            )
-            .join('') +
-          '\nnetworkRead:\n  - path: /instance/app/didmail/public/attachment-config.json\n    role: guest\n',
-      );
-      await arc('blocklet', 'check', app);
-      await arc('blocklet', 'build', app);
-      await fs.rm(app + '/providers', { recursive: true });
+      // Run the actual audited deliverable with no checkout, node_modules or
+      // staging cache in its tree or in the daemon's working directory.
+      const inputs = loadInputs();
+      verifyNativePackage(nativePackage, inputs);
+      await fs.cp(nativePackage, app, { recursive: true, errorOnExist: true });
+      verifyNativePackage(app, inputs);
       started = true;
       const launch = await arc(
         'service',
@@ -76,7 +64,7 @@ test(
         '--home',
         directory + '/home',
         '--blocklet',
-        app + '/dist',
+        app,
         '--port',
         '0',
         '--purpose',
@@ -269,11 +257,31 @@ test(
       const ready = await rpc({ type: 'read', path: '/didmail-http/health.json' });
       assert.equal(ready.ok, true, JSON.stringify(ready));
       assert.equal(JSON.parse(ready.data.content).protocolIngress, true);
+      const projected = await rpc({ type: 'read', path: '/didmail/health.json' });
+      assert.equal(projected.ok, true);
+      assert.equal(JSON.parse(projected.data.content).protocolIngress, true);
       const response = await fetch(publicOrigin + '/api/health');
       assert.equal(response.status, 200);
       const health = await response.json();
       assert.equal(health.runtime, 'arc-native');
       assert.equal(health.node, wallet.address);
+      const siteOrigin = `http://didmail-server.localhost:${arcPort}`;
+      const siteFetch = route => arcHttpTransport(origin, siteOrigin)(origin + route, { method: 'GET' });
+      for (const [route, marker] of [
+        ['/', /dm-home/], ['/help/', /data-didmail-help/], ['/admin-account/', /data-didmail-admin/],
+      ]) {
+        const page = await siteFetch(route);
+        assert.equal(page.status, 200, route);
+        assert.ok(marker.test(await page.text()), `Unexpected DIDMail site body at ${route}`);
+      }
+      const adminRedirect = await siteFetch('/admin/account');
+      assert.equal(adminRedirect.status, 301);
+      assert.equal(new URL(adminRedirect.headers.get('location'), siteOrigin).pathname, '/admin-account/');
+      await adminRedirect.body?.cancel();
+      const logo = await siteFetch('/assets/logo.svg');
+      assert.equal(logo.status, 200);
+      assert.match(logo.headers.get('content-type'), /^image\/svg\+xml/);
+      assert.deepEqual(Buffer.from(await logo.arrayBuffer()), inputs.get('assets/logo.svg'));
       const discovery = await fetch(publicOrigin + '/.well-known/didmail');
       assert.equal(discovery.status, 200, await discovery.clone().text());
       const session = await fetch(publicOrigin + '/api/runtime/session');

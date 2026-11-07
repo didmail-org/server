@@ -1,12 +1,13 @@
 // Offline check of the real ARC-generated artifact; interactive acceptance is browser-ui.mjs.
+import { nativePackage } from './native-package-audit.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
 import assert from 'node:assert/strict';
 import { languages, messages, localeDirection } from '../ui/locales.js';
 import { adminTranslator } from '../ui/admin-i18n.js';
-const root = 'blocklet/.web-cache';
-const manifest = JSON.parse(fs.readFileSync('blocklet/dist/.afs/manifest.json', 'utf8'));
+const root = `${nativePackage}/.web-cache`;
+const manifest = JSON.parse(fs.readFileSync(`${nativePackage}/.afs/manifest.json`, 'utf8'));
 assert.ok(manifest.files.some(file => file.path === '.web/components/didmail-chrome/script.js'));
 assert.ok(manifest.files.some(file => file.path === '.web/components/didmail-admin/render.js'));
 for (const route of [
